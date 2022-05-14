@@ -1,5 +1,6 @@
 import './models/weather_widget_model.dart';
 import './models/attraction_model.dart';
+import './models/guide_model.dart';
 
 List<WeatherModel> weatherList = [
   WeatherModel(
@@ -188,5 +189,56 @@ List<Attraction> attractionList3 = [
     distance: 1.2,
     distType: 'км',
     cardPush: false,
+  ),
+];
+
+List<Guide> guideList = [
+  Guide(
+    //  avatar: Картинка,
+    name: "Иван Волошин",
+    isCar: true,
+    carName: "Toyota Hiace",
+    starRating: 4.6,
+    reviewCount: 13,
+    actualRoutesCount: 27,
+    lastRoute: '2 мая 2022',
+  ),
+  Guide(
+    //  avatar: Картинка,
+    name: "Мурат Тебиев",
+    isCar: false,
+    starRating: 4.5,
+    reviewCount: 5,
+    actualRoutesCount: 8,
+    lastRoute: '10 мая 2022',
+  ),
+  Guide(
+    //  avatar: Картинка,
+    name: "Владимир Соколов",
+    isCar: true,
+    carName: "Hyunday Staria",
+    starRating: 4.8,
+    reviewCount: 24,
+    actualRoutesCount: 12,
+    lastRoute: '20 апреля 2022',
+  ),
+  Guide(
+    //  avatar: Картинка,
+    name: "Георгий Габисов",
+    isCar: false,
+    starRating: 4.2,
+    reviewCount: 64,
+    actualRoutesCount: 5,
+    lastRoute: '14 декабря 2021',
+  ),
+  Guide(
+    //  avatar: Картинка,
+    name: "Аслан Кудзаев",
+    isCar: true,
+    carName: "LADA GRANTA",
+    starRating: 4.9,
+    reviewCount: 904,
+    actualRoutesCount: 44,
+    lastRoute: '27 января 2022',
   ),
 ];

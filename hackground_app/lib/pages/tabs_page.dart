@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hackground_app/pages/account_page.dart';
 
 import '../widgets/tabs_bar_button.dart';
 import '../pages/landing_page.dart';
 import '../pages/house_rent_page.dart';
+import '../pages/guide_page.dart';
 
 class TabsScreen extends StatefulWidget {
   @override
@@ -40,8 +42,12 @@ class _TabsScreenState extends State<TabsScreen> {
         physics: const NeverScrollableScrollPhysics(),
         controller: _pageController,
         children: [
-          LandingPage(),
-          HousePage(),
+          LandingPage(_changeSelectedPageIndex),
+          HousePage(_changeSelectedPageIndex),
+          LandingPage(_changeSelectedPageIndex),
+          LandingPage(_changeSelectedPageIndex),
+          GuidePage(_changeSelectedPageIndex),
+          AccountPage(),
         ],
         pageSnapping: false,
       ),
