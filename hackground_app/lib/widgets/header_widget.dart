@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hackground_app/widgets/search_widget.dart';
 
 import '../widgets/weather_widget.dart';
 import 'search_widget.dart';

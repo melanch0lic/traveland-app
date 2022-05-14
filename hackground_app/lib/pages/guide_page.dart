@@ -13,16 +13,18 @@ class GuidePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          CustomAppBar(
-            changeSelectedPageIndex: changeIndex,
-          ),
-          SearchWidget(),
-          FilterHeader('Гиды'),
-          GuideListView(),
-        ],
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            CustomAppBar(
+              changeSelectedPageIndex: changeIndex,
+            ),
+            SearchWidget(),
+            FilterHeader('Гиды'),
+            GuideListView(),
+          ],
+        ),
       ),
     );
   }

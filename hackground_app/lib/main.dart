@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hackground_app/pages/splash_page.dart';
+import './pages/splash_page.dart';
 
 void main() {
   runApp(const MyApp());

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:hackground_app/models/attraction_model.dart';
-import 'package:hackground_app/widgets/attraction_card.dart';
+
+import '../models/attraction_model.dart';
+import 'attraction_card.dart';
 
 class AttractionListView extends StatelessWidget {
   final List<Attraction> attractionList;
@@ -9,7 +10,8 @@ class AttractionListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return SizedBox(
+      height: 165,
         child: ListView.builder(
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) => AttractionCard(attractionList[index]),

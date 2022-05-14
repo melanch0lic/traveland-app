@@ -17,7 +17,7 @@ class WeatherWidget extends StatelessWidget {
               color: Colors.black.withOpacity(0.1),
             )
           ]),
-      padding: EdgeInsets.all(12),
+      padding: const EdgeInsets.all(12),
       child: Column(
         children: [
           Container(
@@ -32,14 +32,14 @@ class WeatherWidget extends StatelessWidget {
                       width: 42,
                       height: 42,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 4,
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                          children: const [
                             Text('19°С',
                                 style: TextStyle(
                                   color: Colors.lightBlue,
@@ -58,7 +58,7 @@ class WeatherWidget extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 8, right: 8),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
+                    children: const [
                       Text(
                         'Пятница, 13 Мая',
                         style: TextStyle(
@@ -83,30 +83,32 @@ class WeatherWidget extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: List.generate(
-                  8,
-                  (index) => Container(
-                        margin: EdgeInsets.all(8),
-                        child: Column(
-                          children: [
-                            Image.network(
-                              weatherList[index].imgSrc as String,
-                              width: 40,
-                              height: 40,
-                            ),
-                            SizedBox(
-                              height: 4,
-                            ),
-                            Text(
-                              weatherList[index].time as String,
-                              style: TextStyle(fontSize: 12),
-                            ),
-                          ],
-                        ),
-                      )),
+          SizedBox(
+            height: 75,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 8,
+              itemBuilder: (ctx, index) {
+                return Container(
+                  margin: const EdgeInsets.all(8),
+                  child: Column(
+                    children: [
+                      Image.network(
+                        weatherList[index].imgSrc as String,
+                        width: 40,
+                        height: 40,
+                      ),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      Text(
+                        weatherList[index].time as String,
+                        style: const TextStyle(fontSize: 12),
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
           ),
         ],

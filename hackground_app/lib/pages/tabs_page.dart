@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:hackground_app/pages/account_page.dart';
 
 import '../widgets/tabs_bar_button.dart';
 import '../pages/landing_page.dart';
 import '../pages/house_rent_page.dart';
 import '../pages/guide_page.dart';
+import '../pages/hubs_page.dart';
+import '../pages/map_page.dart';
+import 'account_page.dart';
 
 class TabsScreen extends StatefulWidget {
   @override
@@ -26,7 +28,7 @@ class _TabsScreenState extends State<TabsScreen> {
     Icon(Icons.home),
     Icon(Icons.local_hotel),
     Icon(Icons.map),
-    Icon(Icons.call_split),
+    Icon(Icons.people),
     Icon(Icons.transfer_within_a_station),
   ];
   @override
@@ -44,8 +46,8 @@ class _TabsScreenState extends State<TabsScreen> {
         children: [
           LandingPage(_changeSelectedPageIndex),
           HousePage(_changeSelectedPageIndex),
-          LandingPage(_changeSelectedPageIndex),
-          LandingPage(_changeSelectedPageIndex),
+          MapPage(),
+          HubsPage(_changeSelectedPageIndex),
           GuidePage(_changeSelectedPageIndex),
           AccountPage(),
         ],

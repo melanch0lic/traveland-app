@@ -14,16 +14,18 @@ class HousePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          CustomAppBar(
-            changeSelectedPageIndex: changeIndex,
-          ),
-          SearchWidget(),
-          FilterHeader('Жильё'),
-          AttractionListViewHouse(attractionList1),
-        ],
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            CustomAppBar(
+              changeSelectedPageIndex: changeIndex,
+            ),
+            SearchWidget(),
+            FilterHeader('Жильё'),
+            AttractionListViewHouse(attractionList1),
+          ],
+        ),
       ),
     );
   }
