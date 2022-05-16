@@ -12,7 +12,7 @@ class SearchWidget extends StatelessWidget {
             decoration: InputDecoration(
                 hintStyle: TextStyle(color: Colors.grey[500], fontSize: 18),
                 hintText: "Поиск",
-                fillColor: Colors.grey.withOpacity(0.4),
+                fillColor: Colors.grey.withOpacity(0.2),
                 filled: true,
                 prefixIcon: const Icon(
                   // отцентрировать Иконку

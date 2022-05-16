@@ -17,18 +17,28 @@ class LandingPage extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              CustomAppBar(
-                changeSelectedPageIndex: changeIndex,
-              ),
+              CustomAppBar(changeSelectedPageIndex: changeIndex),
               const HeaderWidget(),
-              NameRowHeader(name: 'Жильё'),
+              NameRowHeader(
+                name: 'Жильё',
+                changeSelectedPageIndex: changeIndex,
+                index: 1,
+              ),
               AttractionListView(attractionList1),
-              NameRowHeader(name: 'Места'),
+              NameRowHeader(
+                name: 'Места',
+                changeSelectedPageIndex: changeIndex,
+                index: 1,
+              ),
               AttractionListView(attractionList2),
-              NameRowHeader(name: 'Мероприятия'),
+              NameRowHeader(
+                name: 'Мероприятия',
+                changeSelectedPageIndex: changeIndex,
+                index: 1,
+              ),
               AttractionListView(attractionList3),
+              SizedBox(height: 10),
             ],
           ),
         ),

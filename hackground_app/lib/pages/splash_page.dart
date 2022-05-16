@@ -20,7 +20,7 @@ class SplashPage extends StatelessWidget {
             ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
           ),
         ),
-        Align(
+        const Align(
           alignment: Alignment.center,
           child: Icon(
             Icons.public_outlined,

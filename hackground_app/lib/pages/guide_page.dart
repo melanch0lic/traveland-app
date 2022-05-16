@@ -17,11 +17,9 @@ class GuidePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            CustomAppBar(
-              changeSelectedPageIndex: changeIndex,
-            ),
+            CustomAppBar(changeSelectedPageIndex: changeIndex),
             SearchWidget(),
-            FilterHeader('Гиды'),
+            const FilterHeader('Гиды'),
             GuideListView(),
           ],
         ),

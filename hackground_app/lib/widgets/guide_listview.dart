@@ -8,6 +8,7 @@ class GuideListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
         child: ListView.builder(
+          physics: const BouncingScrollPhysics(),
       itemBuilder: (context, index) => GuideCard(guideList[index]),
       itemCount: guideList.length,
     ));

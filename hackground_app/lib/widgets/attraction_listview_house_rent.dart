@@ -7,13 +7,16 @@ class AttractionListViewHouse extends StatelessWidget {
   final List<Attraction> attractionList;
 
   AttractionListViewHouse(this.attractionList);
+  
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: ListView.builder(
-      itemBuilder: (context, index) =>
-          AttractionCardHouse(attractionList[index]),
-      itemCount: attractionList.length,
-    ));
+      child: ListView.builder(
+        physics: const BouncingScrollPhysics(),
+        itemBuilder: (context, index) =>
+            AttractionCardHouse(attractionList[index]),
+        itemCount: attractionList.length,
+      ),
+    );
   }
 }

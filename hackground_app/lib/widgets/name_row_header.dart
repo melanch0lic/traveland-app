@@ -3,13 +3,16 @@ import 'package:flutter/material.dart';
 class NameRowHeader extends StatelessWidget {
   final String? name;
   final Widget? routeWidget;
+  final Function? changeSelectedPageIndex;
+  final int? index;
 
-  NameRowHeader({this.name, this.routeWidget});
+  NameRowHeader(
+      {this.name, this.routeWidget, this.changeSelectedPageIndex, this.index});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(14),
+    return Padding(
+      padding: const EdgeInsets.all(14),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -21,7 +24,9 @@ class NameRowHeader extends StatelessWidget {
             ),
           ),
           TextButton(
-              onPressed: () {},
+              onPressed: () {
+                changeSelectedPageIndex!(index);
+              },
               child: Text(
                 'Больше',
                 style: TextStyle(color: Colors.lightBlue),

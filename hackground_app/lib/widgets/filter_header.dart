@@ -3,26 +3,27 @@ import 'package:flutter/material.dart';
 class FilterHeader extends StatelessWidget {
   final String? title;
 
-  FilterHeader(this.title);
+  const FilterHeader(this.title);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(14),
+    return Padding(
+      padding: const EdgeInsets.all(14),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             title!,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
           ),
           Row(
-            children: [
+            children: const [
               Icon(
                 Icons.tune,
                 size: 16,
+                color: Colors.grey,
               ),
               SizedBox(
                 width: 4,

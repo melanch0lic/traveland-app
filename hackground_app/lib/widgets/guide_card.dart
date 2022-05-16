@@ -11,38 +11,29 @@ class GuideCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(left: 16, right: 16, bottom: 8, top: 4),
-      height: 240,
       decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 10,
-              offset: Offset.zero,
-              color: Colors.black.withOpacity(0.1),
-            )
-          ]),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 10,
+            offset: Offset.zero,
+            color: Colors.black.withOpacity(0.1),
+          )
+        ],
+      ),
       child: Column(
         children: [
-          Container(
+          Padding(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            height: 120,
-            decoration: BoxDecoration(
-              border: Border(
-                bottom:
-                    BorderSide(width: 1, color: Colors.grey.withOpacity(0.5)),
-              ),
-            ),
             child: Row(
               children: [
                 const CircleAvatar(
                   backgroundImage: NetworkImage(
                       'https://lh3.googleusercontent.com/a-/AAuE7mChgTiAe-N8ibcM3fB_qvGdl2vQ9jvjYv0iOOjB=s96-c'),
-                  radius: 50,
+                  radius: 40,
                 ),
-                SizedBox(
-                  width: 16,
-                ),
+                const SizedBox(width: 16),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -59,24 +50,17 @@ class GuideCard extends StatelessWidget {
                           color: guide.isCar! ? Colors.green : Colors.red,
                         ),
                         const SizedBox(width: 2),
-                        guide.isCar!
-                            ? const Text(
-                                'Своя машина',
-                                style: TextStyle(
-                                    color: Colors.green,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold),
-                              )
-                            : const Text(
-                                'Нет собственной машины',
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                        const SizedBox(
-                          width: 8,
+                        Text(
+                          guide.isCar!
+                              ? 'Своя машина'
+                              : 'Нет собственной машины',
+                          style: TextStyle(
+                            color: guide.isCar! ? Colors.green : Colors.red,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
+                        const SizedBox(width: 8),
                         if (guide.isCar!)
                           Text(
                             guide.carName!,
@@ -97,9 +81,7 @@ class GuideCard extends StatelessWidget {
                               fontSize: 12,
                               fontWeight: FontWeight.bold),
                         ),
-                        const SizedBox(
-                          width: 8,
-                        ),
+                        const SizedBox(width: 8),
                         Text(
                           '${guide.reviewCount} отзывов',
                           style: const TextStyle(
@@ -114,8 +96,8 @@ class GuideCard extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            width: double.maxFinite,
+          const Divider(),
+          Padding(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

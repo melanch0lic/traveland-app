@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../pages/details_page_house.dart';
+
 import '../models/attraction_model.dart';
 
 import '../unities.dart';
@@ -11,30 +13,29 @@ class AttractionCardHouse extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      margin: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-      padding: EdgeInsets.all(4),
-      height: 222,
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 10,
-              offset: Offset.zero,
-              color: Colors.black.withOpacity(0.1),
-            )
-          ]),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 151,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: ClipRRect(
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => DetailsPage(attraction)));
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+        padding: EdgeInsets.all(4),
+        height: 222,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 10,
+                offset: Offset.zero,
+                color: Colors.black.withOpacity(0.1),
+              )
+            ]),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Container(
                 height: 151,
@@ -46,84 +47,71 @@ class AttractionCardHouse extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 16, left: 8, right: 8),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          attraction.name!,
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+            Padding(
+              padding: const EdgeInsets.only(top: 16, left: 8, right: 8),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        attraction.name!,
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(width: 4),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 3, vertical: 2),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: Units.attractionGradient2,
                         ),
-                        SizedBox(
-                          width: 4,
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.star,
+                              color: Colors.white,
+                              size: 10,
+                            ),
+                            const SizedBox(width: 2),
+                            Text(
+                              '${attraction.starRating.toString()}',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 12),
+                            ),
+                          ],
                         ),
-                        Container(
-                          width: 32,
-                          height: 16,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              gradient: LinearGradient(
-                                  colors: [
-                                    Units.attractionGradient1,
-                                    Units.attractionGradient2,
-                                  ],
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight)),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.star,
-                                color: Colors.white,
-                                size: 10,
-                              ),
-                              SizedBox(
-                                width: 2,
-                              ),
-                              Text(
-                                '${attraction.starRating.toString()}',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 12),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    Text(
-                      'от ${attraction.price.toString()} руб',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 8,
-                ),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.place,
-                      size: 12,
-                      color: Colors.red,
-                    ),
-                    SizedBox(width: 4),
-                    Text(
-                      '${attraction.address} • ${attraction.reviewCount} оценок',
-                      style: TextStyle(fontSize: 12, color: Colors.grey),
-                    ),
-                  ],
-                ),
-              ],
+                      ),
+                      const Spacer(),
+                      Text(
+                        'от ${attraction.price} руб',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.place,
+                        size: 12,
+                        color: Colors.red,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        '${attraction.address} • ${attraction.reviewCount} оценок',
+                        style:
+                            const TextStyle(fontSize: 12, color: Colors.grey),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
