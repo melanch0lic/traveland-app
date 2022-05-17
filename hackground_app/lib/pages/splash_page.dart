@@ -23,6 +23,10 @@ class _SplashPageState extends State<SplashPage>
 
     rotationAnimation = Tween<double>(begin: 0, end: 1).animate(
         CurvedAnimation(parent: earthController!, curve: Curves.linear));
+    Future.delayed(
+        Duration(seconds: 4),
+        () => Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => TabsScreen())));
   }
 
   @override
@@ -34,10 +38,6 @@ class _SplashPageState extends State<SplashPage>
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(
-        Duration(seconds: 4),
-        () => Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => TabsScreen())));
     return Stack(
       children: [
         Container(
