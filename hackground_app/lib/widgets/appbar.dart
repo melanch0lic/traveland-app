@@ -14,7 +14,7 @@ class CustomAppBar extends StatelessWidget {
         children: [
           const Text(
             'Traveland',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 48),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
           ),
           GestureDetector(
             onTap: () {
