@@ -32,8 +32,6 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-    - lib/assets/Karta.png
   #   - lib/assets/images/tabs_screen_svg/shedule.svg
   #   - lib/assets/images/photo_2022-05-14_12-40-59.jpg
 

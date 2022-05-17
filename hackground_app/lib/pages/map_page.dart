@@ -41,82 +41,84 @@ class _MapPageState extends State<MapPage> {
           ),
         ],
       ),
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-        child: Column(
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Column(
-                    children: [
-                      Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 12, horizontal: 8),
-                          child: TextField(
-                            style: const TextStyle(color: Colors.white),
-                            onChanged: (value) {},
-                            decoration: InputDecoration(
-                                hintStyle: TextStyle(
-                                    color: Colors.grey[500], fontSize: 18),
-                                hintText: "Поиск",
-                                fillColor: Color(0xFF000000).withOpacity(0.7),
-                                filled: true,
-                                suffixIcon: IconButton(
-                                  icon: const Icon(
-                                    Icons.mic,
+      SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+          child: Column(
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 12, horizontal: 8),
+                            child: TextField(
+                              style: const TextStyle(color: Colors.white),
+                              onChanged: (value) {},
+                              decoration: InputDecoration(
+                                  hintStyle: TextStyle(
+                                      color: Colors.grey[500], fontSize: 18),
+                                  hintText: "Поиск",
+                                  fillColor: Color(0xFF000000).withOpacity(0.7),
+                                  filled: true,
+                                  suffixIcon: IconButton(
+                                    icon: const Icon(
+                                      Icons.mic,
+                                      color: Color(0xFFFFFFFF),
+                                      size: 24,
+                                    ),
+                                    onPressed: () {},
+                                  ),
+                                  prefixIcon: const Icon(
+                                    Icons.search,
                                     color: Color(0xFFFFFFFF),
                                     size: 24,
                                   ),
-                                  onPressed: () {},
-                                ),
-                                prefixIcon: const Icon(
-                                  Icons.search,
-                                  color: Color(0xFFFFFFFF),
-                                  size: 24,
-                                ),
-                                border: const OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 0,
-                                    style: BorderStyle.none,
-                                  ),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
-                                )),
-                          )),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            searchCategory('Рестораны'),
-                            searchCategory('Отели'),
-                            searchCategory('Магазины'),
-                            searchCategory('Кино'),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(top: 8, left: 8),
-                  child: GestureDetector(
-                    onTap: () {
-                      // changeSelectedPageIndex!(6);
-                    },
-                    child: const CircleAvatar(
-                      radius: 30,
-                      backgroundImage: NetworkImage(
-                          'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'),
+                                  border: const OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 0,
+                                      style: BorderStyle.none,
+                                    ),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20)),
+                                  )),
+                            )),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              searchCategory('Рестораны'),
+                              searchCategory('Отели'),
+                              searchCategory('Магазины'),
+                              searchCategory('Кино'),
+                            ],
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                )
-              ],
-            ),
-          ],
+                  Container(
+                    padding: const EdgeInsets.only(top: 8, left: 8),
+                    child: GestureDetector(
+                      onTap: () {
+                        // changeSelectedPageIndex!(6);
+                      },
+                      child: const CircleAvatar(
+                        radius: 30,
+                        backgroundImage: NetworkImage(
+                            'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
       Positioned(
