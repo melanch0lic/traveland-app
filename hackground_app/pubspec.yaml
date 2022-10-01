@@ -11,6 +11,8 @@ environment:
 
 
 dependencies:
+  flutter_localizations:
+    sdk: flutter
   flutter:
     sdk: flutter
   flutter_svg: ^0.22.0

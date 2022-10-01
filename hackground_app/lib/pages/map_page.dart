@@ -54,16 +54,14 @@ class _MapPageState extends State<MapPage> {
                     child: Column(
                       children: [
                         Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 12, horizontal: 8),
+                            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
                             child: TextField(
                               style: const TextStyle(color: Colors.white),
                               onChanged: (value) {},
                               decoration: InputDecoration(
-                                  hintStyle: TextStyle(
-                                      color: Colors.grey[500], fontSize: 18),
+                                  hintStyle: TextStyle(color: Colors.grey[500], fontSize: 18),
                                   hintText: "Поиск",
-                                  fillColor: Color(0xFF000000).withOpacity(0.7),
+                                  fillColor: const Color(0xFF000000).withOpacity(0.7),
                                   filled: true,
                                   suffixIcon: IconButton(
                                     icon: const Icon(
@@ -83,20 +81,22 @@ class _MapPageState extends State<MapPage> {
                                       width: 0,
                                       style: BorderStyle.none,
                                     ),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
+                                    borderRadius: BorderRadius.all(Radius.circular(20)),
                                   )),
                             )),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              searchCategory('Рестораны'),
-                              searchCategory('Отели'),
-                              searchCategory('Магазины'),
-                              searchCategory('Кино'),
-                            ],
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: const [
+                                searchCategory('Рестораны'),
+                                searchCategory('Отели'),
+                                searchCategory('Магазины'),
+                                searchCategory('Кино'),
+                              ],
+                            ),
                           ),
                         )
                       ],
@@ -129,13 +129,12 @@ class _MapPageState extends State<MapPage> {
           child: Column(
             children: [
               Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(
                       Radius.circular(15),
                     ),
-                    color: Color(0xFF000000).withOpacity(0.7),
+                    color: const Color(0xFF000000).withOpacity(0.7),
                   ),
                   child: const Icon(
                     Icons.zoom_in,
@@ -146,8 +145,7 @@ class _MapPageState extends State<MapPage> {
                 height: 4,
               ),
               Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(
                       Radius.circular(15),
@@ -179,7 +177,7 @@ class _MapPageState extends State<MapPage> {
 class searchCategory extends StatelessWidget {
   final String? categoryName;
 
-  searchCategory(this.categoryName);
+  const searchCategory(this.categoryName);
 
   @override
   Widget build(BuildContext context) {
