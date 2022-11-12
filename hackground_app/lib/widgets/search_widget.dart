@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../app_localizations.dart';
+
 class SearchWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -11,7 +13,7 @@ class SearchWidget extends StatelessWidget {
             onChanged: (value) {},
             decoration: InputDecoration(
                 hintStyle: TextStyle(color: Colors.grey[500], fontSize: 18),
-                hintText: "Поиск",
+                hintText: translate(context, 'search_text'),
                 fillColor: Colors.grey.withOpacity(0.2),
                 filled: true,
                 prefixIcon: const Icon(

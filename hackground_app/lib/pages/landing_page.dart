@@ -9,7 +9,7 @@ import '../widgets/name_row_header.dart';
 class LandingPage extends StatelessWidget {
   final Function? changeIndex;
 
-  const LandingPage(this.changeIndex);
+  const LandingPage(this.changeIndex, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class LandingPage extends StatelessWidget {
                 index: 1,
               ),
               AttractionListView(attractionList3),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
             ],
           ),
         ),

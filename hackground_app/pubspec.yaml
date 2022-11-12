@@ -33,6 +33,10 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
+  assets:
+    - lang/ru.json
+    - lang/en.json
+
   # To add assets to your application, add an assets section, like this:
   #   - lib/assets/images/tabs_screen_svg/shedule.svg
   #   - lib/assets/images/photo_2022-05-14_12-40-59.jpg

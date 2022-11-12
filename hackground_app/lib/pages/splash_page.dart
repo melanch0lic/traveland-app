@@ -8,8 +8,7 @@ class SplashPage extends StatefulWidget {
   State<SplashPage> createState() => _SplashPageState();
 }
 
-class _SplashPageState extends State<SplashPage>
-    with SingleTickerProviderStateMixin {
+class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateMixin {
   AnimationController? earthController;
   Animation<double>? rotationAnimation;
 
@@ -17,16 +16,12 @@ class _SplashPageState extends State<SplashPage>
   void initState() {
     // TODO: implement initState
     super.initState();
-    earthController =
-        AnimationController(duration: const Duration(seconds: 4), vsync: this)
-          ..repeat();
+    earthController = AnimationController(duration: const Duration(seconds: 4), vsync: this)..repeat();
 
-    rotationAnimation = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: earthController!, curve: Curves.linear));
-    Future.delayed(
-        Duration(seconds: 4),
-        () => Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => TabsScreen())));
+    rotationAnimation =
+        Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(parent: earthController!, curve: Curves.linear));
+    Future.delayed(const Duration(seconds: 4),
+        () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => TabsScreen())));
   }
 
   @override

@@ -22,8 +22,7 @@ class CustomAppBar extends StatelessWidget {
             },
             child: const CircleAvatar(
               radius: 30,
-              backgroundImage: NetworkImage(
-                  'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'),
+              backgroundImage: NetworkImage('https://i.pinimg.com/564x/b9/66/07/b96607f27ab387f040ec0d854ab5167c.jpg'),
             ),
           )
         ],

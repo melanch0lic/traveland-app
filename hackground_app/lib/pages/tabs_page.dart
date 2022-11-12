@@ -6,7 +6,7 @@ import '../pages/house_rent_page.dart';
 import '../pages/guide_page.dart';
 import '../pages/hubs_page.dart';
 import '../pages/map_page.dart';
-import 'account_page.dart';
+import 'account_page/account_page.dart';
 
 class TabsScreen extends StatefulWidget {
   @override
@@ -46,10 +46,10 @@ class _TabsScreenState extends State<TabsScreen> {
         children: [
           LandingPage(_changeSelectedPageIndex),
           HousePage(_changeSelectedPageIndex),
-          MapPage(),
+          const MapPage(),
           HubsPage(_changeSelectedPageIndex),
           GuidePage(_changeSelectedPageIndex),
-          AccountPage(),
+          const AccountPage(),
         ],
         pageSnapping: false,
       ),
