@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../pages/details_page_house.dart';
+import '../pages/details_page/details_page.dart';
 
 import '../models/attraction_model.dart';
 
@@ -9,29 +9,25 @@ import '../unities.dart';
 class AttractionCard extends StatelessWidget {
   final Attraction attraction;
 
-  AttractionCard(this.attraction);
+  const AttractionCard(this.attraction);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => DetailsPage(attraction)));
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => DetailsPage(attraction)));
       },
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 8),
-        padding: EdgeInsets.only(left: 4, right: 4, top: 4, bottom: 8),
+        margin: const EdgeInsets.symmetric(horizontal: 8),
+        padding: const EdgeInsets.only(left: 4, right: 4, top: 4, bottom: 8),
         width: 130,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                blurRadius: 10,
-                offset: Offset.zero,
-                color: Colors.black.withOpacity(0.1),
-              )
-            ]),
+        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), boxShadow: [
+          BoxShadow(
+            blurRadius: 10,
+            offset: Offset.zero,
+            color: Colors.black.withOpacity(0.1),
+          )
+        ]),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -51,8 +47,7 @@ class AttractionCard extends StatelessWidget {
                   right: 8,
                   bottom: 8,
                   child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 2, horizontal: 3),
+                    padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 3),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       color: Units.attractionGradient2,
@@ -67,7 +62,7 @@ class AttractionCard extends StatelessWidget {
                         const SizedBox(width: 2),
                         Text(
                           '${attraction.starRating}',
-                          style: TextStyle(color: Colors.white, fontSize: 12),
+                          style: const TextStyle(color: Colors.white, fontSize: 12),
                         )
                       ],
                     ),
@@ -81,7 +76,7 @@ class AttractionCard extends StatelessWidget {
               child: FittedBox(
                 child: Text(
                   attraction.name!,
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                 ),
               ),
             ),

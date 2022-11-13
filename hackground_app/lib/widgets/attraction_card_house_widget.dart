@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../pages/details_page_house.dart';
+import '../pages/details_page/details_page.dart';
 
 import '../models/attraction_model.dart';
 
@@ -9,29 +9,25 @@ import '../unities.dart';
 class AttractionCardHouse extends StatelessWidget {
   final Attraction attraction;
 
-  AttractionCardHouse(this.attraction);
+  const AttractionCardHouse(this.attraction);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => DetailsPage(attraction)));
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => DetailsPage(attraction)));
       },
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-        padding: EdgeInsets.all(4),
+        margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+        padding: const EdgeInsets.all(4),
         height: 222,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                blurRadius: 10,
-                offset: Offset.zero,
-                color: Colors.black.withOpacity(0.1),
-              )
-            ]),
+        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), boxShadow: [
+          BoxShadow(
+            blurRadius: 10,
+            offset: Offset.zero,
+            color: Colors.black.withOpacity(0.1),
+          )
+        ]),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -56,13 +52,11 @@ class AttractionCardHouse extends StatelessWidget {
                     children: [
                       Text(
                         attraction.name!,
-                        style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
+                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(width: 4),
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 3, vertical: 2),
+                        padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           color: Units.attractionGradient2,
@@ -76,9 +70,8 @@ class AttractionCardHouse extends StatelessWidget {
                             ),
                             const SizedBox(width: 2),
                             Text(
-                              '${attraction.starRating.toString()}',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 12),
+                              attraction.starRating.toString(),
+                              style: const TextStyle(color: Colors.white, fontSize: 12),
                             ),
                           ],
                         ),
@@ -86,8 +79,7 @@ class AttractionCardHouse extends StatelessWidget {
                       const Spacer(),
                       Text(
                         'от ${attraction.price} руб',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       )
                     ],
                   ),
@@ -102,8 +94,7 @@ class AttractionCardHouse extends StatelessWidget {
                       const SizedBox(width: 4),
                       Text(
                         '${attraction.address} • ${attraction.reviewCount} оценок',
-                        style:
-                            const TextStyle(fontSize: 12, color: Colors.grey),
+                        style: const TextStyle(fontSize: 12, color: Colors.grey),
                       ),
                     ],
                   ),
