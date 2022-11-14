@@ -16,7 +16,7 @@ class HubsPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomAppBar(changeSelectedPageIndex: changeIndex),
+              const CustomAppBar(),
               SearchWidget(),
               const Padding(
                 padding: EdgeInsets.only(left: 20),
@@ -47,25 +47,18 @@ class HubsPage extends StatelessWidget {
                               color: Colors.black.withOpacity(0.1),
                             )
                           ]),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 24, vertical: 16),
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                       child: const Text(
                         'Присоединиться',
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.w600),
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
                       ),
                     ),
                     Container(
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.blue.withOpacity(0.1),
-                                blurRadius: 10)
-                          ]),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 24, vertical: 16),
+                          boxShadow: [BoxShadow(color: Colors.blue.withOpacity(0.1), blurRadius: 10)]),
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                       child: const Text(
                         'Создать новый',
                         style: TextStyle(
@@ -89,19 +82,16 @@ class HubsPage extends StatelessWidget {
               ),
               Container(
                 width: double.infinity,
-                margin: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                padding: EdgeInsets.all(4),
+                margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                padding: const EdgeInsets.all(4),
                 height: 300,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 10,
-                        offset: Offset.zero,
-                        color: Colors.black.withOpacity(0.1),
-                      )
-                    ]),
+                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), boxShadow: [
+                  BoxShadow(
+                    blurRadius: 10,
+                    offset: Offset.zero,
+                    color: Colors.black.withOpacity(0.1),
+                  )
+                ]),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -119,15 +109,13 @@ class HubsPage extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 12, horizontal: 8),
+                      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: const [
                           Text(
                             'Отдых в Пятигорске',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 20),
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                           ),
                           Text('8/10 участников'),
                         ],

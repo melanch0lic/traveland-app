@@ -18,7 +18,7 @@ class LandingPage extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              CustomAppBar(changeSelectedPageIndex: changeIndex),
+              const CustomAppBar(),
               const HeaderWidget(),
               NameRowHeader(
                 name: 'Жильё',

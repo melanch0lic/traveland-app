@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hackground_app/pages/account_page/account_page.dart';
 
 class CustomAppBar extends StatelessWidget {
-  final Function? changeSelectedPageIndex;
-
-  const CustomAppBar({this.changeSelectedPageIndex});
+  const CustomAppBar({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class CustomAppBar extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              changeSelectedPageIndex!(6);
+              Navigator.of(context).push(MaterialPageRoute(builder: ((context) => const AccountPage())));
             },
             child: const CircleAvatar(
               radius: 30,
