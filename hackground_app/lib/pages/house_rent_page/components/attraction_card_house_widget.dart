@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-import '../pages/details_page/details_page.dart';
+import '../../details_page/details_page.dart';
 
-import '../models/attraction_model.dart';
+import '../../../models/attraction_model.dart';
 
-import '../unities.dart';
+import '../../../unities.dart';
 
 class AttractionCardHouse extends StatelessWidget {
   final Attraction attraction;
 
-  const AttractionCardHouse(this.attraction);
+  const AttractionCardHouse(this.attraction, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class AttractionCardHouse extends StatelessWidget {
         Navigator.of(context).push(MaterialPageRoute(builder: (context) => DetailsPage(attraction)));
       },
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+        margin: const EdgeInsets.symmetric(vertical: 8),
         padding: const EdgeInsets.all(4),
         height: 222,
         decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), boxShadow: [

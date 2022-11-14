@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../widgets/tabs_bar_button.dart';
 import '../pages/landing_page.dart';
-import '../pages/house_rent_page.dart';
+import 'house_rent_page/house_rent_page.dart';
 import 'guide_page/guide_page.dart';
 import '../pages/hubs_page.dart';
 import '../pages/map_page.dart';
@@ -47,7 +47,7 @@ class _TabsScreenState extends State<TabsScreen> {
         controller: _pageController,
         children: [
           LandingPage(_changeSelectedPageIndex),
-          HousePage(_changeSelectedPageIndex),
+          const HousePage(),
           const MapPage(),
           HubsPage(_changeSelectedPageIndex),
           const GuidePage(),
