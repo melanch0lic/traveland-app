@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 
-import '../models/guide_model.dart';
+import '../../../models/guide_model.dart';
 
 class GuideCard extends StatelessWidget {
   final Guide guide;
 
-  GuideCard(this.guide);
+  const GuideCard(this.guide, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(left: 16, right: 16, bottom: 8, top: 4),
+      margin: const EdgeInsets.only(bottom: 8, top: 4),
+      padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -24,24 +25,22 @@ class GuideCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            child: Row(
-              children: [
-                const CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      'https://lh3.googleusercontent.com/a-/AAuE7mChgTiAe-N8ibcM3fB_qvGdl2vQ9jvjYv0iOOjB=s96-c'),
-                  radius: 40,
-                ),
-                const SizedBox(width: 16),
-                Column(
+          Row(
+            children: [
+              const CircleAvatar(
+                backgroundImage:
+                    NetworkImage('https://i.pinimg.com/736x/f1/cc/95/f1cc95ca84baf738d34968996716c8a0.jpg'),
+                radius: 40,
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       guide.name!,
-                      style: const TextStyle(
-                          color: Colors.blueAccent, fontSize: 16),
+                      style: const TextStyle(color: Colors.blueAccent, fontSize: 16),
                     ),
                     Row(
                       children: [
@@ -51,9 +50,7 @@ class GuideCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 2),
                         Text(
-                          guide.isCar!
-                              ? 'Своя машина'
-                              : 'Нет собственной машины',
+                          guide.isCar! ? 'Своя машина' : 'Нет собственной машины',
                           style: TextStyle(
                             color: guide.isCar! ? Colors.green : Colors.red,
                             fontSize: 12,
@@ -64,10 +61,7 @@ class GuideCard extends StatelessWidget {
                         if (guide.isCar!)
                           Text(
                             guide.carName!,
-                            style: const TextStyle(
-                                color: Colors.grey,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold),
+                            style: const TextStyle(color: Colors.grey, fontSize: 12, fontWeight: FontWeight.bold),
                           )
                       ],
                     ),
@@ -76,10 +70,7 @@ class GuideCard extends StatelessWidget {
                         const Icon(Icons.star, color: Colors.yellow),
                         Text(
                           '${guide.starRating}',
-                          style: const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold),
+                          style: const TextStyle(color: Colors.grey, fontSize: 12, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(width: 8),
                         Text(
@@ -93,10 +84,12 @@ class GuideCard extends StatelessWidget {
                     )
                   ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          const Divider(),
+          const Divider(
+            thickness: 1,
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             child: Column(

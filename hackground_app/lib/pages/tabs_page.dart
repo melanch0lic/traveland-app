@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import '../widgets/tabs_bar_button.dart';
 import '../pages/landing_page.dart';
 import '../pages/house_rent_page.dart';
-import '../pages/guide_page.dart';
+import 'guide_page/guide_page.dart';
 import '../pages/hubs_page.dart';
 import '../pages/map_page.dart';
 import 'account_page/account_page.dart';
 
 class TabsScreen extends StatefulWidget {
+  const TabsScreen({Key? key}) : super(key: key);
+
   @override
   State<TabsScreen> createState() => _TabsScreenState();
 }
@@ -48,7 +50,7 @@ class _TabsScreenState extends State<TabsScreen> {
           HousePage(_changeSelectedPageIndex),
           const MapPage(),
           HubsPage(_changeSelectedPageIndex),
-          GuidePage(_changeSelectedPageIndex),
+          const GuidePage(),
           const AccountPage(),
         ],
         pageSnapping: false,
