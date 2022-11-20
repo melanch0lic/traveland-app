@@ -18,7 +18,7 @@ class AttractionCard extends StatelessWidget {
         Navigator.of(context).push(MaterialPageRoute(builder: (context) => DetailsPage(attraction)));
       },
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 8),
+        margin: const EdgeInsets.only(left: 8),
         padding: const EdgeInsets.only(left: 4, right: 4, top: 4, bottom: 8),
         width: 130,
         decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), boxShadow: [
