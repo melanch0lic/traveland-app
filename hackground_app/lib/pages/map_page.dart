@@ -28,7 +28,6 @@ class _MapPageState extends State<MapPage> {
 
     bool _serviceEnabled;
     PermissionStatus _permissionLocation;
-    LocationData _locData;
 
     _serviceEnabled = await location.serviceEnabled();
     if (!_serviceEnabled) {
@@ -46,11 +45,20 @@ class _MapPageState extends State<MapPage> {
       }
     }
 
-    _locData = await location.getLocation();
-
-    setState(() {
-      _latitude = _locData.latitude!;
-      _longitude = _locData.longitude!;
+    await location.getLocation().then((data) {
+      setState(() {
+        _mapController!.move(LatLng(data.latitude!, data.longitude!), 18);
+        navMarkers.add(Marker(
+            point: LatLng(data.latitude!, data.longitude!),
+            builder: ((context) => const CircleAvatar(
+                  radius: 50,
+                  child: Icon(
+                    Icons.person,
+                    size: 30,
+                    color: Colors.white,
+                  ),
+                ))));
+      });
     });
   }
 
@@ -60,13 +68,11 @@ class _MapPageState extends State<MapPage> {
   late MapController? _mapController;
   late PopupController _popupLayerController;
 
-  double? _latitude;
-  double? _longitude;
-
   ChosenMode chosenMode = ChosenMode.turnedOff;
   int? currentModeNumber;
 
   List<LatLng> points = [];
+  List<Marker> navMarkers = [];
 
   List<Marker> get markers => points
       .map(
@@ -81,15 +87,12 @@ class _MapPageState extends State<MapPage> {
 
   @override
   void initState() {
-    locationService();
     navigationMode = false;
     _mapController = MapController();
     _popupLayerController = PopupController();
 
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Use `MapController` as needed
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) {});
   }
 
   @override
@@ -157,9 +160,14 @@ class _MapPageState extends State<MapPage> {
                 onPressed: () {
                   setState(
                     () {
-                      _mapController!.move(LatLng(_latitude!, _longitude!), 18);
-                      points.add(LatLng(_latitude!, _longitude!));
                       navigationMode = !navigationMode;
+                      if (navigationMode) {
+                        locationService();
+                      } else {
+                        setState(() {
+                          navMarkers.clear();
+                        });
+                      }
                     },
                   );
                 },
@@ -180,24 +188,24 @@ class _MapPageState extends State<MapPage> {
           //   ),
           // ],
           options: MapOptions(
-            onTap: (tapPosition, point) {
-              setState(() {
-                if (chosenMode == ChosenMode.first ||
-                    chosenMode == ChosenMode.second && chosenMode != ChosenMode.accepted) {
-                  points.add(point);
-                }
-              });
-              _popupLayerController.hideAllPopups();
-              print('tapPosition:$tapPosition');
-              print('point:$point');
-            },
-            interactiveFlags: InteractiveFlag.pinchZoom | InteractiveFlag.drag,
-            center: LatLng(43.024994, 44.68126),
-            zoom: 13,
-            maxZoom: 19.0,
-          ),
+              onTap: (tapPosition, point) {
+                setState(() {
+                  if (chosenMode == ChosenMode.first ||
+                      chosenMode == ChosenMode.second && chosenMode != ChosenMode.accepted) {
+                    points.add(point);
+                  }
+                });
+                _popupLayerController.hideAllPopups();
+                print('tapPosition:$tapPosition');
+                print('point:$point');
+              },
+              interactiveFlags: InteractiveFlag.pinchZoom | InteractiveFlag.drag,
+              center: LatLng(43.024994, 44.68126),
+              zoom: 13,
+              maxZoom: 18,
+              minZoom: 8),
           children: [
-            //Подгрузка самой карты
+            //Подгрузка самой карты OpenStreetMap
             TileLayer(
               urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
               subdomains: const ['a', 'b', 'c'],
@@ -212,6 +220,10 @@ class _MapPageState extends State<MapPage> {
               //   ],
               // ),
             ),
+            if (navigationMode)
+              MarkerLayer(
+                markers: navMarkers,
+              ),
             //Маркеры
             if (chosenMode != ChosenMode.accepted)
               MarkerLayer(
@@ -256,7 +268,7 @@ class _MapPageState extends State<MapPage> {
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [BoxShadow(spreadRadius: 5, color: Colors.black.withOpacity(0.3))]),
                     child: Text(
-                        'Координаты :${marker.point.latitude.toStringAsFixed(2)} ${marker.point.longitude.toStringAsFixed(2)}'),
+                        'Координаты :${marker.point.latitude.toStringAsFixed(3)} ${marker.point.longitude.toStringAsFixed(3)}'),
                   ),
                 ),
               ),
