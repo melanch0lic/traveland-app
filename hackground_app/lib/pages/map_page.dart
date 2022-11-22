@@ -210,21 +210,12 @@ class _MapPageState extends State<MapPage> {
               urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
               subdomains: const ['a', 'b', 'c'],
               errorImage: const NetworkImage('https://tile.openstreetmap.org/18/0/0.png'),
-              // tileBuilder: (context, widget, tile) => Stack(
-              //   fit: StackFit.passthrough,
-              //   children: [
-              //     widget,
-              //     Center(
-              //       child: Text('${tile.coords.x.floor()} : ${tile.coords.y.floor()} : ${tile.coords.z.floor()}'),
-              //     ),
-              //   ],
-              // ),
             ),
+            //Маркеры
             if (navigationMode)
               MarkerLayer(
                 markers: navMarkers,
               ),
-            //Маркеры
             if (chosenMode != ChosenMode.accepted)
               MarkerLayer(
                 markers: markers,
@@ -259,6 +250,11 @@ class _MapPageState extends State<MapPage> {
               PopupMarkerLayerWidget(
                 options: PopupMarkerLayerOptions(
                   popupController: _popupLayerController,
+                  markerTapBehavior: MarkerTapBehavior.custom((marker, popupState, popupController) {
+                    _popupLayerController.hideAllPopups();
+                    _mapController!.move(LatLng(marker.point.latitude, marker.point.longitude), 13);
+                    _popupLayerController.togglePopup(marker);
+                  }),
                   markers: markers,
                   markerRotateAlignment: PopupMarkerLayerOptions.rotationAlignmentFor(AnchorAlign.top),
                   popupBuilder: (BuildContext context, Marker marker) => Container(
