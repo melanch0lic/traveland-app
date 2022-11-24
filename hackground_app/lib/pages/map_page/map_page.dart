@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+
+import '../../services/map_service.dart';
 export 'package:google_polyline_algorithm/google_polyline_algorithm.dart' show decodePolyline;
 
 /*You may have a polyline with 'Google Polyline Encoding' (which is a lossy compression algorithm to convert coordinates into a string and back). These are often returned from routing engines, for example. In this case, you'll need to decode the polyline to the correct format first, before you can use it in a Polyline's points argument.
@@ -21,6 +22,8 @@ class MapPage extends StatefulWidget {
 }
 
 enum ChosenMode { first, second, turnedOff, accepted }
+
+LatLng? currentLocation;
 
 class _MapPageState extends State<MapPage> {
   Future<void> locationService() async {
@@ -46,6 +49,7 @@ class _MapPageState extends State<MapPage> {
     }
 
     await location.getLocation().then((data) {
+      currentLocation = LatLng(data.latitude!, data.longitude!);
       setState(() {
         _mapController!.move(LatLng(data.latitude!, data.longitude!), 18);
         navMarkers.add(Marker(
@@ -189,6 +193,7 @@ class _MapPageState extends State<MapPage> {
           // ],
           options: MapOptions(
               onTap: (tapPosition, point) {
+                MapService.getRouteCoordinates(currentLocation!, point);
                 setState(() {
                   if (chosenMode == ChosenMode.first ||
                       chosenMode == ChosenMode.second && chosenMode != ChosenMode.accepted) {

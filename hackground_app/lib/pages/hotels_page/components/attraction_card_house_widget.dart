@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-
-import '../../details_page/details_page.dart';
+import 'package:auto_route/auto_route.dart';
 
 import '../../../models/attraction_model.dart';
 
+import '../../../navigation/router.gr.dart';
 import '../../../unities.dart';
 
 class AttractionCardHouse extends StatelessWidget {
@@ -15,7 +15,7 @@ class AttractionCardHouse extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => DetailsPage(attraction)));
+        context.router.push(DetailsRoute(selectedModel: attraction));
       },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 8),

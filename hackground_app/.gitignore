@@ -8,6 +8,7 @@
 .buildlog/
 .history
 .svn/
+migrate_working_dir/
 
 # IntelliJ related
 *.iml
@@ -30,6 +31,8 @@
 .pub-cache/
 .pub/
 /build/
+/coverage
+/test-results
 
 # Web related
 lib/generated_plugin_registrant.dart
@@ -39,6 +42,9 @@ app.*.symbols
 
 # Obfuscation related
 app.*.map.json
+
+# Generated files related
+*.*.dart
 
 # Android Studio will place build artifacts here
 /android/app/debug

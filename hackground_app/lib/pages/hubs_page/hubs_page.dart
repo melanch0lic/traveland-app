@@ -7,9 +7,7 @@ import '../../widgets/appbar.dart';
 import '../../widgets/search_widget.dart';
 
 class HubsPage extends StatelessWidget {
-  final Function? changeIndex;
-
-  const HubsPage(this.changeIndex);
+  const HubsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

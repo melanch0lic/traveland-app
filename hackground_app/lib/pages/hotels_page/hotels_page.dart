@@ -6,8 +6,8 @@ import '../../widgets/appbar.dart';
 import 'components/attraction_listview_house_rent.dart';
 import '../../dummy_data.dart';
 
-class HousePage extends StatelessWidget {
-  const HousePage({Key? key}) : super(key: key);
+class HotelsPage extends StatelessWidget {
+  const HotelsPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
