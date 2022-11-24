@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import './pages/splash_page.dart';
+import 'package:hackground_app/navigation/router.gr.dart';
 import 'app_localizations.dart';
 
 void main() {
@@ -10,10 +10,10 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    final _appRouter = AppRouter();
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       localizationsDelegates: const [
         AppLocalizations.delegate,
@@ -27,7 +27,8 @@ class MyApp extends StatelessWidget {
         return supportedLocales.first;
       },
       title: 'Hackground Booking',
-      home: SplashPage(),
+      routerDelegate: _appRouter.delegate(),
+      routeInformationParser: _appRouter.defaultRouteParser(),
     );
   }
 }

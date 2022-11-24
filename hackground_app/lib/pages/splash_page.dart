@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../unities.dart';
-import '../pages/tabs_page.dart';
+import 'tabs_page/tabs_page.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -21,7 +21,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
     rotationAnimation =
         Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(parent: earthController!, curve: Curves.linear));
     Future.delayed(const Duration(seconds: 4),
-        () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => TabsScreen())));
+        () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const TabsPage())));
   }
 
   @override
@@ -36,7 +36,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
     return Stack(
       children: [
         Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
               Units.primaryGray,
               Units.secondaryGray,

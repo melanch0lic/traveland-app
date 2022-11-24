@@ -6,7 +6,7 @@ import 'components/details_page_body.dart';
 
 class DetailsPage extends StatelessWidget {
   final Attraction selectedModel;
-  const DetailsPage(this.selectedModel, {Key? key}) : super(key: key);
+  const DetailsPage({Key? key, required this.selectedModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../pages/details_page/details_page.dart';
-
+import 'package:auto_route/auto_route.dart';
+import 'package:hackground_app/navigation/router.gr.dart';
 import '../models/attraction_model.dart';
 
 import '../unities.dart';
@@ -9,13 +8,13 @@ import '../unities.dart';
 class AttractionCard extends StatelessWidget {
   final Attraction attraction;
 
-  const AttractionCard(this.attraction);
+  const AttractionCard(this.attraction, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => DetailsPage(attraction)));
+        context.router.push(DetailsRoute(selectedModel: attraction));
       },
       child: Container(
         margin: const EdgeInsets.only(left: 8),

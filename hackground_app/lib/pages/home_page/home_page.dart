@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/header_widget.dart';
-import '../dummy_data.dart';
-import '../widgets/attraction_listview.dart';
-import '../widgets/appbar.dart';
-import '../widgets/name_row_header.dart';
+import '../../widgets/header_widget.dart';
+import '../../dummy_data.dart';
+import '../../widgets/attraction_listview.dart';
+import '../../widgets/appbar.dart';
+import '../../widgets/name_row_header.dart';
 
-class LandingPage extends StatelessWidget {
-  final Function? changeIndex;
-
-  const LandingPage(this.changeIndex, {Key? key}) : super(key: key);
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,21 +18,18 @@ class LandingPage extends StatelessWidget {
             children: [
               const CustomAppBar(),
               const HeaderWidget(),
-              NameRowHeader(
+              const NameRowHeader(
                 name: 'Жильё',
-                changeSelectedPageIndex: changeIndex,
                 index: 1,
               ),
               AttractionListView(attractionList1),
-              NameRowHeader(
+              const NameRowHeader(
                 name: 'Места',
-                changeSelectedPageIndex: changeIndex,
                 index: 1,
               ),
               AttractionListView(attractionList2),
-              NameRowHeader(
+              const NameRowHeader(
                 name: 'Мероприятия',
-                changeSelectedPageIndex: changeIndex,
                 index: 1,
               ),
               AttractionListView(attractionList3),
