@@ -14,26 +14,23 @@ class HubsPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                CustomAppBar(),
-                SearchWidget(),
-                HubsHeader(text: 'Хабы'),
-                SizedBox(
-                  height: 20,
-                ),
-                HubsButtons(),
-                SizedBox(
-                  height: 20,
-                ),
-                HubsHeader(text: 'Общедоступные'),
-                EventCard()
-              ],
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              CustomAppBar(),
+              SearchWidget(),
+              HubsHeader(text: 'Хабы'),
+              SizedBox(
+                height: 20,
+              ),
+              HubsButtons(),
+              SizedBox(
+                height: 20,
+              ),
+              HubsHeader(text: 'Общедоступные'),
+              EventCard()
+            ],
           ),
         ),
       ),

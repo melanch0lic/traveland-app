@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 
-import '../dummy_data.dart';
+import '../../../dummy_data.dart';
 
 class WeatherWidget extends StatelessWidget {
+  const WeatherWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 20,
-              offset: Offset.zero,
-              color: Colors.black.withOpacity(0.1),
-            )
-          ]),
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20), boxShadow: [
+        BoxShadow(
+          blurRadius: 20,
+          offset: Offset.zero,
+          color: Colors.black.withOpacity(0.1),
+        )
+      ]),
       child: Column(
         children: [
           Container(
@@ -45,14 +44,13 @@ class WeatherWidget extends StatelessWidget {
                     Text('30% Влажность', style: TextStyle(color: Colors.grey))
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: const [
                     Text(
                       'Пятница, 13 Мая',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 5),
                     Text(
@@ -64,7 +62,7 @@ class WeatherWidget extends StatelessWidget {
               ],
             ),
           ),
-          Divider(),
+          const Divider(),
           SizedBox(
             height: 75,
             child: ListView.builder(

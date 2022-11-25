@@ -11,9 +11,7 @@ class TabsPage extends StatefulWidget {
 
 class _TabsPageState extends State<TabsPage> {
   final _bottomBarIcons = const [
-    Icon(
-      Icons.home,
-    ),
+    Icon(Icons.home),
     Icon(Icons.local_hotel),
     Icon(Icons.map),
     Icon(Icons.people),
@@ -26,47 +24,35 @@ class _TabsPageState extends State<TabsPage> {
       routes: const [HomeRouter(), HotelsRouter(), MapRouter(), HubsRouter(), GuidesRouter()],
       bottomNavigationBuilder: (_, tabsRouter) {
         return BottomNavigationBar(
+          elevation: 0,
           currentIndex: tabsRouter.activeIndex,
           onTap: tabsRouter.setActiveIndex,
+          unselectedIconTheme: const IconThemeData(color: Colors.black),
+          selectedIconTheme: const IconThemeData(color: Colors.amberAccent, size: 30),
           items: [
-            BottomNavigationBarItem(icon: _bottomBarIcons[0], label: 'Home', backgroundColor: Colors.indigo),
-            BottomNavigationBarItem(icon: _bottomBarIcons[1], label: 'Hotels', backgroundColor: Colors.indigo),
-            BottomNavigationBarItem(icon: _bottomBarIcons[2], label: 'Map', backgroundColor: Colors.indigo),
-            BottomNavigationBarItem(icon: _bottomBarIcons[3], label: 'Hubs', backgroundColor: Colors.indigo),
-            BottomNavigationBarItem(icon: _bottomBarIcons[4], label: 'Guides', backgroundColor: Colors.indigo),
+            BottomNavigationBarItem(
+              icon: _bottomBarIcons[0],
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: _bottomBarIcons[1],
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: _bottomBarIcons[2],
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: _bottomBarIcons[3],
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: _bottomBarIcons[4],
+              label: '',
+            ),
           ],
         );
       },
     );
-    // return Scaffold(
-    //   body: PageView(
-    //     physics: const NeverScrollableScrollPhysics(),
-    //     controller: _pageController,
-    //     children: const [
-    //       HomePage(),
-    //       HotelsPage(),
-    //       MapPage(),
-    //       HubsPage(),
-    //       GuidePage(),
-    //       AccountPage(),
-    //     ],
-    //     pageSnapping: false,
-    //   ),
-    //   bottomNavigationBar: BottomAppBar(
-    //     elevation: 10,
-    //     child: Row(
-    //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    //       children: List.generate(
-    //         _bottomBarIcons.length,
-    //         (index) => TabsBarButton(
-    //           index: index,
-    //           changeSelectedPageIndex: _changeSelectedPageIndex,
-    //           selectedPageIndex: _selectedPageIndex,
-    //           icon: _bottomBarIcons[index],
-    //         ),
-    //       ),
-    //     ),
-    //   ),
-    // );
   }
 }

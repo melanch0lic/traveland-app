@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:hackground_app/navigation/router.gr.dart';
+import 'package:auto_route/auto_route.dart';
 
 class NameRowHeader extends StatelessWidget {
   final String? name;
-  final Widget? routeWidget;
-  final int? index;
 
-  const NameRowHeader({Key? key, this.name, this.routeWidget, this.index}) : super(key: key);
+  const NameRowHeader({
+    Key? key,
+    this.name,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +25,9 @@ class NameRowHeader extends StatelessWidget {
             ),
           ),
           TextButton(
-              onPressed: () {},
+              onPressed: () {
+                context.navigateTo(const HotelsRouter());
+              },
               child: const Text(
                 'Больше',
                 style: TextStyle(color: Colors.lightBlue),
