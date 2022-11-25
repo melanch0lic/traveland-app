@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:hackground_app/navigation/router.gr.dart';
-import '../models/attraction_model.dart';
+import '../../../models/attraction_model.dart';
 
-import '../unities.dart';
+import '../../../unities.dart';
 
 class AttractionCard extends StatelessWidget {
   final Attraction attraction;

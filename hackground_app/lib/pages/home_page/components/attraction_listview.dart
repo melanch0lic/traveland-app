@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../models/attraction_model.dart';
+import '../../../models/attraction_model.dart';
 import 'attraction_card.dart';
 
 class AttractionListView extends StatelessWidget {
