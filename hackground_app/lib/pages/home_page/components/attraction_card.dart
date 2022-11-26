@@ -42,31 +42,32 @@ class AttractionCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
-                  right: 8,
-                  bottom: 8,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 3),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Units.attractionGradient2,
+                if (attraction.starRating != null)
+                  Positioned(
+                    right: 8,
+                    bottom: 8,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 3),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Units.attractionGradient2,
+                      ),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.star,
+                            color: Colors.white,
+                            size: 10,
+                          ),
+                          const SizedBox(width: 2),
+                          Text(
+                            '${attraction.starRating}',
+                            style: const TextStyle(color: Colors.white, fontSize: 12),
+                          )
+                        ],
+                      ),
                     ),
-                    child: Row(
-                      children: [
-                        const Icon(
-                          Icons.star,
-                          color: Colors.white,
-                          size: 10,
-                        ),
-                        const SizedBox(width: 2),
-                        Text(
-                          '${attraction.starRating}',
-                          style: const TextStyle(color: Colors.white, fontSize: 12),
-                        )
-                      ],
-                    ),
-                  ),
-                )
+                  )
               ]),
             ),
             const SizedBox(height: 4),
@@ -89,7 +90,7 @@ class AttractionCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 4),
                 Text(
-                  '${attraction.distance} ${attraction.distType} • ${attraction.reviewCount} оценок',
+                  '${attraction.distance} ${attraction.distType} • ${attraction.reviewCount ?? 'Нет'} оценок',
                   style: const TextStyle(fontSize: 9, color: Colors.grey),
                 ),
               ],
