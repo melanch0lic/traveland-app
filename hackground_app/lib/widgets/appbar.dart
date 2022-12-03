@@ -19,7 +19,8 @@ class CustomAppBar extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: ((context) => const AccountPage())));
+              Navigator.of(context, rootNavigator: true)
+                  .push(MaterialPageRoute(builder: ((context) => const AccountPage())));
             },
             child: const CircleAvatar(
               radius: 30,
