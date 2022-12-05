@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "74847784549",
+    "project_id": "travelland-352a9",
+    "storage_bucket": "travelland-352a9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:74847784549:android:bf2a52b6ceba93a444408c",
+        "android_client_info": {
+          "package_name": "com.example.hackground_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "74847784549-kkd7bmfoocn34vb1av5u0lb6c9kuvg6k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6Kw-diJR2YZJi6cX15CZQe6yV7sqEuAU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "74847784549-kkd7bmfoocn34vb1av5u0lb6c9kuvg6k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
