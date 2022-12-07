@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../models/attraction_model.dart';
+import '../../../domain/models/attraction_model.dart';
 import 'attraction_card_house_widget.dart';
 
 class AttractionListViewHouse extends StatelessWidget {

@@ -42,9 +42,9 @@ class _HotelsPageState extends State<HotelsPage> {
         child: WebView(
           javascriptMode: JavascriptMode.unrestricted,
           initialUrl: 'https://sutochno.tp.st/EYdXrV3r',
-          onProgress: ((progress) {
+          onProgress: (progress) {
             print('WebView is loading (progress : $progress%)');
-          }),
+          },
           gestureNavigationEnabled: true,
           backgroundColor: const Color(0x00000000),
         ),

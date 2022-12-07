@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../models/attraction_model.dart';
+import '../../domain/models/attraction_model.dart';
 import 'components/details_page_appbar.dart';
 import 'components/details_page_body.dart';
 

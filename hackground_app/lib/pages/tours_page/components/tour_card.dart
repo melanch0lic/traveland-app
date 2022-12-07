@@ -1,30 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:auto_route/auto_route.dart';
 
-import '../../../domain/models/attraction_model.dart';
-
-import '../../../navigation/router.gr.dart';
+import '../../../data/network/models/entity/tour_entity.dart';
 import '../../../unities.dart';
 
-class AttractionCardHouse extends StatelessWidget {
-  final Attraction attraction;
+class TourCard extends StatelessWidget {
+  TourEntity tour;
 
-  const AttractionCardHouse(this.attraction, {Key? key}) : super(key: key);
+  TourCard({Key? key, required this.tour}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        context.router.push(DetailsRoute(selectedModel: attraction));
-      },
+      onTap: () {},
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 8),
         padding: const EdgeInsets.all(4),
-        height: 222,
         decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), boxShadow: [
           BoxShadow(
             blurRadius: 10,
-            offset: Offset.zero,
             color: Colors.black.withOpacity(0.1),
           )
         ]),
@@ -37,7 +30,7 @@ class AttractionCardHouse extends StatelessWidget {
                 height: 151,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage(attraction.imgSrc!),
+                    image: NetworkImage(tour.coverImage),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -51,8 +44,8 @@ class AttractionCardHouse extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        attraction.name!,
-                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        tour.title,
+                        style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(width: 4),
                       Container(
@@ -70,18 +63,17 @@ class AttractionCardHouse extends StatelessWidget {
                             ),
                             const SizedBox(width: 2),
                             Text(
-                              attraction.starRating.toString(),
+                              tour.rating.toString(),
                               style: const TextStyle(color: Colors.white, fontSize: 12),
                             ),
                           ],
                         ),
                       ),
-                      const Spacer(),
-                      Text(
-                        'от ${attraction.price} руб',
-                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                      )
                     ],
+                  ),
+                  Text(
+                    'от ${tour.price.value} руб',
+                    style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
                   Row(
@@ -92,9 +84,11 @@ class AttractionCardHouse extends StatelessWidget {
                         color: Colors.red,
                       ),
                       const SizedBox(width: 4),
-                      Text(
-                        '${attraction.address} • ${attraction.reviewCount} оценок',
-                        style: const TextStyle(fontSize: 12, color: Colors.grey),
+                      Expanded(
+                        child: Text(
+                          '${tour.meetingPoint!.text} • ${tour.reviewCount} оценок',
+                          style: const TextStyle(fontSize: 12, color: Colors.grey),
+                        ),
                       ),
                     ],
                   ),
