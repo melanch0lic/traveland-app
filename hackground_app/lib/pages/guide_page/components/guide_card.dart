@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../models/guide_model.dart';
+import '../../../domain/models/guide_model.dart';
 
 class GuideCard extends StatelessWidget {
   final Guide guide;

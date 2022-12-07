@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hackground_app/models/attraction_model.dart';
+import 'package:hackground_app/domain/models/attraction_model.dart';
 
 import '../../../unities.dart';
 

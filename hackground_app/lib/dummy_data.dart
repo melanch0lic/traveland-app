@@ -1,6 +1,6 @@
-import './models/weather_widget_model.dart';
-import './models/attraction_model.dart';
-import './models/guide_model.dart';
+import 'domain/models/weather_widget_model.dart';
+import 'domain/models/attraction_model.dart';
+import 'domain/models/guide_model.dart';
 
 List<WeatherModel> weatherList = [
   WeatherModel(

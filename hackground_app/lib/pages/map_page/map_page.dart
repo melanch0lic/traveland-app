@@ -5,7 +5,6 @@ import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-import '../../services/map_service.dart';
 export 'package:google_polyline_algorithm/google_polyline_algorithm.dart' show decodePolyline;
 
 /*You may have a polyline with 'Google Polyline Encoding' (which is a lossy compression algorithm to convert coordinates into a string and back). These are often returned from routing engines, for example. In this case, you'll need to decode the polyline to the correct format first, before you can use it in a Polyline's points argument.
@@ -27,7 +26,7 @@ LatLng? currentLocation;
 
 class _MapPageState extends State<MapPage> {
   Future<void> locationService() async {
-    Location location = Location();
+    final Location location = Location();
 
     bool _serviceEnabled;
     PermissionStatus _permissionLocation;
@@ -54,14 +53,14 @@ class _MapPageState extends State<MapPage> {
         _mapController!.move(LatLng(data.latitude!, data.longitude!), 18);
         navMarkers.add(Marker(
             point: LatLng(data.latitude!, data.longitude!),
-            builder: ((context) => const CircleAvatar(
+            builder: (context) => const CircleAvatar(
                   radius: 50,
                   child: Icon(
                     Icons.person,
                     size: 30,
                     color: Colors.white,
                   ),
-                ))));
+                )));
       });
     });
   }
@@ -146,12 +145,12 @@ class _MapPageState extends State<MapPage> {
               borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12))),
           child: const Center(
             child: Text(
-              "Исследуй Осетию",
+              'Исследуй Осетию',
               style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
             ),
           ),
         ),
-        panel: const Center(child: Text("Основной контент")),
+        panel: const Center(child: Text('Основной контент')),
         body: FlutterMap(
           mapController: _mapController,
           nonRotatedChildren: [
@@ -193,7 +192,6 @@ class _MapPageState extends State<MapPage> {
           // ],
           options: MapOptions(
               onTap: (tapPosition, point) {
-                MapService.getRouteCoordinates(currentLocation!, point);
                 setState(() {
                   if (chosenMode == ChosenMode.first ||
                       chosenMode == ChosenMode.second && chosenMode != ChosenMode.accepted) {
@@ -206,13 +204,12 @@ class _MapPageState extends State<MapPage> {
               },
               interactiveFlags: InteractiveFlag.pinchZoom | InteractiveFlag.drag,
               center: LatLng(43.024994, 44.68126),
-              zoom: 13,
               maxZoom: 18,
               minZoom: 8),
           children: [
             //Подгрузка самой карты OpenStreetMap
             TileLayer(
-              urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+              urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
               subdomains: const ['a', 'b', 'c'],
               errorImage: const NetworkImage('https://tile.openstreetmap.org/18/0/0.png'),
             ),

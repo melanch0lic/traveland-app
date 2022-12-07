@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:hackground_app/navigation/router.gr.dart';
-import '../../../models/attraction_model.dart';
+import '../../../domain/models/attraction_model.dart';
 
 import '../../../unities.dart';
 
