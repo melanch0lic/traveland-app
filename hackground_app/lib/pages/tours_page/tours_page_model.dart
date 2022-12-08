@@ -5,7 +5,8 @@ import '../../data/network/models/entity/tour_entity.dart';
 import '../../data/network/tripster_api_client.dart';
 
 class ToursPageViewModel with ChangeNotifier {
-  TripsterApiService tripsterApiService = TripsterApiService(Dio());
+  final Dio _dio = Dio();
+  late TripsterApiService tripsterApiService;
   List<TourEntity>? tours;
 
   int _offset = 2;
@@ -20,15 +21,19 @@ class ToursPageViewModel with ChangeNotifier {
 
   Future<void> fetchTripsterTours() async {
     final response = await tripsterApiService.getTours(_offset);
-    if (response.next != null) {
-      _offset += 1;
-    }
-    tours = response.results;
-    print(response.count);
-    print(response.results[0].title);
+    response.fold((result) {
+      if (result.next != null) {
+        _offset += 1;
+      }
+      tours = result.results;
+      print(result.count);
+      print(result.results[0].title);
+    }, (exception, error) {});
   }
 
   Future<void> init() async {
+    _dio.interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
+    tripsterApiService = TripsterApiService(_dio);
     _isLoading = true;
     notifyListeners();
 
