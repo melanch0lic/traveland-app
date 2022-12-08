@@ -1,9 +1,11 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../reflector.dart';
 import '../entity/tour_entity.dart';
 
 part 'tours_response.g.dart';
 
+@ApiModel()
 @JsonSerializable()
 class ToursResponse {
   @JsonKey(name: 'count')

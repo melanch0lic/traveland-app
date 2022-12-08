@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
 import 'models/response/tours_response.dart';
+import 'result.dart';
 
 part 'tripster_api_client.g.dart';
 
@@ -23,5 +24,5 @@ abstract class TripsterApiService {
 
   @GET(
       '/experiences/?city__name_ru=Владикавказ&detailed=true&exp_partner=t978916&utm_campaign=affiliates&utm_medium=api&utm_source=t978916&page={page}')
-  Future<ToursResponse> getTours(@Path() int page);
+  Future<Result<ToursResponse>> getTours(@Path() int page);
 }
