@@ -1,12 +1,10 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/network/models/entity/tour_entity.dart';
 import '../../data/network/tripster_api_client.dart';
 
 class ToursPageViewModel with ChangeNotifier {
-  final Dio _dio = Dio();
-  late TripsterApiService tripsterApiService;
+  final TripsterApiService tripsterApiService;
   List<TourEntity>? tours;
 
   int _offset = 2;
@@ -15,7 +13,7 @@ class ToursPageViewModel with ChangeNotifier {
 
   bool get isLoading => _isLoading;
 
-  ToursPageViewModel() {
+  ToursPageViewModel({required this.tripsterApiService}) {
     init();
   }
 
@@ -32,8 +30,6 @@ class ToursPageViewModel with ChangeNotifier {
   }
 
   Future<void> init() async {
-    _dio.interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
-    tripsterApiService = TripsterApiService(_dio);
     _isLoading = true;
     notifyListeners();
 

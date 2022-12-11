@@ -3,7 +3,6 @@ import 'package:auto_route/empty_router_widgets.dart';
 import '../pages/details_page/details_page.dart';
 import '../pages/guide_page/guide_page.dart';
 import '../pages/home_page/home_page.dart';
-import '../pages/hotels_page/hotels_page.dart';
 import '../pages/hubs_page/hubs_page.dart';
 import '../pages/map_page/map_page.dart';
 import '../pages/tabs_page/tabs_page.dart';
@@ -22,7 +21,7 @@ import '../pages/tours_page/tours_page.dart';
           name: 'HomeRouter',
           page: EmptyRouterPage,
           children: [
-            AutoRoute(path: '', page: HomePage),
+            AutoRoute(page: HomePage, initial: true),
             AutoRoute(path: ':selectedModel', page: DetailsPage),
           ],
         ),

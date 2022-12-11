@@ -8,7 +8,7 @@ import 'tripster_api_client.dart';
 typedef UnsafeCall<T> = Future<Result<T>> Function();
 
 class TripsterSafeApiClient implements TripsterApiService {
-  final TripsterSafeApiClient _client;
+  final TripsterApiService _client;
 
   TripsterSafeApiClient(this._client);
 
