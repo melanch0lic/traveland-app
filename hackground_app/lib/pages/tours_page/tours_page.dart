@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../app_initialization.dart';
 import '../../widgets/appbar.dart';
 import '../../widgets/filter_header.dart';
 import '../../widgets/search_widget.dart';
@@ -13,7 +14,8 @@ class ToursPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context) => ToursPageViewModel(),
+        create: (context) =>
+            ToursPageViewModel(tripsterApiService: context.read<InitializeProvider>().tripsterApiService),
         child: Builder(
           builder: (context) {
             final isLoading = context.select((ToursPageViewModel model) => model.isLoading);

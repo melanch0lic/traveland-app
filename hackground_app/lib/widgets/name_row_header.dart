@@ -1,6 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:hackground_app/navigation/router.gr.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../navigation/router.gr.dart';
+import '../pages/tabs_page/tabs_page_model.dart';
 
 class NameRowHeader extends StatelessWidget {
   final String? name;
@@ -26,6 +29,7 @@ class NameRowHeader extends StatelessWidget {
           ),
           TextButton(
               onPressed: () {
+                context.read<TabsPageViewModel>().changeRouterIndex(1);
                 context.navigateTo(const HotelsRouter());
               },
               child: const Text(
