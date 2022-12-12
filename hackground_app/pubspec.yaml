@@ -35,6 +35,7 @@ dependencies:
   json_annotation: ^4.7.0
   provider: ^6.0.3
   reflectable: ^4.0.0
+  flutter_svg: ^1.1.6
 
 dev_dependencies:
   flutter_test:
@@ -53,6 +54,7 @@ flutter:
   assets:
     - lang/ru.json
     - lang/en.json
+    - assets/images/
 
   # To add assets to your application, add an assets section, like this:
   #   - lib/assets/images/tabs_screen_svg/shedule.svg
