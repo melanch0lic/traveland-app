@@ -3,74 +3,32 @@ import 'package:flutter/material.dart';
 enum ThemeModeType { light, dark }
 
 class AppTheme with ChangeNotifier {
-  static ThemeData get darkTheme => ThemeData.dark().copyWith(
-        brightness: Brightness.dark,
-        scaffoldBackgroundColor: const Color.fromRGBO(0, 0, 0, 1),
-        bottomAppBarColor: const Color.fromRGBO(0, 0, 0, 1),
-        cardColor: const Color.fromRGBO(23, 23, 23, 1),
-        shadowColor: const Color.fromRGBO(0, 0, 0, 0),
-        selectedRowColor: const Color.fromRGBO(23, 23, 23, 1),
-        indicatorColor: const Color.fromRGBO(255, 255, 255, 1),
-        highlightColor: const Color.fromRGBO(35, 210, 137, 1),
-        unselectedWidgetColor: const Color.fromRGBO(0, 125, 255, 1),
-        primaryIconTheme: const IconThemeData(
-          color: Color.fromRGBO(238, 238, 238, 1),
-        ),
-        textTheme: const TextTheme(
-          headline1: TextStyle(
-              fontFamily: 'Geometria',
-              color: Color.fromRGBO(255, 255, 255, 1),
-              fontSize: 16,
-              fontWeight: FontWeight.w800),
-          headline2: TextStyle(fontFamily: 'Geometria', fontSize: 16, fontWeight: FontWeight.w800),
-          headline3: TextStyle(
-              fontFamily: 'Geometria', fontSize: 16, fontWeight: FontWeight.w800, color: Color.fromRGBO(0, 0, 0, 1)),
-          bodyText1: TextStyle(
-            fontFamily: 'PTRootUI',
-            color: Color.fromRGBO(255, 255, 255, 1),
-            fontSize: 12,
-          ),
-          bodyText2: TextStyle(
-            fontFamily: 'PTRootUI',
-            color: Color.fromRGBO(255, 255, 255, 1),
-          ),
-        ),
-        dividerColor: const Color.fromRGBO(255, 255, 255, 1),
-      );
-
   static ThemeData get lightTheme => ThemeData(
         brightness: Brightness.light,
-        scaffoldBackgroundColor: const Color.fromRGBO(238, 238, 238, 1),
-        bottomAppBarColor: const Color.fromRGBO(255, 255, 255, 1),
-        cardColor: const Color.fromRGBO(255, 255, 255, 1),
+        scaffoldBackgroundColor: const Color.fromRGBO(234, 234, 235, 1),
+        bottomAppBarColor: const Color.fromRGBO(242, 242, 247, 1),
+        cardColor: const Color.fromRGBO(253, 197, 0, 1),
+        canvasColor: const Color.fromRGBO(255, 162, 0, 1),
         shadowColor: const Color.fromRGBO(0, 0, 0, 0.11),
-        selectedRowColor: const Color.fromRGBO(238, 238, 238, 1),
-        indicatorColor: const Color.fromARGB(255, 0, 0, 0),
-        highlightColor: const Color.fromRGBO(35, 210, 137, 1),
+        selectedRowColor: const Color.fromRGBO(37, 65, 178, 0.2),
+        indicatorColor: const Color.fromRGBO(37, 65, 178, 1),
+        highlightColor: const Color.fromRGBO(30, 53, 144, 1),
         unselectedWidgetColor: const Color.fromRGBO(0, 125, 255, 1),
         primaryIconTheme: const IconThemeData(
-          color: Color.fromRGBO(0, 0, 0, 1),
+          color: Color.fromRGBO(37, 65, 178, 1),
         ),
         textTheme: const TextTheme(
           headline1: TextStyle(
-              fontFamily: 'Geometria',
-              color: Color.fromRGBO(255, 255, 255, 1),
-              fontSize: 16,
-              fontWeight: FontWeight.w800),
-          headline2: TextStyle(fontFamily: 'Geometria', fontSize: 16, fontWeight: FontWeight.w800),
-          headline3: TextStyle(
-              fontFamily: 'Geometria',
-              fontSize: 16,
-              fontWeight: FontWeight.w800,
-              color: Color.fromRGBO(238, 238, 238, 1)),
+              fontFamily: 'Rubik', color: Color.fromRGBO(255, 255, 255, 1), fontSize: 28, fontWeight: FontWeight.w700),
+          headline2: TextStyle(fontFamily: 'Rubik', fontSize: 18, fontWeight: FontWeight.w900),
           bodyText1: TextStyle(
-            fontFamily: 'PTRootUI',
+            fontFamily: 'Rubik',
             color: Color.fromRGBO(255, 255, 255, 1),
-            fontSize: 12,
+            fontSize: 16,
           ),
           bodyText2: TextStyle(
-            fontFamily: 'PTRootUI',
-            color: Color.fromRGBO(0, 0, 0, 1),
+            fontFamily: 'Rubik',
+            color: Color.fromRGBO(99, 99, 102, 1),
           ),
         ),
         dividerColor: const Color.fromRGBO(0, 0, 0, 0.4),
