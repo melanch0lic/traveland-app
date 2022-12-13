@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'app_initialization.dart';
 import 'app_localizations.dart';
+import 'theme/app_theme.dart';
 
 class TravellandApp extends StatelessWidget {
   const TravellandApp({Key? key}) : super(key: key);
@@ -20,6 +21,7 @@ class TravellandApp extends StatelessWidget {
               return snapshot.connectionState == ConnectionState.waiting
                   ? const SizedBox.shrink()
                   : MaterialApp.router(
+                      theme: AppTheme.lightTheme,
                       debugShowCheckedModeBanner: false,
                       localizationsDelegates: const [
                         AppLocalizations.delegate,
