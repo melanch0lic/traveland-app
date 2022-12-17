@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-import '../login_page_model.dart';
+import '../register_page_model.dart';
 
-class PasswordTextfield extends StatelessWidget {
-  const PasswordTextfield({Key? key}) : super(key: key);
+class RegisterPasswordTextfield extends StatelessWidget {
+  const RegisterPasswordTextfield({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isHidePassword = context.select((LoginPageViewModel model) => model.isHidePassword);
+    final isHidePassword = context.select((RegisterPageViewModel model) => model.isHidePassword);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -41,7 +41,7 @@ class PasswordTextfield extends StatelessWidget {
             suffixIcon: InkWell(
                 highlightColor: theme.cardColor,
                 onTap: () {
-                  context.read<LoginPageViewModel>().changeHidePasswordMode();
+                  context.read<RegisterPageViewModel>().changeHidePasswordMode();
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(top: 16, bottom: 16, right: 16),
@@ -58,7 +58,7 @@ class PasswordTextfield extends StatelessWidget {
                   width: 2,
                 )),
           ),
-          onChanged: (value) => context.read<LoginPageViewModel>().onPasswordChange(value),
+          onChanged: (value) => context.read<RegisterPageViewModel>().onPasswordChange(value),
         )
       ],
     );

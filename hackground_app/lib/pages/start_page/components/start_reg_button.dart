@@ -18,7 +18,7 @@ class StartRegistrationButton extends StatelessWidget {
           elevation: 0,
         ),
         onPressed: () {
-          context.router.push(const RegisterRoute());
+          context.router.push(const RegisterRouter());
         },
         child: Center(
             child: Text(

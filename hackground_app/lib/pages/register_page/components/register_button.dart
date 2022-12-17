@@ -1,4 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+
+import '../../../navigation/router.gr.dart';
 
 class RegisterButton extends StatelessWidget {
   const RegisterButton({Key? key}) : super(key: key);
@@ -8,7 +11,9 @@ class RegisterButton extends StatelessWidget {
     return SizedBox(
       height: 48,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          context.router.push(const AboutInfoRoute());
+        },
         // onPressed: authButtonState == ButtonState.canSubmit ? onPressed : null,
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color.fromRGBO(37, 65, 178, 1),

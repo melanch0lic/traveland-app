@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
 
-import '../login_page_model.dart';
-
-class EmailTextField extends StatelessWidget {
-  const EmailTextField({Key? key}) : super(key: key);
+class SurnameTextField extends StatelessWidget {
+  const SurnameTextField({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +10,7 @@ class EmailTextField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'E-mail',
+          'Фамилия',
           style: theme.textTheme.bodyText2,
         ),
         const SizedBox(height: 10),
@@ -25,14 +21,7 @@ class EmailTextField extends StatelessWidget {
               minWidth: 16,
               minHeight: 14,
             ),
-            prefixIcon: Padding(
-              padding: const EdgeInsets.only(left: 16, top: 16, bottom: 16, right: 6),
-              child: SvgPicture.asset(
-                'assets/images/email_icon.svg',
-                color: theme.textTheme.bodyText2!.color,
-              ),
-            ),
-            hintText: 'example@mail.com',
+            hintText: 'Иванов',
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15),
                 borderSide: BorderSide(
@@ -40,7 +29,6 @@ class EmailTextField extends StatelessWidget {
                   width: 2,
                 )),
           ),
-          onChanged: (value) => context.read<LoginPageViewModel>().onMailChange(value),
         )
       ],
     );
