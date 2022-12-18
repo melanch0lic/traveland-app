@@ -3,6 +3,8 @@ import 'package:retrofit/retrofit.dart';
 
 import 'models/login_request_body.dart';
 import 'models/response/login_response.dart';
+import 'models/response/register_response.dart';
+import 'register_request_body.dart';
 import 'result.dart';
 
 part 'main_api_client.g.dart';
@@ -13,4 +15,7 @@ abstract class MainApiClient {
 
   @POST('auth/sign-in')
   Future<Result<LoginResponse>> login(@Body() LoginRequestBody body);
+
+  @POST('auth/sign-up')
+  Future<Result<RegisterResponse>> registerUser(@Body() RegisterRequestBody body);
 }

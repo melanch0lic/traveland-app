@@ -1,6 +1,8 @@
 import 'main_api_client.dart';
 import 'models/login_request_body.dart';
 import 'models/response/login_response.dart';
+import 'models/response/register_response.dart';
+import 'register_request_body.dart';
 import 'result.dart';
 
 typedef UnsafeCall<T> = Future<Result<T>> Function();
@@ -13,6 +15,11 @@ class MainSafeApiClient implements MainApiClient {
   @override
   Future<Result<LoginResponse>> login(LoginRequestBody body) {
     return _wrapUnsafeCall<LoginResponse>(() => _client.login(body));
+  }
+
+  @override
+  Future<Result<RegisterResponse>> registerUser(RegisterRequestBody body) {
+    return _wrapUnsafeCall<RegisterResponse>(() => _client.registerUser(body));
   }
 
   Future<Result<T>> _wrapUnsafeCall<T>(UnsafeCall<T> call) async {
