@@ -8,7 +8,7 @@ class Attraction {
   final String? distType;
   final String? address;
   final String? date;
-  final bool? cardPush;
+  final String? clock;
 
   Attraction(
       {this.address,
@@ -20,5 +20,5 @@ class Attraction {
       this.price,
       this.distType,
       this.date,
-      this.cardPush});
+      this.clock});
 }
