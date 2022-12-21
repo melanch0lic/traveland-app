@@ -18,7 +18,7 @@ class AttractionCardGeneral extends StatelessWidget {
         context.router.push(DetailsRoute(selectedModel: attraction));
       },
       child: Container(
-        margin: const EdgeInsets.only(left: 15, right: 10),
+        margin: const EdgeInsets.only(right: 10),
         //padding: const EdgeInsets.only(left: 4, right: 10, top: 4, bottom: 8),
         width: 227,
         decoration: BoxDecoration(
