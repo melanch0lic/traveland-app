@@ -36,6 +36,9 @@ dependencies:
   provider: ^6.0.3
   reflectable: ^4.0.0
   flutter_svg: ^1.1.6
+  dropdown_button2: ^1.9.2
+  flutter_secure_storage: ^7.0.1
+  email_validator: '^2.1.16'
 
 dev_dependencies:
   flutter_test:

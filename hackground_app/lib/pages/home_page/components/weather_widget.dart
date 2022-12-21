@@ -13,7 +13,6 @@ class WeatherWidget extends StatelessWidget {
       decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20), boxShadow: [
         BoxShadow(
           blurRadius: 20,
-          offset: Offset.zero,
           color: Colors.black.withOpacity(0.1),
         )
       ]),
@@ -41,7 +40,7 @@ class WeatherWidget extends StatelessWidget {
                           fontSize: 20,
                         )),
                     SizedBox(height: 5),
-                    Text('30% Влажность', style: TextStyle(color: Colors.grey))
+                    Expanded(child: Text('30% Влажность', style: TextStyle(color: Colors.grey)))
                   ],
                 ),
                 const Spacer(),

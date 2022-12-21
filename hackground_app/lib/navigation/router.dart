@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_route/empty_router_widgets.dart';
+import '../pages/about_info_page/about_info_page.dart';
 import '../pages/details_page/details_page.dart';
 import '../pages/guide_page/guide_page.dart';
 import '../pages/home_page/home_page.dart';
@@ -22,11 +23,16 @@ import '../pages/tours_page/tours_page.dart';
       children: [
         AutoRoute(path: '', page: StartPage),
         AutoRoute(path: 'login', page: LoginPage),
-        AutoRoute(path: 'register', page: RegisterPage)
+        AutoRoute(
+            path: 'register',
+            name: 'RegisterRouter',
+            page: EmptyRouterPage,
+            children: [AutoRoute(path: '', page: RegisterPage), AutoRoute(path: 'aboutInfo', page: AboutInfoPage)])
       ],
     ),
     AutoRoute(
-      path: '/tabs/',
+      path: '/tabs',
+      name: 'TabsRouter',
       page: TabsPage,
       children: [
         AutoRoute(

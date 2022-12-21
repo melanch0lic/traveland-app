@@ -1,4 +1,6 @@
 {
     "search_text" : "Поиск",
-    "profile_appbar_text": "Профиль"
+    "profile_appbar_text": "Профиль",
+    "male_text": "Мужской",
+    "female_text": "Женский"
 }
