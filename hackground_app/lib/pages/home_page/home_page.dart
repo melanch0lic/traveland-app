@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../widgets/header_widget.dart';
 import '../../dummy_data.dart';
-import 'components/attraction_listview.dart';
 import '../../widgets/appbar.dart';
+import '../../widgets/header_widget.dart';
+
 import '../../widgets/name_row_header.dart';
+import 'components/attraction_listview.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -21,15 +22,15 @@ class HomePage extends StatelessWidget {
               const NameRowHeader(
                 name: 'Жильё',
               ),
-              AttractionListView(attractionList1),
+              AttractionListView(attractionListHouse),
               const NameRowHeader(
                 name: 'Места',
               ),
-              AttractionListView(attractionList2),
+              AttractionListView(attractionListPlace),
               const NameRowHeader(
                 name: 'Мероприятия',
               ),
-              AttractionListView(attractionList3),
+              AttractionListView(attractionListEvents),
               const SizedBox(height: 10),
             ],
           ),
