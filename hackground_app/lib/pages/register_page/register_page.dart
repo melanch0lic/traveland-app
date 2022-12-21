@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-import '../login_page.dart/components/email_textfield.dart';
 import 'components/register_button.dart';
+import 'components/register_emai_texfield.dart';
 import 'components/register_password_textfield.dart';
 import 'components/retry_password_textfield.dart';
 import 'register_page_model.dart';
@@ -41,7 +41,7 @@ class RegisterPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
-              EmailTextField(),
+              RegisterEmailTextField(),
               SizedBox(height: 20),
               RegisterPasswordTextfield(),
               SizedBox(height: 20),

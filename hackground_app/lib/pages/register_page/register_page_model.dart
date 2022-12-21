@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
 enum ButtonState { canSubmit, authProcess, disable }
@@ -5,7 +6,17 @@ enum ButtonState { canSubmit, authProcess, disable }
 class RegisterPageViewModel with ChangeNotifier {
   RegisterPageViewModel();
 
-  String _password = '', _passwordRepeat = '';
+  String _password = '', _passwordRepeat = '', _mail = '';
+
+  String get email => _mail;
+  String get password => _password;
+
+  void onMailChange(String value) {
+    if (_mail == value) return;
+    _mail = value;
+    changeButtonState();
+    notifyListeners();
+  }
 
   void onPasswordChange(String value) {
     if (_password == value) return;
@@ -27,7 +38,24 @@ class RegisterPageViewModel with ChangeNotifier {
   bool _isHidePasswordRepeat = true;
   bool get isHidePasswordRepeat => _isHidePasswordRepeat;
 
-  void changeButtonState() {}
+  bool _isEmailCorrect = true;
+  bool get isEmailCorrect => _isEmailCorrect;
+
+  bool _isPasswordCorrect = true;
+  bool get isPasswordCorrect => _isPasswordCorrect;
+
+  bool _isPasswordRepeatCorrect = true;
+  bool get isPasswordRepeatCorrect => _isPasswordRepeatCorrect;
+
+  ButtonState authButtonState = ButtonState.disable;
+
+  void changeButtonState() {
+    if (_mail.isNotEmpty && _password.isNotEmpty && _passwordRepeat.isNotEmpty) {
+      authButtonState = ButtonState.canSubmit;
+    } else {
+      authButtonState = ButtonState.disable;
+    }
+  }
 
   void changeHidePasswordMode() {
     _isHidePassword = !_isHidePassword;
@@ -37,5 +65,27 @@ class RegisterPageViewModel with ChangeNotifier {
   void changeHidePasswordRepeatMode() {
     _isHidePasswordRepeat = !_isHidePasswordRepeat;
     notifyListeners();
+  }
+
+  Future<bool> onRegisterButtonPressed() async {
+    if (!EmailValidator.validate(_mail)) {
+      _isEmailCorrect = false;
+      notifyListeners();
+      return false;
+    } else {
+      _isEmailCorrect = true;
+      notifyListeners();
+    }
+    if (_password.length < 6 || _passwordRepeat.length < 6 || _password != _passwordRepeat) {
+      _isPasswordCorrect = false;
+      _isPasswordRepeatCorrect = false;
+      notifyListeners();
+      return false;
+    } else {
+      _isPasswordCorrect = true;
+      _isPasswordRepeatCorrect = true;
+      notifyListeners();
+    }
+    return true;
   }
 }

@@ -11,12 +11,15 @@ class PasswordTextfield extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isHidePassword = context.select((LoginPageViewModel model) => model.isHidePassword);
+    final isDataCorrect = context.select((LoginPageViewModel model) => model.isDataCorrect);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           'Пароль',
-          style: theme.textTheme.bodyText2,
+          style: isDataCorrect
+              ? theme.textTheme.bodyText2
+              : theme.textTheme.bodyText2!.copyWith(color: const Color.fromRGBO(255, 47, 47, 1)),
         ),
         const SizedBox(height: 10),
         TextField(
@@ -51,12 +54,17 @@ class PasswordTextfield extends StatelessWidget {
                   ),
                 )),
             hintText: 'Минимум 6 символов',
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-                borderSide: BorderSide(
-                  color: theme.textTheme.bodyText2!.color!,
-                  width: 2,
-                )),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+              borderSide: BorderSide(
+                  color: isDataCorrect ? theme.textTheme.bodyText2!.color! : const Color.fromRGBO(255, 47, 47, 1),
+                  width: 2),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+              borderSide: BorderSide(
+                  color: isDataCorrect ? theme.indicatorColor : const Color.fromRGBO(255, 47, 47, 1), width: 2),
+            ),
           ),
           onChanged: (value) => context.read<LoginPageViewModel>().onPasswordChange(value),
         )

@@ -1,5 +1,9 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../../app_localizations.dart';
+import '../about_info_page_model.dart';
 
 class SexDropDown extends StatelessWidget {
   const SexDropDown({Key? key}) : super(key: key);
@@ -7,10 +11,11 @@ class SexDropDown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<String> genderItems = [
-      'Male',
-      'Female',
+      translate(context, 'male_text'),
+      translate(context, 'female_text'),
     ];
     final theme = Theme.of(context);
+    final isSexCorrect = context.select((AboutInfoPageViewModel model) => model.isSexCorrect);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -24,12 +29,17 @@ class SexDropDown extends StatelessWidget {
           decoration: InputDecoration(
             hintStyle: theme.textTheme.bodyText2,
             hintText: 'Не указан',
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-                borderSide: BorderSide(
-                  color: theme.textTheme.bodyText2!.color!,
-                  width: 2,
-                )),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+              borderSide: BorderSide(
+                  color: isSexCorrect ? theme.textTheme.bodyText2!.color! : const Color.fromRGBO(255, 47, 47, 1),
+                  width: 2),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+              borderSide: BorderSide(
+                  color: isSexCorrect ? theme.indicatorColor : const Color.fromRGBO(255, 47, 47, 1), width: 2),
+            ),
           ),
           items: genderItems
               .map((item) => DropdownMenuItem<String>(
@@ -47,13 +57,11 @@ class SexDropDown extends StatelessWidget {
           isExpanded: true,
           validator: (value) {
             if (value == null) {
-              return 'Please select gender.';
+              return 'None';
             }
             return null;
           },
-          onChanged: (value) {
-            //Do something when changing the item if you want.
-          },
+          onChanged: (value) => context.read<AboutInfoPageViewModel>().onSexChange(value.toString()),
           onSaved: (value) {
             // selectedValue = value.toString();
           },

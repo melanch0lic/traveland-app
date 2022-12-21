@@ -5,9 +5,9 @@ part 'api_error.g.dart';
 @JsonSerializable()
 class ApiError {
   int code;
-  String description;
+  String? msg;
 
-  ApiError({required this.code, required this.description});
+  ApiError({required this.code, required this.msg});
 
   factory ApiError.fromJson(Map<String, dynamic> json) => _$ApiErrorFromJson(json);
   Map<String, dynamic> toJson() => _$ApiErrorToJson(this);

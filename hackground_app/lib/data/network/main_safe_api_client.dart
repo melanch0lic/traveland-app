@@ -1,3 +1,6 @@
+import 'package:dio/dio.dart';
+
+import 'api_error.dart';
 import 'main_api_client.dart';
 import 'models/login_request_body.dart';
 import 'models/response/login_response.dart';
@@ -26,13 +29,13 @@ class MainSafeApiClient implements MainApiClient {
     try {
       return await call();
     } catch (exception) {
-      // if (exception is DioError) {
-      //   ApiError? apiError;
-      //   if (exception.response != null) {
-      //     apiError = ApiError.fromJson(exception.response!.data['error']);
-      //   }
-      //   return Future(() => Failure(exception: exception, error: apiError));
-      // }
+      if (exception is DioError) {
+        ApiError? apiError;
+        if (exception.response != null) {
+          apiError = ApiError.fromJson(exception.response!.data['error']);
+        }
+        return Future(() => Failure(exception: exception, error: apiError));
+      }
       return Future(() => Failure(exception: exception as Exception));
     }
   }

@@ -11,6 +11,7 @@ class RetryPasswordTextfield extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isHidePassword = context.select((RegisterPageViewModel model) => model.isHidePasswordRepeat);
+    final isPasswordRepeatCorrect = context.select((RegisterPageViewModel model) => model.isPasswordRepeatCorrect);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -51,14 +52,23 @@ class RetryPasswordTextfield extends StatelessWidget {
                   ),
                 )),
             hintText: 'Минимум 6 символов',
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-                borderSide: BorderSide(
-                  color: theme.textTheme.bodyText2!.color!,
-                  width: 2,
-                )),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+              borderSide: BorderSide(
+                  color: isPasswordRepeatCorrect
+                      ? theme.textTheme.bodyText2!.color!
+                      : const Color.fromRGBO(255, 47, 47, 1),
+                  width: 2),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+              borderSide: BorderSide(
+                  color: isPasswordRepeatCorrect ? theme.indicatorColor : const Color.fromRGBO(255, 47, 47, 1),
+                  width: 2),
+            ),
           ),
-          // onChanged: (){},
+          textInputAction: TextInputAction.done,
+          onChanged: (value) => context.read<RegisterPageViewModel>().onPasswordRepeatChange(value),
         )
       ],
     );

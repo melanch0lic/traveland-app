@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../about_info_page_model.dart';
 
 class SurnameTextField extends StatelessWidget {
   const SurnameTextField({Key? key}) : super(key: key);
@@ -6,6 +9,7 @@ class SurnameTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final isSurnameCorrect = context.select((AboutInfoPageViewModel model) => model.isSurnameCorrect);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -22,13 +26,20 @@ class SurnameTextField extends StatelessWidget {
               minHeight: 14,
             ),
             hintText: 'Иванов',
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-                borderSide: BorderSide(
-                  color: theme.textTheme.bodyText2!.color!,
-                  width: 2,
-                )),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+              borderSide: BorderSide(
+                  color: isSurnameCorrect ? theme.textTheme.bodyText2!.color! : const Color.fromRGBO(255, 47, 47, 1),
+                  width: 2),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+              borderSide: BorderSide(
+                  color: isSurnameCorrect ? theme.indicatorColor : const Color.fromRGBO(255, 47, 47, 1), width: 2),
+            ),
           ),
+          onChanged: (value) => context.read<AboutInfoPageViewModel>().onSurnameChange(value),
+          textInputAction: TextInputAction.done,
         )
       ],
     );
