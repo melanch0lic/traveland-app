@@ -2,24 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-import '../login_page_model.dart';
+import '../register_page_model.dart';
 
-class PasswordTextfield extends StatelessWidget {
-  const PasswordTextfield({Key? key}) : super(key: key);
+class RegisterPasswordTextfield extends StatelessWidget {
+  const RegisterPasswordTextfield({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isHidePassword = context.select((LoginPageViewModel model) => model.isHidePassword);
-    final isDataCorrect = context.select((LoginPageViewModel model) => model.isDataCorrect);
+    final isHidePassword = context.select((RegisterPageViewModel model) => model.isHidePassword);
+    final isPasswordCorrect = context.select((RegisterPageViewModel model) => model.isPasswordCorrect);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           'Пароль',
-          style: isDataCorrect
-              ? theme.textTheme.bodyText2
-              : theme.textTheme.bodyText2!.copyWith(color: const Color.fromRGBO(255, 47, 47, 1)),
+          style: theme.textTheme.bodyText2,
         ),
         const SizedBox(height: 10),
         TextField(
@@ -44,7 +42,7 @@ class PasswordTextfield extends StatelessWidget {
             suffixIcon: InkWell(
                 highlightColor: theme.cardColor,
                 onTap: () {
-                  context.read<LoginPageViewModel>().changeHidePasswordMode();
+                  context.read<RegisterPageViewModel>().changeHidePasswordMode();
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(top: 16, bottom: 16, right: 16),
@@ -57,16 +55,17 @@ class PasswordTextfield extends StatelessWidget {
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
               borderSide: BorderSide(
-                  color: isDataCorrect ? theme.textTheme.bodyText2!.color! : const Color.fromRGBO(255, 47, 47, 1),
+                  color: isPasswordCorrect ? theme.textTheme.bodyText2!.color! : const Color.fromRGBO(255, 47, 47, 1),
                   width: 2),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
               borderSide: BorderSide(
-                  color: isDataCorrect ? theme.indicatorColor : const Color.fromRGBO(255, 47, 47, 1), width: 2),
+                  color: isPasswordCorrect ? theme.indicatorColor : const Color.fromRGBO(255, 47, 47, 1), width: 2),
             ),
           ),
-          onChanged: (value) => context.read<LoginPageViewModel>().onPasswordChange(value),
+          textInputAction: TextInputAction.done,
+          onChanged: (value) => context.read<RegisterPageViewModel>().onPasswordChange(value),
         )
       ],
     );

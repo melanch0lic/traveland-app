@@ -1,4 +1,6 @@
 {
     "search_text" : "Search",
-    "profile_appbar_text": "Profile"
+    "profile_appbar_text": "Profile",
+    "male_text": "Male",
+    "female_text": "Female"
 }

@@ -1,22 +1,26 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-import 'components/register_button.dart';
-import 'components/register_emai_texfield.dart';
-import 'components/register_password_textfield.dart';
-import 'components/retry_password_textfield.dart';
-import 'register_page_model.dart';
+import '../../app_initialization.dart';
+import 'about_info_page_model.dart';
+import 'components/name_textfield.dart';
+import 'components/sent_info_button.dart';
+import 'components/sex_dropdown.dart';
+import 'components/surname_textfield.dart';
 
-class RegisterPage extends StatelessWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+class AboutInfoPage extends StatelessWidget {
+  const AboutInfoPage({Key? key, required this.email, required this.password}) : super(key: key);
+
+  final String email;
+  final String password;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return ChangeNotifierProvider(
-      create: (context) => RegisterPageViewModel(),
+      create: (context) => AboutInfoPageViewModel(
+          authService: context.read<InitializeProvider>().authService, email: email, password: password),
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -26,11 +30,11 @@ class RegisterPage extends StatelessWidget {
               'assets/images/back_arrow_icon.svg',
               color: Colors.black,
             ),
-            onPressed: () => context.router.pop(),
+            onPressed: () => Navigator.of(context).pop(),
           ),
           title: Container(
             padding: const EdgeInsets.only(right: 10),
-            child: Text('Регистрация',
+            child: Text('О себе',
                 style: theme.textTheme.headline2!
                     .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500)),
           ),
@@ -41,13 +45,13 @@ class RegisterPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
-              RegisterEmailTextField(),
+              NameTextField(),
               SizedBox(height: 20),
-              RegisterPasswordTextfield(),
+              SurnameTextField(),
               SizedBox(height: 20),
-              RetryPasswordTextfield(),
+              SexDropDown(),
               SizedBox(height: 50),
-              RegisterButton()
+              SentInfoButton()
             ],
           ),
         ),
