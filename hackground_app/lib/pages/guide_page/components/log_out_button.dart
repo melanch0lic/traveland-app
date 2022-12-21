@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../../../navigation/router.gr.dart';
 
-class StartAuthButton extends StatelessWidget {
-  const StartAuthButton({Key? key}) : super(key: key);
+class LogOutButton extends StatelessWidget {
+  const LogOutButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +20,10 @@ class StartAuthButton extends StatelessWidget {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           elevation: 0,
         ),
-        onPressed: () {
-          // context.router.push(const LoginRoute());
-        },
+        onPressed: () {},
         child: Center(
           child: Text(
-            'Войти',
+            'Выйти',
             style: theme.textTheme.bodyText1!
                 .copyWith(color: theme.indicatorColor),
           ),

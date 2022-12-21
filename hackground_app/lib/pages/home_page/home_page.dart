@@ -22,15 +22,24 @@ class HomePage extends StatelessWidget {
               const NameRowHeader(
                 name: 'Жильё',
               ),
-              AttractionListView(attractionListHouse),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: AttractionListView(attractionListHouse),
+              ),
               const NameRowHeader(
                 name: 'Места',
               ),
-              AttractionListView(attractionListPlace),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: AttractionListView(attractionListPlace),
+              ),
               const NameRowHeader(
                 name: 'Мероприятия',
               ),
-              AttractionListView(attractionListEvents),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: AttractionListView(attractionListEvents),
+              ),
               const SizedBox(height: 10),
             ],
           ),

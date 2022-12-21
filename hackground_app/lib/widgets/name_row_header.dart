@@ -15,29 +15,32 @@ class NameRowHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(14),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            name!,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          name!,
+          style: Theme.of(context).textTheme.headline2?.copyWith(
+                color: const Color.fromRGBO(44, 44, 46, 1),
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+              ),
+        ),
+        TextButton(
+          onPressed: () {
+            context.read<TabsPageViewModel>().changeRouterIndex(1);
+            context.navigateTo(const HotelsRouter());
+          },
+          child: Text(
+            'Больше',
+            style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                  color: const Color.fromRGBO(37, 65, 178, 1),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
           ),
-          TextButton(
-              onPressed: () {
-                context.read<TabsPageViewModel>().changeRouterIndex(1);
-                context.navigateTo(const HotelsRouter());
-              },
-              child: const Text(
-                'Больше',
-                style: TextStyle(color: Colors.lightBlue),
-              ))
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
