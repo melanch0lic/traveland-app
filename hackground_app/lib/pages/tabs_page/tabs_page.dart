@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 import '../../app_initialization.dart';
@@ -14,12 +15,60 @@ class TabsPage extends StatefulWidget {
 }
 
 class _TabsPageState extends State<TabsPage> {
-  final _bottomBarIcons = const [
-    Icon(Icons.home),
-    Icon(Icons.local_hotel),
-    Icon(Icons.map),
-    Icon(Icons.people),
-    Icon(Icons.transfer_within_a_station),
+  final _bottomBarIcons = [
+    SvgPicture.asset(
+      'assets/images/home_icon.svg',
+      width: 22,
+      height: 25,
+    ),
+    SvgPicture.asset(
+      'assets/images/hotels_icon.svg',
+      width: 22,
+      height: 25,
+    ),
+    SvgPicture.asset(
+      'assets/images/map_icon.svg',
+      width: 22,
+      height: 25,
+    ),
+    SvgPicture.asset(
+      'assets/images/tours_icon.svg',
+      width: 22,
+      height: 25,
+    ),
+    SvgPicture.asset(
+      'assets/images/profile_icon.svg',
+      width: 22,
+      height: 25,
+    ),
+  ];
+
+  final _bottomBarActiveIcons = [
+    SvgPicture.asset(
+      'assets/images/home_icon_filled.svg',
+      width: 22,
+      height: 25,
+    ),
+    SvgPicture.asset(
+      'assets/images/hotels_icon_filled.svg',
+      width: 22,
+      height: 25,
+    ),
+    SvgPicture.asset(
+      'assets/images/map_icon_filled.svg',
+      width: 22,
+      height: 25,
+    ),
+    SvgPicture.asset(
+      'assets/images/tours_icon_filled.svg',
+      width: 22,
+      height: 25,
+    ),
+    SvgPicture.asset(
+      'assets/images/profile_icon_filled.svg',
+      width: 22,
+      height: 25,
+    ),
   ];
 
   @override
@@ -27,6 +76,7 @@ class _TabsPageState extends State<TabsPage> {
     return ChangeNotifierProvider(
       create: (context) => TabsPageViewModel(),
       child: Builder(builder: (context) {
+        final theme = Theme.of(context);
         final currentRouterIndex = context.select((TabsPageViewModel model) => model.currentRouterIndex);
         return WillPopScope(
           onWillPop: () async {
@@ -44,6 +94,7 @@ class _TabsPageState extends State<TabsPage> {
             routes: const [HomeRouter(), HotelsRouter(), MapRouter(), HubsRouter(), GuidesRouter()],
             bottomNavigationBuilder: (_, tabsRouter) {
               return BottomNavigationBar(
+                backgroundColor: theme.bottomAppBarColor,
                 elevation: 0,
                 currentIndex: tabsRouter.activeIndex,
                 onTap: (index) {
@@ -52,25 +103,33 @@ class _TabsPageState extends State<TabsPage> {
                 },
                 unselectedIconTheme: const IconThemeData(color: Colors.black),
                 selectedIconTheme: const IconThemeData(color: Colors.amberAccent, size: 30),
+                showSelectedLabels: false,
+                showUnselectedLabels: false,
+                type: BottomNavigationBarType.fixed,
                 items: [
                   BottomNavigationBarItem(
                     icon: _bottomBarIcons[0],
+                    activeIcon: _bottomBarActiveIcons[0],
                     label: '',
                   ),
                   BottomNavigationBarItem(
                     icon: _bottomBarIcons[1],
+                    activeIcon: _bottomBarActiveIcons[1],
                     label: '',
                   ),
                   BottomNavigationBarItem(
                     icon: _bottomBarIcons[2],
+                    activeIcon: _bottomBarActiveIcons[2],
                     label: '',
                   ),
                   BottomNavigationBarItem(
                     icon: _bottomBarIcons[3],
+                    activeIcon: _bottomBarActiveIcons[3],
                     label: '',
                   ),
                   BottomNavigationBarItem(
                     icon: _bottomBarIcons[4],
+                    activeIcon: _bottomBarActiveIcons[4],
                     label: '',
                   ),
                 ],

@@ -12,11 +12,10 @@ class AttractionListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 282,
+      height: 300,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) =>
-            AttractionCardGeneral(attractionList[index]),
+        itemBuilder: (context, index) => AttractionCardGeneral(attractionList[index]),
         itemCount: attractionList.length,
       ),
     );

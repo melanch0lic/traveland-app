@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../pages/home_page/components/weather_widget.dart';
 import 'search_widget.dart';
 
 class HeaderWidget extends StatelessWidget {
@@ -12,7 +11,6 @@ class HeaderWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: const [
         SearchWidget(),
-        WeatherWidget(),
       ],
     );
   }

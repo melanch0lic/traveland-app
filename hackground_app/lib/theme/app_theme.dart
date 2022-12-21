@@ -7,6 +7,8 @@ class AppTheme with ChangeNotifier {
         brightness: Brightness.light,
         scaffoldBackgroundColor: const Color.fromRGBO(234, 234, 235, 1),
         bottomAppBarColor: const Color.fromRGBO(242, 242, 247, 1),
+        primaryColorLight: const Color.fromRGBO(255, 255, 255, 1),
+        primaryColorDark: const Color.fromRGBO(44, 44, 46, 1),
         cardColor: const Color.fromRGBO(253, 197, 0, 1),
         canvasColor: const Color.fromRGBO(255, 162, 0, 1),
         shadowColor: const Color.fromRGBO(0, 0, 0, 0.11),
