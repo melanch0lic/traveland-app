@@ -39,6 +39,8 @@ dependencies:
   dropdown_button2: ^1.9.2
   flutter_secure_storage: ^7.0.1
   email_validator: '^2.1.16'
+  carousel_slider: ^4.2.1
+  smooth_page_indicator: ^1.0.0+2
 
 dev_dependencies:
   flutter_test:

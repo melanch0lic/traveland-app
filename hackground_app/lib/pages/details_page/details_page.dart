@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../domain/models/attraction_model.dart';
-import 'components/details_page_appbar.dart';
-import 'components/details_page_body.dart';
+import 'components/image_slider.dart';
 
 class DetailsPage extends StatelessWidget {
   final Attraction selectedModel;
@@ -10,26 +10,26 @@ class DetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(image: NetworkImage(selectedModel.imgSrc!), fit: BoxFit.cover),
+        appBar: AppBar(
+          leading: IconButton(
+            highlightColor: theme.cardColor,
+            splashRadius: 15,
+            icon: SvgPicture.asset(
+              'assets/images/back_arrow_icon.svg',
+              color: Colors.black,
             ),
+            onPressed: () => Navigator.of(context).pop(),
           ),
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  colors: [Colors.transparent, Colors.black.withOpacity(0.8)],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter),
-            ),
+          title: Text(
+            '${selectedModel.name}',
+            style: theme.textTheme.headline2!.copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
           ),
-          DetailsPageBody(selectedModel: selectedModel),
-          const DetailsPageAppbar()
-        ],
-      ),
-    );
+          backgroundColor: theme.primaryColorLight,
+        ),
+        body: Column(
+          children: const [ImageSlider()],
+        ));
   }
 }

@@ -7,7 +7,10 @@ class TokenEntity {
   @JsonKey(name: 'token')
   final String token;
 
-  TokenEntity({required this.token});
+  @JsonKey(name: 'user-id')
+  final int userId;
+
+  TokenEntity({required this.token, required this.userId});
 
   factory TokenEntity.fromJson(Map<String, dynamic> json) => _$TokenEntityFromJson(json);
 
