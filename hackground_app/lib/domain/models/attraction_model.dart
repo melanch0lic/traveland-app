@@ -9,6 +9,7 @@ class Attraction {
   final String? address;
   final String? date;
   final String? clock;
+  final String? description;
 
   Attraction(
       {this.address,
@@ -20,5 +21,6 @@ class Attraction {
       this.price,
       this.distType,
       this.date,
-      this.clock});
+      this.clock,
+      this.description});
 }

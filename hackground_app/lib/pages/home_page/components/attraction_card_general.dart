@@ -51,19 +51,15 @@ class AttractionCardGeneral extends StatelessWidget {
                         borderRadius: BorderRadius.circular(7),
                         color: const Color.fromRGBO(56, 176, 0, 1),
                       ),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
-                            child: Text(
-                              '${attraction.starRating}',
-                              style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                                    color: const Color.fromRGBO(255, 255, 255, 1),
-                                    fontSize: 14,
-                                  ),
-                            ),
-                          )
-                        ],
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
+                        child: Text(
+                          '${attraction.starRating}',
+                          style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                                color: const Color.fromRGBO(255, 255, 255, 1),
+                                fontSize: 14,
+                              ),
+                        ),
                       ),
                     ),
                   )
