@@ -212,9 +212,12 @@ class DetailsPage extends StatelessWidget {
                           ),
                         ],
                       ),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       ReviewCard(
                         review: reviewList[0],
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -225,7 +228,6 @@ class DetailsPage extends StatelessWidget {
   }
 
   Widget buildStar(BuildContext context, int index, double rating) {
-    final theme = Theme.of(context);
     Icon icon;
     if (index >= rating) {
       icon = const Icon(
