@@ -9,9 +9,11 @@ class Attraction {
   final String? address;
   final String? date;
   final String? clock;
+  final String? fullAdress;
 
   Attraction(
       {this.address,
+      this.fullAdress,
       this.imgSrc,
       this.name,
       this.starRating,

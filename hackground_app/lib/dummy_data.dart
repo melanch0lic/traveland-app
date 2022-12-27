@@ -126,10 +126,13 @@ List<Attraction> attractionListPlace = [
 List<Attraction> attractionListEvents = [
   Attraction(
     imgSrc: 'assets/images/kel.jpg',
+    starRating: 4.9,
     name: 'Щелкунчик',
     date: '27 декабря',
     clock: '19:00',
     address: "КЗ СОГУ",
+    fullAdress: 'КЗ СОГУ, ул. Бутырина, 37',
+    reviewCount: 250,
     price: 1500,
     distance: 95,
     distType: 'м',
@@ -138,6 +141,9 @@ List<Attraction> attractionListEvents = [
     imgSrc: 'assets/images/onegin.jpg',
     name: 'Евгений Онегин',
     date: '19 декабря',
+    starRating: 4.7,
+    fullAdress: 'КЗ СОГУ, ул. Бутырина, 37',
+    reviewCount: 213,
     clock: '19:00',
     address: "КЗ СОГУ",
     price: 2000,
