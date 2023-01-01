@@ -23,6 +23,9 @@ List<WeatherModel> weatherList = [
 
 List<Attraction> attractionListHouse = [
   Attraction(
+      phoneNumber: '+79187052462',
+      email: 'kudza76@mail.ru',
+      webUrl: 'https://www.aleksandrovski.ru/',
       imgSrc: 'assets/images/Aleksa.jpg',
       name: 'Александровский',
       starRating: 4.0,

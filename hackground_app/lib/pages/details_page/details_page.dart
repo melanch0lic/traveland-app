@@ -1,17 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+import '../../app_localizations.dart';
 import '../../domain/models/attraction_model.dart';
 import '../../dummy_data.dart';
 import '../../widgets/name_row_header.dart';
+import '../home_page/components/attraction_listview.dart';
+import 'components/contact_item.dart';
 import 'components/image_slider.dart';
 import 'components/review_card.dart';
+import 'components/sent_review_button.dart';
 import 'details_page_model.dart';
 
 class DetailsPage extends StatelessWidget {
   final Attraction selectedModel;
   const DetailsPage({Key? key, required this.selectedModel}) : super(key: key);
+
+  Future<void> openPhoneNumber(BuildContext context, String phoneNumber) async {
+    final String phoneAppUrl = 'tel://$phoneNumber';
+    final Uri phoneAppUrlRequest = Uri.parse(phoneAppUrl);
+
+    try {
+      await launchUrl(phoneAppUrlRequest);
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Phone Error')));
+    }
+  }
+
+  Future<void> openWebsite(BuildContext context, String websiteUrl) async {
+    final Uri websiteAppUrlRequest = Uri.parse(websiteUrl);
+
+    try {
+      await launchUrl(websiteAppUrlRequest);
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Website Error')));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,35 +110,28 @@ class DetailsPage extends StatelessWidget {
                       const SizedBox(
                         height: 15,
                       ),
-                      Text(
-                        'Wi-Fi • Парковка • Кондиционер в номере • Оплата картой',
-                        style: theme.textTheme.bodyText1!
-                            .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Row(
-                        children: [
-                          SvgPicture.asset(
-                            'assets/images/wallet_icon.svg',
-                            color: theme.primaryColorDark,
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            'от ${selectedModel.price} ₽ за ночь',
-                            style: theme.textTheme.bodyText1!
-                                .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
-                          )
-                        ],
-                      ),
+                      if (selectedModel.price != null)
+                        Row(
+                          children: [
+                            SvgPicture.asset(
+                              'assets/images/wallet_icon.svg',
+                              color: theme.primaryColorDark,
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              selectedModel.price! > 0 ? 'от ${selectedModel.price} ₽ за ночь' : 'Бесплатно',
+                              style: theme.textTheme.bodyText1!
+                                  .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
+                            )
+                          ],
+                        ),
                       const SizedBox(
                         height: 30,
                       ),
                       Text(
-                        'Описание',
+                        translate(context, 'description_text'),
                         style: theme.textTheme.headline2!
                             .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
                       ),
@@ -141,14 +161,14 @@ class DetailsPage extends StatelessWidget {
                           splashColor: Colors.black,
                           highlightColor: theme.indicatorColor.withOpacity(0.5),
                           child: Text(
-                            isFullTextShowed ? 'Скрыть' : 'Показать полностью...',
+                            isFullTextShowed ? translate(context, 'hide_text') : translate(context, 'show_full_text'),
                             style: theme.textTheme.bodyText2!.copyWith(color: theme.indicatorColor),
                           )),
                       const SizedBox(
                         height: 30,
                       ),
                       Text(
-                        'Местоположение',
+                        translate(context, 'location_text'),
                         style: theme.textTheme.headline2!
                             .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
                       ),
@@ -176,8 +196,50 @@ class DetailsPage extends StatelessWidget {
                       const SizedBox(
                         height: 30,
                       ),
-                      const NameRowHeader(
-                        name: 'Отзывы',
+                      if (selectedModel.phoneNumber != null ||
+                          selectedModel.email != null ||
+                          selectedModel.webUrl != null) ...[
+                        Text(
+                          translate(context, 'contacts_text'),
+                          style: theme.textTheme.headline2!
+                              .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                      ],
+                      if (selectedModel.phoneNumber != null) ...[
+                        ContactItem(
+                          iconPath: 'assets/images/phone_icon.svg',
+                          text: selectedModel.phone,
+                          callback: () => openPhoneNumber(context, selectedModel.phoneNumber as String),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        )
+                      ],
+                      if (selectedModel.email != null) ...[
+                        ContactItem(
+                          iconPath: 'assets/images/email_icon.svg',
+                          text: selectedModel.email as String,
+                          callback: () async {
+                            await Clipboard.setData(ClipboardData(text: selectedModel.email));
+                          },
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        )
+                      ],
+                      if (selectedModel.webUrl != null)
+                        ContactItem(
+                            iconPath: 'assets/images/browser_icon.svg',
+                            text: selectedModel.webUrl as String,
+                            callback: () => openWebsite(context, selectedModel.webUrl as String)),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      NameRowHeader(
+                        name: translate(context, 'reviews_text'),
                       ),
                       const SizedBox(
                         height: 15,
@@ -215,9 +277,27 @@ class DetailsPage extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      ReviewCard(
-                        review: reviewList[0],
+                      SizedBox(
+                        height: 180,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: 8,
+                            itemBuilder: (context, index) => ReviewCard(
+                                  review: reviewList[0],
+                                )),
                       ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      const SentReviewButton(),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      NameRowHeader(name: translate(context, 'also_recommended')),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      AttractionListView(attractionListHouse.sublist(1)),
                     ],
                   ),
                 ),
