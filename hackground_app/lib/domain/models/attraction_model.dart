@@ -9,6 +9,10 @@ class Attraction {
   final String? address;
   final String? date;
   final String? clock;
+  final String? description;
+  final String? phoneNumber;
+  final String? email;
+  final String? webUrl;
 
   Attraction(
       {this.address,
@@ -20,5 +24,11 @@ class Attraction {
       this.price,
       this.distType,
       this.date,
-      this.clock});
+      this.clock,
+      this.description,
+      this.email,
+      this.phoneNumber,
+      this.webUrl});
+
+  String get phone => '${phoneNumber!}Номер';
 }
