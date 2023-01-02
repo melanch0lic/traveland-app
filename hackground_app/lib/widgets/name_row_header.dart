@@ -7,11 +7,9 @@ import '../pages/tabs_page/tabs_page_model.dart';
 
 class NameRowHeader extends StatelessWidget {
   final String? name;
+  final Function? callback;
 
-  const NameRowHeader({
-    Key? key,
-    this.name,
-  }) : super(key: key);
+  const NameRowHeader({Key? key, this.name, this.callback}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +25,12 @@ class NameRowHeader extends StatelessWidget {
               ),
         ),
         TextButton(
-          onPressed: () {
-            context.read<TabsPageViewModel>().changeRouterIndex(1);
-            context.navigateTo(const HotelsRouter());
-          },
+          onPressed: callback != null
+              ? callback!()
+              : () {
+                  context.read<TabsPageViewModel>().changeRouterIndex(1);
+                  context.navigateTo(const HotelsRouter());
+                },
           child: Text(
             'Больше',
             style: Theme.of(context).textTheme.bodyText1?.copyWith(

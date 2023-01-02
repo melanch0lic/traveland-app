@@ -2,5 +2,13 @@
     "search_text" : "Search",
     "profile_appbar_text": "Profile",
     "male_text": "Male",
-    "female_text": "Female"
+    "female_text": "Female",
+    "description_text": "Description",
+    "hide_text": "Hide",
+    "show_full_text": "Show in full...",
+    "location_text": "Location",
+    "contacts_text": "Contacts",
+    "reviews_text": "Reviews",
+    "sent_review_text": "Sent review",
+    "also_recommended": "Also recommended"
 }

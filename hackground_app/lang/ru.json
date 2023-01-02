@@ -2,5 +2,13 @@
     "search_text" : "Поиск",
     "profile_appbar_text": "Профиль",
     "male_text": "Мужской",
-    "female_text": "Женский"
+    "female_text": "Женский",
+    "description_text": "Описание",
+    "hide_text": "Скрыть",
+    "show_full_text": "Показать полностью...",
+    "location_text": "Местоположение",
+    "contacts_text": "Контакты",
+    "reviews_text": "Отзывы",
+    "sent_review_text": "Оставить отзыв",
+    "also_recommended": "Также рекомендуем"
 }
