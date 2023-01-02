@@ -28,7 +28,7 @@ class ToursPage extends StatelessWidget {
                         children: [
                           const CustomAppBar(),
                           const SearchWidget(),
-                          const FilterHeader('Маршруты'),
+                          const FilterHeader(),
                           if (tours != null)
                             Expanded(
                               child: ListView.builder(
