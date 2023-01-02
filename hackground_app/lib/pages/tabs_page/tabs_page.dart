@@ -91,7 +91,7 @@ class _TabsPageState extends State<TabsPage> {
             return isFirstRouteInCurrentTab;
           },
           child: AutoTabsScaffold(
-            routes: const [HomeRouter(), HotelsRouter(), MapRouter(), HubsRouter(), GuidesRouter()],
+            routes: const [HomeRouter(), HotelsRouter(), MapRouter(), PlacesRouter(), GuidesRouter()],
             bottomNavigationBuilder: (_, tabsRouter) {
               return BottomNavigationBar(
                 backgroundColor: theme.bottomAppBarColor,

@@ -1,55 +1,48 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:provider/provider.dart';
 
 import '../../dummy_data.dart';
-import '../../widgets/appbar.dart';
-import '../../widgets/filter_header.dart';
-import '../../widgets/search_widget.dart';
-import '../home_page/components/attraction_listview.dart';
 import 'components/attraction_listview_house_rent.dart';
+import 'components/filter_header_hotels.dart';
+import 'hotels_page_model.dart';
 
-class HotelsPage extends StatefulWidget {
+class HotelsPage extends StatelessWidget {
   const HotelsPage({Key? key}) : super(key: key);
 
   @override
-  State<HotelsPage> createState() => _HotelsPageState();
-}
-
-class _HotelsPageState extends State<HotelsPage> {
-  late WebViewController? _webController;
-
-  @override
-  void initState() {
-    if (Platform.isAndroid) WebView.platform = AndroidWebView();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _webController = null;
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            // const CustomAppBar(),
-            // const SearchWidget(),
-            //const FilterHeader('Жильё'),
-            AttractionListViewHouse(attractionListHouse),
-          ],
+    final theme = Theme.of(context);
+    return ChangeNotifierProvider(
+      create: (context) => HotelsPageViewModel(),
+      child: Scaffold(
+        backgroundColor: theme.scaffoldBackgroundColor,
+        appBar: AppBar(
+          title: Text(
+            'Жильё',
+            style: theme.textTheme.headline2!.copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
+          ),
+          backgroundColor: theme.primaryColorLight,
+        ),
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+            child: Column(
+              children: [
+                const FilterHeaderHotels(),
+                const SizedBox(
+                  height: 15,
+                ),
+                AttractionListViewHouse(attractionListHouse),
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
 }
-    
-     // body: SafeArea(
+
+// body: SafeArea(
       //  child: WebView(
        //   javascriptMode: JavascriptMode.unrestricted,
        //   initialUrl: 'https://sutochno.tp.st/EYdXrV3r',

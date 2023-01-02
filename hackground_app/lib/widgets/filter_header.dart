@@ -1,43 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class FilterHeader extends StatelessWidget {
-  final String? title;
-
-  const FilterHeader(this.title);
+  const FilterHeader({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(14),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title!,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
+    final theme = Theme.of(context);
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        AnimatedCrossFade(
+            firstChild: InkWell(
+              onTap: () {},
+              child: Row(children: [
+                SvgPicture.asset(
+                  'assets/images/sort_up_icon.svg',
+                  color: theme.primaryColorDark,
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  'По стоимости',
+                  style: theme.textTheme.bodyText2!.copyWith(color: theme.primaryColorDark),
+                )
+              ]),
             ),
-          ),
-          Row(
-            children: const [
-              Icon(
-                Icons.tune,
-                size: 16,
-                color: Colors.grey,
-              ),
-              SizedBox(
-                width: 4,
+            secondChild: Row(children: [
+              SvgPicture.asset('assets/images/sort_down_icon.svg', color: theme.primaryColorDark),
+              const SizedBox(
+                width: 5,
               ),
               Text(
-                'Фильтры',
-                style: TextStyle(
-                  color: Colors.grey,
-                ),
+                'По удаленности',
+                style: theme.textTheme.bodyText2!.copyWith(color: theme.primaryColorDark),
               )
-            ],
-          )
-        ],
-      ),
+            ]),
+            crossFadeState: CrossFadeState.showFirst,
+            duration: const Duration(milliseconds: 400))
+      ],
     );
   }
 }
