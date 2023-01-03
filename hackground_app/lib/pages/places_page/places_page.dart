@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 
 import '../../dummy_data.dart';
 import '../hotels_page/components/attraction_listview_house_rent.dart';
+import 'components/filter_header_events.dart';
+import 'components/filter_header_excursions.dart';
 import 'components/filter_header_locations.dart';
 import 'places_page_model.dart';
 
@@ -107,7 +109,7 @@ class PlacesPage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
                       child: Column(
                         children: [
-                          const FilterHeaderLocations(),
+                          const FilterHeaderExcursions(),
                           const SizedBox(
                             height: 15,
                           ),
@@ -119,7 +121,7 @@ class PlacesPage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
                       child: Column(
                         children: [
-                          const FilterHeaderLocations(),
+                          const FilterHeaderEvents(),
                           const SizedBox(
                             height: 15,
                           ),

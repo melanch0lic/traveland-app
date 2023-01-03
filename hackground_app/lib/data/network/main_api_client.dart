@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
 import 'models/login_request_body.dart';
+import 'models/response/locals_response.dart';
 import 'models/response/login_response.dart';
 import 'models/response/register_response.dart';
 import 'register_request_body.dart';
@@ -18,4 +19,7 @@ abstract class MainApiClient {
 
   @POST('auth/sign-up')
   Future<Result<RegisterResponse>> registerUser(@Body() RegisterRequestBody body);
+
+  @GET('api/place/get-place-by-type/2/0')
+  Future<Result<LocalsResponse>> getEvents();
 }

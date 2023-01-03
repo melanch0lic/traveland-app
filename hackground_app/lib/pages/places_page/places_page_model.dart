@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class PlacesPageViewModel with ChangeNotifier {
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+
   PageController? _controller;
   PageController? get controller => _controller;
 
@@ -11,11 +14,27 @@ class PlacesPageViewModel with ChangeNotifier {
     _controller = PageController();
   }
 
-  bool _sortFlag = false;
-  bool get sortFlag => _sortFlag;
+  bool _sortFlagLocations = false;
+  bool get sortFlagLocations => _sortFlagLocations;
 
-  void onSortFlagPressed() {
-    _sortFlag = !_sortFlag;
+  void onSortFlagLocationsPressed() {
+    _sortFlagLocations = !_sortFlagLocations;
+    notifyListeners();
+  }
+
+  bool _sortFlagExcursions = false;
+  bool get sortFlagExcursions => _sortFlagExcursions;
+
+  void onSortFlagExcursionsPressed() {
+    _sortFlagExcursions = !_sortFlagExcursions;
+    notifyListeners();
+  }
+
+  bool _sortFlagEvents = false;
+  bool get sortFlagEvents => _sortFlagEvents;
+
+  void onSortFlagEventsPressed() {
+    _sortFlagEvents = !_sortFlagEvents;
     notifyListeners();
   }
 
