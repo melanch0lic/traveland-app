@@ -1,73 +1,122 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+
+import '../../../data/network/models/entity/event_entity.dart';
 
 class EventCard extends StatelessWidget {
-  const EventCard({Key? key}) : super(key: key);
+  final EventsEntity event;
+
+  const EventCard({Key? key, required this.event}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-      padding: const EdgeInsets.all(4),
-      height: 300,
-      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), boxShadow: [
+      margin: const EdgeInsets.only(bottom: 15),
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(15), boxShadow: const [
         BoxShadow(
-          blurRadius: 10,
-          offset: Offset.zero,
-          color: Colors.black.withOpacity(0.1),
+          blurRadius: 24,
+          color: Color.fromRGBO(149, 157, 165, 0.25),
         )
       ]),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Container(
-              height: 180,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(
-                      'https://sun9-54.userapi.com/impg/LKP1Bz-_YeipW4wlP3DdBZRA6al6sbVe1P67MA/UDxrTxjiXwI.jpg?size=604x390&quality=96&sign=0311b2afc2ec57ae217c14087f37c7d7&c_uniq_tag=li81-duY1NEG9DJOKj-EUOXZcEhJ8qQ9xQXq48SywxA&type=album'),
-                  fit: BoxFit.cover,
-                ),
-              ),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(15),
+          child: SizedBox(
+            width: double.infinity,
+            height: 194,
+            child: Image.network(
+              'http://10.0.2.2:8000/${event.placeInfo.photos[0]}',
+              fit: BoxFit.cover,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text(
-                  'Отдых в Пятигорске',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-                Text('8/10 участников'),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Icon(
-                  Icons.place,
-                  size: 18,
-                  color: Colors.red,
-                ),
-                SizedBox(width: 4),
-                Expanded(
-                  child: Text(
-                    'Ворота любви  Канатная дорога  гора Машук  Эолова арфа  Озеро Провал Бесстыжие ванны ПКиО им. Кирова  Ужин в ресторане',
-                    textAlign: TextAlign.center,
+        ),
+        Padding(
+            padding: const EdgeInsets.only(left: 15, right: 15, bottom: 20, top: 15),
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(event.placeInfo.name,
+                  style: Theme.of(context).textTheme.headline1?.copyWith(
+                        color: const Color.fromRGBO(44, 44, 46, 1),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      )),
+              const SizedBox(height: 6),
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 6),
+                    width: 33,
+                    height: 19,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(7),
+                      color: const Color.fromRGBO(56, 176, 0, 1),
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          '${event.placeInfo.meanRating.value}',
+                          style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                                color: const Color.fromRGBO(255, 255, 255, 1),
+                                fontSize: 14,
+                              ),
+                        )
+                      ],
+                    ),
                   ),
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
+                  const SizedBox(width: 11),
+                  Text(
+                    '${event.placeInfo.ratingCount.value} отзывов',
+                    style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                          color: const Color.fromRGBO(44, 44, 46, 1),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 5),
+              Row(
+                children: [
+                  SvgPicture.asset(
+                    'assets/images/Vector.svg',
+                    color: const Color.fromRGBO(44, 44, 46, 1),
+                    width: 11.33,
+                    height: 14.17,
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      event.placeInfo.adress,
+                      style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                            color: const Color.fromRGBO(44, 44, 46, 1),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 15),
+              Row(
+                children: [
+                  SvgPicture.asset(
+                    'assets/images/Wallet.svg',
+                    color: const Color.fromRGBO(44, 44, 46, 1),
+                    width: 14.17,
+                    height: 12.75,
+                  ),
+                  const SizedBox(width: 6.42),
+                  Text(
+                    int.parse(event.price.value) != 0 ? 'от ${event.price.value} ₽' : 'Бесплатно',
+                    style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                          color: const Color.fromRGBO(44, 44, 46, 1),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                  ),
+                ],
+              )
+            ]))
+      ]),
     );
   }
 }

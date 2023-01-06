@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../dummy_data.dart';
-import '../hotels_page/components/attraction_listview_house_rent.dart';
-import 'components/filter_header_events.dart';
-import 'components/filter_header_excursions.dart';
-import 'components/filter_header_locations.dart';
+import '../../app_initialization.dart';
+import 'components/events_page.dart';
+import 'components/excursions_page.dart';
+import 'components/locations_page.dart';
 import 'places_page_model.dart';
 
 class PlacesPage extends StatelessWidget {
@@ -16,7 +15,7 @@ class PlacesPage extends StatelessWidget {
     final theme = Theme.of(context);
     final deviveSize = MediaQuery.of(context).size;
     return ChangeNotifierProvider(
-      create: (context) => PlacesPageViewModel(),
+      create: (context) => PlacesPageViewModel(eventsService: context.read<InitializeProvider>().eventsService),
       child: Builder(builder: (context) {
         final pageIndex = context.select((PlacesPageViewModel model) => model.pageIndex);
         return Scaffold(
@@ -92,43 +91,10 @@ class PlacesPage extends StatelessWidget {
               Expanded(
                 child: PageView(
                   controller: context.read<PlacesPageViewModel>().controller,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
-                      child: Column(
-                        children: [
-                          const FilterHeaderLocations(),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          AttractionListViewHouse(attractionListHouse),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
-                      child: Column(
-                        children: [
-                          const FilterHeaderExcursions(),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          AttractionListViewHouse(attractionListHouse),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
-                      child: Column(
-                        children: [
-                          const FilterHeaderEvents(),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          AttractionListViewHouse(attractionListHouse),
-                        ],
-                      ),
-                    ),
+                  children: const [
+                    LocationsPage(),
+                    ExcursionsPage(),
+                    EventsPage(),
                   ],
                   onPageChanged: (page) {
                     context.read<PlacesPageViewModel>().onPageChanged(page);

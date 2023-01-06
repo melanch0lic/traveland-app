@@ -44,8 +44,8 @@ class AuthService {
   //   return response;
   // }
 
-  // Future<void> logout() async {
-  //   cachedDataRepository.clear();
-  //   await sessionData.clearJwtToken();
-  // }
+  Future<void> logout() async {
+    // cachedDataRepository.clear();
+    await sessionData.clearJwtToken();
+  }
 }

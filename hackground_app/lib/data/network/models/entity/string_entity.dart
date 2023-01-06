@@ -5,7 +5,7 @@ part 'string_entity.g.dart';
 @JsonSerializable()
 class StringEntity {
   @JsonKey(name: 'String')
-  final double value;
+  final String value;
 
   @JsonKey(name: 'Valid')
   final bool isValid;

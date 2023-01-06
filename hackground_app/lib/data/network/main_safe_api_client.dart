@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'api_error.dart';
 import 'main_api_client.dart';
 import 'models/login_request_body.dart';
-import 'models/response/locals_response.dart';
+import 'models/response/events_response.dart';
 import 'models/response/login_response.dart';
 import 'models/response/register_response.dart';
 import 'register_request_body.dart';
@@ -27,8 +27,8 @@ class MainSafeApiClient implements MainApiClient {
   }
 
   @override
-  Future<Result<LocalsResponse>> getEvents() {
-    return _wrapUnsafeCall<LocalsResponse>(() => _client.getEvents());
+  Future<Result<EventsResponse>> getEvents() {
+    return _wrapUnsafeCall<EventsResponse>(() => _client.getEvents());
   }
 
   Future<Result<T>> _wrapUnsafeCall<T>(UnsafeCall<T> call) async {
