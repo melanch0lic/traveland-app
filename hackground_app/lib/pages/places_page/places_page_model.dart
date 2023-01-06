@@ -9,6 +9,12 @@ class PlacesPageViewModel with ChangeNotifier {
   List<EventsEntity> _events = [];
   List<EventsEntity> get events => _events;
 
+  bool _isLocationsLoading = false;
+  bool get isLocationsLoading => _isLocationsLoading;
+
+  bool _isExcursionsLoading = false;
+  bool get isExcursionsLoading => _isExcursionsLoading;
+
   bool _isEventsLoading = false;
   bool get isEventsLoading => _isEventsLoading;
 
@@ -49,6 +55,14 @@ class PlacesPageViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> fetchLocations() async {
+    await Future.delayed(const Duration(seconds: 1));
+  }
+
+  Future<void> fetchExcursions() async {
+    await Future.delayed(const Duration(seconds: 1));
+  }
+
   Future<void> fetchEvents() async {
     final response = await eventsService.getEvents();
     response.fold((result) {
@@ -61,8 +75,22 @@ class PlacesPageViewModel with ChangeNotifier {
     notifyListeners();
     switch (page) {
       case 0:
+        _isLocationsLoading = true;
+        notifyListeners();
+
+        await fetchLocations();
+
+        _isLocationsLoading = false;
+        notifyListeners();
         break;
       case 1:
+        _isExcursionsLoading = true;
+        notifyListeners();
+
+        await fetchExcursions();
+
+        _isExcursionsLoading = false;
+        notifyListeners();
         break;
       case 2:
         _isEventsLoading = true;
