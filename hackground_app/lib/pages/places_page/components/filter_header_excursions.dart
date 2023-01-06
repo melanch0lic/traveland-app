@@ -4,14 +4,14 @@ import 'package:provider/provider.dart';
 
 import '../places_page_model.dart';
 
-class FilterHeaderLocations extends StatelessWidget {
-  const FilterHeaderLocations({Key? key}) : super(key: key);
+class FilterHeaderExcursions extends StatelessWidget {
+  const FilterHeaderExcursions({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final sortFlag = context.select(
-      (PlacesPageViewModel model) => model.sortFlagLocations,
+      (PlacesPageViewModel model) => model.sortFlagExcursions,
     );
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -20,7 +20,7 @@ class FilterHeaderLocations extends StatelessWidget {
           child: AnimatedCrossFade(
             firstChild: InkWell(
               onTap: () {
-                context.read<PlacesPageViewModel>().onSortFlagLocationsPressed();
+                context.read<PlacesPageViewModel>().onSortFlagExcursionsPressed();
               },
               child: Row(children: [
                 SvgPicture.asset(
@@ -40,7 +40,7 @@ class FilterHeaderLocations extends StatelessWidget {
             ),
             secondChild: InkWell(
               onTap: () {
-                context.read<PlacesPageViewModel>().onSortFlagLocationsPressed();
+                context.read<PlacesPageViewModel>().onSortFlagExcursionsPressed();
               },
               child: Row(children: [
                 SvgPicture.asset(

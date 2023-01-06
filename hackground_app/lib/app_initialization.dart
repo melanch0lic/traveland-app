@@ -5,9 +5,11 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'data/network/main_api_client.dart';
 import 'data/network/main_safe_api_client.dart';
 import 'data/network/session_data.dart';
+import 'data/network/token_interceptor.dart';
 import 'data/network/tripster_api_client.dart';
 import 'data/network/tripster_safe_api_client.dart';
 import 'domain/services/auth_service.dart';
+import 'domain/services/events_service.dart';
 import 'navigation/router.gr.dart';
 
 class InitializeProvider with ChangeNotifier {
@@ -29,6 +31,9 @@ class InitializeProvider with ChangeNotifier {
   late AuthService _authService;
   AuthService get authService => _authService;
 
+  late EventsService _eventsService;
+  EventsService get eventsService => _eventsService;
+
   Future<void> initializeApp() async {
     _dioTripster = Dio();
     _dioMainApiClient = Dio();
@@ -37,6 +42,8 @@ class InitializeProvider with ChangeNotifier {
     _appRouter = AppRouter();
     _sessionData = const SessionData(FlutterSecureStorage(aOptions: AndroidOptions(encryptedSharedPreferences: true)));
     _authService = AuthService(sessionData: _sessionData, mainApiClient: _mainApiClient);
+    _eventsService = EventsService(mainApiClient: _mainApiClient);
+    _dioMainApiClient.interceptors.add(TokenInterceptor(dio: _dioMainApiClient, sessionData: _sessionData));
   }
 
   TripsterSafeApiClient _createTripsterApiClient(Dio dio) {

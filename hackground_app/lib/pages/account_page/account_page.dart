@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hackground_app/pages/account_page/components/achievements_widget.dart';
-import 'package:hackground_app/pages/account_page/components/points_widget.dart';
-import 'package:hackground_app/pages/account_page/components/profile_appbar.dart';
-import 'package:hackground_app/pages/account_page/components/profile_header_widget.dart';
+import 'components/achievements_widget.dart';
+import 'components/points_widget.dart';
+import 'components/profile_appbar.dart';
+import 'components/profile_header_widget.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({Key? key}) : super(key: key);
@@ -26,14 +26,12 @@ class AccountPage extends StatelessWidget {
                   decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(18), boxShadow: [
                     BoxShadow(
                       blurRadius: 10,
-                      offset: Offset.zero,
                       color: Colors.black.withOpacity(0.1),
                     )
                   ]),
                   child: Column(
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
                         children: const [
                           Text(
                             'Мои хабы',
@@ -91,14 +89,12 @@ class AccountPage extends StatelessWidget {
                   decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(18), boxShadow: [
                     BoxShadow(
                       blurRadius: 10,
-                      offset: Offset.zero,
                       color: Colors.black.withOpacity(0.1),
                     )
                   ]),
                   child: Column(
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
                         children: const [
                           Text(
                             'История хабов',
