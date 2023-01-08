@@ -15,7 +15,9 @@ class PlacesPage extends StatelessWidget {
     final theme = Theme.of(context);
     final deviveSize = MediaQuery.of(context).size;
     return ChangeNotifierProvider(
-      create: (context) => PlacesPageViewModel(eventsService: context.read<InitializeProvider>().eventsService),
+      create: (context) => PlacesPageViewModel(
+          eventsService: context.read<InitializeProvider>().eventsService,
+          excursionsService: context.read<InitializeProvider>().excursionsService),
       child: Builder(builder: (context) {
         final pageIndex = context.select((PlacesPageViewModel model) => model.pageIndex);
         return Scaffold(
@@ -79,7 +81,9 @@ class PlacesPage extends StatelessWidget {
                           : pageIndex == 1
                               ? Alignment.center
                               : Alignment.centerRight,
-                      child: Container(
+                      child: AnimatedContainer(
+                        duration: const Duration(seconds: 2),
+                        curve: Curves.easeInOut,
                         width: deviveSize.width / 3,
                         decoration: BoxDecoration(color: theme.cardColor, borderRadius: BorderRadius.circular(15)),
                         height: 5,

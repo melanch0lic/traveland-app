@@ -7,8 +7,8 @@ import 'result.dart';
 part 'tripster_api_client.g.dart';
 
 @RestApi(baseUrl: 'https://experience.tripster.ru/api')
-abstract class TripsterApiService {
-  factory TripsterApiService(Dio dio) {
+abstract class TripsterApiClient {
+  factory TripsterApiClient(Dio dio) {
     dio.options = BaseOptions(
       receiveTimeout: 30000,
       connectTimeout: 30000,
@@ -19,7 +19,7 @@ abstract class TripsterApiService {
       },
     );
 
-    return _TripsterApiService(dio);
+    return _TripsterApiClient(dio);
   }
 
   @GET(

@@ -84,7 +84,7 @@ class AttractionCategoryCardHouse extends StatelessWidget {
                 Row(
                   children: [
                     SvgPicture.asset(
-                      'assets/images/Vector.svg',
+                      'assets/images/vector_icon.svg',
                       color: const Color.fromRGBO(44, 44, 46, 1),
                       width: 11.33,
                       height: 14.17,
