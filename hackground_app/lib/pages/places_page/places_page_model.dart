@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 
 import '../../data/network/models/entity/event_entity.dart';
+import '../../data/network/models/entity/tour_entity.dart';
 import '../../domain/services/events_service.dart';
+import '../../domain/services/excursions_service.dart';
 
 class PlacesPageViewModel with ChangeNotifier {
-  EventsService eventsService;
+  final EventsService eventsService;
+  final ExcursionsService excursionsService;
 
   List<EventsEntity> _events = [];
   List<EventsEntity> get events => _events;
+
+  List<TourEntity> _excursions = [];
+  List<TourEntity> get excursions => _excursions;
 
   bool _isLocationsLoading = false;
   bool get isLocationsLoading => _isLocationsLoading;
@@ -24,7 +30,7 @@ class PlacesPageViewModel with ChangeNotifier {
   int _pageIndex = 0;
   int get pageIndex => _pageIndex;
 
-  PlacesPageViewModel({required this.eventsService}) {
+  PlacesPageViewModel({required this.eventsService, required this.excursionsService}) {
     _controller = PageController();
     init();
   }
@@ -60,7 +66,10 @@ class PlacesPageViewModel with ChangeNotifier {
   }
 
   Future<void> fetchExcursions() async {
-    await Future.delayed(const Duration(seconds: 1));
+    final response = await excursionsService.getTours(1);
+    response.fold((result) {
+      _excursions = result.results;
+    }, (exception, error) {});
   }
 
   Future<void> fetchEvents() async {
@@ -84,22 +93,26 @@ class PlacesPageViewModel with ChangeNotifier {
         notifyListeners();
         break;
       case 1:
-        _isExcursionsLoading = true;
-        notifyListeners();
+        if (excursions.isEmpty) {
+          _isExcursionsLoading = true;
+          notifyListeners();
 
-        await fetchExcursions();
+          await fetchExcursions();
 
-        _isExcursionsLoading = false;
-        notifyListeners();
+          _isExcursionsLoading = false;
+          notifyListeners();
+        }
         break;
       case 2:
-        _isEventsLoading = true;
-        notifyListeners();
+        if (events.isEmpty) {
+          _isEventsLoading = true;
+          notifyListeners();
 
-        await fetchEvents();
+          await fetchEvents();
 
-        _isEventsLoading = false;
-        notifyListeners();
+          _isEventsLoading = false;
+          notifyListeners();
+        }
         break;
       default:
     }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../data/network/models/entity/event_entity.dart';
+import '../../../data/network/models/entity/tour_entity.dart';
 
-class EventCard extends StatelessWidget {
-  final EventsEntity event;
+class ExcursionCard extends StatelessWidget {
+  final TourEntity excursion;
 
-  const EventCard({Key? key, required this.event}) : super(key: key);
+  const ExcursionCard({Key? key, required this.excursion}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class EventCard extends StatelessWidget {
             width: double.infinity,
             height: 194,
             child: Image.network(
-              'http://10.0.2.2:8000/${event.placeInfo.photos[0]}',
+              excursion.coverImage,
               fit: BoxFit.cover,
             ),
           ),
@@ -33,7 +33,7 @@ class EventCard extends StatelessWidget {
         Padding(
             padding: const EdgeInsets.only(left: 15, right: 15, bottom: 20, top: 15),
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(event.placeInfo.name,
+              Text(excursion.title,
                   style: Theme.of(context).textTheme.headline1?.copyWith(
                         color: const Color.fromRGBO(44, 44, 46, 1),
                         fontSize: 16,
@@ -51,7 +51,7 @@ class EventCard extends StatelessWidget {
                       color: const Color.fromRGBO(56, 176, 0, 1),
                     ),
                     child: Text(
-                      '${event.placeInfo.meanRating.value}',
+                      '${excursion.rating}',
                       style: Theme.of(context).textTheme.bodyText2?.copyWith(
                             color: const Color.fromRGBO(255, 255, 255, 1),
                             fontSize: 14,
@@ -60,7 +60,7 @@ class EventCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 11),
                   Text(
-                    '${event.placeInfo.ratingCount.value} отзывов',
+                    '${excursion.reviewCount} отзывов',
                     style: Theme.of(context).textTheme.bodyText2?.copyWith(
                           color: const Color.fromRGBO(44, 44, 46, 1),
                           fontSize: 14,
@@ -71,9 +71,34 @@ class EventCard extends StatelessWidget {
               ),
               const SizedBox(height: 5),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SvgPicture.asset(
                     'assets/images/vector_icon.svg',
+                    color: const Color.fromRGBO(44, 44, 46, 1),
+                    width: 13,
+                    height: 14.17,
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      excursion.meetingPoint?.text ?? 'Место встречи не указано',
+                      style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                            color: const Color.fromRGBO(44, 44, 46, 1),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Row(
+                children: [
+                  SvgPicture.asset(
+                    'assets/images/hourglass_icon.svg',
                     color: const Color.fromRGBO(44, 44, 46, 1),
                     width: 11.33,
                     height: 14.17,
@@ -81,7 +106,9 @@ class EventCard extends StatelessWidget {
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      event.placeInfo.adress,
+                      excursion.duration != null
+                          ? '${excursion.duration} часов • ${excursion.movementType == 'car' ? 'На машине' : excursion.movementType == 'foot' ? 'Пешком' : 'На автобусе'}'
+                          : 'Время не указано',
                       style: Theme.of(context).textTheme.bodyText2?.copyWith(
                             color: const Color.fromRGBO(44, 44, 46, 1),
                             fontSize: 14,
@@ -102,7 +129,7 @@ class EventCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 6.42),
                   Text(
-                    int.parse(event.price.value) != 0 ? 'от ${event.price.value} ₽' : 'Бесплатно',
+                    excursion.price.value != 0 ? '${excursion.price.value} ₽ за экскурсию' : 'Не указано',
                     style: Theme.of(context).textTheme.bodyText2?.copyWith(
                           color: const Color.fromRGBO(44, 44, 46, 1),
                           fontSize: 14,

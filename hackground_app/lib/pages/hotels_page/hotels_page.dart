@@ -25,7 +25,7 @@ class HotelsPage extends StatelessWidget {
         ),
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+            padding: const EdgeInsets.only(top: 30, left: 15, right: 15),
             child: Column(
               children: [
                 const FilterHeaderHotels(),
