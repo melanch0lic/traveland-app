@@ -20,7 +20,6 @@ class HomePage extends StatelessWidget {
           'Traveland',
           style: theme.textTheme.headline2!.copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
         ),
-        backgroundColor: theme.primaryColorLight,
       ),
       body: SafeArea(
         child: SingleChildScrollView(

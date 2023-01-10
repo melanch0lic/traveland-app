@@ -21,7 +21,6 @@ class HotelsPage extends StatelessWidget {
             'Жильё',
             style: theme.textTheme.headline2!.copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
           ),
-          backgroundColor: theme.primaryColorLight,
         ),
         body: SafeArea(
           child: Padding(

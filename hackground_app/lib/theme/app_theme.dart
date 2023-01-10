@@ -4,6 +4,7 @@ enum ThemeModeType { light, dark }
 
 class AppTheme with ChangeNotifier {
   static ThemeData get lightTheme => ThemeData(
+        appBarTheme: const AppBarTheme(backgroundColor: Color.fromRGBO(255, 255, 255, 1)),
         brightness: Brightness.light,
         scaffoldBackgroundColor: const Color.fromRGBO(234, 234, 235, 1),
         bottomAppBarColor: const Color.fromRGBO(242, 242, 247, 1),

@@ -28,7 +28,6 @@ class PlacesPage extends StatelessWidget {
               style:
                   theme.textTheme.headline2!.copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
             ),
-            backgroundColor: theme.primaryColorLight,
             elevation: 0,
           ),
           body: Column(
