@@ -9,17 +9,30 @@ class PlacesPageViewModel with ChangeNotifier {
   final EventsService eventsService;
   final ExcursionsService excursionsService;
 
+  int _excursionOffset = 1;
+
+  late ScrollController _excursionController;
+  ScrollController get excursionController => _excursionController;
+
   List<EventsEntity> _events = [];
   List<EventsEntity> get events => _events;
 
-  List<TourEntity> _excursions = [];
-  List<TourEntity> get excursions => _excursions;
+  final List<TourEntity> _excursions = [];
+  List<TourEntity> get excursions {
+    // _excursions.sort((a, b) => b.reviewCount.compareTo(a.reviewCount));
+    return _excursions;
+  }
+
+  bool _excursionsHasNextPage = true;
 
   bool _isLocationsLoading = false;
   bool get isLocationsLoading => _isLocationsLoading;
 
   bool _isExcursionsLoading = false;
   bool get isExcursionsLoading => _isExcursionsLoading;
+
+  bool _isExcursionsLoadingMore = false;
+  bool get isExcursionsLoadingMore => _isExcursionsLoadingMore;
 
   bool _isEventsLoading = false;
   bool get isEventsLoading => _isEventsLoading;
@@ -32,6 +45,7 @@ class PlacesPageViewModel with ChangeNotifier {
 
   PlacesPageViewModel({required this.eventsService, required this.excursionsService}) {
     _controller = PageController();
+    _excursionController = ScrollController();
     init();
   }
 
@@ -66,9 +80,12 @@ class PlacesPageViewModel with ChangeNotifier {
   }
 
   Future<void> fetchExcursions() async {
-    final response = await excursionsService.getTours(1);
+    final response = await excursionsService.getTours(_excursionOffset);
     response.fold((result) {
-      _excursions = result.results;
+      _excursionsHasNextPage = result.next == null ? false : true;
+      _excursions.addAll(result.results);
+      _excursionOffset++;
+      print(_excursions.length);
     }, (exception, error) {});
   }
 
@@ -97,6 +114,20 @@ class PlacesPageViewModel with ChangeNotifier {
           _isExcursionsLoading = true;
           notifyListeners();
 
+          _excursionController.addListener(() async {
+            if (_excursionController.position.extentAfter < 200 &&
+                _isExcursionsLoadingMore == false &&
+                _excursionsHasNextPage) {
+              _isExcursionsLoadingMore = true;
+              notifyListeners();
+
+              await fetchExcursions();
+
+              _isExcursionsLoadingMore = false;
+              notifyListeners();
+            }
+          });
+
           await fetchExcursions();
 
           _isExcursionsLoading = false;
@@ -116,5 +147,11 @@ class PlacesPageViewModel with ChangeNotifier {
         break;
       default:
     }
+  }
+
+  @override
+  void dispose() {
+    _excursionController.dispose();
+    super.dispose();
   }
 }

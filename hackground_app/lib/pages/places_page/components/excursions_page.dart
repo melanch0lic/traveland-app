@@ -10,29 +10,52 @@ class ExcursionsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isLoadingMore = context.select((PlacesPageViewModel model) => model.isExcursionsLoadingMore);
     final isLoading = context.select((PlacesPageViewModel model) => model.isExcursionsLoading);
     final excursions = context.select((PlacesPageViewModel model) => model.excursions);
     return isLoading
         ? const Center(
             child: CircularProgressIndicator(),
           )
-        : Padding(
-            padding: const EdgeInsets.only(top: 30, left: 15, right: 15),
-            child: Column(
-              children: [
-                const FilterHeaderExcursions(),
-                const SizedBox(
-                  height: 15,
-                ),
-                Expanded(
-                    child: ListView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        itemCount: excursions.length,
-                        itemBuilder: (context, index) => ExcursionCard(
-                              excursion: excursions[index],
-                            ))),
-              ],
+        : Stack(children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 30, left: 15, right: 15),
+              child: Column(
+                children: [
+                  const FilterHeaderExcursions(),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Expanded(
+                      child: ListView.builder(
+                          controller: context.read<PlacesPageViewModel>().excursionController,
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: excursions.length,
+                          itemBuilder: (context, index) => excursions.length == index + 1
+                              ? Column(
+                                  children: [
+                                    ExcursionCard(excursion: excursions[index]),
+                                    if (isLoadingMore) const CircularProgressIndicator()
+                                  ],
+                                )
+                              : ExcursionCard(
+                                  excursion: excursions[index],
+                                ))),
+                ],
+              ),
             ),
-          );
+            Positioned(
+              bottom: 5,
+              right: 5,
+              child: FloatingActionButton.extended(
+                  onPressed: () {
+                    context
+                        .read<PlacesPageViewModel>()
+                        .excursionController
+                        .animateTo(0, duration: const Duration(seconds: 1), curve: Curves.easeInOut);
+                  },
+                  label: const Icon(Icons.arrow_circle_up)),
+            )
+          ]);
   }
 }
