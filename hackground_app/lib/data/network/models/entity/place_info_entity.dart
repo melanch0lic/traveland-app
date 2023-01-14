@@ -41,8 +41,8 @@ class PlaceInfoEntity {
   @JsonKey(name: 'mean-rating')
   final FloatEntity meanRating;
 
-  @JsonKey(name: 'photos')
-  final List<String> photos;
+  // @JsonKey(name: 'photos')
+  // final List<String> photos;
 
   PlaceInfoEntity(
       {required this.id,
@@ -54,7 +54,7 @@ class PlaceInfoEntity {
       required this.mail,
       required this.meanRating,
       required this.number,
-      required this.photos,
+      // required this.photos,
       required this.ratingCount,
       required this.url});
 

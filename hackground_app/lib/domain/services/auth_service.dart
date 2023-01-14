@@ -22,7 +22,8 @@ class AuthService {
 
     if (response.isSuccess()) {
       final success = response as Success;
-      await sessionData.saveJwtToken(success.value.jwtToken.token, body.mail, body.password);
+      await sessionData.saveUserData(
+          success.value.jwtToken.token, success.value.jwtToken.userId.toString(), body.mail, body.password);
       // await settings.saveRememberUserMode(isRememberUser);
     }
     return response;
@@ -46,6 +47,6 @@ class AuthService {
 
   Future<void> logout() async {
     // cachedDataRepository.clear();
-    await sessionData.clearJwtToken();
+    await sessionData.clearUserData();
   }
 }
