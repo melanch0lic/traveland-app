@@ -1,4 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../profile_page_model.dart';
 
 class LogOutButton extends StatelessWidget {
   const LogOutButton({Key? key}) : super(key: key);
@@ -16,7 +20,12 @@ class LogOutButton extends StatelessWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           elevation: 0,
         ),
-        onPressed: () {},
+        onPressed: () {
+          context
+              .read<ProfilePageViewModel>()
+              .onButtonExitPressed()
+              .whenComplete(() => context.router.replaceNamed('/'));
+        },
         child: Center(
           child: Text(
             'Выйти',

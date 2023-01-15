@@ -5,6 +5,7 @@ import 'models/login_request_body.dart';
 import 'models/response/events_response.dart';
 import 'models/response/login_response.dart';
 import 'models/response/register_response.dart';
+import 'models/response/user_by_id_response.dart';
 import 'register_request_body.dart';
 import 'result.dart';
 
@@ -22,4 +23,7 @@ abstract class MainApiClient {
 
   @GET('api/place/get-all-place/2/0')
   Future<Result<EventsResponse>> getEvents();
+
+  @GET('api/user/get-user/{id}')
+  Future<Result<UserByIdResponse>> getUserInfoById(@Path() String id);
 }

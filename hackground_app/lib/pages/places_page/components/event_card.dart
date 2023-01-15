@@ -25,7 +25,7 @@ class EventCard extends StatelessWidget {
             width: double.infinity,
             height: 194,
             child: Image.network(
-              'http://10.0.2.2:8000/${event.placeInfo.photos[0]}',
+              'https://i.pinimg.com/564x/76/50/4a/76504af6e73882296e5934a7059bc9a4.jpg',
               fit: BoxFit.cover,
             ),
           ),
