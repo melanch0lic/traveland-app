@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../profile_page_model.dart';
 
 class InfoUserWidget extends StatelessWidget {
   const InfoUserWidget({
@@ -7,6 +10,7 @@ class InfoUserWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userInfo = context.select((ProfilePageViewModel model) => model.userInfo);
     return Container(
       padding: const EdgeInsets.only(top: 20, bottom: 25),
       margin: const EdgeInsets.only(bottom: 15),
@@ -17,21 +21,21 @@ class InfoUserWidget extends StatelessWidget {
             BoxShadow(
               blurRadius: 24,
               offset: Offset.fromDirection(0, 8),
-              color: Color.fromRGBO(149, 157, 165, 0.2),
+              color: const Color.fromRGBO(149, 157, 165, 0.2),
             )
           ]),
       child: Column(children: [
-        Container(
-          margin: EdgeInsets.only(bottom: 8),
-          width: 100,
-          height: 100,
-          decoration: const BoxDecoration(
-            color: Color.fromRGBO(217, 217, 217, 1),
-            shape: BoxShape.circle,
+        const CircleAvatar(
+          maxRadius: 50,
+          backgroundImage: NetworkImage(
+            'https://i.pinimg.com/564x/51/74/e1/5174e13045467efb22e6c65e82815d5c.jpg',
           ),
         ),
+        const SizedBox(
+          height: 8,
+        ),
         Text(
-          'Георгий Тебиев',
+          '${userInfo.name} ${userInfo.lastName}',
           style: Theme.of(context).textTheme.headline2?.copyWith(
                 color: const Color.fromRGBO(44, 44, 46, 1),
                 fontSize: 20,
@@ -40,7 +44,7 @@ class InfoUserWidget extends StatelessWidget {
         ),
         const SizedBox(height: 5),
         Text(
-          'example@gmail.com',
+          userInfo.mail,
           style: Theme.of(context).textTheme.bodyText1?.copyWith(
                 color: const Color.fromRGBO(44, 44, 46, 1),
                 fontSize: 16,

@@ -2,6 +2,7 @@ import '../../data/network/main_api_client.dart';
 import '../../data/network/models/login_request_body.dart';
 import '../../data/network/models/response/login_response.dart';
 import '../../data/network/models/response/register_response.dart';
+import '../../data/network/models/response/user_by_id_response.dart';
 import '../../data/network/register_request_body.dart';
 import '../../data/network/result.dart';
 import '../../data/network/session_data.dart';
@@ -31,6 +32,12 @@ class AuthService {
 
   Future<Result<RegisterResponse>> register(RegisterRequestBody body) async {
     final response = await mainApiClient.registerUser(body);
+    return response;
+  }
+
+  Future<Result<UserByIdResponse>> getUserInfo() async {
+    final userId = await sessionData.getUserId();
+    final response = await mainApiClient.getUserInfoById(userId!);
     return response;
   }
 
