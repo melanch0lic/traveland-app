@@ -10,7 +10,8 @@ class AuthButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.read<LoginPageViewModel>();
-    final authButtonState = context.select((LoginPageViewModel model) => model.authButtonState);
+    final authButtonState =
+        context.select((LoginPageViewModel model) => model.authButtonState);
 
     void onPressed() {
       model.onAuthButtonPressed().then((value) {
@@ -27,7 +28,8 @@ class AuthButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color.fromRGBO(37, 65, 178, 1),
           foregroundColor: const Color.fromRGBO(30, 53, 144, 1),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           elevation: 0,
         ),
         child: Center(
