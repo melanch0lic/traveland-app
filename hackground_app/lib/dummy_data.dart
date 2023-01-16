@@ -5,20 +5,37 @@ import 'domain/models/weather_widget_model.dart';
 
 List<WeatherModel> weatherList = [
   WeatherModel(
-      imgSrc: 'https://cdn4.iconfinder.com/data/icons/the-weather-is-nice-today/64/weather_27-512.png', time: '17:00'),
+      imgSrc:
+          'https://cdn4.iconfinder.com/data/icons/the-weather-is-nice-today/64/weather_27-512.png',
+      time: '17:00'),
   WeatherModel(
-      imgSrc: 'https://cdn4.iconfinder.com/data/icons/the-weather-is-nice-today/64/weather_6-512.png', time: '18:00'),
+      imgSrc:
+          'https://cdn4.iconfinder.com/data/icons/the-weather-is-nice-today/64/weather_6-512.png',
+      time: '18:00'),
   WeatherModel(
-      imgSrc: 'https://cdn4.iconfinder.com/data/icons/the-weather-is-nice-today/64/weather_17-512.png', time: '19:00'),
+      imgSrc:
+          'https://cdn4.iconfinder.com/data/icons/the-weather-is-nice-today/64/weather_17-512.png',
+      time: '19:00'),
   WeatherModel(
-      imgSrc: 'https://cdn4.iconfinder.com/data/icons/the-weather-is-nice-today/64/weather_15-512.png', time: '20:00'),
+      imgSrc:
+          'https://cdn4.iconfinder.com/data/icons/the-weather-is-nice-today/64/weather_15-512.png',
+      time: '20:00'),
   WeatherModel(
-      imgSrc: 'https://cdn4.iconfinder.com/data/icons/the-weather-is-nice-today/64/weather_17-512.png', time: '21:00'),
+      imgSrc:
+          'https://cdn4.iconfinder.com/data/icons/the-weather-is-nice-today/64/weather_17-512.png',
+      time: '21:00'),
   WeatherModel(
-      imgSrc: 'https://cdn4.iconfinder.com/data/icons/the-weather-is-nice-today/64/weather_9-256.png', time: '22:00'),
+      imgSrc:
+          'https://cdn4.iconfinder.com/data/icons/the-weather-is-nice-today/64/weather_9-256.png',
+      time: '22:00'),
   WeatherModel(
-      imgSrc: 'https://cdn4.iconfinder.com/data/icons/the-weather-is-nice-today/64/weather_1-512.png', time: '23:00'),
-  WeatherModel(imgSrc: 'https://cdn0.iconfinder.com/data/icons/weather-line-19/32/Snow-256.png', time: '00:00'),
+      imgSrc:
+          'https://cdn4.iconfinder.com/data/icons/the-weather-is-nice-today/64/weather_1-512.png',
+      time: '23:00'),
+  WeatherModel(
+      imgSrc:
+          'https://cdn0.iconfinder.com/data/icons/weather-line-19/32/Snow-256.png',
+      time: '00:00'),
 ];
 
 List<Attraction> attractionListHouse = [
@@ -197,5 +214,6 @@ List<Review> reviewList = [
       rating: 5.0,
       description:
           'Очень хорошая и недешёвая гостиница, современная, комфортная, просторные удобные номера, панорамные окна, большие удобные кровати, все удобства...',
-      avatarUrl: 'https://i.pinimg.com/564x/b4/3a/89/b43a892e3f68c50a5b7ce996aa41a1af.jpg')
+      avatarUrl:
+          'https://i.pinimg.com/564x/b4/3a/89/b43a892e3f68c50a5b7ce996aa41a1af.jpg')
 ];
