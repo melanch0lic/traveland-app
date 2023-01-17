@@ -1,8 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'guide_entity.dart';
 import 'tour_meeting_point_entity.dart';
 import 'tour_price_entity.dart';
 import 'tour_shedule_entity.dart';
+import 'tripster_photo_entity.dart';
 
 part 'tour_entity.g.dart';
 
@@ -59,6 +61,12 @@ class TourEntity {
   @JsonKey(name: 'cover_image')
   final String coverImage;
 
+  @JsonKey(name: 'guide')
+  final GuideEntity guide;
+
+  @JsonKey(name: 'photos')
+  final List<TripsterPhotoEntity> photos;
+
   TourEntity(
       {required this.id,
       required this.title,
@@ -76,7 +84,9 @@ class TourEntity {
       required this.rating,
       required this.popularity,
       required this.schedule,
-      required this.coverImage});
+      required this.coverImage,
+      required this.guide,
+      required this.photos});
 
   factory TourEntity.fromJson(Map<String, dynamic> json) => _$TourEntityFromJson(json);
 

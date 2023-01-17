@@ -4,7 +4,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ImageSlider extends StatefulWidget {
-  const ImageSlider({Key? key}) : super(key: key);
+  List<String> urlImages;
+  ImageSlider({Key? key, required this.urlImages}) : super(key: key) {
+    if (urlImages.length > 10) {
+      urlImages = urlImages.sublist(0, 10);
+    }
+  }
 
   @override
   State<ImageSlider> createState() => _ImageSliderState();
@@ -22,17 +27,11 @@ class _ImageSliderState extends State<ImageSlider> {
   int activeIndex = 0;
   @override
   Widget build(BuildContext context) {
-    final List<String> urlImages = [
-      'https://i.pinimg.com/564x/da/e2/0d/dae20d24b66d4c366f1f0b66f889fa31.jpg',
-      'https://i.pinimg.com/564x/a3/66/a5/a366a5c8a799284abfccdf93d57d2877.jpg',
-      'https://i.pinimg.com/564x/f1/5f/b5/f15fb5e583374a090295279ef4053be9.jpg',
-      'https://i.pinimg.com/564x/99/e8/1a/99e81a18547175d9c3729e5d962449ff.jpg'
-    ];
     return Stack(children: [
       CarouselSlider.builder(
-          itemCount: urlImages.length,
+          itemCount: widget.urlImages.length,
           itemBuilder: (context, index, realIndex) {
-            final urlImage = urlImages[index];
+            final urlImage = widget.urlImages[index];
             return buildImage(urlImage, index);
           },
           carouselController: controller,
@@ -91,10 +90,10 @@ class _ImageSliderState extends State<ImageSlider> {
       ),
       Positioned(
           bottom: 15,
-          left: (MediaQuery.of(context).size.width - 90) / 2,
+          left: (MediaQuery.of(context).size.width - 24 * widget.urlImages.length + 8) / 2,
           child: AnimatedSmoothIndicator(
             activeIndex: activeIndex,
-            count: urlImages.length,
+            count: widget.urlImages.length,
             effect: ColorTransitionEffect(
                 dotColor: Colors.white.withOpacity(0.5), activeDotColor: Colors.white, strokeWidth: 2),
           ))
