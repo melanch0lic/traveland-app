@@ -7,10 +7,10 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../app_localizations.dart';
 import '../../domain/models/attraction_model.dart';
 import '../../dummy_data.dart';
+import '../../widgets/image_slider.dart';
 import '../../widgets/name_row_header.dart';
 import '../home_page/components/attraction_listview.dart';
 import 'components/contact_item.dart';
-import 'components/image_slider.dart';
 import 'components/review_card.dart';
 import 'components/sent_review_button.dart';
 import 'details_page_model.dart';
@@ -26,8 +26,7 @@ class DetailsPage extends StatelessWidget {
     try {
       await launchUrl(phoneAppUrlRequest);
     } catch (error) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Phone Error')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Phone Error')));
     }
   }
 
@@ -37,8 +36,7 @@ class DetailsPage extends StatelessWidget {
     try {
       await launchUrl(websiteAppUrlRequest);
     } catch (error) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Website Error')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Website Error')));
     }
   }
 
@@ -64,16 +62,19 @@ class DetailsPage extends StatelessWidget {
               ),
               title: Text(
                 '${selectedModel.name}',
-                style: theme.textTheme.headline2!.copyWith(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500),
+                style:
+                    theme.textTheme.headline2!.copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
               ),
               backgroundColor: theme.primaryColorLight,
             ),
             body: ListView(
               children: [
-                const ImageSlider(),
+                ImageSlider(
+                  urlImages: const [
+                    'https://i.pinimg.com/564x/59/fa/0c/59fa0cbe6745f482b5df4bbb08d371df.jpg',
+                    'https://i.pinimg.com/564x/09/25/19/092519cf8a856ecd8427ed4e38dc77dc.jpg'
+                  ],
+                ),
                 Padding(
                   padding: const EdgeInsets.all(15),
                   child: Column(
@@ -81,10 +82,7 @@ class DetailsPage extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          ...List.generate(
-                              5,
-                              (index) => buildStar(
-                                  context, index, selectedModel.starRating!))
+                          ...List.generate(5, (index) => buildStar(context, index, selectedModel.starRating!))
                         ],
                       ),
                       const SizedBox(
@@ -92,10 +90,8 @@ class DetailsPage extends StatelessWidget {
                       ),
                       Text(
                         '${selectedModel.name}',
-                        style: theme.textTheme.headline2!.copyWith(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500),
+                        style: theme.textTheme.headline2!
+                            .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(
                         height: 15,
@@ -111,9 +107,8 @@ class DetailsPage extends StatelessWidget {
                           ),
                           Text(
                             '700м до центра',
-                            style: theme.textTheme.bodyText1!.copyWith(
-                                color: theme.primaryColorDark,
-                                fontWeight: FontWeight.w400),
+                            style: theme.textTheme.bodyText1!
+                                .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                           )
                         ],
                       ),
@@ -131,12 +126,9 @@ class DetailsPage extends StatelessWidget {
                               width: 5,
                             ),
                             Text(
-                              selectedModel.price! > 0
-                                  ? 'от ${selectedModel.price} ₽ за ночь'
-                                  : 'Бесплатно',
-                              style: theme.textTheme.bodyText1!.copyWith(
-                                  color: theme.primaryColorDark,
-                                  fontWeight: FontWeight.w400),
+                              selectedModel.price! > 0 ? 'от ${selectedModel.price} ₽ за ночь' : 'Бесплатно',
+                              style: theme.textTheme.bodyText1!
+                                  .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                             )
                           ],
                         ),
@@ -145,10 +137,8 @@ class DetailsPage extends StatelessWidget {
                       ),
                       Text(
                         translate(context, 'description_text'),
-                        style: theme.textTheme.headline2!.copyWith(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500),
+                        style: theme.textTheme.headline2!
+                            .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(
                         height: 15,
@@ -156,56 +146,44 @@ class DetailsPage extends StatelessWidget {
                       AnimatedCrossFade(
                           firstChild: Text(
                             '«Александровский» - первый 4-звездочный отель мирового уровня, расположенный в самом центре Владикавказа, столицы Северной Осетии. Пребывание в отеле позволит Вам окунуться в атмосферу элегантной роскоши и величия императорской эпохи...',
-                            style: theme.textTheme.bodyText1!.copyWith(
-                                color: theme.primaryColorDark,
-                                fontWeight: FontWeight.w400),
+                            style: theme.textTheme.bodyText1!
+                                .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                           ),
                           secondChild: Text(
                             '«Александровский» - первый 4-звездочный отель мирового уровня, расположенный в самом центре Владикавказа, столицы Северной Осетии. Пребывание в отеле позволит Вам окунуться в атмосферу элегантной роскоши и величия императорской эпохи. Отель находится на проспекте Мира, который ранее именовался Александровским в честь императора Александра II. Гранд-отель «Александровский» бережно хранит традиции тех легендарных времен. Каждая деталь отеля – от приветствия швейцара до панорамных видов на горные вершины - соответствует высоким запросам наших гостей. ',
-                            style: theme.textTheme.bodyText1!.copyWith(
-                                color: theme.primaryColorDark,
-                                fontWeight: FontWeight.w400),
+                            style: theme.textTheme.bodyText1!
+                                .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                           ),
-                          crossFadeState: isFullTextShowed
-                              ? CrossFadeState.showSecond
-                              : CrossFadeState.showFirst,
+                          crossFadeState: isFullTextShowed ? CrossFadeState.showSecond : CrossFadeState.showFirst,
                           duration: const Duration(milliseconds: 400)),
                       const SizedBox(
                         height: 10,
                       ),
                       InkWell(
                           onTap: () {
-                            context
-                                .read<DetailsPageViewModel>()
-                                .onShowFullButtonPressed();
+                            context.read<DetailsPageViewModel>().onShowFullButtonPressed();
                           },
                           splashColor: Colors.black,
                           highlightColor: theme.indicatorColor.withOpacity(0.5),
                           child: Text(
-                            isFullTextShowed
-                                ? translate(context, 'hide_text')
-                                : translate(context, 'show_full_text'),
-                            style: theme.textTheme.bodyText2!
-                                .copyWith(color: theme.indicatorColor),
+                            isFullTextShowed ? translate(context, 'hide_text') : translate(context, 'show_full_text'),
+                            style: theme.textTheme.bodyText2!.copyWith(color: theme.indicatorColor),
                           )),
                       const SizedBox(
                         height: 30,
                       ),
                       Text(
                         translate(context, 'location_text'),
-                        style: theme.textTheme.headline2!.copyWith(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500),
+                        style: theme.textTheme.headline2!
+                            .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(
                         height: 15,
                       ),
                       Text(
                         '${selectedModel.address} • ${selectedModel.distance} ${selectedModel.distType}',
-                        style: theme.textTheme.bodyText1!.copyWith(
-                            color: theme.primaryColorDark,
-                            fontWeight: FontWeight.w400),
+                        style: theme.textTheme.bodyText1!
+                            .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                       ),
                       const SizedBox(
                         height: 10,
@@ -228,10 +206,8 @@ class DetailsPage extends StatelessWidget {
                           selectedModel.webUrl != null) ...[
                         Text(
                           translate(context, 'contacts_text'),
-                          style: theme.textTheme.headline2!.copyWith(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500),
+                          style: theme.textTheme.headline2!
+                              .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
                         ),
                         const SizedBox(
                           height: 15,
@@ -241,8 +217,7 @@ class DetailsPage extends StatelessWidget {
                         ContactItem(
                           iconPath: 'assets/images/phone_icon.svg',
                           text: selectedModel.phone,
-                          callback: () => openPhoneNumber(
-                              context, selectedModel.phoneNumber as String),
+                          callback: () => openPhoneNumber(context, selectedModel.phoneNumber as String),
                         ),
                         const SizedBox(
                           height: 10,
@@ -253,8 +228,7 @@ class DetailsPage extends StatelessWidget {
                           iconPath: 'assets/images/email_icon.svg',
                           text: selectedModel.email as String,
                           callback: () async {
-                            await Clipboard.setData(
-                                ClipboardData(text: selectedModel.email));
+                            await Clipboard.setData(ClipboardData(text: selectedModel.email));
                           },
                         ),
                         const SizedBox(
@@ -265,8 +239,7 @@ class DetailsPage extends StatelessWidget {
                         ContactItem(
                             iconPath: 'assets/images/browser_icon.svg',
                             text: selectedModel.webUrl as String,
-                            callback: () => openWebsite(
-                                context, selectedModel.webUrl as String)),
+                            callback: () => openWebsite(context, selectedModel.webUrl as String)),
                       const SizedBox(
                         height: 30,
                       ),
@@ -286,16 +259,11 @@ class DetailsPage extends StatelessWidget {
                               color: const Color.fromRGBO(56, 176, 0, 1),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 5, horizontal: 10.5),
+                              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
                               child: Text(
                                 '${selectedModel.starRating}',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText2
-                                    ?.copyWith(
-                                      color: const Color.fromRGBO(
-                                          255, 255, 255, 1),
+                                style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                                      color: const Color.fromRGBO(255, 255, 255, 1),
                                       fontSize: 14,
                                     ),
                               ),
@@ -306,9 +274,8 @@ class DetailsPage extends StatelessWidget {
                           ),
                           Text(
                             '${selectedModel.reviewCount} отзывов',
-                            style: theme.textTheme.bodyText1!.copyWith(
-                                color: theme.primaryColorDark,
-                                fontWeight: FontWeight.w400),
+                            style: theme.textTheme.bodyText1!
+                                .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                           ),
                         ],
                       ),
@@ -331,8 +298,7 @@ class DetailsPage extends StatelessWidget {
                       const SizedBox(
                         height: 30,
                       ),
-                      NameRowHeader(
-                          name: translate(context, 'also_recommended')),
+                      NameRowHeader(name: translate(context, 'also_recommended')),
                       const SizedBox(
                         height: 15,
                       ),
