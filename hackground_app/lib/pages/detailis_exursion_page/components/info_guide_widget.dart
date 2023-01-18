@@ -14,18 +14,18 @@ class InfoGuideWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const CircleAvatar(
+        CircleAvatar(
           maxRadius: 35,
           backgroundColor: Colors.grey,
-          backgroundImage: NetworkImage(
-              'https://experience-ireland.s3.amazonaws.com/avatar/43bc3264-04e9-11e8-954d-6e714efd800d.150x150.jpg'),
+          backgroundImage:
+              NetworkImage(selectedModel.guide.avatarImages.mediumAvatarUrl),
         ),
         const SizedBox(width: 15),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Людмила',
+              '${selectedModel.guide.name}',
               style: Theme.of(context).textTheme.headline1?.copyWith(
                     fontSize: 16,
                     color: const Color.fromRGBO(44, 44, 46, 1),
@@ -56,7 +56,7 @@ class InfoGuideWidget extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        '${selectedModel.rating.toStringAsFixed(1)}',
+                        selectedModel.guide.rating.toStringAsFixed(1),
                         style: Theme.of(context).textTheme.bodyText2?.copyWith(
                               color: const Color.fromRGBO(255, 255, 255, 1),
                               fontSize: 14,
@@ -67,7 +67,7 @@ class InfoGuideWidget extends StatelessWidget {
                 ),
                 SizedBox(width: 5),
                 Text(
-                  '${selectedModel.reviewCount.toInt()} отзывов',
+                  '${selectedModel.guide.reviewCount.toInt()} отзывов',
                   style: Theme.of(context).textTheme.headline1?.copyWith(
                         fontSize: 14,
                         color: const Color.fromRGBO(44, 44, 46, 1),
