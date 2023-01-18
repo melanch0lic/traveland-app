@@ -5,11 +5,10 @@ import 'package:provider/provider.dart';
 import '../../app_localizations.dart';
 import '../../data/network/models/entity/tour_entity.dart';
 import '../../dummy_data.dart';
-import '../../widgets/name_row_header.dart';
 import '../../widgets/image_slider.dart';
+import '../../widgets/name_row_header.dart';
 import '../details_page/components/review_card.dart';
 import '../details_page/components/sent_review_button.dart';
-import '../home_page/components/attraction_listview.dart';
 import 'components/contact_exursion_widget.dart';
 import 'components/info_guide_widget.dart';
 import 'components/review_exursion_widget.dart';
@@ -85,7 +84,7 @@ class DetailisExursionPage extends StatelessWidget {
                           const SizedBox(width: 5),
                           Text(
                             selectedModel.duration != null
-                                ? '${selectedModel.duration.toInt()} часов • ${selectedModel.movementType == 'car' ? 'На машине' : selectedModel.movementType == 'foot' ? 'Пешком' : 'На автобусе'}'
+                                ? '${selectedModel.duration!.toInt()} часов • ${selectedModel.movementType == 'car' ? 'На машине' : selectedModel.movementType == 'foot' ? 'Пешком' : 'На автобусе'}'
                                 : 'Время не указано',
                             style: Theme.of(context).textTheme.bodyText2?.copyWith(
                                   color: const Color.fromRGBO(44, 44, 46, 1),
@@ -214,7 +213,7 @@ class DetailisExursionPage extends StatelessWidget {
                       const SizedBox(
                         height: 15,
                       ),
-                      AttractionListView(attractionListHouse.sublist(1)),
+                      // ExcursionSmallListView(excursions: excursions),
                     ],
                   ),
                 ),
