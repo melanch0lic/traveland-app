@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:auto_route/empty_router_widgets.dart';
 
 import '../pages/about_info_page/about_info_page.dart';
+import '../pages/detailis_event_page/detailis_event_page.dart';
 import '../pages/detailis_exursion_page/detailis_exursion_page.dart';
 import '../pages/details_page/details_page.dart';
 import '../pages/home_page/home_page.dart';
@@ -68,6 +69,8 @@ import '../pages/tabs_page/tabs_page.dart';
           children: [
             AutoRoute(page: PlacesPage, initial: true),
             AutoRoute(path: ':selectedModel', page: DetailisExursionPage),
+            AutoRoute(page: PlacesPage, initial: true),
+            AutoRoute(path: ':selectedModel', page: DetailisEventPage),
           ],
         ),
         AutoRoute(
