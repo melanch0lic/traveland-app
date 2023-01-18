@@ -8,6 +8,7 @@ import 'data/network/session_data.dart';
 import 'data/network/token_interceptor.dart';
 import 'data/network/tripster_api_client.dart';
 import 'data/network/tripster_safe_api_client.dart';
+import 'domain/repositories/cache_data_repository.dart';
 import 'domain/services/auth_service.dart';
 import 'domain/services/events_service.dart';
 import 'domain/services/excursions_service.dart';
@@ -22,6 +23,9 @@ class InitializeProvider with ChangeNotifier {
 
   late final SessionData _sessionData;
   SessionData get sessionData => _sessionData;
+
+  late CachedDataRepository _cachedDataRepository;
+  CachedDataRepository get cachedDataRepository => _cachedDataRepository;
 
   late TripsterApiClient _tripsterApiClient;
   TripsterApiClient get tripsterApiService => _tripsterApiClient;
@@ -44,6 +48,7 @@ class InitializeProvider with ChangeNotifier {
     _tripsterApiClient = _createTripsterApiClient(_dioTripster);
     _mainApiClient = _createMainApiClient(_dioMainApiClient);
     _appRouter = AppRouter();
+    _cachedDataRepository = CachedDataRepository();
     _sessionData = const SessionData(FlutterSecureStorage(aOptions: AndroidOptions(encryptedSharedPreferences: true)));
     _authService = AuthService(sessionData: _sessionData, mainApiClient: _mainApiClient);
     _eventsService = EventsService(mainApiClient: _mainApiClient);

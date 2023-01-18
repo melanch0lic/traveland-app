@@ -35,7 +35,7 @@ class TourEntity {
   final int maxPersons;
 
   @JsonKey(name: 'duration')
-  final double duration;
+  final double? duration;
 
   @JsonKey(name: 'movement_type')
   final String movementType;
