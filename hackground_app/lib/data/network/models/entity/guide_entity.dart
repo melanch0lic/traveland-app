@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'guide_avatars_entity.dart';
+import 'avatars_entity.dart';
 
 part 'guide_entity.g.dart';
 
@@ -16,7 +16,7 @@ class GuideEntity {
   final String url;
 
   @JsonKey(name: 'avatar')
-  final GuideAvatarsEntity avatarImages;
+  final AvatarsEntity avatarImages;
 
   @JsonKey(name: 'rating')
   final double rating;
