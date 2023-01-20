@@ -10,8 +10,18 @@ class ExcursionsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<String> sortList = [
+      'Сначала популярные',
+      'Сначала дешёвые',
+      'Сначала дорогие',
+      'Сначала лучшие',
+      'Сначала дальние',
+    ];
     final isLoadingMore = context.select((PlacesPageViewModel model) => model.isExcursionsLoadingMore);
     final isLoading = context.select((PlacesPageViewModel model) => model.isExcursionsLoading);
+    final sortFlag = context.select(
+      (PlacesPageViewModel model) => model.sortFlagExcursions,
+    );
     final excursions = context.select((PlacesPageViewModel model) => model.excursions);
     return isLoading
         ? const Center(
@@ -27,6 +37,9 @@ class ExcursionsPage extends StatelessWidget {
                     height: 15,
                   ),
                   Expanded(
+                      child: Stack(children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
                       child: ListView.builder(
                           controller: context.read<PlacesPageViewModel>().excursionController,
                           physics: const BouncingScrollPhysics(),
@@ -40,7 +53,42 @@ class ExcursionsPage extends StatelessWidget {
                                 )
                               : ExcursionCard(
                                   excursion: excursions[index],
-                                ))),
+                                )),
+                    ),
+                    sortFlag
+                        ? Align(
+                            alignment: Alignment.topLeft,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: Colors.white,
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Color.fromRGBO(149, 157, 165, 0.25),
+                                      spreadRadius: 5,
+                                      blurRadius: 7,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ]),
+                              child: ListView.separated(
+                                  physics: const BouncingScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) => Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                                        child: Text(
+                                          sortList[index],
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2!
+                                              .copyWith(fontSize: 16, color: Colors.black),
+                                        ),
+                                      ),
+                                  separatorBuilder: (context, index) => const Divider(),
+                                  itemCount: sortList.length),
+                            ),
+                          )
+                        : const SizedBox.shrink(),
+                  ])),
                 ],
               ),
             ),

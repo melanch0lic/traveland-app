@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 
 import 'api_error.dart';
 import 'models/response/tours_response.dart';
+import 'models/response/tripster_reviews_response.dart';
 import 'result.dart';
 import 'tripster_api_client.dart';
 
@@ -15,6 +16,11 @@ class TripsterSafeApiClient implements TripsterApiClient {
   @override
   Future<Result<ToursResponse>> getTours(int page) {
     return _wrapUnsafeCall<ToursResponse>(() => _client.getTours(page));
+  }
+
+  @override
+  Future<Result<TripsterReviewsResponse>> getTripsterReviews(int id) {
+    return _wrapUnsafeCall<TripsterReviewsResponse>(() => _client.getTripsterReviews(id));
   }
 
   Future<Result<T>> _wrapUnsafeCall<T>(UnsafeCall<T> call) async {

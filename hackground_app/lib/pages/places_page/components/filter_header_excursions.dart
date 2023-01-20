@@ -58,7 +58,7 @@ class FilterHeaderExcursions extends StatelessWidget {
                 )
               ]),
             ),
-            crossFadeState: sortFlag ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+            crossFadeState: sortFlag ? CrossFadeState.showSecond : CrossFadeState.showFirst,
             duration: const Duration(milliseconds: 100),
           ),
         ),

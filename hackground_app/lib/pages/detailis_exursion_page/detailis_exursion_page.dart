@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
+import '../../app_initialization.dart';
 import '../../app_localizations.dart';
 import '../../data/network/models/entity/tour_entity.dart';
 import '../../dummy_data.dart';
+import '../../widgets/excursion_small_listview.dart';
 import '../../widgets/image_slider.dart';
 import '../../widgets/name_row_header.dart';
 import '../details_page/components/review_card.dart';
@@ -23,7 +25,7 @@ class DetailisExursionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return ChangeNotifierProvider(
-        create: (context) => DetailsExursionPageViewModel(),
+        create: (context) => DetailsExursionPageViewModel(context.read<InitializeProvider>().cachedDataRepository),
         child: Builder(builder: (context) {
           final isFullTextShowed = context.select(
             (DetailsExursionPageViewModel model) => model.isFullTextShowed,
@@ -213,6 +215,13 @@ class DetailisExursionPage extends StatelessWidget {
                       const SizedBox(
                         height: 15,
                       ),
+                      ExcursionSmallListView(
+                        excursions: context
+                            .read<DetailsExursionPageViewModel>()
+                            .excursions
+                            .where((element) => element.id != selectedModel.id)
+                            .toList(),
+                      )
                       // ExcursionSmallListView(excursions: excursions),
                     ],
                   ),
