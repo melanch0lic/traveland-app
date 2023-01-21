@@ -3,11 +3,11 @@ import 'package:provider/provider.dart';
 
 import '../../app_initialization.dart';
 import '../../dummy_data.dart';
-
+import '../../widgets/excursion_small_listview.dart';
+import '../../widgets/housing_small_listview.dart';
 import '../../widgets/image_slider.dart';
 import '../../widgets/name_row_header.dart';
 import 'components/attraction_listview.dart';
-import '../../widgets/excursion_small_listview.dart';
 import 'home_page_model.dart';
 
 class HomePage extends StatelessWidget {
@@ -20,10 +20,12 @@ class HomePage extends StatelessWidget {
       create: (context) => HomePageViewModel(
           cachedDataRepository: context.read<InitializeProvider>().cachedDataRepository,
           eventsService: context.read<InitializeProvider>().eventsService,
-          excursionsService: context.read<InitializeProvider>().excursionsService),
+          excursionsService: context.read<InitializeProvider>().excursionsService,
+          housingService: context.read<InitializeProvider>().housingService),
       child: Builder(builder: (context) {
         final isLoading = context.select((HomePageViewModel model) => model.isLoading);
         final excursions = context.select((HomePageViewModel model) => model.excursionList);
+        final housings = context.select((HomePageViewModel model) => model.housingList);
         return Scaffold(
           backgroundColor: theme.scaffoldBackgroundColor,
           appBar: AppBar(
@@ -54,7 +56,7 @@ class HomePage extends StatelessWidget {
                             const NameRowHeader(
                               name: 'Жильё',
                             ),
-                            AttractionListView(attractionListHouse),
+                            HousingSmallListView(housings: housings!),
                             const NameRowHeader(
                               name: 'Места',
                             ),
