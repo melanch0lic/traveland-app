@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../dummy_data.dart';
-import '../../hotels_page/components/attraction_listview_house_rent.dart';
+import '../../housings_page/components/housings_listview.dart';
 import '../places_page_model.dart';
 import 'filter_header_locations.dart';
 
@@ -19,12 +19,12 @@ class LocationsPage extends StatelessWidget {
         : Padding(
             padding: const EdgeInsets.only(top: 30, left: 15, right: 15),
             child: Column(
-              children: [
-                const FilterHeaderLocations(),
-                const SizedBox(
+              children: const [
+                FilterHeaderLocations(),
+                SizedBox(
                   height: 15,
                 ),
-                AttractionListViewHouse(attractionListHouse),
+                // HousingsListView(attractionListHouse),
               ],
             ),
           );

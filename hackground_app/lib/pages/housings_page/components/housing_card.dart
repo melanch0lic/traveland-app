@@ -1,20 +1,19 @@
-import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../domain/models/attraction_model.dart';
-import '../../../navigation/router.gr.dart';
+import '../../../data/network/models/entity/housing_entity.dart';
 
-class AttractionCategoryCardHouse extends StatelessWidget {
-  final Attraction attraction;
+class HousingCard extends StatelessWidget {
+  final HousingEntity housing;
 
-  const AttractionCategoryCardHouse(this.attraction, {Key? key}) : super(key: key);
+  const HousingCard(this.housing, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.router.push(DetailsRoute(selectedModel: attraction));
+        // context.router.push(DetailsRoute(selectedModel: attraction));
       },
       child: Container(
         margin: const EdgeInsets.only(bottom: 15),
@@ -27,12 +26,16 @@ class AttractionCategoryCardHouse extends StatelessWidget {
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(15),
-            child: Container(
+            child: SizedBox(
               height: 194,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(attraction.imgSrc!),
-                  fit: BoxFit.cover,
+              width: double.infinity,
+              child: CachedNetworkImage(
+                fit: BoxFit.cover,
+                imageUrl: 'https://i.pinimg.com/564x/60/4a/cf/604acfef51d88b15f54e2b1104c9d528.jpg',
+                progressIndicatorBuilder: (context, url, progress) => Center(
+                  child: CircularProgressIndicator(
+                    value: progress.progress,
+                  ),
                 ),
               ),
             ),
@@ -40,7 +43,7 @@ class AttractionCategoryCardHouse extends StatelessWidget {
           Padding(
               padding: const EdgeInsets.only(left: 15, right: 15, bottom: 20, top: 15),
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text('${attraction.name}',
+                Text(housing.placeInfo.name,
                     style: Theme.of(context).textTheme.headline1?.copyWith(
                           color: const Color.fromRGBO(44, 44, 46, 1),
                           fontSize: 16,
@@ -60,7 +63,7 @@ class AttractionCategoryCardHouse extends StatelessWidget {
                       child: Row(
                         children: [
                           Text(
-                            '${attraction.starRating}',
+                            '${housing.placeInfo.meanRating.value}',
                             style: Theme.of(context).textTheme.bodyText2?.copyWith(
                                   color: const Color.fromRGBO(255, 255, 255, 1),
                                   fontSize: 14,
@@ -71,7 +74,7 @@ class AttractionCategoryCardHouse extends StatelessWidget {
                     ),
                     const SizedBox(width: 11),
                     Text(
-                      '${attraction.reviewCount} отзывов',
+                      '${housing.placeInfo.ratingCount.value} отзывов',
                       style: Theme.of(context).textTheme.bodyText2?.copyWith(
                             color: const Color.fromRGBO(44, 44, 46, 1),
                             fontSize: 14,
@@ -92,7 +95,7 @@ class AttractionCategoryCardHouse extends StatelessWidget {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        '${attraction.address} • ${attraction.distance} ${attraction.distType}',
+                        '${housing.placeInfo.adress} ',
                         style: Theme.of(context).textTheme.bodyText2?.copyWith(
                               color: const Color.fromRGBO(44, 44, 46, 1),
                               fontSize: 14,
@@ -113,7 +116,7 @@ class AttractionCategoryCardHouse extends StatelessWidget {
                     ),
                     const SizedBox(width: 6.42),
                     Text(
-                      attraction.price != 0 ? 'от ${attraction.price} ₽' : 'Бесплатно',
+                      'от ${housing.price} ₽',
                       style: Theme.of(context).textTheme.bodyText2?.copyWith(
                             color: const Color.fromRGBO(44, 44, 46, 1),
                             fontSize: 14,

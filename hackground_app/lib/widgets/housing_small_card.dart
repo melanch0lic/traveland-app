@@ -11,6 +11,7 @@ class HousingSmallCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return GestureDetector(
       onTap: () {
         // context.router.push(DetailsRoute(selectedModel: housing));
@@ -57,52 +58,57 @@ class HousingSmallCard extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
                       child: Text(
                         '${housing.placeInfo.meanRating.value}',
-                        style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                              color: const Color.fromRGBO(255, 255, 255, 1),
-                              fontSize: 14,
-                            ),
+                        style: theme.textTheme.bodyText2?.copyWith(
+                          color: const Color.fromRGBO(255, 255, 255, 1),
+                          fontSize: 14,
+                        ),
                       ),
                     ),
                   ),
                 )
               ]),
             ),
-            const SizedBox(height: 15),
             Padding(
               padding: const EdgeInsets.all(15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(housing.placeInfo.name,
-                      style: Theme.of(context).textTheme.headline1?.copyWith(
-                            color: const Color.fromRGBO(44, 44, 46, 1),
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          )),
-                  const SizedBox(height: 5),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SvgPicture.asset(
-                        'assets/images/vector_icon.svg',
-                        color: const Color.fromRGBO(44, 44, 46, 1),
-                        width: 11.33,
-                        height: 14.17,
-                      ),
-                      const SizedBox(width: 8.33),
-                      Expanded(
-                        child: Text(
-                          housing.placeInfo.adress,
-                          style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                                color: const Color.fromRGBO(44, 44, 46, 1),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                              ),
-                        ),
-                      ),
-                    ],
+                  SizedBox(
+                    height: 20,
+                    child: Text(housing.placeInfo.name,
+                        style: theme.textTheme.headline1?.copyWith(
+                          color: const Color.fromRGBO(44, 44, 46, 1),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        )),
                   ),
                   const SizedBox(height: 5),
+                  SizedBox(
+                    height: 30,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SvgPicture.asset(
+                          'assets/images/vector_icon.svg',
+                          color: const Color.fromRGBO(44, 44, 46, 1),
+                          width: 12,
+                          height: 14,
+                        ),
+                        const SizedBox(width: 8.33),
+                        Expanded(
+                          child: Text(
+                            housing.placeInfo.adress,
+                            style: theme.textTheme.bodyText2?.copyWith(
+                              color: const Color.fromRGBO(44, 44, 46, 1),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 15),
                   Row(
                     children: [
                       SvgPicture.asset(
@@ -114,14 +120,15 @@ class HousingSmallCard extends StatelessWidget {
                       const SizedBox(width: 6.42),
                       Text(
                         'от ${housing.price} ₽',
-                        style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                              color: const Color.fromRGBO(44, 44, 46, 1),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                            ),
+                        style: theme.textTheme.bodyText2?.copyWith(
+                          color: const Color.fromRGBO(44, 44, 46, 1),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ],
-                  )
+                  ),
+                  const SizedBox(height: 5),
                 ],
               ),
             ),
