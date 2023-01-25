@@ -17,8 +17,11 @@ class InfoGuideWidget extends StatelessWidget {
         CircleAvatar(
           maxRadius: 35,
           backgroundColor: Colors.grey,
-          backgroundImage:
-              NetworkImage(selectedModel.guide.avatarImages.mediumAvatarUrl),
+          backgroundImage: selectedModel.guide.avatarImages.mediumAvatarUrl !=
+                  null
+              ? NetworkImage(selectedModel.guide.avatarImages.mediumAvatarUrl!)
+              : NetworkImage(
+                  'https://ru.pinterest.com/pin/961026007962154699/'),
         ),
         const SizedBox(width: 15),
         Column(

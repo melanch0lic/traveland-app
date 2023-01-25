@@ -16,7 +16,9 @@ class HomePageViewModel with ChangeNotifier {
   bool get isLoading => _isLoading;
 
   HomePageViewModel(
-      {required this.cachedDataRepository, required this.eventsService, required this.excursionsService}) {
+      {required this.cachedDataRepository,
+      required this.eventsService,
+      required this.excursionsService}) {
     init();
   }
 

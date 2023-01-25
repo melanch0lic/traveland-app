@@ -19,8 +19,9 @@ class TripsterSafeApiClient implements TripsterApiClient {
   }
 
   @override
-  Future<Result<TripsterReviewsResponse>> getTripsterReviews(int id) {
-    return _wrapUnsafeCall<TripsterReviewsResponse>(() => _client.getTripsterReviews(id));
+  Future<Result<TripsterReviewsResponse>> getTripsterReviews(int id, int page) {
+    return _wrapUnsafeCall<TripsterReviewsResponse>(
+        () => _client.getTripsterReviews(id, page));
   }
 
   Future<Result<T>> _wrapUnsafeCall<T>(UnsafeCall<T> call) async {

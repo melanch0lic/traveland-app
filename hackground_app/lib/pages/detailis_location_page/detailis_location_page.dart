@@ -1,39 +1,31 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_svg/svg.dart';
+import 'package:hackground_app/pages/detailis_location_page/detailis_location_model_page.dart';
 import 'package:provider/provider.dart';
 
-import '../../app_initialization.dart';
 import '../../app_localizations.dart';
-import '../../data/network/models/entity/tour_entity.dart';
 import '../../dummy_data.dart';
-import '../../widgets/excursion_small_listview.dart';
 import '../../widgets/image_slider.dart';
 import '../../widgets/name_row_header.dart';
+import '../detailis_event_page/components/review_event_widget.dart';
+import '../detailis_exursion_page/components/route_map.dart';
 import '../details_page/components/review_card.dart';
-import '../review_page/components/sent_review_button_excursions.dart';
-import 'components/contact_exursion_widget.dart';
-import 'components/info_guide_widget.dart';
-import 'components/name_row_header_exursion.dart';
-import 'components/review_exursion_widget.dart';
-import 'components/route_map.dart';
-import 'detailis_exursion_page_model.dart';
+import '../details_page/components/sent_review_button.dart';
+import '../home_page/components/attraction_listview.dart';
 
-class DetailisExursionPage extends StatelessWidget {
-  final TourEntity selectedModel;
-  const DetailisExursionPage({Key? key, required this.selectedModel})
-      : super(key: key);
+class DetailisLocationPage extends StatelessWidget {
+  const DetailisLocationPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return ChangeNotifierProvider(
-        create: (context) => DetailsExursionPageViewModel(
-            context.read<InitializeProvider>().cachedDataRepository),
+        create: (context) => DetailsLocationPageViewModel(),
         child: Builder(builder: (context) {
           final isFullTextShowed = context.select(
-            (DetailsExursionPageViewModel model) => model.isFullTextShowed,
+            (DetailsLocationPageViewModel model) => model.isFullTextShowed,
           );
-
           return Scaffold(
             appBar: AppBar(
               leading: IconButton(
@@ -57,93 +49,66 @@ class DetailisExursionPage extends StatelessWidget {
             body: ListView(
               children: [
                 ImageSlider(
-                  urlImages: selectedModel.photos
-                      .map((e) => e.mediumAvatarUrl)
-                      .toList(),
+                  urlImages: const [
+                    'https://i.pinimg.com/564x/59/fa/0c/59fa0cbe6745f482b5df4bbb08d371df.jpg',
+                    'https://i.pinimg.com/564x/09/25/19/092519cf8a856ecd8427ed4e38dc77dc.jpg'
+                  ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(15),
+                  padding: const EdgeInsets.all(15.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        selectedModel.title,
+                        'Location',
                         style: theme.textTheme.headline2!.copyWith(
                             color: Colors.black,
                             fontSize: 20,
                             fontWeight: FontWeight.w500),
                       ),
-                      const SizedBox(height: 10),
-                      Container(
-                        padding: const EdgeInsets.only(left: 19.5, right: 19.5),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(7),
-                          color: const Color.fromRGBO(56, 176, 0, 1),
-                        ),
-                        child: Text('Низкая сложность',
-                            style:
-                                Theme.of(context).textTheme.bodyText1?.copyWith(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                    )),
-                      ),
-                      const SizedBox(height: 10),
+                      SizedBox(height: 10),
                       Row(
                         children: [
                           SvgPicture.asset(
-                            'assets/images/duration.svg',
+                            'assets/images/time.svg',
                             color: theme.primaryColorDark,
                           ),
                           const SizedBox(width: 5),
                           Text(
-                            selectedModel.duration != null
-                                ? '${selectedModel.duration!.toInt()} часов • ${selectedModel.movementType == 'car' ? 'На машине' : selectedModel.movementType == 'foot' ? 'Пешком' : 'На автобусе'}'
-                                : 'Время не указано',
+                            'Пн–Пт 10:00–20:00',
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText2
                                 ?.copyWith(
                                   color: const Color.fromRGBO(44, 44, 46, 1),
-                                  fontSize: 14,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.w400,
                                 ),
                           ),
-                          const SizedBox(width: 15),
                         ],
                       ),
-                      const SizedBox(height: 15),
+                      SizedBox(height: 15),
                       Row(
                         children: [
                           SvgPicture.asset(
                             'assets/images/wallet_icon.svg',
                             color: theme.primaryColorDark,
                           ),
-                          const SizedBox(width: 5),
+                          SizedBox(width: 5),
                           Text(
-                            '${selectedModel.price.value.toInt()} ₽',
+                            'Бесплатно',
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText2
                                 ?.copyWith(
-                                  fontSize: 16,
                                   color: const Color.fromRGBO(44, 44, 46, 1),
-                                  fontWeight: FontWeight.w600,
-                                ),
-                          ),
-                          Text(
-                            ' на ${selectedModel.maxPersons} человек',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText2
-                                ?.copyWith(
                                   fontSize: 16,
-                                  color: const Color.fromRGBO(44, 44, 46, 1),
                                   fontWeight: FontWeight.w400,
                                 ),
-                          ),
+                          )
                         ],
                       ),
-                      const SizedBox(height: 30),
+                      SizedBox(height: 30),
                       Text(
                         'Описание',
                         style: Theme.of(context).textTheme.headline1?.copyWith(
@@ -152,16 +117,16 @@ class DetailisExursionPage extends StatelessWidget {
                               fontWeight: FontWeight.w500,
                             ),
                       ),
-                      const SizedBox(height: 15),
+                      SizedBox(height: 15),
                       AnimatedCrossFade(
                           firstChild: Text(
-                            '${selectedModel.annotation.substring(0, selectedModel.annotation.length ~/ 2)}...',
+                            'Площадь Свободы расположена в Иристонском муниципальном округе, в самом центре города Владикавказ. С нее берут начало несколько достаточно крупных улиц города — улица Церители, Гаппо Баева, благодаря ним до площади можно добраться на автотранспорте, а по проспекту Мира можно доехать до нее на трамвае...',
                             style: theme.textTheme.bodyText1!.copyWith(
                                 color: theme.primaryColorDark,
                                 fontWeight: FontWeight.w400),
                           ),
                           secondChild: Text(
-                            selectedModel.annotation,
+                            'Площадь была образована в середине 19 века, первое ее название было Михайловская по имени князя Михаила Николаевича. Лишь после революции в 20-х годах 20 го века, ее переименовали в площадь Свободы.',
                             style: theme.textTheme.bodyText1!.copyWith(
                                 color: theme.primaryColorDark,
                                 fontWeight: FontWeight.w400),
@@ -170,10 +135,13 @@ class DetailisExursionPage extends StatelessWidget {
                               ? CrossFadeState.showSecond
                               : CrossFadeState.showFirst,
                           duration: const Duration(milliseconds: 400)),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       InkWell(
                           onTap: () {
                             context
-                                .read<DetailsExursionPageViewModel>()
+                                .read<DetailsLocationPageViewModel>()
                                 .onShowFullButtonPressed();
                           },
                           splashColor: Colors.black,
@@ -185,29 +153,27 @@ class DetailisExursionPage extends StatelessWidget {
                             style: theme.textTheme.bodyText2!
                                 .copyWith(color: theme.indicatorColor),
                           )),
-                      const SizedBox(height: 30),
+                      SizedBox(height: 30),
                       Text(
-                        'Маршрут',
+                        'Местоположение',
                         style: Theme.of(context).textTheme.headline1?.copyWith(
                               fontSize: 20,
                               color: const Color.fromRGBO(44, 44, 46, 1),
                               fontWeight: FontWeight.w500,
                             ),
                       ),
-                      const SizedBox(height: 15),
-                      const RouteMap(),
-                      const SizedBox(height: 30),
+                      SizedBox(height: 15),
                       Text(
-                        'Экскурсовод',
-                        style: Theme.of(context).textTheme.headline1?.copyWith(
-                              fontSize: 20,
+                        'ул. Миллера, 34 • 1.64 км',
+                        style: Theme.of(context).textTheme.bodyText2?.copyWith(
                               color: const Color.fromRGBO(44, 44, 46, 1),
-                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
                             ),
                       ),
-                      const SizedBox(height: 15),
-                      InfoGuideWidget(selectedModel: selectedModel),
-                      const SizedBox(height: 30),
+                      SizedBox(height: 10),
+                      RouteMap(),
+                      SizedBox(height: 30),
                       Text(
                         'Контакты',
                         style: Theme.of(context).textTheme.headline1?.copyWith(
@@ -216,15 +182,35 @@ class DetailisExursionPage extends StatelessWidget {
                               fontWeight: FontWeight.w500,
                             ),
                       ),
-                      const SizedBox(height: 16),
-                      ContactExursionWidget(theme: theme),
-                      const SizedBox(height: 30),
-                      NameRowHeaderExursion(
-                        name: 'Отзывы',
-                        selectedModel: selectedModel,
+                      SizedBox(height: 15),
+                      Row(
+                        children: [
+                          SvgPicture.asset(
+                            'assets/images/phone_icon.svg',
+                            color: theme.primaryColorDark,
+                          ),
+                          const SizedBox(width: 6.74),
+                          Text(
+                            '8 (867) 240-40-70',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2
+                                ?.copyWith(
+                                  fontSize: 16,
+                                  color: const Color.fromRGBO(44, 44, 46, 1),
+                                  fontWeight: FontWeight.w400,
+                                ),
+                          ),
+                          SizedBox(height: 30),
+                        ],
                       ),
-                      ReviewExursionWidget(
-                          selectedModel: selectedModel, theme: theme),
+                      const NameRowHeader(
+                        name: 'Отзывы',
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      ReviewEventWidget(theme: theme),
                       const SizedBox(height: 10),
                       SizedBox(
                         height: 180,
@@ -238,7 +224,7 @@ class DetailisExursionPage extends StatelessWidget {
                       const SizedBox(
                         height: 15,
                       ),
-                      const SentReviewButtonExcursions(),
+                      const SentReviewButton(),
                       const SizedBox(
                         height: 30,
                       ),
@@ -246,17 +232,10 @@ class DetailisExursionPage extends StatelessWidget {
                       const SizedBox(
                         height: 15,
                       ),
-                      ExcursionSmallListView(
-                        excursions: context
-                            .read<DetailsExursionPageViewModel>()
-                            .excursions
-                            .where((element) => element.id != selectedModel.id)
-                            .toList(),
-                      )
-                      // ExcursionSmallListView(excursions: excursions),
+                      AttractionListView(attractionListPlace.sublist(1)),
                     ],
                   ),
-                ),
+                )
               ],
             ),
           );

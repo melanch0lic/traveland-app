@@ -1,21 +1,19 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../data/network/models/entity/tour_entity.dart';
+import '../../../data/network/models/entity/event_entity.dart';
 import '../../../navigation/router.gr.dart';
 
-class ExcursionCard extends StatelessWidget {
-  final TourEntity excursion;
-
-  const ExcursionCard({Key? key, required this.excursion}) : super(key: key);
+class LocationCard extends StatelessWidget {
+  const LocationCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.router.push(DetailisExursionRoute(selectedModel: excursion));
+        context.router.push(DetailisLocationRoute());
       },
       child: Container(
         margin: const EdgeInsets.only(bottom: 15),
@@ -25,7 +23,7 @@ class ExcursionCard extends StatelessWidget {
             boxShadow: const [
               BoxShadow(
                 blurRadius: 24,
-                color: Color.fromARGB(62, 36, 46, 56),
+                color: Color.fromRGBO(149, 157, 165, 0.25),
               )
             ]),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -34,14 +32,9 @@ class ExcursionCard extends StatelessWidget {
             child: SizedBox(
               width: double.infinity,
               height: 194,
-              child: CachedNetworkImage(
+              child: Image.network(
+                'https://i.pinimg.com/564x/76/50/4a/76504af6e73882296e5934a7059bc9a4.jpg',
                 fit: BoxFit.cover,
-                imageUrl: excursion.coverImage,
-                progressIndicatorBuilder: (context, url, progress) => Center(
-                  child: CircularProgressIndicator(
-                    value: progress.progress,
-                  ),
-                ),
               ),
             ),
           ),
@@ -51,7 +44,7 @@ class ExcursionCard extends StatelessWidget {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(excursion.title,
+                    Text('location',
                         style: Theme.of(context).textTheme.headline1?.copyWith(
                               color: const Color.fromRGBO(44, 44, 46, 1),
                               fontSize: 16,
@@ -67,14 +60,10 @@ class ExcursionCard extends StatelessWidget {
                           height: 19,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(7),
-                            color: excursion.rating.toInt() >= 4
-                                ? const Color.fromRGBO(56, 176, 0, 1)
-                                : excursion.rating.toInt() <= 2
-                                    ? const Color.fromRGBO(255, 47, 47, 1)
-                                    : const Color.fromRGBO(253, 197, 0, 1),
+                            color: const Color.fromRGBO(56, 176, 0, 1),
                           ),
                           child: Text(
-                            '${excursion.rating}',
+                            '5',
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText2
@@ -86,7 +75,7 @@ class ExcursionCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 11),
                         Text(
-                          '${excursion.reviewCount} отзывов',
+                          '1',
                           style:
                               Theme.of(context).textTheme.bodyText2?.copyWith(
                                     color: const Color.fromRGBO(44, 44, 46, 1),
@@ -98,38 +87,9 @@ class ExcursionCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 5),
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SvgPicture.asset(
                           'assets/images/vector_icon.svg',
-                          color: const Color.fromRGBO(44, 44, 46, 1),
-                          width: 13,
-                          height: 14.17,
-                        ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            excursion.meetingPoint?.text ??
-                                'Место встречи не указано',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText2
-                                ?.copyWith(
-                                  color: const Color.fromRGBO(44, 44, 46, 1),
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Row(
-                      children: [
-                        SvgPicture.asset(
-                          'assets/images/hourglass_icon.svg',
                           color: const Color.fromRGBO(44, 44, 46, 1),
                           width: 11.33,
                           height: 14.17,
@@ -137,9 +97,7 @@ class ExcursionCard extends StatelessWidget {
                         const SizedBox(width: 8),
                         Expanded(
                           child: Text(
-                            excursion.duration != null
-                                ? '${excursion.duration} часов • ${excursion.movementType == 'car' ? 'На машине' : excursion.movementType == 'foot' ? 'Пешком' : 'На автобусе'}'
-                                : 'Время не указано',
+                            'address',
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText2
@@ -163,9 +121,7 @@ class ExcursionCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 6.42),
                         Text(
-                          excursion.price.value != 0
-                              ? '${excursion.price.value} ₽ за экскурсию'
-                              : 'Не указано',
+                          '1200',
                           style:
                               Theme.of(context).textTheme.bodyText2?.copyWith(
                                     color: const Color.fromRGBO(44, 44, 46, 1),
