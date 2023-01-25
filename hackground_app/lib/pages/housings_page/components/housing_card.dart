@@ -1,20 +1,20 @@
-import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../data/network/models/entity/event_entity.dart';
-import '../../../navigation/router.gr.dart';
+import '../../../data/network/models/entity/housing_entity.dart';
 
-class EventCard extends StatelessWidget {
-  final EventsEntity event;
+class HousingCard extends StatelessWidget {
+  final HousingEntity housing;
 
-  const EventCard({Key? key, required this.event}) : super(key: key);
+  const HousingCard(this.housing, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return GestureDetector(
       onTap: () {
-        context.router.push(DetailisEventRoute(selectedModel: event));
+        // context.router.push(DetailsRoute(selectedModel: attraction));
       },
       child: Container(
         margin: const EdgeInsets.only(bottom: 15),
@@ -28,23 +28,28 @@ class EventCard extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(15),
             child: SizedBox(
-              width: double.infinity,
               height: 194,
-              child: Image.network(
-                'https://i.pinimg.com/564x/76/50/4a/76504af6e73882296e5934a7059bc9a4.jpg',
+              width: double.infinity,
+              child: CachedNetworkImage(
                 fit: BoxFit.cover,
+                imageUrl: 'https://i.pinimg.com/564x/e6/35/41/e635416caab186b4a13cb45aa058b5af.jpg',
+                progressIndicatorBuilder: (context, url, progress) => Center(
+                  child: CircularProgressIndicator(
+                    value: progress.progress,
+                  ),
+                ),
               ),
             ),
           ),
           Padding(
               padding: const EdgeInsets.only(left: 15, right: 15, bottom: 20, top: 15),
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text(event.placeInfo.name,
-                    style: Theme.of(context).textTheme.headline1?.copyWith(
-                          color: const Color.fromRGBO(44, 44, 46, 1),
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        )),
+                Text(housing.placeInfo.name,
+                    style: theme.textTheme.headline1?.copyWith(
+                      color: const Color.fromRGBO(44, 44, 46, 1),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    )),
                 const SizedBox(height: 6),
                 Row(
                   children: [
@@ -56,22 +61,26 @@ class EventCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(7),
                         color: const Color.fromRGBO(56, 176, 0, 1),
                       ),
-                      child: Text(
-                        '${event.placeInfo.meanRating.value}',
-                        style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                      child: Row(
+                        children: [
+                          Text(
+                            '${housing.placeInfo.meanRating.value}',
+                            style: theme.textTheme.bodyText2?.copyWith(
                               color: const Color.fromRGBO(255, 255, 255, 1),
                               fontSize: 14,
                             ),
+                          )
+                        ],
                       ),
                     ),
                     const SizedBox(width: 11),
                     Text(
-                      '${event.placeInfo.ratingCount.value} отзывов',
-                      style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                            color: const Color.fromRGBO(44, 44, 46, 1),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
+                      '${housing.placeInfo.ratingCount.value} отзывов',
+                      style: theme.textTheme.bodyText2?.copyWith(
+                        color: const Color.fromRGBO(44, 44, 46, 1),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   ],
                 ),
@@ -87,12 +96,12 @@ class EventCard extends StatelessWidget {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        event.placeInfo.adress,
-                        style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                              color: const Color.fromRGBO(44, 44, 46, 1),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                            ),
+                        '${housing.placeInfo.adress} ',
+                        style: theme.textTheme.bodyText2?.copyWith(
+                          color: const Color.fromRGBO(44, 44, 46, 1),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ),
                   ],
@@ -108,12 +117,12 @@ class EventCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 6.42),
                     Text(
-                      int.parse(event.price.value) != 0 ? 'от ${event.price.value} ₽' : 'Бесплатно',
-                      style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                            color: const Color.fromRGBO(44, 44, 46, 1),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
+                      'от ${housing.price} ₽',
+                      style: theme.textTheme.bodyText2?.copyWith(
+                        color: const Color.fromRGBO(44, 44, 46, 1),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   ],
                 )

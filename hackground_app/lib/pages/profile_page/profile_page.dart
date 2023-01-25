@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../app_initialization.dart';
 import '../../dummy_data.dart';
 import '../../widgets/name_row_header.dart';
-import '../home_page/components/attraction_listview.dart';
+import '../../widgets/event_small_listview.dart';
 import 'components/info_user_widget.dart';
 import 'components/log_out_button.dart';
 import 'profile_page_model.dart';
@@ -29,14 +29,14 @@ class ProfilePage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          const InfoUserWidget(),
+                        children: const [
+                          InfoUserWidget(),
                           // const InfoUserProgressWidget(),
-                          const NameRowHeader(name: 'Избранное'),
-                          const SizedBox(height: 15),
-                          AttractionListView(attractionListHouse),
-                          const SizedBox(height: 30),
-                          const LogOutButton(),
+                          NameRowHeader(name: 'Избранное'),
+                          SizedBox(height: 15),
+                          // EventSmallListView(attractionListHouse),
+                          SizedBox(height: 30),
+                          LogOutButton(),
                         ],
                       ),
                     ),

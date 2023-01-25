@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
-import '../hotels_page_model.dart';
+import '../housings_page_model.dart';
 
 class FilterHeaderHotels extends StatelessWidget {
   const FilterHeaderHotels({Key? key}) : super(key: key);
@@ -10,7 +10,7 @@ class FilterHeaderHotels extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final sortFlag = context.select(
-      (HotelsPageViewModel model) => model.sortFlag,
+      (HousingsPageViewModel model) => model.sortFlag,
     );
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -19,7 +19,7 @@ class FilterHeaderHotels extends StatelessWidget {
           child: AnimatedCrossFade(
             firstChild: InkWell(
               onTap: () {
-                context.read<HotelsPageViewModel>().onSortFlagPressed();
+                context.read<HousingsPageViewModel>().onSortFlagPressed();
               },
               child: Row(children: [
                 SvgPicture.asset(
@@ -39,7 +39,7 @@ class FilterHeaderHotels extends StatelessWidget {
             ),
             secondChild: InkWell(
               onTap: () {
-                context.read<HotelsPageViewModel>().onSortFlagPressed();
+                context.read<HousingsPageViewModel>().onSortFlagPressed();
               },
               child: Row(children: [
                 SvgPicture.asset(
