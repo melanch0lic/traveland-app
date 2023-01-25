@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../places_page_model.dart';
-import 'filter_header_locations.dart';
+import 'filter_header_events.dart';
 import 'location_card.dart';
 
 class LocationsPage extends StatelessWidget {
@@ -20,7 +20,7 @@ class LocationsPage extends StatelessWidget {
             padding: const EdgeInsets.only(top: 30, left: 15, right: 15),
             child: Column(
               children: [
-                const FilterHeaderLocations(),
+                const FilterHeaderEvents(),
                 const SizedBox(
                   height: 15,
                 ),

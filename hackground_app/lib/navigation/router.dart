@@ -4,6 +4,7 @@ import 'package:auto_route/empty_router_widgets.dart';
 import '../pages/about_info_page/about_info_page.dart';
 import '../pages/detailis_event_page/detailis_event_page.dart';
 import '../pages/detailis_exursion_page/detailis_exursion_page.dart';
+import '../pages/detailis_location_page/detailis_location_page.dart';
 import '../pages/details_page/details_page.dart';
 import '../pages/home_page/home_page.dart';
 import '../pages/housings_page/housings_page.dart';
@@ -12,6 +13,8 @@ import '../pages/map_page/map_page.dart';
 import '../pages/places_page/places_page.dart';
 import '../pages/profile_page/profile_page.dart';
 import '../pages/register_page/register_page.dart';
+import '../pages/review_page/review_page.dart';
+import '../pages/review_page/write_review_page.dart';
 import '../pages/start_page/start_page.dart';
 import '../pages/tabs_page/tabs_page.dart';
 
@@ -64,6 +67,10 @@ import '../pages/tabs_page/tabs_page.dart';
             AutoRoute(path: ':selectedModel', page: DetailisExursionPage),
             AutoRoute(page: PlacesPage, initial: true),
             AutoRoute(path: ':selectedModel', page: DetailisEventPage),
+            AutoRoute(page: DetailisLocationPage),
+            AutoRoute(path: ':selectedModel/reviews', page: ReviewPage),
+            AutoRoute(
+                path: ':selectedModel/writeReviews', page: WriteReviewPage),
           ],
         ),
         AutoRoute(

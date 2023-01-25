@@ -17,12 +17,15 @@ class ExcursionsPage extends StatelessWidget {
       'Сначала лучшие',
       'Сначала дальние',
     ];
-    final isLoadingMore = context.select((PlacesPageViewModel model) => model.isExcursionsLoadingMore);
-    final isLoading = context.select((PlacesPageViewModel model) => model.isExcursionsLoading);
+    final isLoadingMore = context
+        .select((PlacesPageViewModel model) => model.isExcursionsLoadingMore);
+    final isLoading = context
+        .select((PlacesPageViewModel model) => model.isExcursionsLoading);
     final sortFlag = context.select(
       (PlacesPageViewModel model) => model.sortFlagExcursions,
     );
-    final excursions = context.select((PlacesPageViewModel model) => model.excursions);
+    final excursions =
+        context.select((PlacesPageViewModel model) => model.excursions);
     return isLoading
         ? const Center(
             child: CircularProgressIndicator(),
@@ -41,14 +44,18 @@ class ExcursionsPage extends StatelessWidget {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(15),
                       child: ListView.builder(
-                          controller: context.read<PlacesPageViewModel>().excursionController,
+                          controller: context
+                              .read<PlacesPageViewModel>()
+                              .excursionController,
                           physics: const BouncingScrollPhysics(),
                           itemCount: excursions.length,
-                          itemBuilder: (context, index) => excursions.length == index + 1
+                          itemBuilder: (context, index) => excursions.length ==
+                                  index + 1
                               ? Column(
                                   children: [
                                     ExcursionCard(excursion: excursions[index]),
-                                    if (isLoadingMore) const CircularProgressIndicator()
+                                    if (isLoadingMore)
+                                      const CircularProgressIndicator()
                                   ],
                                 )
                               : ExcursionCard(
@@ -64,7 +71,8 @@ class ExcursionsPage extends StatelessWidget {
                                   color: Colors.white,
                                   boxShadow: const [
                                     BoxShadow(
-                                      color: Color.fromRGBO(149, 157, 165, 0.25),
+                                      color:
+                                          Color.fromRGBO(149, 157, 165, 0.25),
                                       spreadRadius: 5,
                                       blurRadius: 7,
                                       offset: Offset(0, 3),
@@ -74,16 +82,20 @@ class ExcursionsPage extends StatelessWidget {
                                   physics: const BouncingScrollPhysics(),
                                   shrinkWrap: true,
                                   itemBuilder: (context, index) => Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 10, horizontal: 15),
                                         child: Text(
                                           sortList[index],
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyText2!
-                                              .copyWith(fontSize: 16, color: Colors.black),
+                                              .copyWith(
+                                                  fontSize: 16,
+                                                  color: Colors.black),
                                         ),
                                       ),
-                                  separatorBuilder: (context, index) => const Divider(),
+                                  separatorBuilder: (context, index) =>
+                                      const Divider(),
                                   itemCount: sortList.length),
                             ),
                           )
@@ -100,7 +112,9 @@ class ExcursionsPage extends StatelessWidget {
                     context
                         .read<PlacesPageViewModel>()
                         .excursionController
-                        .animateTo(0, duration: const Duration(seconds: 1), curve: Curves.easeInOut);
+                        .animateTo(0,
+                            duration: const Duration(seconds: 1),
+                            curve: Curves.easeInOut);
                   },
                   label: const Icon(Icons.arrow_circle_up)),
             )
