@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:hackground_app/pages/places_page/components/location_card.dart';
 import 'package:provider/provider.dart';
 
-import '../../../dummy_data.dart';
-import '../../hotels_page/components/attraction_listview_house_rent.dart';
 import '../places_page_model.dart';
 import 'filter_header_events.dart';
-import 'filter_header_locations.dart';
+import 'location_card.dart';
 
 class LocationsPage extends StatelessWidget {
   const LocationsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final isLoading =
-        context.select((PlacesPageViewModel model) => model.isLocationsLoading);
+    final isLoading = context.select((PlacesPageViewModel model) => model.isLocationsLoading);
+    final places = context.select((PlacesPageViewModel model) => model.places);
     return isLoading
         ? const Center(
             child: CircularProgressIndicator(),
@@ -28,9 +25,13 @@ class LocationsPage extends StatelessWidget {
                   height: 15,
                 ),
                 Expanded(
-                    child: ListView.builder(
-                        itemCount: 5,
-                        itemBuilder: (context, index) => LocationCard()))
+                  child: ListView.builder(
+                    itemCount: places.length,
+                    itemBuilder: (context, index) => LocationCard(
+                      place: places[index],
+                    ),
+                  ),
+                )
               ],
             ),
           );

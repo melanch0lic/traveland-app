@@ -17,6 +17,7 @@ class PlacesPage extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => PlacesPageViewModel(
           eventsService: context.read<InitializeProvider>().eventsService,
+          placesService: context.read<InitializeProvider>().placesService,
           excursionsService: context.read<InitializeProvider>().excursionsService),
       child: Builder(builder: (context) {
         final pageIndex = context.select((PlacesPageViewModel model) => model.pageIndex);

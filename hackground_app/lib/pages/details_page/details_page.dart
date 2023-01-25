@@ -9,7 +9,6 @@ import '../../domain/models/attraction_model.dart';
 import '../../dummy_data.dart';
 import '../../widgets/image_slider.dart';
 import '../../widgets/name_row_header.dart';
-import '../home_page/components/attraction_listview.dart';
 import 'components/contact_item.dart';
 import 'components/review_card.dart';
 import 'components/sent_review_button.dart';
@@ -302,7 +301,7 @@ class DetailsPage extends StatelessWidget {
                       const SizedBox(
                         height: 15,
                       ),
-                      AttractionListView(attractionListHouse.sublist(1)),
+                      // EventSmallListView(attractionListHouse.sublist(1)),
                     ],
                   ),
                 ),

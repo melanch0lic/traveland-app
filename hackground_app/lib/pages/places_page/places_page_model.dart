@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../../data/network/models/entity/event_entity.dart';
+import '../../data/network/models/entity/place_entity.dart';
 import '../../data/network/models/entity/tour_entity.dart';
 import '../../domain/services/events_service.dart';
 import '../../domain/services/excursions_service.dart';
+import '../../domain/services/places_service.dart';
 
 class PlacesPageViewModel with ChangeNotifier {
+  final PlacesService placesService;
   final EventsService eventsService;
   final ExcursionsService excursionsService;
 
@@ -14,14 +17,14 @@ class PlacesPageViewModel with ChangeNotifier {
   late ScrollController _excursionController;
   ScrollController get excursionController => _excursionController;
 
+  List<PlaceEntity> _places = [];
+  List<PlaceEntity> get places => _places;
+
   List<EventsEntity> _events = [];
   List<EventsEntity> get events => _events;
 
   final List<TourEntity> _excursions = [];
-  List<TourEntity> get excursions {
-    // _excursions.sort((a, b) => b.reviewCount.compareTo(a.reviewCount));
-    return _excursions;
-  }
+  List<TourEntity> get excursions => _excursions;
 
   bool _excursionsHasNextPage = true;
 
@@ -43,7 +46,7 @@ class PlacesPageViewModel with ChangeNotifier {
   int _pageIndex = 0;
   int get pageIndex => _pageIndex;
 
-  PlacesPageViewModel({required this.eventsService, required this.excursionsService}) {
+  PlacesPageViewModel({required this.placesService, required this.eventsService, required this.excursionsService}) {
     _controller = PageController();
     _excursionController = ScrollController();
     init();
@@ -52,7 +55,15 @@ class PlacesPageViewModel with ChangeNotifier {
   bool _sortFlagLocations = false;
   bool get sortFlagLocations => _sortFlagLocations;
 
-  void init() {}
+  Future<void> init() async {
+    _isLocationsLoading = true;
+    notifyListeners();
+
+    await fetchPlaces();
+
+    _isLocationsLoading = false;
+    notifyListeners();
+  }
 
   void onSortFlagLocationsPressed() {
     _sortFlagLocations = !_sortFlagLocations;
@@ -75,8 +86,11 @@ class PlacesPageViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> fetchLocations() async {
-    await Future.delayed(const Duration(seconds: 1));
+  Future<void> fetchPlaces() async {
+    final response = await placesService.getPlaces();
+    response.fold((result) {
+      _places = result.result.places;
+    }, (exception, error) {});
   }
 
   Future<void> fetchExcursions() async {
@@ -85,7 +99,6 @@ class PlacesPageViewModel with ChangeNotifier {
       _excursionsHasNextPage = result.next == null ? false : true;
       _excursions.addAll(result.results);
       _excursionOffset++;
-      print(_excursions.length);
     }, (exception, error) {});
   }
 
@@ -100,15 +113,6 @@ class PlacesPageViewModel with ChangeNotifier {
     _pageIndex = page;
     notifyListeners();
     switch (page) {
-      case 0:
-        _isLocationsLoading = true;
-        notifyListeners();
-
-        await fetchLocations();
-
-        _isLocationsLoading = false;
-        notifyListeners();
-        break;
       case 1:
         if (excursions.isEmpty) {
           _isExcursionsLoading = true;

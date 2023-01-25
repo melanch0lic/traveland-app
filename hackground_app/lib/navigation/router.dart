@@ -7,7 +7,7 @@ import '../pages/detailis_exursion_page/detailis_exursion_page.dart';
 import '../pages/detailis_location_page/detailis_location_page.dart';
 import '../pages/details_page/details_page.dart';
 import '../pages/home_page/home_page.dart';
-import '../pages/hotels_page/hotels_page.dart';
+import '../pages/housings_page/housings_page.dart';
 import '../pages/login_page.dart/login_page.dart';
 import '../pages/map_page/map_page.dart';
 import '../pages/places_page/places_page.dart';
@@ -32,10 +32,7 @@ import '../pages/tabs_page/tabs_page.dart';
             path: 'register',
             name: 'RegisterRouter',
             page: EmptyRouterPage,
-            children: [
-              AutoRoute(path: '', page: RegisterPage),
-              AutoRoute(path: 'aboutInfo', page: AboutInfoPage)
-            ])
+            children: [AutoRoute(path: '', page: RegisterPage), AutoRoute(path: 'aboutInfo', page: AboutInfoPage)])
       ],
     ),
     AutoRoute(
@@ -52,14 +49,10 @@ import '../pages/tabs_page/tabs_page.dart';
             AutoRoute(path: ':selectedModel', page: DetailsPage),
           ],
         ),
-        AutoRoute(
-            path: 'hotels',
-            name: 'HotelsRouter',
-            page: EmptyRouterPage,
-            children: [
-              AutoRoute(path: '', page: HotelsPage),
-              AutoRoute(path: ':selectedModel', page: DetailsPage),
-            ]),
+        AutoRoute(path: 'hotels', name: 'HotelsRouter', page: EmptyRouterPage, children: [
+          AutoRoute(path: '', page: HousingsPage),
+          AutoRoute(path: ':selectedModel', page: DetailsPage),
+        ]),
         AutoRoute(
           path: 'map',
           name: 'MapRouter',
