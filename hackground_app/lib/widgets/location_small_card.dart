@@ -2,19 +2,19 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../data/network/models/entity/housing_entity.dart';
+import '../data/network/models/entity/place_entity.dart';
 
-class HousingSmallCard extends StatelessWidget {
-  final HousingEntity housing;
+class LocationSmallCard extends StatelessWidget {
+  final PlaceEntity place;
 
-  const HousingSmallCard({Key? key, required this.housing}) : super(key: key);
+  const LocationSmallCard({Key? key, required this.place}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return GestureDetector(
       onTap: () {
-        // context.router.push(DetailsRoute(selectedModel: housing));
+        // context.router.push(DetailsRoute(selectedModel: place));
       },
       child: Container(
         margin: const EdgeInsets.only(right: 10),
@@ -36,7 +36,7 @@ class HousingSmallCard extends StatelessWidget {
                   width: double.infinity,
                   child: CachedNetworkImage(
                     fit: BoxFit.cover,
-                    imageUrl: 'https://i.pinimg.com/564x/e6/35/41/e635416caab186b4a13cb45aa058b5af.jpg',
+                    imageUrl: 'https://i.pinimg.com/564x/71/cd/5d/71cd5d2217b5fb6b4d63eb9e5062c658.jpg',
                     progressIndicatorBuilder: (context, url, progress) => Center(
                       child: CircularProgressIndicator(
                         value: progress.progress,
@@ -57,7 +57,7 @@ class HousingSmallCard extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
                       child: Text(
-                        '${housing.placeInfo.meanRating.value}',
+                        '${place.placeInfo.meanRating.value}',
                         style: theme.textTheme.bodyText2?.copyWith(
                           color: const Color.fromRGBO(255, 255, 255, 1),
                           fontSize: 14,
@@ -75,7 +75,7 @@ class HousingSmallCard extends StatelessWidget {
                 children: [
                   SizedBox(
                     height: 20,
-                    child: Text(housing.placeInfo.name,
+                    child: Text(place.placeInfo.name,
                         style: theme.textTheme.headline1?.copyWith(
                           color: const Color.fromRGBO(44, 44, 46, 1),
                           fontSize: 16,
@@ -97,7 +97,7 @@ class HousingSmallCard extends StatelessWidget {
                         const SizedBox(width: 8.33),
                         Expanded(
                           child: Text(
-                            housing.placeInfo.adress,
+                            place.placeInfo.adress,
                             style: theme.textTheme.bodyText2?.copyWith(
                               color: const Color.fromRGBO(44, 44, 46, 1),
                               fontSize: 14,
@@ -119,7 +119,7 @@ class HousingSmallCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 6.42),
                       Text(
-                        'от ${housing.price} ₽',
+                        'от ${place.price.value} ₽',
                         style: theme.textTheme.bodyText2?.copyWith(
                           color: const Color.fromRGBO(44, 44, 46, 1),
                           fontSize: 14,

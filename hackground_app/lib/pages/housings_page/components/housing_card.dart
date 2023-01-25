@@ -11,6 +11,7 @@ class HousingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return GestureDetector(
       onTap: () {
         // context.router.push(DetailsRoute(selectedModel: attraction));
@@ -31,7 +32,7 @@ class HousingCard extends StatelessWidget {
               width: double.infinity,
               child: CachedNetworkImage(
                 fit: BoxFit.cover,
-                imageUrl: 'https://i.pinimg.com/564x/60/4a/cf/604acfef51d88b15f54e2b1104c9d528.jpg',
+                imageUrl: 'https://i.pinimg.com/564x/e6/35/41/e635416caab186b4a13cb45aa058b5af.jpg',
                 progressIndicatorBuilder: (context, url, progress) => Center(
                   child: CircularProgressIndicator(
                     value: progress.progress,
@@ -44,11 +45,11 @@ class HousingCard extends StatelessWidget {
               padding: const EdgeInsets.only(left: 15, right: 15, bottom: 20, top: 15),
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text(housing.placeInfo.name,
-                    style: Theme.of(context).textTheme.headline1?.copyWith(
-                          color: const Color.fromRGBO(44, 44, 46, 1),
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        )),
+                    style: theme.textTheme.headline1?.copyWith(
+                      color: const Color.fromRGBO(44, 44, 46, 1),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    )),
                 const SizedBox(height: 6),
                 Row(
                   children: [
@@ -64,10 +65,10 @@ class HousingCard extends StatelessWidget {
                         children: [
                           Text(
                             '${housing.placeInfo.meanRating.value}',
-                            style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                                  color: const Color.fromRGBO(255, 255, 255, 1),
-                                  fontSize: 14,
-                                ),
+                            style: theme.textTheme.bodyText2?.copyWith(
+                              color: const Color.fromRGBO(255, 255, 255, 1),
+                              fontSize: 14,
+                            ),
                           )
                         ],
                       ),
@@ -75,11 +76,11 @@ class HousingCard extends StatelessWidget {
                     const SizedBox(width: 11),
                     Text(
                       '${housing.placeInfo.ratingCount.value} отзывов',
-                      style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                            color: const Color.fromRGBO(44, 44, 46, 1),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
+                      style: theme.textTheme.bodyText2?.copyWith(
+                        color: const Color.fromRGBO(44, 44, 46, 1),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   ],
                 ),
@@ -96,11 +97,11 @@ class HousingCard extends StatelessWidget {
                     Expanded(
                       child: Text(
                         '${housing.placeInfo.adress} ',
-                        style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                              color: const Color.fromRGBO(44, 44, 46, 1),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                            ),
+                        style: theme.textTheme.bodyText2?.copyWith(
+                          color: const Color.fromRGBO(44, 44, 46, 1),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ),
                   ],
@@ -117,11 +118,11 @@ class HousingCard extends StatelessWidget {
                     const SizedBox(width: 6.42),
                     Text(
                       'от ${housing.price} ₽',
-                      style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                            color: const Color.fromRGBO(44, 44, 46, 1),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
+                      style: theme.textTheme.bodyText2?.copyWith(
+                        color: const Color.fromRGBO(44, 44, 46, 1),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   ],
                 )
