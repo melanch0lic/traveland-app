@@ -13,6 +13,7 @@ import 'domain/services/auth_service.dart';
 import 'domain/services/events_service.dart';
 import 'domain/services/excursions_service.dart';
 import 'domain/services/housing_service.dart';
+import 'domain/services/places_service.dart';
 import 'navigation/router.gr.dart';
 
 class InitializeProvider with ChangeNotifier {
@@ -46,6 +47,9 @@ class InitializeProvider with ChangeNotifier {
   late HousingService _housingService;
   HousingService get housingService => _housingService;
 
+  late PlacesService _placesService;
+  PlacesService get placesService => _placesService;
+
   Future<void> initializeApp() async {
     _dioTripster = Dio();
     _dioMainApiClient = Dio();
@@ -56,7 +60,8 @@ class InitializeProvider with ChangeNotifier {
     _sessionData = const SessionData(FlutterSecureStorage(aOptions: AndroidOptions(encryptedSharedPreferences: true)));
     _authService = AuthService(sessionData: _sessionData, mainApiClient: _mainApiClient);
     _eventsService = EventsService(mainApiClient: _mainApiClient);
-    _housingService = HousingService(mainApiClient: mainApiClient);
+    _housingService = HousingService(mainApiClient: _mainApiClient);
+    _placesService = PlacesService(mainApiClient: _mainApiClient);
     _excursionsService = ExcursionsService(tripsterApiClient: _tripsterApiClient);
     _dioMainApiClient.interceptors.add(TokenInterceptor(dio: _dioMainApiClient, sessionData: _sessionData));
   }

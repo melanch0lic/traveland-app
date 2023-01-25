@@ -6,6 +6,7 @@ import 'models/login_request_body.dart';
 import 'models/response/events_response.dart';
 import 'models/response/housing_response.dart';
 import 'models/response/login_response.dart';
+import 'models/response/places_response.dart';
 import 'models/response/register_response.dart';
 import 'models/response/user_by_id_response.dart';
 import 'register_request_body.dart';
@@ -26,6 +27,11 @@ class MainSafeApiClient implements MainApiClient {
   @override
   Future<Result<RegisterResponse>> registerUser(RegisterRequestBody body) {
     return _wrapUnsafeCall<RegisterResponse>(() => _client.registerUser(body));
+  }
+
+  @override
+  Future<Result<PlacesResponse>> getPlaces() {
+    return _wrapUnsafeCall<PlacesResponse>(() => _client.getPlaces());
   }
 
   @override
