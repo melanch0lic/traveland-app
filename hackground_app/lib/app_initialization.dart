@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'data/network/main_api_client.dart';
 import 'data/network/main_safe_api_client.dart';
@@ -14,6 +15,7 @@ import 'domain/services/events_service.dart';
 import 'domain/services/excursions_service.dart';
 import 'domain/services/housing_service.dart';
 import 'domain/services/places_service.dart';
+import 'domain/settings.dart';
 import 'navigation/router.gr.dart';
 
 class InitializeProvider with ChangeNotifier {
@@ -50,20 +52,32 @@ class InitializeProvider with ChangeNotifier {
   late PlacesService _placesService;
   PlacesService get placesService => _placesService;
 
+  late final SharedPreferences _sharedPreferences;
+  SharedPreferences get sharedPreferences => _sharedPreferences;
+
+  late final Settings _settings;
+  Settings get settings => _settings;
+
+  late final bool _isUserAuthorized;
+  bool get isUserAuthorized => _isUserAuthorized && (_settings.getRememberUserMode ?? false);
+
   Future<void> initializeApp() async {
+    _appRouter = AppRouter();
     _dioTripster = Dio();
     _dioMainApiClient = Dio();
     _tripsterApiClient = _createTripsterApiClient(_dioTripster);
     _mainApiClient = _createMainApiClient(_dioMainApiClient);
-    _appRouter = AppRouter();
+    _sharedPreferences = await SharedPreferences.getInstance();
+    _settings = Settings(_sharedPreferences);
     _cachedDataRepository = CachedDataRepository();
     _sessionData = const SessionData(FlutterSecureStorage(aOptions: AndroidOptions(encryptedSharedPreferences: true)));
-    _authService = AuthService(sessionData: _sessionData, mainApiClient: _mainApiClient);
+    _authService = AuthService(sessionData: _sessionData, mainApiClient: _mainApiClient, settings: _settings);
     _eventsService = EventsService(mainApiClient: _mainApiClient);
     _housingService = HousingService(mainApiClient: _mainApiClient);
     _placesService = PlacesService(mainApiClient: _mainApiClient);
     _excursionsService = ExcursionsService(tripsterApiClient: _tripsterApiClient);
     _dioMainApiClient.interceptors.add(TokenInterceptor(dio: _dioMainApiClient, sessionData: _sessionData));
+    _isUserAuthorized = await _authService.isUserAuthorized();
   }
 
   TripsterSafeApiClient _createTripsterApiClient(Dio dio) {

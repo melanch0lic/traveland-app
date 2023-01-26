@@ -3,7 +3,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 const _jwtToken = 'jwt_token';
 const _mail = 'mail';
 const _password = 'password';
-const _userId = 'id';
 
 class SessionData {
   final FlutterSecureStorage _storage;
@@ -15,13 +14,10 @@ class SessionData {
 
   Future<String?> getPassword() => _storage.read(key: _password);
 
-  Future<String?> getUserId() => _storage.read(key: _userId);
-
-  Future<void> saveUserData(String token, String id, String mail, String password) async {
+  Future<void> saveUserData(String token, String mail, String password) async {
     await _storage.write(key: _jwtToken, value: token);
     await _storage.write(key: _mail, value: mail);
     await _storage.write(key: _password, value: password);
-    await _storage.write(key: _userId, value: id);
   }
 
   // static Future<void> saveBadToken() async {
@@ -36,6 +32,5 @@ class SessionData {
     await _storage.delete(key: _jwtToken);
     await _storage.delete(key: _mail);
     await _storage.delete(key: _password);
-    await _storage.delete(key: _userId);
   }
 }

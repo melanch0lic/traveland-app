@@ -50,11 +50,9 @@ class SexDropDown extends StatelessWidget {
                     ),
                   ))
               .toList(),
-          buttonPadding: const EdgeInsets.only(left: 20, right: 10),
           dropdownDecoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
           ),
-          isExpanded: true,
           validator: (value) {
             if (value == null) {
               return 'None';

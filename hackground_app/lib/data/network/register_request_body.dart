@@ -7,9 +7,6 @@ class RegisterRequestBody {
   @JsonKey(name: 'name')
   final String name;
 
-  @JsonKey(name: 'last-name')
-  final String lastName;
-
   @JsonKey(name: 'role-id')
   final int roleId;
 
@@ -23,12 +20,7 @@ class RegisterRequestBody {
   final bool sex;
 
   RegisterRequestBody(
-      {required this.name,
-      required this.lastName,
-      required this.roleId,
-      required this.mail,
-      required this.password,
-      required this.sex});
+      {required this.name, required this.roleId, required this.mail, required this.password, required this.sex});
 
   factory RegisterRequestBody.fromJson(Map<String, dynamic> json) => _$RegisterRequestBodyFromJson(json);
 
