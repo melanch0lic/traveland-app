@@ -32,6 +32,6 @@ abstract class MainApiClient {
   @GET('api/place/get-all-place/1/0')
   Future<Result<HousingResponse>> getHousings();
 
-  @GET('api/user/get-user/{id}')
-  Future<Result<UserByIdResponse>> getUserInfoById(@Path() String id);
+  @GET('api/user/get-user/')
+  Future<Result<UserByIdResponse>> getUserInfoById();
 }

@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 
 import '../about_info_page_model.dart';
 
-class NameTextField extends StatelessWidget {
-  const NameTextField({Key? key}) : super(key: key);
+class UserNameTextField extends StatelessWidget {
+  const UserNameTextField({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class NameTextField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Имя',
+          'Имя пользователя',
           style: theme.textTheme.bodyText2,
         ),
         const SizedBox(height: 10),

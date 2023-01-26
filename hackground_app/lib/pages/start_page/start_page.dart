@@ -1,6 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
+import '../../app_initialization.dart';
 import 'components/start_auth_button.dart';
 import 'components/start_reg_button.dart';
 
@@ -9,6 +12,13 @@ class StartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (context.read<InitializeProvider>().isUserAuthorized) {
+      context
+          .read<InitializeProvider>()
+          .authService
+          .refreshToken()
+          .whenComplete(() => context.router.replaceNamed('/tabs'));
+    }
     return Scaffold(
       body: SafeArea(
           child: Padding(
