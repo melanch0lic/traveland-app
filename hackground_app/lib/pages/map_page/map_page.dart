@@ -46,6 +46,7 @@ class _MapPageState extends State<MapPage> {
         return;
       }
     }
+    location.onLocationChanged.listen((event) {});
 
     await location.getLocation().then((data) {
       currentLocation = LatLng(data.latitude!, data.longitude!);
@@ -101,43 +102,43 @@ class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.black, actions: [
-        if (chosenMode == ChosenMode.turnedOff)
-          IconButton(
-              onPressed: () {
-                setState(() {
-                  chosenMode = ChosenMode.first;
-                  currentModeNumber = 1;
-                });
-              },
-              icon: const Icon(Icons.looks_one)),
-        if (chosenMode == ChosenMode.turnedOff)
-          IconButton(
-              onPressed: () {
-                setState(() {
-                  chosenMode = ChosenMode.second;
-                  currentModeNumber = 2;
-                });
-              },
-              icon: const Icon(Icons.looks_two)),
-        if (chosenMode == ChosenMode.first || chosenMode == ChosenMode.second)
-          IconButton(
-              onPressed: () {
-                setState(() {
-                  chosenMode = ChosenMode.accepted;
-                });
-              },
-              icon: const Icon(Icons.check)),
-        if (chosenMode == ChosenMode.first || chosenMode == ChosenMode.second || chosenMode == ChosenMode.accepted)
-          IconButton(
-              onPressed: () {
-                setState(() {
-                  chosenMode = ChosenMode.turnedOff;
-                  points.clear();
-                });
-              },
-              icon: const Icon(Icons.location_off)),
-      ]),
+      // appBar: AppBar(backgroundColor: Colors.black, actions: [
+      //   if (chosenMode == ChosenMode.turnedOff)
+      //     IconButton(
+      //         onPressed: () {
+      //           setState(() {
+      //             chosenMode = ChosenMode.first;
+      //             currentModeNumber = 1;
+      //           });
+      //         },
+      //         icon: const Icon(Icons.looks_one)),
+      //   if (chosenMode == ChosenMode.turnedOff)
+      //     IconButton(
+      //         onPressed: () {
+      //           setState(() {
+      //             chosenMode = ChosenMode.second;
+      //             currentModeNumber = 2;
+      //           });
+      //         },
+      //         icon: const Icon(Icons.looks_two)),
+      //   if (chosenMode == ChosenMode.first || chosenMode == ChosenMode.second)
+      //     IconButton(
+      //         onPressed: () {
+      //           setState(() {
+      //             chosenMode = ChosenMode.accepted;
+      //           });
+      //         },
+      //         icon: const Icon(Icons.check)),
+      //   if (chosenMode == ChosenMode.first || chosenMode == ChosenMode.second || chosenMode == ChosenMode.accepted)
+      //     IconButton(
+      //         onPressed: () {
+      //           setState(() {
+      //             chosenMode = ChosenMode.turnedOff;
+      //             points.clear();
+      //           });
+      //         },
+      //         icon: const Icon(Icons.location_off)),
+      // ]),
       body: SlidingUpPanel(
         borderRadius: const BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
         collapsed: Container(
