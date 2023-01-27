@@ -17,25 +17,23 @@ class InfoGuideWidget extends StatelessWidget {
         CircleAvatar(
           maxRadius: 35,
           backgroundColor: Colors.grey,
-          backgroundImage: selectedModel.guide.avatarImages.mediumAvatarUrl !=
-                  null
+          backgroundImage: selectedModel.guide.avatarImages.mediumAvatarUrl != null
               ? NetworkImage(selectedModel.guide.avatarImages.mediumAvatarUrl!)
-              : NetworkImage(
-                  'https://ru.pinterest.com/pin/961026007962154699/'),
+              : const NetworkImage('https://ru.pinterest.com/pin/961026007962154699/'),
         ),
         const SizedBox(width: 15),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '${selectedModel.guide.name}',
+              selectedModel.guide.name,
               style: Theme.of(context).textTheme.headline1?.copyWith(
                     fontSize: 16,
                     color: const Color.fromRGBO(44, 44, 46, 1),
                     fontWeight: FontWeight.w600,
                   ),
             ),
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             Text(
               'Гид во Владикавказе',
               style: Theme.of(context).textTheme.headline1?.copyWith(
@@ -44,12 +42,11 @@ class InfoGuideWidget extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                   ),
             ),
-            SizedBox(height: 6),
+            const SizedBox(height: 6),
             Row(
               children: [
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 1, horizontal: 6),
+                  padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 6),
                   width: 33,
                   height: 19,
                   decoration: BoxDecoration(
@@ -68,7 +65,7 @@ class InfoGuideWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(width: 5),
+                const SizedBox(width: 5),
                 Text(
                   '${selectedModel.guide.reviewCount.toInt()} отзывов',
                   style: Theme.of(context).textTheme.headline1?.copyWith(
