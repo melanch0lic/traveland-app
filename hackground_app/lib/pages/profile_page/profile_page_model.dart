@@ -36,7 +36,8 @@ class ProfilePageViewModel with ChangeNotifier {
           number: result.result!.users!.number,
           roleId: result.result!.users!.roleId,
           sex: result.result!.users!.sex,
-          userId: result.result!.users!.userId);
+          userId: result.result!.users!.userId,
+          image: result.result!.users!.image);
     }, (exception, error) {});
   }
 

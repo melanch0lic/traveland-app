@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
+
+import '../map_page_model.dart';
 
 class GpsButton extends StatelessWidget {
   const GpsButton({Key? key}) : super(key: key);
@@ -8,7 +11,9 @@ class GpsButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton(
       backgroundColor: Colors.black.withOpacity(0.6),
-      onPressed: () {},
+      onPressed: () {
+        context.read<MapPageViewModel>().onLocationButtonPressed();
+      },
       child: SvgPicture.asset(
         'assets/images/location_line_icon.svg',
         color: Theme.of(context).cardColor,

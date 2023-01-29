@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 
 import 'components/gps_button.dart';
+import 'components/location_widget.dart';
 import 'components/map_category_select_widget.dart';
 import 'components/search_map_widget.dart';
 import 'components/zoom_buttons.dart';
@@ -17,12 +17,13 @@ class MainMapPage extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => MapPageViewModel(),
       child: Builder(builder: (context) {
+        final currentLocationPosition = context.select((MapPageViewModel model) => model.currentLocationPosition);
         return Scaffold(
           body: FlutterMap(
             mapController: context.read<MapPageViewModel>().mapController,
             options: MapOptions(
                 interactiveFlags: InteractiveFlag.pinchZoom | InteractiveFlag.drag,
-                center: LatLng(43.024994, 44.68126),
+                center: currentLocationPosition,
                 zoom: 16,
                 maxZoom: 17,
                 minZoom: 8),
@@ -61,6 +62,17 @@ class MainMapPage extends StatelessWidget {
                 ],
                 // errorImage: const NetworkImage('https://tile.openstreetmap.org/18/0/0.png'),
               ),
+              if (currentLocationPosition != null)
+                MarkerLayer(
+                  markers: [
+                    Marker(
+                      width: 60,
+                      height: 60,
+                      point: currentLocationPosition,
+                      builder: (context) => const LocationWidget(),
+                    )
+                  ],
+                )
             ],
           ),
         );

@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../app_initialization.dart';
-import '../../dummy_data.dart';
 import '../../widgets/name_row_header.dart';
-import '../../widgets/event_small_listview.dart';
 import 'components/info_user_widget.dart';
 import 'components/log_out_button.dart';
 import 'profile_page_model.dart';
@@ -18,6 +16,15 @@ class ProfilePage extends StatelessWidget {
       child: Builder(builder: (context) {
         final isLoading = context.select((ProfilePageViewModel model) => model.isLoading);
         return Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'Профиль',
+              style: Theme.of(context)
+                  .textTheme
+                  .headline2!
+                  .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
+            ),
+          ),
           body: isLoading
               ? const Center(
                   child: CircularProgressIndicator(),
