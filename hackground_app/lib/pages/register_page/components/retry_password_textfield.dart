@@ -10,8 +10,10 @@ class RetryPasswordTextfield extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isHidePassword = context.select((RegisterPageViewModel model) => model.isHidePasswordRepeat);
-    final isPasswordRepeatCorrect = context.select((RegisterPageViewModel model) => model.isPasswordRepeatCorrect);
+    final isHidePassword = context
+        .select((RegisterPageViewModel model) => model.isHidePasswordRepeat);
+    final isPasswordRepeatCorrect = context
+        .select((RegisterPageViewModel model) => model.isPasswordRepeatCorrect);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -24,6 +26,7 @@ class RetryPasswordTextfield extends StatelessWidget {
           obscureText: isHidePassword,
           style: theme.textTheme.bodyText2,
           decoration: InputDecoration(
+            contentPadding: EdgeInsets.all(15),
             prefixIconConstraints: const BoxConstraints(
               minWidth: 16,
               minHeight: 14,
@@ -33,7 +36,8 @@ class RetryPasswordTextfield extends StatelessWidget {
               minHeight: 14,
             ),
             prefixIcon: Padding(
-              padding: const EdgeInsets.only(left: 16, top: 16, bottom: 16, right: 6),
+              padding: const EdgeInsets.only(
+                  left: 16, top: 16, bottom: 16, right: 6),
               child: SvgPicture.asset(
                 'assets/images/password_icon.svg',
                 color: theme.textTheme.bodyText2!.color,
@@ -42,10 +46,13 @@ class RetryPasswordTextfield extends StatelessWidget {
             suffixIcon: InkWell(
                 highlightColor: theme.cardColor,
                 onTap: () {
-                  context.read<RegisterPageViewModel>().changeHidePasswordRepeatMode();
+                  context
+                      .read<RegisterPageViewModel>()
+                      .changeHidePasswordRepeatMode();
                 },
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 16, bottom: 16, right: 16),
+                  padding:
+                      const EdgeInsets.only(top: 16, bottom: 16, right: 16),
                   child: SvgPicture.asset(
                     'assets/images/hide_password_icon.svg',
                     color: theme.textTheme.bodyText2!.color,
@@ -63,12 +70,16 @@ class RetryPasswordTextfield extends StatelessWidget {
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
               borderSide: BorderSide(
-                  color: isPasswordRepeatCorrect ? theme.indicatorColor : const Color.fromRGBO(255, 47, 47, 1),
+                  color: isPasswordRepeatCorrect
+                      ? theme.indicatorColor
+                      : const Color.fromRGBO(255, 47, 47, 1),
                   width: 2),
             ),
           ),
           textInputAction: TextInputAction.done,
-          onChanged: (value) => context.read<RegisterPageViewModel>().onPasswordRepeatChange(value),
+          onChanged: (value) => context
+              .read<RegisterPageViewModel>()
+              .onPasswordRepeatChange(value),
         )
       ],
     );

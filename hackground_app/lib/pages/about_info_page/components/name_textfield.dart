@@ -9,7 +9,8 @@ class NameTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isNameCorrect = context.select((AboutInfoPageViewModel model) => model.isNameCorrect);
+    final isNameCorrect =
+        context.select((AboutInfoPageViewModel model) => model.isNameCorrect);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -21,6 +22,7 @@ class NameTextField extends StatelessWidget {
         TextField(
           style: theme.textTheme.bodyText2,
           decoration: InputDecoration(
+            contentPadding: EdgeInsets.all(15),
             prefixIconConstraints: const BoxConstraints(
               minWidth: 16,
               minHeight: 14,
@@ -29,16 +31,22 @@ class NameTextField extends StatelessWidget {
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
               borderSide: BorderSide(
-                  color: isNameCorrect ? theme.textTheme.bodyText2!.color! : const Color.fromRGBO(255, 47, 47, 1),
+                  color: isNameCorrect
+                      ? theme.textTheme.bodyText2!.color!
+                      : const Color.fromRGBO(255, 47, 47, 1),
                   width: 2),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
               borderSide: BorderSide(
-                  color: isNameCorrect ? theme.indicatorColor : const Color.fromRGBO(255, 47, 47, 1), width: 2),
+                  color: isNameCorrect
+                      ? theme.indicatorColor
+                      : const Color.fromRGBO(255, 47, 47, 1),
+                  width: 2),
             ),
           ),
-          onChanged: (value) => context.read<AboutInfoPageViewModel>().onNameChange(value),
+          onChanged: (value) =>
+              context.read<AboutInfoPageViewModel>().onNameChange(value),
           textInputAction: TextInputAction.next,
         )
       ],
