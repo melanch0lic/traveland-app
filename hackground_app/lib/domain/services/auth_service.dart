@@ -6,26 +6,27 @@ import '../../data/network/models/response/user_by_id_response.dart';
 import '../../data/network/register_request_body.dart';
 import '../../data/network/result.dart';
 import '../../data/network/session_data.dart';
+import '../settings.dart';
 
 class AuthService {
   final SessionData sessionData;
   final MainApiClient mainApiClient;
+  final Settings settings;
 
-  AuthService({required this.sessionData, required this.mainApiClient});
+  AuthService({required this.sessionData, required this.mainApiClient, required this.settings});
 
   Future<bool> isUserAuthorized() async {
     final jwtToken = await sessionData.getJwtToken();
     return jwtToken != null;
   }
 
-  Future<Result<LoginResponse>> login(LoginRequestBody body) async {
+  Future<Result<LoginResponse>> login(LoginRequestBody body, bool isRememberUser) async {
     final response = await mainApiClient.login(body);
 
     if (response.isSuccess()) {
       final success = response as Success;
-      await sessionData.saveUserData(
-          success.value.jwtToken.token, success.value.jwtToken.userId.toString(), body.mail, body.password);
-      // await settings.saveRememberUserMode(isRememberUser);
+      await sessionData.saveUserData(success.value.jwtToken.token, body.mail, body.password);
+      await settings.saveRememberUserMode(isRememberUser);
     }
     return response;
   }
@@ -36,24 +37,25 @@ class AuthService {
   }
 
   Future<Result<UserByIdResponse>> getUserInfo() async {
-    final userId = await sessionData.getUserId();
-    final response = await mainApiClient.getUserInfoById(userId!);
+    final response = await mainApiClient.getUserInfoById();
     return response;
   }
 
-  // Future<Result<LoginResponse>> refreshToken() async {
-  //   final login = await sessionData.getLogin();
-  //   final password = await sessionData.getPassword();
-  //   final response = await apiClient.login(login!, password!);
-  //   if (response.isSuccess()) {
-  //     final success = response as Success;
-  //     await sessionData.saveJwtToken(success.value.jwtToken, login, password);
-  //   }
-  //   return response;
-  // }
+  Future<Result<LoginResponse>> refreshToken() async {
+    final login = await sessionData.getLogin();
+    final password = await sessionData.getPassword();
+    final body = LoginRequestBody(mail: login!, password: password!);
+    final response = await mainApiClient.login(body);
+    if (response.isSuccess()) {
+      final success = response as Success;
+      await sessionData.saveUserData(success.value.jwtToken.token, body.mail, body.password);
+    }
+    return response;
+  }
 
   Future<void> logout() async {
     // cachedDataRepository.clear();
     await sessionData.clearUserData();
+    await settings.storageClear();
   }
 }

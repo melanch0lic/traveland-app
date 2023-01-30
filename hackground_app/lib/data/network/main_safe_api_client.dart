@@ -45,8 +45,8 @@ class MainSafeApiClient implements MainApiClient {
   }
 
   @override
-  Future<Result<UserByIdResponse>> getUserInfoById(String id) {
-    return _wrapUnsafeCall<UserByIdResponse>(() => _client.getUserInfoById(id));
+  Future<Result<UserByIdResponse>> getUserInfoById() {
+    return _wrapUnsafeCall<UserByIdResponse>(() => _client.getUserInfoById());
   }
 
   Future<Result<T>> _wrapUnsafeCall<T>(UnsafeCall<T> call) async {

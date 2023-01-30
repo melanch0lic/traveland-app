@@ -4,10 +4,9 @@ import 'package:provider/provider.dart';
 
 import '../../app_initialization.dart';
 import 'about_info_page_model.dart';
-import 'components/name_textfield.dart';
 import 'components/sent_info_button.dart';
 import 'components/sex_dropdown.dart';
-import 'components/surname_textfield.dart';
+import 'components/user_name_textfield.dart';
 
 class AboutInfoPage extends StatelessWidget {
   const AboutInfoPage({Key? key, required this.email, required this.password}) : super(key: key);
@@ -21,41 +20,47 @@ class AboutInfoPage extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => AboutInfoPageViewModel(
           authService: context.read<InitializeProvider>().authService, email: email, password: password),
-      child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            highlightColor: theme.cardColor,
-            splashRadius: 15,
-            icon: SvgPicture.asset(
-              'assets/images/back_arrow_icon.svg',
-              color: Colors.black,
+      child: Builder(builder: (context) {
+        final errorText = context.select((AboutInfoPageViewModel model) => model.authErrorTitle);
+        return Scaffold(
+          appBar: AppBar(
+            leading: IconButton(
+              highlightColor: theme.cardColor,
+              splashRadius: 15,
+              icon: SvgPicture.asset(
+                'assets/images/back_arrow_icon.svg',
+                color: Colors.black,
+              ),
+              onPressed: () => Navigator.of(context).pop(),
             ),
-            onPressed: () => Navigator.of(context).pop(),
+            title: Container(
+              padding: const EdgeInsets.only(right: 10),
+              child: Text('О себе',
+                  style: theme.textTheme.headline2!
+                      .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500)),
+            ),
+            backgroundColor: theme.bottomAppBarColor,
           ),
-          title: Container(
-            padding: const EdgeInsets.only(right: 10),
-            child: Text('О себе',
-                style: theme.textTheme.headline2!
-                    .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500)),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  errorText,
+                  style: theme.textTheme.bodyText1!.copyWith(color: Colors.black),
+                ),
+                const SizedBox(height: 5),
+                const UserNameTextField(),
+                const SizedBox(height: 20),
+                const SexDropDown(),
+                const SizedBox(height: 50),
+                const SentInfoButton()
+              ],
+            ),
           ),
-          backgroundColor: theme.bottomAppBarColor,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              NameTextField(),
-              SizedBox(height: 20),
-              SurnameTextField(),
-              SizedBox(height: 20),
-              SexDropDown(),
-              SizedBox(height: 50),
-              SentInfoButton()
-            ],
-          ),
-        ),
-      ),
+        );
+      }),
     );
   }
 }

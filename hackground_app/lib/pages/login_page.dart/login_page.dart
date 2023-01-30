@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../app_initialization.dart';
 import 'components/auth_button.dart';
+import 'components/auth_settings_widget.dart';
 import 'components/email_textfield.dart';
 import 'components/password_textfield.dart';
 import 'login_page_model.dart';
@@ -42,10 +43,12 @@ class LoginPage extends StatelessWidget {
                   context.select((LoginPageViewModel model) => model.authErrorTitle),
                   style: theme.textTheme.bodyText1!.copyWith(color: Colors.black),
                 ),
+                const SizedBox(height: 5),
                 const EmailTextField(),
                 const SizedBox(height: 20),
                 const PasswordTextfield(),
                 const SizedBox(height: 50),
+                const AuthSettingsWidget(),
                 const AuthButton(),
               ],
             ),

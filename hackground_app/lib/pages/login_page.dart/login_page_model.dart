@@ -71,7 +71,7 @@ class LoginPageViewModel extends ChangeNotifier {
     changeButtonState();
     notifyListeners();
 
-    final loginResult = await authService.login(LoginRequestBody(mail: _mail, password: _password));
+    final loginResult = await authService.login(LoginRequestBody(mail: _mail, password: _password), isRememberUser);
     bool result = true;
     loginResult.fold(
       (result) {},
