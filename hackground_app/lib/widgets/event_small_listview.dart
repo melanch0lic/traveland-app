@@ -14,6 +14,7 @@ class EventSmallListView extends StatelessWidget {
     return SizedBox(
       height: 300,
       child: ListView.builder(
+        physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) => EventSmallCard(events[index]),
         itemCount: events.length,

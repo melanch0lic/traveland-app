@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../data/network/models/entity/event_entity.dart';
+import '../../../navigation/router.gr.dart';
 
 class EventSmallCard extends StatelessWidget {
   final EventsEntity event;
@@ -13,17 +15,20 @@ class EventSmallCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // context.router.push(DetailsRoute(selectedModel: attraction));
+        context.router.push(DetailisEventRoute(selectedModel: event));
       },
       child: Container(
         margin: const EdgeInsets.only(right: 10),
         width: 227,
-        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(15), boxShadow: [
-          BoxShadow(
-            blurRadius: 10,
-            color: Colors.black.withOpacity(0.1),
-          )
-        ]),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(15),
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 10,
+                color: Colors.black.withOpacity(0.1),
+              )
+            ]),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -35,8 +40,10 @@ class EventSmallCard extends StatelessWidget {
                   width: double.infinity,
                   child: CachedNetworkImage(
                     fit: BoxFit.cover,
-                    imageUrl: 'https://i.pinimg.com/564x/97/c7/7a/97c77ae15045eede386338737aaac8e7.jpg',
-                    progressIndicatorBuilder: (context, url, progress) => Center(
+                    imageUrl:
+                        'https://i.pinimg.com/564x/97/c7/7a/97c77ae15045eede386338737aaac8e7.jpg',
+                    progressIndicatorBuilder: (context, url, progress) =>
+                        Center(
                       child: CircularProgressIndicator(
                         value: progress.progress,
                       ),
@@ -54,7 +61,8 @@ class EventSmallCard extends StatelessWidget {
                       color: const Color.fromRGBO(56, 176, 0, 1),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 5, horizontal: 10.5),
                       child: Text(
                         '${event.placeInfo.meanRating.value}',
                         style: Theme.of(context).textTheme.bodyText2?.copyWith(
@@ -93,11 +101,12 @@ class EventSmallCard extends StatelessWidget {
                       Expanded(
                         child: Text(
                           event.placeInfo.adress,
-                          style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                                color: const Color.fromRGBO(44, 44, 46, 1),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyText2?.copyWith(
+                                    color: const Color.fromRGBO(44, 44, 46, 1),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                         ),
                       ),
                     ],

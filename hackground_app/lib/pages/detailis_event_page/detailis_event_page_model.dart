@@ -6,6 +6,8 @@ class DetailsEventPageViewModel with ChangeNotifier {
   bool _isFullTextShowed = false;
   bool get isFullTextShowed => _isFullTextShowed;
 
+  get events => null;
+
   void onShowFullButtonPressed() {
     _isFullTextShowed = !_isFullTextShowed;
     notifyListeners();
