@@ -16,9 +16,11 @@ class EventsEntity {
   @JsonKey(name: 'place-info')
   final PlaceInfoEntity placeInfo;
 
-  EventsEntity({required this.price, required this.isPushkin, required this.placeInfo});
+  EventsEntity(
+      {required this.price, required this.isPushkin, required this.placeInfo});
 
-  factory EventsEntity.fromJson(Map<String, dynamic> json) => _$EventsEntityFromJson(json);
+  factory EventsEntity.fromJson(Map<String, dynamic> json) =>
+      _$EventsEntityFromJson(json);
 
   Map<String, dynamic> toJson() => _$EventsEntityToJson(this);
 }
