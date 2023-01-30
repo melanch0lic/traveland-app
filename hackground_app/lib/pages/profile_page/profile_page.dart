@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 
 import '../../app_initialization.dart';
 import '../../dummy_data.dart';
-import '../../navigation/router.gr.dart';
 import '../../widgets/event_small_listview.dart';
 import '../../widgets/name_row_header.dart';
 import 'components/info_user_widget.dart';
@@ -18,11 +17,9 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return ChangeNotifierProvider(
-      create: (context) =>
-          ProfilePageViewModel(context.read<InitializeProvider>().authService),
+      create: (context) => ProfilePageViewModel(context.read<InitializeProvider>().authService),
       child: Builder(builder: (context) {
-        final isLoading =
-            context.select((ProfilePageViewModel model) => model.isLoading);
+        final isLoading = context.select((ProfilePageViewModel model) => model.isLoading);
         return isLoading
             ? const Center(
                 child: CircularProgressIndicator(),
@@ -47,11 +44,8 @@ class ProfilePage extends StatelessWidget {
                           'assets/images/redact.svg',
                           color: Colors.black,
                         ),
-                        onPressed: () => context.router.push(
-                            EditingProfileRoute(
-                                userInfo: context
-                                    .read<ProfilePageViewModel>()
-                                    .userInfo)),
+                        onPressed: () => context.router
+                            .push(EditingProfileRoute(userInfo: context.read<ProfilePageViewModel>().userInfo)),
                       ),
                       IconButton(
                         splashRadius: 20,
@@ -59,8 +53,7 @@ class ProfilePage extends StatelessWidget {
                           'assets/images/settings.svg',
                           color: Colors.black,
                         ),
-                        onPressed: () => context.router
-                            .push(const ApplicationSettingsRoute()),
+                        onPressed: () => context.router.push(const ApplicationSettingsRoute()),
                       ),
                     ],
                   ),
@@ -69,8 +62,7 @@ class ProfilePage extends StatelessWidget {
                   child: SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 30),
+                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: const [

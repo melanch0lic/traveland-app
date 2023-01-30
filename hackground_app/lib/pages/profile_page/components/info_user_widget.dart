@@ -35,7 +35,7 @@ class InfoUserWidget extends StatelessWidget {
           height: 8,
         ),
         Text(
-          '${userInfo.name} ${userInfo.lastName}',
+          '${userInfo.name} ${userInfo.lastName.value}',
           style: Theme.of(context).textTheme.headline2?.copyWith(
                 color: const Color.fromRGBO(44, 44, 46, 1),
                 fontSize: 20,

@@ -21,10 +21,7 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   flutter_map: ^3.0.0
-  google_polyline_algorithm: ^3.1.0
   flutter_map_marker_popup: ^4.0.0
-  location: ^4.2.0
-  geocoding: ^2.0.5
   dio: ^4.0.6
   auto_route: ^5.0.3
   webview_flutter: ^3.0.4
@@ -45,6 +42,7 @@ dependencies:
   cached_network_image: ^3.2.3
   flutter_switch: ^0.3.2
   shared_preferences: ^2.0.17
+  geolocator: ^9.0.2
 
 dev_dependencies:
   flutter_test:

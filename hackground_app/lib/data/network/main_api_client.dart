@@ -23,13 +23,13 @@ abstract class MainApiClient {
   @POST('auth/sign-up')
   Future<Result<RegisterResponse>> registerUser(@Body() RegisterRequestBody body);
 
-  @GET('api/place/get-all-place/3/0')
+  @GET('api/place/get-all-place/3')
   Future<Result<PlacesResponse>> getPlaces();
 
-  @GET('api/place/get-all-place/2/0')
+  @GET('api/place/get-all-place/2')
   Future<Result<EventsResponse>> getEvents();
 
-  @GET('api/place/get-all-place/1/0')
+  @GET('api/place/get-all-place/1')
   Future<Result<HousingResponse>> getHousings();
 
   @GET('api/user/get-user/')
