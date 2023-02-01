@@ -6,6 +6,7 @@ import 'models/login_request_body.dart';
 import 'models/response/events_response.dart';
 import 'models/response/housing_response.dart';
 import 'models/response/login_response.dart';
+import 'models/response/orsm_route_response.dart';
 import 'models/response/places_response.dart';
 import 'models/response/register_response.dart';
 import 'models/response/user_by_id_response.dart';
@@ -47,6 +48,11 @@ class MainSafeApiClient implements MainApiClient {
   @override
   Future<Result<UserByIdResponse>> getUserInfoById() {
     return _wrapUnsafeCall<UserByIdResponse>(() => _client.getUserInfoById());
+  }
+
+  @override
+  Future<Result<OrsmRouteResponse>> getRouteFromOsrm() {
+    return _wrapUnsafeCall<OrsmRouteResponse>(() => _client.getRouteFromOsrm());
   }
 
   Future<Result<T>> _wrapUnsafeCall<T>(UnsafeCall<T> call) async {
