@@ -5,6 +5,7 @@ import 'models/login_request_body.dart';
 import 'models/response/events_response.dart';
 import 'models/response/housing_response.dart';
 import 'models/response/login_response.dart';
+import 'models/response/orsm_route_response.dart';
 import 'models/response/places_response.dart';
 import 'models/response/register_response.dart';
 import 'models/response/user_by_id_response.dart';
@@ -34,4 +35,7 @@ abstract class MainApiClient {
 
   @GET('api/user/get-user/')
   Future<Result<UserByIdResponse>> getUserInfoById();
+
+  @GET('route/v1/car/44.6714,43.0446;44.6615,43.0392?steps=true')
+  Future<Result<OrsmRouteResponse>> getRouteFromOsrm();
 }

@@ -11,24 +11,17 @@ class HousingEntity {
   @JsonKey(name: 'house-price')
   final String price;
 
-  @JsonKey(name: 'count-room')
-  final IntEntity roomsCount;
-
-  @JsonKey(name: 'square')
-  final FloatEntity square;
-
   @JsonKey(name: 'house-type')
   final int houseType;
 
   @JsonKey(name: 'place-info')
   final PlaceInfoEntity placeInfo;
 
-  HousingEntity(
-      {required this.price,
-      required this.houseType,
-      required this.placeInfo,
-      required this.roomsCount,
-      required this.square});
+  HousingEntity({
+    required this.price,
+    required this.houseType,
+    required this.placeInfo,
+  });
 
   factory HousingEntity.fromJson(Map<String, dynamic> json) => _$HousingEntityFromJson(json);
 

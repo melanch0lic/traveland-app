@@ -4,8 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 import '../../app_initialization.dart';
-import '../../dummy_data.dart';
-import '../../widgets/event_small_listview.dart';
+import '../../navigation/router.gr.dart';
 import '../../widgets/name_row_header.dart';
 import 'components/info_user_widget.dart';
 import 'components/log_out_button.dart';
