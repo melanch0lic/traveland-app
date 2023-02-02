@@ -51,8 +51,8 @@ class MainSafeApiClient implements MainApiClient {
   }
 
   @override
-  Future<Result<OrsmRouteResponse>> getRouteFromOsrm() {
-    return _wrapUnsafeCall<OrsmRouteResponse>(() => _client.getRouteFromOsrm());
+  Future<Result<OsrmRouteResponse>> getRouteFromOsrm(String start, String finish) {
+    return _wrapUnsafeCall<OsrmRouteResponse>(() => _client.getRouteFromOsrm(start, finish));
   }
 
   Future<Result<T>> _wrapUnsafeCall<T>(UnsafeCall<T> call) async {

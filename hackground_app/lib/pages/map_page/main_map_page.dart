@@ -3,6 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
+import '../../app_initialization.dart';
 import 'components/gps_button.dart';
 import 'components/location_widget.dart';
 import 'components/map_category_select_widget.dart';
@@ -16,11 +17,15 @@ class MainMapPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => MapPageViewModel(),
+      create: (context) => MapPageViewModel(context.read<InitializeProvider>().osrmService),
       child: Builder(builder: (context) {
         final currentLocationPosition = context.select((MapPageViewModel model) => model.currentLocationPosition);
+        final points = context.select((MapPageViewModel model) => model.polylinePoints);
+        final markers = context.select((MapPageViewModel model) => model.markers);
         return Scaffold(
           body: SlidingUpPanel(
+            maxHeight: MediaQuery.of(context).size.height * 0.85,
+            backdropEnabled: true,
             borderRadius: const BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
             collapsed: Container(
               decoration: const BoxDecoration(
@@ -36,11 +41,16 @@ class MainMapPage extends StatelessWidget {
             body: FlutterMap(
               mapController: context.read<MapPageViewModel>().mapController,
               options: MapOptions(
-                  interactiveFlags: InteractiveFlag.pinchZoom | InteractiveFlag.drag,
-                  center: currentLocationPosition,
-                  zoom: 16,
-                  maxZoom: 17,
-                  minZoom: 8),
+                onTap: (tapPosition, point) {
+                  context.read<MapPageViewModel>().changeSelectedPosition(point);
+                  print(point);
+                },
+                interactiveFlags: InteractiveFlag.pinchZoom | InteractiveFlag.drag,
+                center: currentLocationPosition,
+                zoom: 16,
+                maxZoom: 17,
+                // minZoom: 8
+              ),
               nonRotatedChildren: [
                 Stack(children: [
                   SafeArea(
@@ -86,7 +96,16 @@ class MainMapPage extends StatelessWidget {
                         builder: (context) => const LocationWidget(),
                       )
                     ],
-                  )
+                  ),
+                // MarkerLayer(
+                //   markers: markers,
+                // ),
+                PolylineLayer(
+                  polylineCulling: true,
+                  polylines: [
+                    Polyline(strokeWidth: 4, points: points, color: Theme.of(context).highlightColor),
+                  ],
+                ),
               ],
             ),
           ),

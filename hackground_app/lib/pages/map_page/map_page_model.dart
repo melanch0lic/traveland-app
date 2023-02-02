@@ -3,7 +3,28 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 
+import '../../domain/services/osrm_service.dart';
+
 class MapPageViewModel with ChangeNotifier {
+  final OsrmService osrmService;
+
+  LatLng? _selectedPosition;
+  LatLng? get selectedPosition => _selectedPosition;
+
+  List<LatLng> _polylinePoints = [];
+  List<LatLng> get polylinePoints => _polylinePoints;
+
+  List<Marker> get markers => _polylinePoints
+      .map(
+        (e) => Marker(
+          width: 80.0,
+          height: 80.0,
+          point: e,
+          builder: (ctx) => const Icon(Icons.place),
+        ),
+      )
+      .toList();
+
   late MapController _mapController;
   MapController get mapController => _mapController;
 
@@ -13,14 +34,23 @@ class MapPageViewModel with ChangeNotifier {
   // double _currentZoomLevel = 16;
   // double get currentZoomLevel => _currentZoomLevel;
 
-  MapPageViewModel() {
+  MapPageViewModel(this.osrmService) {
     init();
   }
 
-  void init() {
+  Future<void> init() async {
     _mapController = MapController();
     _getCurrentLocation();
     _liveLocation();
+  }
+
+  Future<void> fetchRouteFromOrsm() async {
+    final response = await osrmService.getRouteFromOsrm(
+        '${currentLocationPosition!.longitude},${currentLocationPosition!.latitude}',
+        '${_selectedPosition!.longitude},${_selectedPosition!.latitude}');
+    response.fold((result) {
+      _polylinePoints = result.routes.first.geometry.coordinates.map((e) => LatLng(e[1], e[0])).toList();
+    }, (exception, error) {});
   }
 
   Future<void> _getCurrentLocation() async {
@@ -44,8 +74,9 @@ class MapPageViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void onLocationButtonPressed() {
-    _getCurrentLocation();
+  Future<void> onLocationButtonPressed() async {
+    await fetchRouteFromOrsm();
+    await _getCurrentLocation();
   }
 
   void _liveLocation() {
@@ -55,8 +86,14 @@ class MapPageViewModel with ChangeNotifier {
 
     Geolocator.getPositionStream(locationSettings: locationSettings).listen((Position position) {
       _currentLocationPosition = LatLng(position.latitude, position.longitude);
+      print(_currentLocationPosition);
       notifyListeners();
     });
+  }
+
+  void changeSelectedPosition(LatLng point) {
+    _selectedPosition = point;
+    notifyListeners();
   }
 
   void increaseCurrentZoomLevel() {
