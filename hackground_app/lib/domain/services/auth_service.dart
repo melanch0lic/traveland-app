@@ -25,7 +25,7 @@ class AuthService {
 
     if (response.isSuccess()) {
       final success = response as Success;
-      await sessionData.saveUserData(success.value.jwtToken.token, body.mail, body.password);
+      await sessionData.saveUserData(success.value.result.token, body.mail, body.password);
       await settings.saveRememberUserMode(isRememberUser);
     }
     return response;
@@ -33,6 +33,11 @@ class AuthService {
 
   Future<Result<RegisterResponse>> register(RegisterRequestBody body) async {
     final response = await mainApiClient.registerUser(body);
+
+    if (response.isSuccess()) {
+      final success = response as Success;
+      await sessionData.saveUserData(success.value.result.token, body.mail, body.password);
+    }
     return response;
   }
 
