@@ -1,12 +1,25 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 
+import '../../data/network/models/entity/housing_entity.dart';
+import '../../domain/repositories/cache_data_repository.dart';
 import '../../domain/services/osrm_service.dart';
+
+enum PlaceType { housing, location, event }
 
 class MapPageViewModel with ChangeNotifier {
   final OsrmService osrmService;
+  final CachedDataRepository cachedDataRepository;
+
+  late final StreamSubscription subscription;
+
+  PlaceType? _selectedPlaceType;
+  PlaceType? get selectedPlaceType => _selectedPlaceType;
 
   LatLng? _selectedPosition;
   LatLng? get selectedPosition => _selectedPosition;
@@ -14,13 +27,80 @@ class MapPageViewModel with ChangeNotifier {
   List<LatLng> _polylinePoints = [];
   List<LatLng> get polylinePoints => _polylinePoints;
 
-  List<Marker> get markers => _polylinePoints
+  HousingEntity? _selectedHousing;
+  HousingEntity? get selectedHousing => _selectedHousing;
+
+  dynamic _selectedPlace;
+  dynamic get selectedPlace => _selectedPlace;
+
+  List<Marker> get locationMarkers => cachedDataRepository.placesList!
       .map(
         (e) => Marker(
-          width: 80.0,
-          height: 80.0,
-          point: e,
-          builder: (ctx) => const Icon(Icons.place),
+          width: 40,
+          height: 40,
+          point: LatLng(e.placeInfo.longitude.value, e.placeInfo.latitude.value),
+          builder: (ctx) => IconButton(
+            icon: _selectedPlace != null
+                ? _selectedPlace!.placeInfo.id == e.placeInfo.id
+                    ? SvgPicture.asset(
+                        'assets/images/location_marker_icon.svg',
+                      )
+                    : SvgPicture.asset('assets/images/marker_icon.svg')
+                : SvgPicture.asset('assets/images/marker_icon.svg'),
+            onPressed: () {
+              _selectedPlace = e;
+              changeSelectedPosition(LatLng(e.placeInfo.longitude.value, e.placeInfo.latitude.value));
+              notifyListeners();
+            },
+          ),
+        ),
+      )
+      .toList();
+
+  List<Marker> get housingMarkers => cachedDataRepository.housingList!
+      .map(
+        (e) => Marker(
+          width: 40,
+          height: 40,
+          point: LatLng(e.placeInfo.longitude.value, e.placeInfo.latitude.value),
+          builder: (ctx) => IconButton(
+            icon: _selectedPlace != null
+                ? _selectedPlace!.placeInfo.id == e.placeInfo.id
+                    ? SvgPicture.asset(
+                        'assets/images/location_marker_icon.svg',
+                      )
+                    : SvgPicture.asset('assets/images/marker_icon.svg')
+                : SvgPicture.asset('assets/images/marker_icon.svg'),
+            onPressed: () {
+              _selectedPlace = e;
+              changeSelectedPosition(LatLng(e.placeInfo.longitude.value, e.placeInfo.latitude.value));
+              notifyListeners();
+            },
+          ),
+        ),
+      )
+      .toList();
+
+  List<Marker> get eventMarkers => cachedDataRepository.eventList!
+      .map(
+        (e) => Marker(
+          width: 40,
+          height: 40,
+          point: LatLng(e.placeInfo.longitude.value, e.placeInfo.latitude.value),
+          builder: (ctx) => IconButton(
+            icon: _selectedPlace != null
+                ? _selectedPlace!.placeInfo.id == e.placeInfo.id
+                    ? SvgPicture.asset(
+                        'assets/images/location_marker_icon.svg',
+                      )
+                    : SvgPicture.asset('assets/images/marker_icon.svg')
+                : SvgPicture.asset('assets/images/marker_icon.svg'),
+            onPressed: () {
+              _selectedPlace = e;
+              changeSelectedPosition(LatLng(e.placeInfo.longitude.value, e.placeInfo.latitude.value));
+              notifyListeners();
+            },
+          ),
         ),
       )
       .toList();
@@ -31,22 +111,19 @@ class MapPageViewModel with ChangeNotifier {
   LatLng? _currentLocationPosition;
   LatLng? get currentLocationPosition => _currentLocationPosition;
 
-  // double _currentZoomLevel = 16;
-  // double get currentZoomLevel => _currentZoomLevel;
-
-  MapPageViewModel(this.osrmService) {
+  MapPageViewModel(this.osrmService, this.cachedDataRepository) {
     init();
   }
 
   Future<void> init() async {
     _mapController = MapController();
-    _getCurrentLocation();
+    await _getCurrentLocation();
     _liveLocation();
   }
 
-  Future<void> fetchRouteFromOrsm() async {
+  Future<void> _fetchRouteFromOrsm() async {
     final response = await osrmService.getRouteFromOsrm(
-        '${currentLocationPosition!.longitude},${currentLocationPosition!.latitude}',
+        '${_currentLocationPosition!.longitude},${_currentLocationPosition!.latitude}',
         '${_selectedPosition!.longitude},${_selectedPosition!.latitude}');
     response.fold((result) {
       _polylinePoints = result.routes.first.geometry.coordinates.map((e) => LatLng(e[1], e[0])).toList();
@@ -70,13 +147,31 @@ class MapPageViewModel with ChangeNotifier {
 
     final Position currentPosition = await Geolocator.getCurrentPosition();
     _currentLocationPosition = LatLng(currentPosition.latitude, currentPosition.longitude);
-    _mapController.move(_currentLocationPosition!, mapController.zoom);
+    _mapController.move(_currentLocationPosition!, 17);
+    notifyListeners();
+  }
+
+  void onSelectHousingCategoryButtonPressed() {
+    _selectedPlaceType = PlaceType.housing;
+    notifyListeners();
+  }
+
+  void onSelectLocationCategoryButtonPressed() {
+    _selectedPlaceType = PlaceType.location;
+    notifyListeners();
+  }
+
+  void onSelectEventCategoryButtonPressed() {
+    _selectedPlaceType = PlaceType.event;
     notifyListeners();
   }
 
   Future<void> onLocationButtonPressed() async {
-    await fetchRouteFromOrsm();
     await _getCurrentLocation();
+  }
+
+  Future<void> onDrawRouteButtonPressed() async {
+    await _fetchRouteFromOrsm().whenComplete(() => notifyListeners());
   }
 
   void _liveLocation() {
@@ -84,16 +179,34 @@ class MapPageViewModel with ChangeNotifier {
       accuracy: LocationAccuracy.high,
     );
 
-    Geolocator.getPositionStream(locationSettings: locationSettings).listen((Position position) {
-      _currentLocationPosition = LatLng(position.latitude, position.longitude);
-      print(_currentLocationPosition);
-      notifyListeners();
+    subscription = Geolocator.getPositionStream(locationSettings: locationSettings).listen((Position position) async {
+      if ((_currentLocationPosition!.latitude - position.latitude).abs() > 0.00015 ||
+          (_currentLocationPosition!.longitude - position.longitude).abs() > 0.00015) {
+        _currentLocationPosition = LatLng(position.latitude, position.longitude);
+        if (_selectedPosition != null) {
+          await _fetchRouteFromOrsm();
+        }
+        notifyListeners();
+      }
+      if (_selectedPosition != null) {
+        if ((_selectedPosition!.latitude - position.latitude).abs() < 0.0015 &&
+            (_selectedPosition!.longitude - position.longitude).abs() < 0.0015) {
+          _polylinePoints.clear();
+          _selectedPosition = null;
+        }
+      }
     });
   }
 
   void changeSelectedPosition(LatLng point) {
     _selectedPosition = point;
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    subscription.cancel();
+    super.dispose();
   }
 
   void increaseCurrentZoomLevel() {

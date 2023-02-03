@@ -108,7 +108,7 @@ class EventCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 6.42),
                     Text(
-                      int.parse(event.price.value) != 0 ? 'от ${event.price.value} ₽' : 'Бесплатно',
+                      event.price.isValid ? 'от ${event.price.value} ₽' : 'Бесплатно',
                       style: Theme.of(context).textTheme.bodyText2?.copyWith(
                             color: const Color.fromRGBO(44, 44, 46, 1),
                             fontSize: 14,

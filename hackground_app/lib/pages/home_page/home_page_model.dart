@@ -52,7 +52,7 @@ class HomePageViewModel with ChangeNotifier {
   Future<void> fetchEventsData() async {
     final response = await eventsService.getEvents();
     response.fold((result) {
-      cachedDataRepository.eventList = result.result.places + result.result.places + result.result.places;
+      cachedDataRepository.eventList = result.result.places;
     }, (exception, error) {});
   }
 
