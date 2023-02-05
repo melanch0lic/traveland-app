@@ -53,7 +53,7 @@ class _LocationMarker extends AnimatedWidget {
           width: 20,
           height: 20,
           decoration: BoxDecoration(
-              color: Colors.red, shape: BoxShape.circle, border: Border.all(color: Colors.white, width: 2)),
+              color: Colors.red, shape: BoxShape.circle, border: Border.all(color: Colors.white, width: 3)),
         ),
       ),
     ]);

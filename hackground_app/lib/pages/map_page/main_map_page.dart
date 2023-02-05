@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -9,9 +8,10 @@ import '../detailis_event_page/components/contact_event_widget.dart';
 import '../detailis_event_page/components/review_event_widget.dart';
 import '../detailis_event_page/components/url_event_widget.dart';
 import 'components/gps_button.dart';
-import 'components/location_widget.dart';
 import 'components/map_category_select_widget.dart';
+import 'components/map_widget.dart';
 import 'components/search_map_widget.dart';
+import 'components/search_opened_widget.dart';
 import 'components/zoom_buttons.dart';
 import 'map_page_model.dart';
 
@@ -25,91 +25,60 @@ class MainMapPage extends StatelessWidget {
           context.read<InitializeProvider>().osrmService, context.read<InitializeProvider>().cachedDataRepository),
       child: Builder(builder: (context) {
         final theme = Theme.of(context);
-        final currentLocationPosition = context.select((MapPageViewModel model) => model.currentLocationPosition);
-        final points = context.select((MapPageViewModel model) => model.polylinePoints);
+        final isSearchOpened = context.select((MapPageViewModel model) => model.isSearchOpened);
         final selectedPlace = context.select((MapPageViewModel model) => model.selectedPlace);
-        final eventMarkers = context.select((MapPageViewModel model) => model.eventMarkers);
-        final housingMarkers = context.select((MapPageViewModel model) => model.housingMarkers);
-        final locationMarkers = context.select((MapPageViewModel model) => model.locationMarkers);
-        final selectedPlaceType = context.select((MapPageViewModel model) => model.selectedPlaceType);
+
         return Scaffold(
           body: Stack(children: [
-            FlutterMap(
-              mapController: context.read<MapPageViewModel>().mapController,
-              options: MapOptions(
-                  onTap: (tapPosition, point) {},
-                  interactiveFlags: InteractiveFlag.pinchZoom | InteractiveFlag.drag,
-                  center: currentLocationPosition,
-                  zoom: 16,
-                  maxZoom: 17,
-                  minZoom: 8),
-              nonRotatedChildren: [
-                Stack(children: [
-                  SafeArea(
-                      child: Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: Column(
-                      children: const [
-                        SearchMapWidget(),
-                        MapCategorySelectWidget(),
-                      ],
-                    ),
-                  )),
-                  Positioned(
-                      right: 10,
-                      top: MediaQuery.of(context).size.height / 2 - 100,
-                      child: Column(
-                        children: const [
-                          ZoomButtons(),
-                          SizedBox(height: 15),
-                          GpsButton(),
-                        ],
-                      )),
-                ])
-              ],
-              children: [
-                TileLayer(
-                  retinaMode: MediaQuery.of(context).devicePixelRatio > 1.0,
-                  urlTemplate: 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
-                  userAgentPackageName: 'com.example.hackground_app',
-                  subdomains: const [
-                    'a',
-                    'b',
-                  ],
-                  // errorImage: const NetworkImage('https://tile.openstreetmap.org/18/0/0.png'),
-                ),
-                PolylineLayer(
-                  polylineCulling: true,
-                  polylines: [
-                    Polyline(strokeWidth: 4, points: points, color: Theme.of(context).highlightColor),
-                  ],
-                ),
-                if (selectedPlaceType == PlaceType.event)
-                  MarkerLayer(
-                    markers: eventMarkers,
-                  ),
-                if (selectedPlaceType == PlaceType.location)
-                  MarkerLayer(
-                    markers: locationMarkers,
-                  ),
-                if (selectedPlaceType == PlaceType.housing)
-                  MarkerLayer(
-                    markers: housingMarkers,
-                  ),
-                if (currentLocationPosition != null)
-                  MarkerLayer(
-                    markers: [
-                      Marker(
-                        width: 60,
-                        height: 60,
-                        point: currentLocationPosition,
-                        builder: (context) => const LocationWidget(),
-                      )
+            const MapWidget(),
+            SafeArea(
+              child: AnimatedCrossFade(
+                firstChild: Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: Column(
+                    children: const [
+                      SearchMapWidget(),
+                      MapCategorySelectWidget(),
                     ],
                   ),
-              ],
+                ),
+                secondChild: Container(
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SearchOpenedWidget(),
+                        const SizedBox(height: 30),
+                        Text(
+                          'Результаты поиска',
+                          style: theme.textTheme.bodyText1!
+                              .copyWith(fontSize: 20, fontWeight: FontWeight.w500, color: theme.primaryColorDark),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                firstCurve: Curves.easeOut,
+                secondCurve: Curves.easeIn,
+                sizeCurve: Curves.bounceOut,
+                duration: const Duration(milliseconds: 500),
+                crossFadeState: isSearchOpened ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+              ),
             ),
-            selectedPlace != null
+            if (!isSearchOpened)
+              Positioned(
+                  right: 10,
+                  top: MediaQuery.of(context).size.height / 2 - 100,
+                  child: Column(
+                    children: const [
+                      ZoomButtons(),
+                      SizedBox(height: 15),
+                      GpsButton(),
+                    ],
+                  )),
+            selectedPlace != null && !isSearchOpened
                 ? SlidingUpPanel(
                     padding: const EdgeInsets.all(15),
                     minHeight: MediaQuery.of(context).size.height * 0.15,

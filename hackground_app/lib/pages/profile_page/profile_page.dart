@@ -37,15 +37,17 @@ class ProfilePage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      IconButton(
-                        splashRadius: 20,
-                        icon: SvgPicture.asset(
-                          'assets/images/redact.svg',
-                          color: Colors.black,
-                        ),
-                        onPressed: () => context.router
-                            .push(EditingProfileRoute(userInfo: context.read<ProfilePageViewModel>().userInfo)),
-                      ),
+                      context.read<ProfilePageViewModel>().userInfo == null
+                          ? const SizedBox.shrink()
+                          : IconButton(
+                              splashRadius: 20,
+                              icon: SvgPicture.asset(
+                                'assets/images/redact.svg',
+                                color: Colors.black,
+                              ),
+                              onPressed: () => context.router
+                                  .push(EditingProfileRoute(userInfo: context.read<ProfilePageViewModel>().userInfo!)),
+                            ),
                       IconButton(
                         splashRadius: 20,
                         icon: SvgPicture.asset(

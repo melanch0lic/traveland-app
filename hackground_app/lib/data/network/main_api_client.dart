@@ -36,6 +36,7 @@ abstract class MainApiClient {
   @GET('http://10.0.2.2:8000/api/user/get-user/')
   Future<Result<UserByIdResponse>> getUserInfoById();
 
-  @GET('http://10.0.2.2:5000/ors/v2/directions/driving-car?start={start}&end={finish}')
-  Future<Result<OsrmRouteResponse>> getRouteFromOsrm(@Path() String start, @Path() String finish);
+  @GET('http://10.0.2.2:5000/ors/v2/directions/{routeType}?start={start}&end={finish}')
+  Future<Result<OsrmRouteResponse>> getRouteFromOsrm(
+      @Path() String start, @Path() String finish, @Path() String routeType);
 }

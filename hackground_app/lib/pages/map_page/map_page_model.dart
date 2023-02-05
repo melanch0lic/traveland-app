@@ -12,14 +12,22 @@ import '../../domain/services/osrm_service.dart';
 
 enum PlaceType { housing, location, event }
 
+enum RouteType { driving, foot }
+
 class MapPageViewModel with ChangeNotifier {
   final OsrmService osrmService;
   final CachedDataRepository cachedDataRepository;
 
   late final StreamSubscription subscription;
 
+  final _focusNode = FocusNode();
+  FocusNode get focusNode => _focusNode;
+
   PlaceType? _selectedPlaceType;
   PlaceType? get selectedPlaceType => _selectedPlaceType;
+
+  RouteType _selectedRouteType = RouteType.driving;
+  RouteType get selectedRouteType => _selectedRouteType;
 
   LatLng? _selectedPosition;
   LatLng? get selectedPosition => _selectedPosition;
@@ -32,6 +40,27 @@ class MapPageViewModel with ChangeNotifier {
 
   dynamic _selectedPlace;
   dynamic get selectedPlace => _selectedPlace;
+
+  bool _isSearchOpened = false;
+  bool get isSearchOpened => _isSearchOpened;
+
+  void changeSearchState() {
+    _isSearchOpened = !_isSearchOpened;
+    notifyListeners();
+    if (_isSearchOpened) {
+      Future.delayed(const Duration(milliseconds: 800)).whenComplete(() => _focusNode.requestFocus());
+    }
+  }
+
+  void setDrivingRouteType() {
+    _selectedRouteType = RouteType.driving;
+    notifyListeners();
+  }
+
+  void setFootRouteType() {
+    _selectedRouteType = RouteType.foot;
+    notifyListeners();
+  }
 
   List<Marker> get locationMarkers => cachedDataRepository.placesList!
       .map(
@@ -124,7 +153,8 @@ class MapPageViewModel with ChangeNotifier {
   Future<void> _fetchRouteFromOrsm() async {
     final response = await osrmService.getRouteFromOsrm(
         '${_currentLocationPosition!.longitude},${_currentLocationPosition!.latitude}',
-        '${_selectedPosition!.longitude},${_selectedPosition!.latitude}');
+        '${_selectedPosition!.longitude},${_selectedPosition!.latitude}',
+        _selectedRouteType == RouteType.driving ? 'driving-car' : 'foot-walking');
     response.fold((result) {
       _polylinePoints = result.routes.first.geometry.coordinates.map((e) => LatLng(e[1], e[0])).toList();
     }, (exception, error) {});

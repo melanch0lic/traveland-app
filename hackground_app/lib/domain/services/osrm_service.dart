@@ -7,8 +7,8 @@ class OsrmService {
 
   OsrmService({required this.mainApiClient});
 
-  Future<Result<OsrmRouteResponse>> getRouteFromOsrm(String start, String finish) async {
-    final response = await mainApiClient.getRouteFromOsrm(start, finish);
+  Future<Result<OsrmRouteResponse>> getRouteFromOsrm(String start, String finish, String routeType) async {
+    final response = await mainApiClient.getRouteFromOsrm(start, finish, routeType);
     return response;
   }
 }
