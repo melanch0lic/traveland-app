@@ -14,26 +14,26 @@ import 'result.dart';
 
 part 'main_api_client.g.dart';
 
-@RestApi()
+@RestApi(baseUrl: 'http://176.119.159.9:')
 abstract class MainApiClient {
   factory MainApiClient(Dio dio) = _MainApiClient;
 
-  @POST('http://10.0.2.2:8000/auth/sign-in')
+  @POST('8000/auth/sign-in')
   Future<Result<LoginResponse>> login(@Body() LoginRequestBody body);
 
-  @POST('http://10.0.2.2:8000/auth/sign-up')
+  @POST('8000/auth/sign-up')
   Future<Result<RegisterResponse>> registerUser(@Body() RegisterRequestBody body);
 
-  @GET('http://10.0.2.2:8000/api/place/get-all-place/3')
+  @GET('8000/api/place/get-all-place/3')
   Future<Result<PlacesResponse>> getPlaces();
 
-  @GET('http://10.0.2.2:8000/api/place/get-all-place/2')
+  @GET('8000/api/place/get-all-place/2')
   Future<Result<EventsResponse>> getEvents();
 
-  @GET('http://10.0.2.2:8000/api/place/get-all-place/1')
+  @GET('8000/api/place/get-all-place/1')
   Future<Result<HousingResponse>> getHousings();
 
-  @GET('http://10.0.2.2:8000/api/user/get-user/')
+  @GET('8000/api/user/get-user/')
   Future<Result<UserByIdResponse>> getUserInfoById();
 
   @GET('http://10.0.2.2:5000/ors/v2/directions/{routeType}?start={start}&end={finish}')
