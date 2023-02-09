@@ -1,7 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'geometry_entity.dart';
-import 'leg_entity.dart';
 
 part 'route_entity.g.dart';
 

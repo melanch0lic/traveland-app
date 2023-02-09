@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-import '../../data/network/register_request_body.dart';
+import '../../data/network/models/register_request_body.dart';
 import '../../domain/services/auth_service.dart';
 
 enum ButtonState { canSubmit, authProcess, disable }
