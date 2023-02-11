@@ -27,7 +27,7 @@ class EditUserNameTextField extends StatelessWidget {
               minWidth: 16,
               minHeight: 14,
             ),
-            hintText: '${userInfo.name} ${userInfo.lastName}',
+            hintText: '${userInfo.name} ${userInfo.lastName.value}',
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
               borderSide: BorderSide(width: 2),

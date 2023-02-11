@@ -8,6 +8,7 @@ import '../../app_localizations.dart';
 import '../../data/network/models/entity/housing_entity.dart';
 import '../../domain/models/attraction_model.dart';
 import '../../dummy_data.dart';
+import '../../widgets/actions_icons_appbar_widget.dart';
 import '../../widgets/image_slider.dart';
 import '../../widgets/name_row_header.dart';
 import 'components/contact_item.dart';
@@ -16,7 +17,7 @@ import 'components/sent_review_button.dart';
 import 'details_page_model.dart';
 
 class DetailsPage extends StatelessWidget {
-  final Attraction selectedModel;
+  final HousingEntity selectedModel;
   const DetailsPage({Key? key, required this.selectedModel}) : super(key: key);
 
   Future<void> openPhoneNumber(BuildContext context, String phoneNumber) async {
@@ -62,13 +63,19 @@ class DetailsPage extends StatelessWidget {
                 ),
                 onPressed: () => Navigator.of(context).pop(),
               ),
-              title: Text(
-                '${selectedModel.name}',
-                style: theme.textTheme.headline2!.copyWith(
+              title: Expanded(
+                child: Text(
+                  selectedModel.placeInfo.name,
+                  style: theme.textTheme.headline2!.copyWith(
                     color: Colors.black,
                     fontSize: 20,
-                    fontWeight: FontWeight.w500),
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ),
+              actions: const [
+                ActionsIconsAppBarWidget(),
+              ],
               backgroundColor: theme.primaryColorLight,
             ),
             body: ListView(
@@ -88,15 +95,15 @@ class DetailsPage extends StatelessWidget {
                         children: [
                           ...List.generate(
                               5,
-                              (index) => buildStar(
-                                  context, index, selectedModel.starRating!))
+                              (index) => buildStar(context, index,
+                                  selectedModel.placeInfo.meanRating.value))
                         ],
                       ),
                       const SizedBox(
                         height: 5,
                       ),
                       Text(
-                        '${selectedModel.name}',
+                        '${selectedModel.placeInfo.name}',
                         style: theme.textTheme.headline2!.copyWith(
                             color: Colors.black,
                             fontSize: 20,
@@ -136,9 +143,7 @@ class DetailsPage extends StatelessWidget {
                               width: 5,
                             ),
                             Text(
-                              selectedModel.price! > 0
-                                  ? 'от ${selectedModel.price} ₽ за ночь'
-                                  : 'Бесплатно',
+                              'от ${selectedModel.price} ₽ за ночь',
                               style: theme.textTheme.bodyText1!.copyWith(
                                   color: theme.primaryColorDark,
                                   fontWeight: FontWeight.w400),
@@ -160,13 +165,13 @@ class DetailsPage extends StatelessWidget {
                       ),
                       AnimatedCrossFade(
                           firstChild: Text(
-                            '«Александровский» - первый 4-звездочный отель мирового уровня, расположенный в самом центре Владикавказа, столицы Северной Осетии. Пребывание в отеле позволит Вам окунуться в атмосферу элегантной роскоши и величия императорской эпохи...',
+                            '${selectedModel.placeInfo.description}',
                             style: theme.textTheme.bodyText1!.copyWith(
                                 color: theme.primaryColorDark,
                                 fontWeight: FontWeight.w400),
                           ),
                           secondChild: Text(
-                            '«Александровский» - первый 4-звездочный отель мирового уровня, расположенный в самом центре Владикавказа, столицы Северной Осетии. Пребывание в отеле позволит Вам окунуться в атмосферу элегантной роскоши и величия императорской эпохи. Отель находится на проспекте Мира, который ранее именовался Александровским в честь императора Александра II. Гранд-отель «Александровский» бережно хранит традиции тех легендарных времен. Каждая деталь отеля – от приветствия швейцара до панорамных видов на горные вершины - соответствует высоким запросам наших гостей. ',
+                            '${selectedModel.placeInfo.description}',
                             style: theme.textTheme.bodyText1!.copyWith(
                                 color: theme.primaryColorDark,
                                 fontWeight: FontWeight.w400),
@@ -207,7 +212,7 @@ class DetailsPage extends StatelessWidget {
                         height: 15,
                       ),
                       Text(
-                        '${selectedModel.address} • ${selectedModel.distance} ${selectedModel.distType}',
+                        '${selectedModel.placeInfo.adress} • ${selectedModel.placeInfo.latitude.value} ${selectedModel.placeInfo.longitude.value}',
                         style: theme.textTheme.bodyText1!.copyWith(
                             color: theme.primaryColorDark,
                             fontWeight: FontWeight.w400),
@@ -228,50 +233,45 @@ class DetailsPage extends StatelessWidget {
                       const SizedBox(
                         height: 30,
                       ),
-                      if (selectedModel.phoneNumber != null ||
-                          selectedModel.email != null ||
-                          selectedModel.webUrl != null) ...[
-                        Text(
-                          translate(context, 'contacts_text'),
-                          style: theme.textTheme.headline2!.copyWith(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                      ],
-                      if (selectedModel.phoneNumber != null) ...[
-                        ContactItem(
-                          iconPath: 'assets/images/phone_icon.svg',
-                          text: selectedModel.phone,
-                          callback: () => openPhoneNumber(
-                              context, selectedModel.phoneNumber as String),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        )
-                      ],
-                      if (selectedModel.email != null) ...[
-                        ContactItem(
-                          iconPath: 'assets/images/email_icon.svg',
-                          text: selectedModel.email as String,
-                          callback: () async {
-                            await Clipboard.setData(
-                                ClipboardData(text: selectedModel.email));
-                          },
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        )
-                      ],
-                      if (selectedModel.webUrl != null)
-                        ContactItem(
-                            iconPath: 'assets/images/browser_icon.svg',
-                            text: selectedModel.webUrl as String,
-                            callback: () => openWebsite(
-                                context, selectedModel.webUrl as String)),
+
+                      Text(
+                        translate(context, 'contacts_text'),
+                        style: theme.textTheme.headline2!.copyWith(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+
+                      ContactItem(
+                        iconPath: 'assets/images/phone_icon.svg',
+                        text: selectedModel.placeInfo.number.value,
+                        callback: () => openPhoneNumber(
+                            context, selectedModel.placeInfo.number.value),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+
+                      ContactItem(
+                        iconPath: 'assets/images/email_icon.svg',
+                        text: selectedModel.placeInfo.mail.value,
+                        callback: () async {
+                          await Clipboard.setData(ClipboardData(
+                              text: selectedModel.placeInfo.mail.value));
+                        },
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+
+                      ContactItem(
+                          iconPath: 'assets/images/browser_icon.svg',
+                          text: selectedModel.placeInfo.url.value,
+                          callback: () => openWebsite(
+                              context, selectedModel.placeInfo.url.value)),
                       const SizedBox(
                         height: 30,
                       ),
@@ -294,7 +294,7 @@ class DetailsPage extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(
                                   vertical: 5, horizontal: 10.5),
                               child: Text(
-                                '${selectedModel.starRating}',
+                                '${selectedModel.placeInfo.meanRating.value}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText2
@@ -310,7 +310,7 @@ class DetailsPage extends StatelessWidget {
                             width: 5,
                           ),
                           Text(
-                            '${selectedModel.reviewCount} отзывов',
+                            '${selectedModel.placeInfo.ratingCount.value} отзывов',
                             style: theme.textTheme.bodyText1!.copyWith(
                                 color: theme.primaryColorDark,
                                 fontWeight: FontWeight.w400),

@@ -16,52 +16,55 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return ChangeNotifierProvider(
-      create: (context) => ProfilePageViewModel(context.read<InitializeProvider>().authService),
+      create: (context) =>
+          ProfilePageViewModel(context.read<InitializeProvider>().authService),
       child: Builder(builder: (context) {
-        final isLoading = context.select((ProfilePageViewModel model) => model.isLoading);
+        final isLoading =
+            context.select((ProfilePageViewModel model) => model.isLoading);
         return isLoading
             ? const Center(
                 child: CircularProgressIndicator(),
               )
             : Scaffold(
                 appBar: AppBar(
-                  title: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          'Профиль',
-                          style: theme.textTheme.headline2!.copyWith(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
+                  title: Expanded(
+                    child: Text(
+                      'Профиль',
+                      style: theme.textTheme.headline2!.copyWith(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
                       ),
-                      IconButton(
-                        splashRadius: 20,
-                        icon: SvgPicture.asset(
-                          'assets/images/redact.svg',
-                          color: Colors.black,
-                        ),
-                        onPressed: () => context.router
-                            .push(EditingProfileRoute(userInfo: context.read<ProfilePageViewModel>().userInfo)),
-                      ),
-                      IconButton(
-                        splashRadius: 20,
-                        icon: SvgPicture.asset(
-                          'assets/images/settings.svg',
-                          color: Colors.black,
-                        ),
-                        onPressed: () => context.router.push(const ApplicationSettingsRoute()),
-                      ),
-                    ],
+                    ),
                   ),
+                  actions: [
+                    IconButton(
+                      splashRadius: 15,
+                      icon: SvgPicture.asset(
+                        'assets/images/redact.svg',
+                        color: Colors.black,
+                      ),
+                      onPressed: () => context.router.push(EditingProfileRoute(
+                          userInfo:
+                              context.read<ProfilePageViewModel>().userInfo)),
+                    ),
+                    IconButton(
+                      splashRadius: 15,
+                      icon: SvgPicture.asset(
+                        'assets/images/settings.svg',
+                        color: Colors.black,
+                      ),
+                      onPressed: () =>
+                          context.router.push(const ApplicationSettingsRoute()),
+                    ),
+                  ],
                 ),
                 body: SafeArea(
                   child: SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 30),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: const [
