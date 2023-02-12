@@ -6,6 +6,7 @@ import '../pages/detailis_event_page/detailis_event_page.dart';
 import '../pages/detailis_exursion_page/detailis_exursion_page.dart';
 import '../pages/detailis_location_page/detailis_location_page.dart';
 import '../pages/details_page/details_page.dart';
+import '../pages/filter_locations_page/filter_locations_page.dart';
 import '../pages/home_page/home_page.dart';
 import '../pages/housings_page/housings_page.dart';
 import '../pages/login_page.dart/login_page.dart';
@@ -80,7 +81,9 @@ import '../pages/tabs_page/tabs_page.dart';
             AutoRoute(path: ':selectedModel', page: DetailisEventPage),
             AutoRoute(path: ':selectedModel', page: DetailisLocationPage),
             AutoRoute(path: ':selectedModel/reviews', page: ReviewPage),
-            AutoRoute(path: ':selectedModel/writeReviews', page: WriteReviewPage),
+            AutoRoute(
+                path: ':selectedModel/writeReviews', page: WriteReviewPage),
+            AutoRoute(page: FilterLocationsPage),
           ],
         ),
         AutoRoute(

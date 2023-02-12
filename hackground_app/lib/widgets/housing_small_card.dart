@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hackground_app/navigation/router.gr.dart';
 
 import '../data/network/models/entity/housing_entity.dart';
 
@@ -14,7 +16,7 @@ class HousingSmallCard extends StatelessWidget {
     final theme = Theme.of(context);
     return GestureDetector(
       onTap: () {
-        // context.router.push(DetailsRoute(selectedModel: housing));
+        context.router.push(DetailsRoute(selectedModel: housing));
       },
       child: Container(
         margin: const EdgeInsets.only(right: 10),

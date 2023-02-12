@@ -14,16 +14,20 @@ class BodyApplicationSettings extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 30),
+        const SizedBox(height: 30),
         NotifyRowWidget(theme: theme),
         const Padding(
           padding: EdgeInsets.only(left: 15, right: 15, bottom: 15),
-          child: Divider(),
+          child: Divider(
+            color: Color.fromRGBO(142, 142, 147, 1),
+          ),
         ),
         AutoLoadRowWidget(theme: theme),
         const Padding(
           padding: EdgeInsets.only(left: 15, right: 15),
-          child: Divider(),
+          child: Divider(
+            color: Color.fromRGBO(142, 142, 147, 1),
+          ),
         ),
       ],
     );
