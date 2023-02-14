@@ -63,7 +63,9 @@ class MainSafeApiClient implements MainApiClient {
       if (exception is DioError) {
         ApiError? apiError;
         if (exception.response != null) {
-          apiError = ApiError.fromJson(exception.response!.data['error']);
+          if (exception.response!.data['error'] != null) {
+            apiError = ApiError.fromJson(exception.response!.data['error']);
+          }
         }
         return Future(() => Failure(exception: exception, error: apiError));
       }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 import '../map_page_model.dart';
@@ -16,7 +17,8 @@ class MapWidget extends StatelessWidget {
     final housingMarkers = context.select((MapPageViewModel model) => model.housingMarkers);
     final locationMarkers = context.select((MapPageViewModel model) => model.locationMarkers);
     final selectedPlaceType = context.select((MapPageViewModel model) => model.selectedPlaceType);
-
+    final selectedRouteType = context.select((MapPageViewModel model) => model.selectedRouteType);
+    final selectedPositions = context.select((MapPageViewModel model) => model.selectedPositions);
     return FlutterMap(
       mapController: context.read<MapPageViewModel>().mapController,
       options: MapOptions(
@@ -40,7 +42,11 @@ class MapWidget extends StatelessWidget {
         PolylineLayer(
           polylineCulling: true,
           polylines: [
-            Polyline(strokeWidth: 4, points: points, color: Theme.of(context).highlightColor),
+            Polyline(
+                strokeWidth: 5,
+                points: points,
+                color: Theme.of(context).highlightColor.withOpacity(0.8),
+                isDotted: selectedRouteType == RouteType.foot),
           ],
         ),
         if (selectedPlaceType == PlaceType.event)
@@ -66,6 +72,18 @@ class MapWidget extends StatelessWidget {
               )
             ],
           ),
+        if (selectedPositions.isNotEmpty)
+          MarkerLayer(
+            markers: [
+              Marker(
+                  point: selectedPositions.first,
+                  width: 40,
+                  height: 40,
+                  builder: (context) => SvgPicture.asset(
+                        'assets/images/location_marker_icon.svg',
+                      ))
+            ],
+          )
       ],
     );
   }

@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 
+import '../../data/network/models/coordinates_request_body.dart';
 import '../../data/network/models/entity/housing_entity.dart';
 import '../../domain/repositories/cache_data_repository.dart';
 import '../../domain/services/osrm_service.dart';
@@ -23,6 +24,19 @@ class MapPageViewModel with ChangeNotifier {
   final _focusNode = FocusNode();
   FocusNode get focusNode => _focusNode;
 
+  final List<String> _items = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
+  List<String> get items => _items;
+
+  void onReorderHandle(int oldIndex, int newIndex) {
+    if (newIndex > oldIndex) {
+      newIndex -= 1;
+    }
+    final item = _items.removeAt(oldIndex);
+    _items.insert(newIndex, item);
+    print(_items);
+    notifyListeners();
+  }
+
   PlaceType? _selectedPlaceType;
   PlaceType? get selectedPlaceType => _selectedPlaceType;
 
@@ -30,7 +44,9 @@ class MapPageViewModel with ChangeNotifier {
   RouteType get selectedRouteType => _selectedRouteType;
 
   LatLng? _selectedPosition;
-  LatLng? get selectedPosition => _selectedPosition;
+
+  final List<LatLng> _selectedPositions = [];
+  List<LatLng> get selectedPositions => _selectedPositions;
 
   List<LatLng> _polylinePoints = [];
   List<LatLng> get polylinePoints => _polylinePoints;
@@ -44,12 +60,22 @@ class MapPageViewModel with ChangeNotifier {
   bool _isSearchOpened = false;
   bool get isSearchOpened => _isSearchOpened;
 
+  bool _isRouteWindowOpened = false;
+  bool get isRouteWindowOpened => _isRouteWindowOpened;
+
   void changeSearchState() {
     _isSearchOpened = !_isSearchOpened;
     notifyListeners();
     if (_isSearchOpened) {
-      Future.delayed(const Duration(milliseconds: 800)).whenComplete(() => _focusNode.requestFocus());
+      Future.delayed(const Duration(milliseconds: 500)).whenComplete(() => _focusNode.requestFocus());
     }
+  }
+
+  void onBackRouteButtonPressed() {
+    _isRouteWindowOpened = false;
+    _selectedPositions.clear();
+    _polylinePoints.clear();
+    notifyListeners();
   }
 
   void setDrivingRouteType() {
@@ -152,8 +178,12 @@ class MapPageViewModel with ChangeNotifier {
 
   Future<void> _fetchRouteFromOrsm() async {
     final response = await osrmService.getRouteFromOsrm(
-        '${_currentLocationPosition!.longitude},${_currentLocationPosition!.latitude}',
-        '${_selectedPosition!.longitude},${_selectedPosition!.latitude}',
+        CoordinatesRequestBody(coordinates: [
+          [_currentLocationPosition!.longitude, _currentLocationPosition!.latitude],
+          ..._selectedPositions.map((e) => [e.longitude, e.latitude]).toList()
+        ]),
+        // '${_currentLocationPosition!.longitude},${_currentLocationPosition!.latitude}',
+        // '${_selectedPosition!.longitude},${_selectedPosition!.latitude}',
         _selectedRouteType == RouteType.driving ? 'driving-car' : 'foot-walking');
     response.fold((result) {
       _polylinePoints = result.routes.first.geometry.coordinates.map((e) => LatLng(e[1], e[0])).toList();
@@ -196,12 +226,28 @@ class MapPageViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> onSelectDrivingRouteButtonPressed() async {
+    _selectedRouteType = RouteType.driving;
+    await _fetchRouteFromOrsm().whenComplete(() => notifyListeners());
+  }
+
+  Future<void> onSelectFootRouteButtonPressed() async {
+    _selectedRouteType = RouteType.foot;
+    await _fetchRouteFromOrsm().whenComplete(() => notifyListeners());
+  }
+
   Future<void> onLocationButtonPressed() async {
     await _getCurrentLocation();
   }
 
   Future<void> onDrawRouteButtonPressed() async {
-    await _fetchRouteFromOrsm().whenComplete(() => notifyListeners());
+    if (!_selectedPositions.contains(_selectedPosition)) {
+      _selectedPositions.add(_selectedPosition!);
+    }
+    await _fetchRouteFromOrsm().whenComplete(() {
+      _isRouteWindowOpened = true;
+      notifyListeners();
+    });
   }
 
   void _liveLocation() {
@@ -213,22 +259,25 @@ class MapPageViewModel with ChangeNotifier {
       if ((_currentLocationPosition!.latitude - position.latitude).abs() > 0.00015 ||
           (_currentLocationPosition!.longitude - position.longitude).abs() > 0.00015) {
         _currentLocationPosition = LatLng(position.latitude, position.longitude);
-        if (_selectedPosition != null) {
+        if (_selectedPositions.isNotEmpty) {
           await _fetchRouteFromOrsm();
         }
         notifyListeners();
       }
-      if (_selectedPosition != null) {
-        if ((_selectedPosition!.latitude - position.latitude).abs() < 0.0015 &&
-            (_selectedPosition!.longitude - position.longitude).abs() < 0.0015) {
+      if (_selectedPositions.isNotEmpty) {
+        if ((_selectedPositions[0].latitude - position.latitude).abs() < 0.0015 &&
+            (_selectedPositions[0].longitude - position.longitude).abs() < 0.0015) {
           _polylinePoints.clear();
-          _selectedPosition = null;
+          _selectedPositions.removeAt(0);
         }
       }
     });
   }
 
   void changeSelectedPosition(LatLng point) {
+    if (!_selectedPositions.contains(point)) {
+      _isRouteWindowOpened = false;
+    }
     _selectedPosition = point;
     notifyListeners();
   }
