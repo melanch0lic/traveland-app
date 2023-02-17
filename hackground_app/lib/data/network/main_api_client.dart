@@ -10,6 +10,7 @@ import 'models/response/login_response.dart';
 import 'models/response/orsm_route_response.dart';
 import 'models/response/places_response.dart';
 import 'models/response/register_response.dart';
+import 'models/response/search_response.dart';
 import 'models/response/user_by_id_response.dart';
 import 'result.dart';
 
@@ -36,6 +37,9 @@ abstract class MainApiClient {
 
   @GET('5555/api/user/get-user/')
   Future<Result<UserByIdResponse>> getUserInfoById();
+
+  @GET('5555/api/place/get-all-places-by-search/{searchText}')
+  Future<Result<SearchResponse>> getAllPlacesBySearch(@Path() String searchText);
 
   @POST('5000/ors/v2/directions/{routeType}/geojson')
   Future<Result<OsrmRouteResponse>> getRouteFromOsrm(

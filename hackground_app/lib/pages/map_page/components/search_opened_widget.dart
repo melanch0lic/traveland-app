@@ -12,8 +12,10 @@ class SearchOpenedWidget extends StatelessWidget {
     final theme = Theme.of(context);
     final focusNode = context.read<MapPageViewModel>().focusNode;
     return TextField(
+      onChanged: (_) => context.read<MapPageViewModel>().onSearchTextChange(),
+      controller: context.read<MapPageViewModel>().searchController,
       focusNode: focusNode,
-      style: theme.textTheme.bodyText1,
+      style: theme.textTheme.bodyText1!.copyWith(color: Colors.black),
       decoration: InputDecoration(
         prefixIcon: IconButton(
           icon: SvgPicture.asset('assets/images/back_arrow_icon.svg'),

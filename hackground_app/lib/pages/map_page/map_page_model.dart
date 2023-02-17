@@ -21,8 +21,13 @@ class MapPageViewModel with ChangeNotifier {
 
   late final StreamSubscription subscription;
 
+  late final TextEditingController _searchController;
+  TextEditingController get searchController => _searchController;
+
   final _focusNode = FocusNode();
   FocusNode get focusNode => _focusNode;
+
+  List<dynamic> searchObjects = [];
 
   final List<String> _items = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
   List<String> get items => _items;
@@ -69,6 +74,20 @@ class MapPageViewModel with ChangeNotifier {
     if (_isSearchOpened) {
       Future.delayed(const Duration(milliseconds: 500)).whenComplete(() => _focusNode.requestFocus());
     }
+  }
+
+  Future<void> onSearchTextChange() async {
+    final response = await osrmService.getAllPlacesBySearch(searchController.text == '' ? ' ' : searchController.text);
+    response.fold((result) {
+      final newList = [];
+
+      newList.addAll(result.result.places.housings);
+      newList.addAll(result.result.places.locations);
+      newList.addAll(result.result.places.events);
+
+      searchObjects = newList;
+      notifyListeners();
+    }, (exception, error) {});
   }
 
   void onBackRouteButtonPressed() {
@@ -171,6 +190,7 @@ class MapPageViewModel with ChangeNotifier {
   }
 
   Future<void> init() async {
+    _searchController = TextEditingController();
     _mapController = MapController();
     await _getCurrentLocation();
     _liveLocation();

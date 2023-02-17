@@ -11,6 +11,7 @@ import 'models/response/login_response.dart';
 import 'models/response/orsm_route_response.dart';
 import 'models/response/places_response.dart';
 import 'models/response/register_response.dart';
+import 'models/response/search_response.dart';
 import 'models/response/user_by_id_response.dart';
 import 'result.dart';
 
@@ -54,6 +55,11 @@ class MainSafeApiClient implements MainApiClient {
   @override
   Future<Result<OsrmRouteResponse>> getRouteFromOsrm(CoordinatesRequestBody coordinates, String routeType) {
     return _wrapUnsafeCall<OsrmRouteResponse>(() => _client.getRouteFromOsrm(coordinates, routeType));
+  }
+
+  @override
+  Future<Result<SearchResponse>> getAllPlacesBySearch(String searchText) {
+    return _wrapUnsafeCall<SearchResponse>(() => _client.getAllPlacesBySearch(searchText));
   }
 
   Future<Result<T>> _wrapUnsafeCall<T>(UnsafeCall<T> call) async {
