@@ -7,14 +7,11 @@ part 'orsm_route_response.g.dart';
 
 @ApiModel()
 @JsonSerializable()
-class OrsmRouteResponse {
-  @JsonKey(name: 'code')
-  String networkCode;
-
-  @JsonKey(name: 'routes')
+class OsrmRouteResponse {
+  @JsonKey(name: 'features')
   List<RouteEntity> routes;
 
-  OrsmRouteResponse({required this.networkCode, required this.routes});
+  OsrmRouteResponse({required this.routes});
 
-  factory OrsmRouteResponse.fromJson(Map<String, dynamic> json) => _$OrsmRouteResponseFromJson(json);
+  factory OsrmRouteResponse.fromJson(Map<String, dynamic> json) => _$OsrmRouteResponseFromJson(json);
 }

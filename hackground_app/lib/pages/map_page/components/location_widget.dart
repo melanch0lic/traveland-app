@@ -50,10 +50,10 @@ class _LocationMarker extends AnimatedWidget {
       ),
       Center(
         child: Container(
-          width: 10,
-          height: 10,
+          width: 20,
+          height: 20,
           decoration: BoxDecoration(
-              color: theme.highlightColor, shape: BoxShape.circle, border: Border.all(color: Colors.white, width: 2)),
+              color: Colors.red, shape: BoxShape.circle, border: Border.all(color: Colors.white, width: 3)),
         ),
       ),
     ]);

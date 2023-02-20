@@ -2,15 +2,17 @@ import 'package:dio/dio.dart';
 
 import 'api_error.dart';
 import 'main_api_client.dart';
+import 'models/coordinates_request_body.dart';
 import 'models/login_request_body.dart';
+import 'models/register_request_body.dart';
 import 'models/response/events_response.dart';
 import 'models/response/housing_response.dart';
 import 'models/response/login_response.dart';
 import 'models/response/orsm_route_response.dart';
 import 'models/response/places_response.dart';
 import 'models/response/register_response.dart';
+import 'models/response/search_response.dart';
 import 'models/response/user_by_id_response.dart';
-import 'register_request_body.dart';
 import 'result.dart';
 
 typedef UnsafeCall<T> = Future<Result<T>> Function();
@@ -51,8 +53,13 @@ class MainSafeApiClient implements MainApiClient {
   }
 
   @override
-  Future<Result<OrsmRouteResponse>> getRouteFromOsrm() {
-    return _wrapUnsafeCall<OrsmRouteResponse>(() => _client.getRouteFromOsrm());
+  Future<Result<OsrmRouteResponse>> getRouteFromOsrm(CoordinatesRequestBody coordinates, String routeType) {
+    return _wrapUnsafeCall<OsrmRouteResponse>(() => _client.getRouteFromOsrm(coordinates, routeType));
+  }
+
+  @override
+  Future<Result<SearchResponse>> getAllPlacesBySearch(String searchText) {
+    return _wrapUnsafeCall<SearchResponse>(() => _client.getAllPlacesBySearch(searchText));
   }
 
   Future<Result<T>> _wrapUnsafeCall<T>(UnsafeCall<T> call) async {
@@ -62,7 +69,9 @@ class MainSafeApiClient implements MainApiClient {
       if (exception is DioError) {
         ApiError? apiError;
         if (exception.response != null) {
-          apiError = ApiError.fromJson(exception.response!.data['error']);
+          if (exception.response!.data['error'] != null) {
+            apiError = ApiError.fromJson(exception.response!.data['error']);
+          }
         }
         return Future(() => Failure(exception: exception, error: apiError));
       }

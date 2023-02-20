@@ -4,7 +4,7 @@ part 'api_error.g.dart';
 
 @JsonSerializable()
 class ApiError {
-  int code;
+  int? code;
   String? msg;
 
   ApiError({required this.code, required this.msg});

@@ -10,10 +10,10 @@ part 'login_response.g.dart';
 @JsonSerializable()
 class LoginResponse {
   @JsonKey(name: 'result')
-  TokenEntity jwtToken;
+  TokenEntity result;
   ApiError error;
 
-  LoginResponse({required this.jwtToken, required this.error});
+  LoginResponse({required this.result, required this.error});
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) => _$LoginResponseFromJson(json);
 }

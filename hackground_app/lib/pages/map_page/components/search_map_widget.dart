@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../map_page_model.dart';
 
 class SearchMapWidget extends StatelessWidget {
   const SearchMapWidget({Key? key}) : super(key: key);
@@ -7,6 +10,10 @@ class SearchMapWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return TextField(
+      onTap: () {
+        context.read<MapPageViewModel>().changeSearchState();
+      },
+      readOnly: true,
       style: theme.textTheme.bodyText1,
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.search, color: theme.cardColor),

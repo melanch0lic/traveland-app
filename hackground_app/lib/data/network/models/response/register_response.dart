@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../../api_error.dart';
 import '../../reflector.dart';
-import '../entity/id_entity.dart';
+import '../entity/token_entity.dart';
 
 part 'register_response.g.dart';
 
@@ -10,9 +10,9 @@ part 'register_response.g.dart';
 @JsonSerializable()
 class RegisterResponse {
   @JsonKey(name: 'result')
-  IdEntity? result;
+  TokenEntity result;
 
-  ApiError? error;
+  ApiError error;
 
   RegisterResponse({required this.result, required this.error});
 

@@ -14,6 +14,7 @@ import 'domain/services/auth_service.dart';
 import 'domain/services/events_service.dart';
 import 'domain/services/excursions_service.dart';
 import 'domain/services/housing_service.dart';
+import 'domain/services/osrm_service.dart';
 import 'domain/services/places_service.dart';
 import 'domain/settings.dart';
 import 'navigation/router.gr.dart';
@@ -52,6 +53,9 @@ class InitializeProvider with ChangeNotifier {
   late PlacesService _placesService;
   PlacesService get placesService => _placesService;
 
+  late OsrmService _osrmService;
+  OsrmService get osrmService => _osrmService;
+
   late final SharedPreferences _sharedPreferences;
   SharedPreferences get sharedPreferences => _sharedPreferences;
 
@@ -75,9 +79,10 @@ class InitializeProvider with ChangeNotifier {
     _eventsService = EventsService(mainApiClient: _mainApiClient);
     _housingService = HousingService(mainApiClient: _mainApiClient);
     _placesService = PlacesService(mainApiClient: _mainApiClient);
+    _osrmService = OsrmService(mainApiClient: _mainApiClient);
     _excursionsService = ExcursionsService(tripsterApiClient: _tripsterApiClient);
-    _dioMainApiClient.interceptors.add(TokenInterceptor(dio: _dioMainApiClient, sessionData: _sessionData));
     _isUserAuthorized = await _authService.isUserAuthorized();
+    _dioMainApiClient.interceptors.add(TokenInterceptor(dio: _dioMainApiClient, sessionData: _sessionData));
   }
 
   TripsterSafeApiClient _createTripsterApiClient(Dio dio) {
