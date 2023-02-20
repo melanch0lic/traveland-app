@@ -1,7 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
+import '../../../navigation/router.gr.dart';
 import '../places_page_model.dart';
 
 class FilterHeaderEvents extends StatelessWidget {
@@ -34,7 +36,8 @@ class FilterHeaderEvents extends StatelessWidget {
                 ),
                 Text(
                   'По стоимости',
-                  style: theme.textTheme.bodyText2!.copyWith(color: theme.primaryColorDark),
+                  style: theme.textTheme.bodyText2!
+                      .copyWith(color: theme.primaryColorDark),
                 )
               ]),
             ),
@@ -54,20 +57,26 @@ class FilterHeaderEvents extends StatelessWidget {
                 ),
                 Text(
                   'По удаленности',
-                  style: theme.textTheme.bodyText2!.copyWith(color: theme.primaryColorDark),
+                  style: theme.textTheme.bodyText2!
+                      .copyWith(color: theme.primaryColorDark),
                 )
               ]),
             ),
-            crossFadeState: sortFlag ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+            crossFadeState:
+                sortFlag ? CrossFadeState.showFirst : CrossFadeState.showSecond,
             duration: const Duration(milliseconds: 100),
           ),
         ),
         const Spacer(),
-        SvgPicture.asset(
-          'assets/images/filter_icon.svg',
-          color: theme.primaryColorDark,
-          width: 16,
-          height: 16,
+        IconButton(
+          splashRadius: 20,
+          icon: SvgPicture.asset(
+            'assets/images/filter_icon.svg',
+            color: theme.primaryColorDark,
+            width: 16,
+            height: 16,
+          ),
+          onPressed: () => context.router.push(const FilterLocationsRoute()),
         )
       ],
     );

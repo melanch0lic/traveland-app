@@ -5,14 +5,13 @@ import 'package:hackground_app/pages/detailis_exursion_page/components/review_ex
 import 'package:hackground_app/pages/detailis_exursion_page/components/route_map.dart';
 import 'package:hackground_app/pages/detailis_exursion_page/components/show_description_excursion_widget.dart';
 import 'package:provider/provider.dart';
-
 import '../../../data/network/models/entity/tour_entity.dart';
 import '../../../dummy_data.dart';
 import '../../../widgets/excursion_small_listview.dart';
 import '../../../widgets/image_slider.dart';
-import '../../../widgets/name_row_header.dart';
+
 import '../../../widgets/name_row_header_excursions.dart';
-import '../../../widgets/name_row_header_housing.dart';
+
 import '../../details_page/components/review_card.dart';
 import '../../review_page/components/sent_review_button_excursions.dart';
 import '../detailis_exursion_page_model.dart';

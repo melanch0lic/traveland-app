@@ -2,10 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-
 import '../../app_initialization.dart';
-import 'components/start_auth_button.dart';
-import 'components/start_reg_button.dart';
+import 'components/main_content_column.dart';
 
 class StartPage extends StatelessWidget {
   const StartPage({Key? key}) : super(key: key);
@@ -29,9 +27,7 @@ class StartPage extends StatelessWidget {
             Center(
               child: SvgPicture.asset('assets/images/logo.svg'),
             ),
-            Column(
-              children: const [StartRegistrationButton(), SizedBox(height: 15), StartAuthButton()],
-            )
+            const MainContentColumn(),
           ],
         ),
       )),

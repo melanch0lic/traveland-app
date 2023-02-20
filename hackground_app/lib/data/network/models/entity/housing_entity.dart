@@ -23,7 +23,8 @@ class HousingEntity {
     required this.placeInfo,
   });
 
-  factory HousingEntity.fromJson(Map<String, dynamic> json) => _$HousingEntityFromJson(json);
+  factory HousingEntity.fromJson(Map<String, dynamic> json) =>
+      _$HousingEntityFromJson(json);
 
   Map<String, dynamic> toJson() => _$HousingEntityToJson(this);
 }

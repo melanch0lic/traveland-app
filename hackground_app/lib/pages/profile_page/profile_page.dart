@@ -25,39 +25,35 @@ class ProfilePage extends StatelessWidget {
               )
             : Scaffold(
                 appBar: AppBar(
-                  title: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          'Профиль',
-                          style: theme.textTheme.headline2!.copyWith(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
+                  title: Expanded(
+                    child: Text(
+                      'Профиль',
+                      style: theme.textTheme.headline2!.copyWith(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
                       ),
-                      context.read<ProfilePageViewModel>().userInfo == null
-                          ? const SizedBox.shrink()
-                          : IconButton(
-                              splashRadius: 20,
-                              icon: SvgPicture.asset(
-                                'assets/images/redact.svg',
-                                color: Colors.black,
-                              ),
-                              onPressed: () => context.router
-                                  .push(EditingProfileRoute(userInfo: context.read<ProfilePageViewModel>().userInfo!)),
-                            ),
-                      IconButton(
-                        splashRadius: 20,
-                        icon: SvgPicture.asset(
-                          'assets/images/settings.svg',
-                          color: Colors.black,
-                        ),
-                        onPressed: () => context.router.push(const ApplicationSettingsRoute()),
-                      ),
-                    ],
+                    ),
                   ),
+                  actions: [
+                    IconButton(
+                      splashRadius: 15,
+                      icon: SvgPicture.asset(
+                        'assets/images/redact.svg',
+                        color: Colors.black,
+                      ),
+                      onPressed: () => context.router
+                          .push(EditingProfileRoute(userInfo: context.read<ProfilePageViewModel>().userInfo!)),
+                    ),
+                    IconButton(
+                      splashRadius: 15,
+                      icon: SvgPicture.asset(
+                        'assets/images/settings.svg',
+                        color: Colors.black,
+                      ),
+                      onPressed: () => context.router.push(const ApplicationSettingsRoute()),
+                    ),
+                  ],
                 ),
                 body: SafeArea(
                   child: SingleChildScrollView(

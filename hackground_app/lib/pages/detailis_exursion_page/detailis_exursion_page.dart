@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hackground_app/pages/detailis_exursion_page/components/body_excursion.dart';
+import 'package:hackground_app/widgets/actions_icons_appbar_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../../app_initialization.dart';
@@ -35,13 +36,19 @@ class DetailisExursionPage extends StatelessWidget {
                 ),
                 onPressed: () => Navigator.of(context).pop(),
               ),
-              title: Text(
-                'Подробная информация',
-                style: theme.textTheme.headline2!.copyWith(
+              title: Expanded(
+                child: Text(
+                  selectedModel.title,
+                  style: theme.textTheme.headline2!.copyWith(
                     color: Colors.black,
                     fontSize: 20,
-                    fontWeight: FontWeight.w500),
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ),
+              actions: const [
+                ActionsIconsAppBarWidget(),
+              ],
               backgroundColor: theme.primaryColorLight,
             ),
             body: BodyExcursion(

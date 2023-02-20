@@ -12,14 +12,15 @@ class ReviewCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(15),
       margin: const EdgeInsets.only(right: 10),
-    
       width: 320,
-      decoration:
-          const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(15)), color: Colors.white, boxShadow: [
-        BoxShadow(
-          color: Color.fromRGBO(149, 157, 165, 0.25),
-        )
-      ]),
+      decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Color.fromRGBO(149, 157, 165, 0.25),
+            )
+          ]),
       child: Column(children: [
         Row(
           children: [
@@ -35,16 +36,18 @@ class ReviewCard extends StatelessWidget {
               children: [
                 Text(
                   review.name,
-                  style:
-                      theme.textTheme.bodyText1!.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
+                  style: theme.textTheme.bodyText1!.copyWith(
+                      color: theme.primaryColorDark,
+                      fontWeight: FontWeight.w400),
                 ),
                 const SizedBox(
                   height: 5,
                 ),
                 Text(
                   review.date,
-                  style:
-                      theme.textTheme.bodyText1!.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
+                  style: theme.textTheme.bodyText1!.copyWith(
+                      color: theme.primaryColorDark,
+                      fontWeight: FontWeight.w400),
                 )
               ],
             ),
@@ -58,7 +61,8 @@ class ReviewCard extends StatelessWidget {
                 color: const Color.fromRGBO(56, 176, 0, 1),
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
                 child: Text(
                   '${review.rating}',
                   style: Theme.of(context).textTheme.bodyText2?.copyWith(
@@ -75,8 +79,10 @@ class ReviewCard extends StatelessWidget {
         ),
         Text(
           review.description,
-          style: theme.textTheme.bodyText1!
-              .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400, fontSize: 14),
+          style: theme.textTheme.bodyText1!.copyWith(
+              color: theme.primaryColorDark,
+              fontWeight: FontWeight.w400,
+              fontSize: 14),
         )
       ]),
     );
