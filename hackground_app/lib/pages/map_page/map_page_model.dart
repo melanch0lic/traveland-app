@@ -11,7 +11,7 @@ import '../../data/network/models/entity/housing_entity.dart';
 import '../../domain/repositories/cache_data_repository.dart';
 import '../../domain/services/osrm_service.dart';
 
-enum PlaceType { housing, location, event }
+enum PlaceType { all, housing, location, event }
 
 enum RouteType { driving, foot }
 
@@ -42,13 +42,14 @@ class MapPageViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  PlaceType? _selectedPlaceType;
+  PlaceType _selectedPlaceType = PlaceType.all;
   PlaceType? get selectedPlaceType => _selectedPlaceType;
 
   RouteType _selectedRouteType = RouteType.driving;
   RouteType get selectedRouteType => _selectedRouteType;
 
   LatLng? _selectedPosition;
+  LatLng? get selectedPosition => _selectedPosition;
 
   final List<LatLng> _selectedPositions = [];
   List<LatLng> get selectedPositions => _selectedPositions;
@@ -122,8 +123,7 @@ class MapPageViewModel with ChangeNotifier {
                     : SvgPicture.asset('assets/images/marker_icon.svg')
                 : SvgPicture.asset('assets/images/marker_icon.svg'),
             onPressed: () {
-              _selectedPlace = e;
-              changeSelectedPosition(LatLng(e.placeInfo.longitude.value, e.placeInfo.latitude.value));
+              changeSelectedPlace(e);
               notifyListeners();
             },
           ),
@@ -146,8 +146,7 @@ class MapPageViewModel with ChangeNotifier {
                     : SvgPicture.asset('assets/images/marker_icon.svg')
                 : SvgPicture.asset('assets/images/marker_icon.svg'),
             onPressed: () {
-              _selectedPlace = e;
-              changeSelectedPosition(LatLng(e.placeInfo.longitude.value, e.placeInfo.latitude.value));
+              changeSelectedPlace(e);
               notifyListeners();
             },
           ),
@@ -170,8 +169,7 @@ class MapPageViewModel with ChangeNotifier {
                     : SvgPicture.asset('assets/images/marker_icon.svg')
                 : SvgPicture.asset('assets/images/marker_icon.svg'),
             onPressed: () {
-              _selectedPlace = e;
-              changeSelectedPosition(LatLng(e.placeInfo.longitude.value, e.placeInfo.latitude.value));
+              changeSelectedPlace(e);
               notifyListeners();
             },
           ),
@@ -192,7 +190,7 @@ class MapPageViewModel with ChangeNotifier {
   Future<void> init() async {
     _searchController = TextEditingController();
     _mapController = MapController();
-    await _getCurrentLocation();
+    await _getCurrentLocation().whenComplete(() => _mapController.move(_currentLocationPosition!, 17));
     _liveLocation();
   }
 
@@ -207,6 +205,7 @@ class MapPageViewModel with ChangeNotifier {
         _selectedRouteType == RouteType.driving ? 'driving-car' : 'foot-walking');
     response.fold((result) {
       _polylinePoints = result.routes.first.geometry.coordinates.map((e) => LatLng(e[1], e[0])).toList();
+      notifyListeners();
     }, (exception, error) {});
   }
 
@@ -227,21 +226,26 @@ class MapPageViewModel with ChangeNotifier {
 
     final Position currentPosition = await Geolocator.getCurrentPosition();
     _currentLocationPosition = LatLng(currentPosition.latitude, currentPosition.longitude);
-    _mapController.move(_currentLocationPosition!, 17);
     notifyListeners();
   }
 
   void onSelectHousingCategoryButtonPressed() {
+    _selectedPlace = null;
+    _selectedPosition = null;
     _selectedPlaceType = PlaceType.housing;
     notifyListeners();
   }
 
   void onSelectLocationCategoryButtonPressed() {
+    _selectedPlace = null;
+    _selectedPosition = null;
     _selectedPlaceType = PlaceType.location;
     notifyListeners();
   }
 
   void onSelectEventCategoryButtonPressed() {
+    _selectedPlace = null;
+    _selectedPosition = null;
     _selectedPlaceType = PlaceType.event;
     notifyListeners();
   }
@@ -294,11 +298,12 @@ class MapPageViewModel with ChangeNotifier {
     });
   }
 
-  void changeSelectedPosition(LatLng point) {
-    if (!_selectedPositions.contains(point)) {
+  void changeSelectedPlace(dynamic place) {
+    if (!_selectedPositions.contains(LatLng(place.placeInfo.longitude.value, place.placeInfo.latitude.value))) {
       _isRouteWindowOpened = false;
     }
-    _selectedPosition = point;
+    _selectedPlace = place;
+    _selectedPosition = LatLng(place.placeInfo.longitude.value, place.placeInfo.latitude.value);
     notifyListeners();
   }
 

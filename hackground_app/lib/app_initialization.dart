@@ -81,8 +81,8 @@ class InitializeProvider with ChangeNotifier {
     _placesService = PlacesService(mainApiClient: _mainApiClient);
     _osrmService = OsrmService(mainApiClient: _mainApiClient);
     _excursionsService = ExcursionsService(tripsterApiClient: _tripsterApiClient);
-    _dioMainApiClient.interceptors.add(TokenInterceptor(dio: _dioMainApiClient, sessionData: _sessionData));
     _isUserAuthorized = await _authService.isUserAuthorized();
+    _dioMainApiClient.interceptors.add(TokenInterceptor(dio: _dioMainApiClient, sessionData: _sessionData));
   }
 
   TripsterSafeApiClient _createTripsterApiClient(Dio dio) {

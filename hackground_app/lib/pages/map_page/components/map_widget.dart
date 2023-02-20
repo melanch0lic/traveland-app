@@ -19,6 +19,7 @@ class MapWidget extends StatelessWidget {
     final selectedPlaceType = context.select((MapPageViewModel model) => model.selectedPlaceType);
     final selectedRouteType = context.select((MapPageViewModel model) => model.selectedRouteType);
     final selectedPositions = context.select((MapPageViewModel model) => model.selectedPositions);
+
     return FlutterMap(
       mapController: context.read<MapPageViewModel>().mapController,
       options: MapOptions(
@@ -47,17 +48,36 @@ class MapWidget extends StatelessWidget {
                 points: points,
                 color: Theme.of(context).highlightColor.withOpacity(0.8),
                 isDotted: selectedRouteType == RouteType.foot),
+            // Polyline(
+            //     strokeWidth: 5,
+            //     points: points.isNotEmpty ? points.sublist(0, points.indexOf(selectedPositions.first) + 1) : [],
+            //     color: Colors.red.withOpacity(0.8),
+            //     isDotted: selectedRouteType == RouteType.foot),
           ],
         ),
-        if (selectedPlaceType == PlaceType.event)
+        if (selectedPlaceType == PlaceType.event || selectedPlaceType == PlaceType.all)
           MarkerLayer(
             markers: eventMarkers,
           ),
-        if (selectedPlaceType == PlaceType.location)
+        if (selectedPlaceType == PlaceType.location || selectedPlaceType == PlaceType.all)
           MarkerLayer(
             markers: locationMarkers,
           ),
-        if (selectedPlaceType == PlaceType.housing)
+        // MarkerClusterLayerWidget(
+        //     options: MarkerClusterLayerOptions(
+        //   size: const Size(40, 40),
+        //   anchor: AnchorPos.align(AnchorAlign.center),
+        //   fitBoundsOptions: const FitBoundsOptions(padding: EdgeInsets.all(50)),
+        //   markers: locationMarkers,
+        //   builder: (context, markers) {
+        //     return FloatingActionButton(
+        //       onPressed: null,
+        //       backgroundColor: Colors.red,
+        //       child: Text(markers.length.toString()),
+        //     );
+        //   },
+        // )),
+        if (selectedPlaceType == PlaceType.housing || selectedPlaceType == PlaceType.all)
           MarkerLayer(
             markers: housingMarkers,
           ),
