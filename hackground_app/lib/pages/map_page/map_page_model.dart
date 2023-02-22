@@ -229,6 +229,13 @@ class MapPageViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  void onSelectAllCategoryButtonPressed() {
+    _selectedPlace = null;
+    _selectedPosition = null;
+    _selectedPlaceType = PlaceType.all;
+    notifyListeners();
+  }
+
   void onSelectHousingCategoryButtonPressed() {
     _selectedPlace = null;
     _selectedPosition = null;

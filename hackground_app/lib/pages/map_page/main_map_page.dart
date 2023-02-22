@@ -7,7 +7,6 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../../app_initialization.dart';
 import '../detailis_event_page/components/contact_event_widget.dart';
-import '../detailis_event_page/components/review_event_widget.dart';
 import '../detailis_event_page/components/url_event_widget.dart';
 import 'components/map_category_select_widget.dart';
 import 'components/map_widget.dart';
@@ -78,6 +77,7 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
                       child: Column(
                         children: const [
                           SearchMapWidget(),
+                          SizedBox(height: 5),
                           MapCategorySelectWidget(),
                         ],
                       ),
@@ -179,9 +179,9 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
                                       final polylinePoints = context.read<MapPageViewModel>().polylinePoints;
                                       _animatedMapMove(polylinePoints[polylinePoints.length ~/ 2], 14);
                                     }),
-                                child: const Text('car')),
+                                child: const Icon(Icons.directions_car)),
                             const SizedBox(
-                              width: 5,
+                              width: 30,
                             ),
                             ElevatedButton(
                                 onPressed: () =>
@@ -189,7 +189,7 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
                                       final polylinePoints = context.read<MapPageViewModel>().polylinePoints;
                                       _animatedMapMove(polylinePoints[polylinePoints.length ~/ 2], 14);
                                     }),
-                                child: const Text('foot')),
+                                child: const Icon(Icons.directions_walk)),
                           ],
                         )
                       ],
@@ -223,87 +223,142 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
                   )),
             selectedPlace != null && !isSearchOpened
                 ? SlidingUpPanel(
-                    padding: const EdgeInsets.all(15),
-                    minHeight: MediaQuery.of(context).size.height * 0.15,
+                    padding: const EdgeInsets.only(top: 10, bottom: 15, left: 15, right: 15),
+                    minHeight: MediaQuery.of(context).size.height * 0.2,
                     maxHeight: MediaQuery.of(context).size.height * 0.85,
                     backdropEnabled: true,
                     borderRadius: const BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
-                    panel: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                '${selectedPlace.placeInfo.name} • 0+',
+                    panel: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Center(
+                          child: Container(
+                              height: 5,
+                              width: 45,
+                              decoration: const BoxDecoration(
+                                  color: Colors.grey, borderRadius: BorderRadius.all(Radius.circular(15)))),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                '${selectedPlace.placeInfo.name}',
                                 style: theme.textTheme.headline2!
                                     .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
                               ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                                ),
-                                onPressed: () {
-                                  context.read<MapPageViewModel>().onDrawRouteButtonPressed().whenComplete(() {
-                                    final polylinePoints = context.read<MapPageViewModel>().polylinePoints;
-                                    _animatedMapMove(polylinePoints[polylinePoints.length ~/ 2], 14);
-                                  });
-                                },
-                                child: const Text('Маршрут'),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 5),
-                          ReviewEventWidget(theme: theme),
-                          const SizedBox(height: 5),
-                          CarouselSlider.builder(
-                            itemCount: selectedPlace.placeInfo.photos.length,
-                            options: CarouselOptions(
-                              initialPage: selectedPlace.placeInfo.photos.length > 1 ? 1 : 0,
-                              enableInfiniteScroll: false,
-                              aspectRatio: 2.0,
-                              enlargeCenterPage: true,
                             ),
-                            itemBuilder: (context, index, realIdx) {
-                              return Image.network(
-                                  'http://176.119.159.9/media/${selectedPlace.placeInfo.photos[index]}',
-                                  fit: BoxFit.cover,
-                                  width: 1000);
-                            },
-                          ),
-                          const SizedBox(height: 15),
-                          Text(
-                            'Описание',
-                            style: Theme.of(context).textTheme.headline1?.copyWith(
-                                  fontSize: 20,
-                                  color: const Color.fromRGBO(44, 44, 46, 1),
-                                  fontWeight: FontWeight.w500,
+                            const SizedBox(width: 10),
+                            Row(
+                              children: [
+                                Container(
+                                  width: 42,
+                                  height: 27,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(7),
+                                    color: const Color.fromRGBO(56, 176, 0, 1),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
+                                    child: Text(
+                                      selectedPlace.placeInfo.meanRating.value.toStringAsFixed(1),
+                                      style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                                            color: const Color.fromRGBO(255, 255, 255, 1),
+                                            fontSize: 14,
+                                          ),
+                                    ),
+                                  ),
                                 ),
-                          ),
-                          const SizedBox(height: 15),
-                          Text(
-                            '${selectedPlace.placeInfo.description}',
-                            style: theme.textTheme.bodyText1!
-                                .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            'Контакты',
-                            style: Theme.of(context).textTheme.headline1?.copyWith(
-                                  fontSize: 20,
-                                  color: const Color.fromRGBO(44, 44, 46, 1),
-                                  fontWeight: FontWeight.w500,
+                                const SizedBox(
+                                  width: 5,
                                 ),
+                                Text(
+                                  '${selectedPlace.placeInfo.ratingCount.value} отзывов',
+                                  style: theme.textTheme.bodyText1!
+                                      .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          '${selectedPlace.placeInfo.adress}',
+                          style: theme.textTheme.bodyText1!
+                              .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            backgroundColor: theme.highlightColor,
                           ),
-                          const SizedBox(height: 15),
-                          ContactEventWidget(theme: theme),
-                          const SizedBox(height: 10),
-                          UrlEventWidget(theme: theme),
-                        ],
-                      ),
+                          onPressed: () {
+                            context.read<MapPageViewModel>().onDrawRouteButtonPressed().whenComplete(() {
+                              final polylinePoints = context.read<MapPageViewModel>().polylinePoints;
+                              _animatedMapMove(polylinePoints[polylinePoints.length ~/ 2], 14);
+                            });
+                          },
+                          child: const Text('Маршрут'),
+                        ),
+                        const SizedBox(height: 5),
+                        CarouselSlider.builder(
+                          itemCount: selectedPlace.placeInfo.photos.length,
+                          options: CarouselOptions(
+                            initialPage: selectedPlace.placeInfo.photos.length > 1 ? 1 : 0,
+                            enableInfiniteScroll: false,
+                            aspectRatio: 2.0,
+                            enlargeCenterPage: true,
+                          ),
+                          itemBuilder: (context, index, realIdx) {
+                            return Image.network('http://176.119.159.9/media/${selectedPlace.placeInfo.photos[index]}',
+                                fit: BoxFit.cover, width: 1000);
+                          },
+                        ),
+                        const SizedBox(height: 15),
+                        Text(
+                          'Описание',
+                          style: Theme.of(context).textTheme.headline1?.copyWith(
+                                fontSize: 20,
+                                color: const Color.fromRGBO(44, 44, 46, 1),
+                                fontWeight: FontWeight.w500,
+                              ),
+                        ),
+                        const SizedBox(height: 15),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '${selectedPlace.placeInfo.description}',
+                                  style: theme.textTheme.bodyText1!
+                                      .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
+                                ),
+                                const SizedBox(height: 10),
+                                Text(
+                                  'Контакты',
+                                  style: Theme.of(context).textTheme.headline1?.copyWith(
+                                        fontSize: 20,
+                                        color: const Color.fromRGBO(44, 44, 46, 1),
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                ),
+                                const SizedBox(height: 15),
+                                ContactEventWidget(theme: theme),
+                                const SizedBox(height: 10),
+                                UrlEventWidget(theme: theme),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ))
                 : const SizedBox.shrink(),
           ]),

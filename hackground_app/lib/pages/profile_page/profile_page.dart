@@ -25,14 +25,12 @@ class ProfilePage extends StatelessWidget {
               )
             : Scaffold(
                 appBar: AppBar(
-                  title: Expanded(
-                    child: Text(
-                      'Профиль',
-                      style: theme.textTheme.headline2!.copyWith(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  title: Text(
+                    'Профиль',
+                    style: theme.textTheme.headline2!.copyWith(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                   actions: [
@@ -55,24 +53,19 @@ class ProfilePage extends StatelessWidget {
                     ),
                   ],
                 ),
-                body: SafeArea(
-                  child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: const [
-                          InfoUserWidget(),
-                          // const InfoUserProgressWidget(),
-                          NameRowHeader(name: 'Избранное'),
-                          SizedBox(height: 15),
-                          // EventSmallListView(attractionListHouse),
-                          SizedBox(height: 30),
-                          LogOutButton(),
-                        ],
-                      ),
-                    ),
+                body: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: const [
+                      InfoUserWidget(),
+                      // const InfoUserProgressWidget(),
+                      NameRowHeader(name: 'Избранное'),
+                      SizedBox(height: 15),
+                      // EventSmallListView(attractionListHouse),
+                      SizedBox(height: 30),
+                      LogOutButton(),
+                    ],
                   ),
                 ),
               );

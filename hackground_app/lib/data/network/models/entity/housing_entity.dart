@@ -1,7 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'float_entity.dart';
-import 'int_entity.dart';
 import 'place_info_entity.dart';
 
 part 'housing_entity.g.dart';
@@ -23,8 +21,7 @@ class HousingEntity {
     required this.placeInfo,
   });
 
-  factory HousingEntity.fromJson(Map<String, dynamic> json) =>
-      _$HousingEntityFromJson(json);
+  factory HousingEntity.fromJson(Map<String, dynamic> json) => _$HousingEntityFromJson(json);
 
   Map<String, dynamic> toJson() => _$HousingEntityToJson(this);
 }
