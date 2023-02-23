@@ -6,8 +6,9 @@ import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../../app_initialization.dart';
-import '../detailis_event_page/components/contact_event_widget.dart';
-import '../detailis_event_page/components/url_event_widget.dart';
+import '../../widgets/contact_email_widget.dart';
+import '../../widgets/contact_phone_widget.dart';
+import '../../widgets/contact_website_widget.dart';
 import 'components/map_category_select_widget.dart';
 import 'components/map_widget.dart';
 import 'components/search_map_widget.dart';
@@ -94,7 +95,7 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
                             const SizedBox(height: 30),
                             Text(
                               'Результаты поиска',
-                              style: theme.textTheme.bodyText1!
+                              style: theme.textTheme.bodyLarge!
                                   .copyWith(fontSize: 20, fontWeight: FontWeight.w500, color: theme.primaryColorDark),
                             ),
                             const SizedBox(
@@ -247,7 +248,7 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
                             Expanded(
                               child: Text(
                                 '${selectedPlace.placeInfo.name}',
-                                style: theme.textTheme.headline2!
+                                style: theme.textTheme.displayMedium!
                                     .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
                               ),
                             ),
@@ -265,7 +266,7 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
                                     padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
                                     child: Text(
                                       selectedPlace.placeInfo.meanRating.value.toStringAsFixed(1),
-                                      style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                             color: const Color.fromRGBO(255, 255, 255, 1),
                                             fontSize: 14,
                                           ),
@@ -277,7 +278,7 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
                                 ),
                                 Text(
                                   '${selectedPlace.placeInfo.ratingCount.value} отзывов',
-                                  style: theme.textTheme.bodyText1!
+                                  style: theme.textTheme.bodyLarge!
                                       .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                                 ),
                               ],
@@ -289,7 +290,7 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
                         ),
                         Text(
                           '${selectedPlace.placeInfo.adress}',
-                          style: theme.textTheme.bodyText1!
+                          style: theme.textTheme.bodyLarge!
                               .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                         ),
                         ElevatedButton(
@@ -324,7 +325,7 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
                         const SizedBox(height: 15),
                         Text(
                           'Описание',
-                          style: Theme.of(context).textTheme.headline1?.copyWith(
+                          style: Theme.of(context).textTheme.displayLarge?.copyWith(
                                 fontSize: 20,
                                 color: const Color.fromRGBO(44, 44, 46, 1),
                                 fontWeight: FontWeight.w500,
@@ -338,22 +339,38 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
                               children: [
                                 Text(
                                   '${selectedPlace.placeInfo.description}',
-                                  style: theme.textTheme.bodyText1!
+                                  style: theme.textTheme.bodyLarge!
                                       .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                                 ),
                                 const SizedBox(height: 10),
-                                Text(
-                                  'Контакты',
-                                  style: Theme.of(context).textTheme.headline1?.copyWith(
-                                        fontSize: 20,
-                                        color: const Color.fromRGBO(44, 44, 46, 1),
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                ),
+                                if (selectedPlace.placeInfo.mail.isValid ||
+                                    selectedPlace.placeInfo.number.isValid ||
+                                    selectedPlace.placeInfo.url.isValid)
+                                  Text(
+                                    'Контакты',
+                                    style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                                          fontSize: 20,
+                                          color: const Color.fromRGBO(44, 44, 46, 1),
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                  ),
                                 const SizedBox(height: 15),
-                                ContactEventWidget(theme: theme),
-                                const SizedBox(height: 10),
-                                UrlEventWidget(theme: theme),
+                                if (selectedPlace.placeInfo.number.isValid) ...[
+                                  ContactPhoneWidget(
+                                      phoneNumber: selectedPlace.placeInfo.number.value,
+                                      text: selectedPlace.placeInfo.number.value),
+                                  const SizedBox(
+                                    height: 5,
+                                  )
+                                ],
+                                if (selectedPlace.placeInfo.mail.isValid) ...[
+                                  ContactEmailWidget(text: selectedPlace.placeInfo.mail.value),
+                                  const SizedBox(
+                                    height: 5,
+                                  )
+                                ],
+                                if (selectedPlace.placeInfo.url.isValid)
+                                  ContactWebsiteWidget(websiteUrl: selectedPlace.placeInfo.url.value),
                               ],
                             ),
                           ),

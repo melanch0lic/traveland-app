@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../app_localizations.dart';
 import '../../data/network/models/entity/housing_entity.dart';
-import '../../domain/models/attraction_model.dart';
 import '../../dummy_data.dart';
 import '../../widgets/actions_icons_appbar_widget.dart';
+import '../../widgets/contact_email_widget.dart';
+import '../../widgets/contact_phone_widget.dart';
+import '../../widgets/contact_website_widget.dart';
 import '../../widgets/image_slider.dart';
 import '../../widgets/name_row_header.dart';
-import 'components/contact_item.dart';
 import 'components/review_card.dart';
 import 'components/sent_review_button.dart';
 import 'details_page_model.dart';
@@ -19,29 +18,6 @@ import 'details_page_model.dart';
 class DetailsPage extends StatelessWidget {
   final HousingEntity selectedModel;
   const DetailsPage({Key? key, required this.selectedModel}) : super(key: key);
-
-  Future<void> openPhoneNumber(BuildContext context, String phoneNumber) async {
-    final String phoneAppUrl = 'tel://$phoneNumber';
-    final Uri phoneAppUrlRequest = Uri.parse(phoneAppUrl);
-
-    try {
-      await launchUrl(phoneAppUrlRequest);
-    } catch (error) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Phone Error')));
-    }
-  }
-
-  Future<void> openWebsite(BuildContext context, String websiteUrl) async {
-    final Uri websiteAppUrlRequest = Uri.parse(websiteUrl);
-
-    try {
-      await launchUrl(websiteAppUrlRequest);
-    } catch (error) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Website Error')));
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +42,7 @@ class DetailsPage extends StatelessWidget {
               title: Expanded(
                 child: Text(
                   selectedModel.placeInfo.name,
-                  style: theme.textTheme.headline2!.copyWith(
+                  style: theme.textTheme.displayMedium!.copyWith(
                     color: Colors.black,
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
@@ -94,20 +70,16 @@ class DetailsPage extends StatelessWidget {
                       Row(
                         children: [
                           ...List.generate(
-                              5,
-                              (index) => buildStar(context, index,
-                                  selectedModel.placeInfo.meanRating.value))
+                              5, (index) => buildStar(context, index, selectedModel.placeInfo.meanRating.value))
                         ],
                       ),
                       const SizedBox(
                         height: 5,
                       ),
                       Text(
-                        '${selectedModel.placeInfo.name}',
-                        style: theme.textTheme.headline2!.copyWith(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500),
+                        selectedModel.placeInfo.name,
+                        style: theme.textTheme.displayMedium!
+                            .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(
                         height: 15,
@@ -123,99 +95,82 @@ class DetailsPage extends StatelessWidget {
                           ),
                           Text(
                             '700м до центра',
-                            style: theme.textTheme.bodyText1!.copyWith(
-                                color: theme.primaryColorDark,
-                                fontWeight: FontWeight.w400),
+                            style: theme.textTheme.bodyLarge!
+                                .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                           )
                         ],
                       ),
                       const SizedBox(
                         height: 15,
                       ),
-                      if (selectedModel.price != null)
-                        Row(
-                          children: [
-                            SvgPicture.asset(
-                              'assets/images/wallet_icon.svg',
-                              color: theme.primaryColorDark,
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              'от ${selectedModel.price} ₽ за ночь',
-                              style: theme.textTheme.bodyText1!.copyWith(
-                                  color: theme.primaryColorDark,
-                                  fontWeight: FontWeight.w400),
-                            )
-                          ],
-                        ),
+                      Row(
+                        children: [
+                          SvgPicture.asset(
+                            'assets/images/wallet_icon.svg',
+                            color: theme.primaryColorDark,
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            'от ${selectedModel.price} ₽ за ночь',
+                            style: theme.textTheme.bodyLarge!
+                                .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
+                          )
+                        ],
+                      ),
                       const SizedBox(
                         height: 30,
                       ),
                       Text(
                         translate(context, 'description_text'),
-                        style: theme.textTheme.headline2!.copyWith(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500),
+                        style: theme.textTheme.displayMedium!
+                            .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(
                         height: 15,
                       ),
                       AnimatedCrossFade(
                           firstChild: Text(
-                            '${selectedModel.placeInfo.description}',
-                            style: theme.textTheme.bodyText1!.copyWith(
-                                color: theme.primaryColorDark,
-                                fontWeight: FontWeight.w400),
+                            selectedModel.placeInfo.description,
+                            style: theme.textTheme.bodyLarge!
+                                .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                           ),
                           secondChild: Text(
-                            '${selectedModel.placeInfo.description}',
-                            style: theme.textTheme.bodyText1!.copyWith(
-                                color: theme.primaryColorDark,
-                                fontWeight: FontWeight.w400),
+                            selectedModel.placeInfo.description,
+                            style: theme.textTheme.bodyLarge!
+                                .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                           ),
-                          crossFadeState: isFullTextShowed
-                              ? CrossFadeState.showSecond
-                              : CrossFadeState.showFirst,
+                          crossFadeState: isFullTextShowed ? CrossFadeState.showSecond : CrossFadeState.showFirst,
                           duration: const Duration(milliseconds: 400)),
                       const SizedBox(
                         height: 10,
                       ),
                       InkWell(
                           onTap: () {
-                            context
-                                .read<DetailsPageViewModel>()
-                                .onShowFullButtonPressed();
+                            context.read<DetailsPageViewModel>().onShowFullButtonPressed();
                           },
                           splashColor: Colors.black,
                           highlightColor: theme.indicatorColor.withOpacity(0.5),
                           child: Text(
-                            isFullTextShowed
-                                ? translate(context, 'hide_text')
-                                : translate(context, 'show_full_text'),
-                            style: theme.textTheme.bodyText2!
-                                .copyWith(color: theme.indicatorColor),
+                            isFullTextShowed ? translate(context, 'hide_text') : translate(context, 'show_full_text'),
+                            style: theme.textTheme.bodyMedium!.copyWith(color: theme.indicatorColor),
                           )),
                       const SizedBox(
                         height: 30,
                       ),
                       Text(
                         translate(context, 'location_text'),
-                        style: theme.textTheme.headline2!.copyWith(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500),
+                        style: theme.textTheme.displayMedium!
+                            .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(
                         height: 15,
                       ),
                       Text(
                         '${selectedModel.placeInfo.adress} • ${selectedModel.placeInfo.latitude.value} ${selectedModel.placeInfo.longitude.value}',
-                        style: theme.textTheme.bodyText1!.copyWith(
-                            color: theme.primaryColorDark,
-                            fontWeight: FontWeight.w400),
+                        style: theme.textTheme.bodyLarge!
+                            .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                       ),
                       const SizedBox(
                         height: 10,
@@ -236,42 +191,26 @@ class DetailsPage extends StatelessWidget {
 
                       Text(
                         translate(context, 'contacts_text'),
-                        style: theme.textTheme.headline2!.copyWith(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500),
+                        style: theme.textTheme.displayMedium!
+                            .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(
                         height: 15,
                       ),
 
-                      ContactItem(
-                        iconPath: 'assets/images/phone_icon.svg',
-                        text: selectedModel.placeInfo.number.value,
-                        callback: () => openPhoneNumber(
-                            context, selectedModel.placeInfo.number.value),
-                      ),
+                      ContactPhoneWidget(
+                          phoneNumber: selectedModel.placeInfo.number.value,
+                          text: selectedModel.placeInfo.number.value),
                       const SizedBox(
                         height: 10,
                       ),
 
-                      ContactItem(
-                        iconPath: 'assets/images/email_icon.svg',
-                        text: selectedModel.placeInfo.mail.value,
-                        callback: () async {
-                          await Clipboard.setData(ClipboardData(
-                              text: selectedModel.placeInfo.mail.value));
-                        },
-                      ),
+                      ContactEmailWidget(text: selectedModel.placeInfo.mail.value),
                       const SizedBox(
                         height: 10,
                       ),
 
-                      ContactItem(
-                          iconPath: 'assets/images/browser_icon.svg',
-                          text: selectedModel.placeInfo.url.value,
-                          callback: () => openWebsite(
-                              context, selectedModel.placeInfo.url.value)),
+                      ContactWebsiteWidget(websiteUrl: selectedModel.placeInfo.url.value),
                       const SizedBox(
                         height: 30,
                       ),
@@ -291,16 +230,11 @@ class DetailsPage extends StatelessWidget {
                               color: const Color.fromRGBO(56, 176, 0, 1),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 5, horizontal: 10.5),
+                              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
                               child: Text(
                                 '${selectedModel.placeInfo.meanRating.value}',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText2
-                                    ?.copyWith(
-                                      color: const Color.fromRGBO(
-                                          255, 255, 255, 1),
+                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                      color: const Color.fromRGBO(255, 255, 255, 1),
                                       fontSize: 14,
                                     ),
                               ),
@@ -311,9 +245,8 @@ class DetailsPage extends StatelessWidget {
                           ),
                           Text(
                             '${selectedModel.placeInfo.ratingCount.value} отзывов',
-                            style: theme.textTheme.bodyText1!.copyWith(
-                                color: theme.primaryColorDark,
-                                fontWeight: FontWeight.w400),
+                            style: theme.textTheme.bodyLarge!
+                                .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                           ),
                         ],
                       ),
@@ -336,8 +269,7 @@ class DetailsPage extends StatelessWidget {
                       const SizedBox(
                         height: 30,
                       ),
-                      NameRowHeader(
-                          name: translate(context, 'also_recommended')),
+                      NameRowHeader(name: translate(context, 'also_recommended')),
                       const SizedBox(
                         height: 15,
                       ),
