@@ -37,6 +37,8 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
         final isRouteCreated = context.select((MapPageViewModel model) => model.isRouteWindowOpened);
         final searchList = context.select((MapPageViewModel model) => model.searchObjects);
         final mapController = context.read<MapPageViewModel>().mapController;
+        final selectedRouteType = context.select((MapPageViewModel model) => model.selectedRouteType);
+        final routeDuration = context.select((MapPageViewModel model) => model.routeDuration);
         void _animatedMapMove(LatLng destLocation, double destZoom) {
           // Create some tweens. These serve to split up the transition from one location to another.
           // In our case, we want to split the transition be<tween> our current map center and the destination.
@@ -180,7 +182,19 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
                                       final polylinePoints = context.read<MapPageViewModel>().polylinePoints;
                                       _animatedMapMove(polylinePoints[polylinePoints.length ~/ 2], 14);
                                     }),
-                                child: const Icon(Icons.directions_car)),
+                                child: Row(
+                                  children: [
+                                    const Icon(Icons.directions_car),
+                                    if (selectedRouteType == RouteType.driving) ...[
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      routeDuration == null
+                                          ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator())
+                                          : Text('$routeDuration минут'),
+                                    ]
+                                  ],
+                                )),
                             const SizedBox(
                               width: 30,
                             ),
@@ -190,7 +204,19 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
                                       final polylinePoints = context.read<MapPageViewModel>().polylinePoints;
                                       _animatedMapMove(polylinePoints[polylinePoints.length ~/ 2], 14);
                                     }),
-                                child: const Icon(Icons.directions_walk)),
+                                child: Row(
+                                  children: [
+                                    const Icon(Icons.directions_walk),
+                                    if (selectedRouteType == RouteType.foot) ...[
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      routeDuration == null
+                                          ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator())
+                                          : Text('$routeDuration минут'),
+                                    ]
+                                  ],
+                                )),
                           ],
                         )
                       ],

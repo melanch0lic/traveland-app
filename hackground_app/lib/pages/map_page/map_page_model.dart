@@ -57,6 +57,9 @@ class MapPageViewModel with ChangeNotifier {
   List<LatLng> _polylinePoints = [];
   List<LatLng> get polylinePoints => _polylinePoints;
 
+  double? _routeDuration;
+  int? get routeDuration => _routeDuration == null ? null : _routeDuration! ~/ 60;
+
   HousingEntity? _selectedHousing;
   HousingEntity? get selectedHousing => _selectedHousing;
 
@@ -195,6 +198,8 @@ class MapPageViewModel with ChangeNotifier {
   }
 
   Future<void> _fetchRouteFromOrsm() async {
+    _routeDuration = null;
+    notifyListeners();
     final response = await osrmService.getRouteFromOsrm(
         CoordinatesRequestBody(coordinates: [
           [_currentLocationPosition!.longitude, _currentLocationPosition!.latitude],
@@ -205,6 +210,7 @@ class MapPageViewModel with ChangeNotifier {
         _selectedRouteType == RouteType.driving ? 'driving-car' : 'foot-walking');
     response.fold((result) {
       _polylinePoints = result.routes.first.geometry.coordinates.map((e) => LatLng(e[1], e[0])).toList();
+      _routeDuration = result.routes.first.properties.summary.duration;
       notifyListeners();
     }, (exception, error) {});
   }
