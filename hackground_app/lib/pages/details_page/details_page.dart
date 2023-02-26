@@ -132,12 +132,12 @@ class DetailsPage extends StatelessWidget {
                       ),
                       AnimatedCrossFade(
                           firstChild: Text(
-                            selectedModel.placeInfo.description,
+                            selectedModel.placeInfo.description.value,
                             style: theme.textTheme.bodyLarge!
                                 .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                           ),
                           secondChild: Text(
-                            selectedModel.placeInfo.description,
+                            selectedModel.placeInfo.description.value,
                             style: theme.textTheme.bodyLarge!
                                 .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                           ),

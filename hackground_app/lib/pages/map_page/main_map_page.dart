@@ -315,7 +315,7 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
                           width: 5,
                         ),
                         Text(
-                          '${selectedPlace.placeInfo.adress}',
+                          '${selectedPlace.placeInfo.adress.value}',
                           style: theme.textTheme.bodyLarge!
                               .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                         ),
@@ -364,7 +364,7 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '${selectedPlace.placeInfo.description}',
+                                  '${selectedPlace.placeInfo.description.value}',
                                   style: theme.textTheme.bodyLarge!
                                       .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                                 ),

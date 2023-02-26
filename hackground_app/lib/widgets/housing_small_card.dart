@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hackground_app/navigation/router.gr.dart';
+import '../navigation/router.gr.dart';
 
 import '../data/network/models/entity/housing_entity.dart';
 
@@ -21,15 +21,12 @@ class HousingSmallCard extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.only(right: 10),
         width: 227,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(15),
-            boxShadow: [
-              BoxShadow(
-                blurRadius: 10,
-                color: Colors.black.withOpacity(0.1),
-              )
-            ]),
+        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(15), boxShadow: [
+          BoxShadow(
+            blurRadius: 10,
+            color: Colors.black.withOpacity(0.1),
+          )
+        ]),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -41,10 +38,8 @@ class HousingSmallCard extends StatelessWidget {
                   width: double.infinity,
                   child: CachedNetworkImage(
                     fit: BoxFit.cover,
-                    imageUrl:
-                        'https://i.pinimg.com/564x/e6/35/41/e635416caab186b4a13cb45aa058b5af.jpg',
-                    progressIndicatorBuilder: (context, url, progress) =>
-                        Center(
+                    imageUrl: 'https://i.pinimg.com/564x/e6/35/41/e635416caab186b4a13cb45aa058b5af.jpg',
+                    progressIndicatorBuilder: (context, url, progress) => Center(
                       child: CircularProgressIndicator(
                         value: progress.progress,
                       ),
@@ -62,11 +57,10 @@ class HousingSmallCard extends StatelessWidget {
                       color: const Color.fromRGBO(56, 176, 0, 1),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 5, horizontal: 10.5),
+                      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
                       child: Text(
                         '${housing.placeInfo.meanRating.value}',
-                        style: theme.textTheme.bodyText2?.copyWith(
+                        style: theme.textTheme.bodyMedium?.copyWith(
                           color: const Color.fromRGBO(255, 255, 255, 1),
                           fontSize: 14,
                         ),
@@ -84,7 +78,7 @@ class HousingSmallCard extends StatelessWidget {
                   SizedBox(
                     height: 20,
                     child: Text(housing.placeInfo.name,
-                        style: theme.textTheme.headline1?.copyWith(
+                        style: theme.textTheme.displayLarge?.copyWith(
                           color: const Color.fromRGBO(44, 44, 46, 1),
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
@@ -105,8 +99,8 @@ class HousingSmallCard extends StatelessWidget {
                         const SizedBox(width: 8.33),
                         Expanded(
                           child: Text(
-                            housing.placeInfo.adress,
-                            style: theme.textTheme.bodyText2?.copyWith(
+                            housing.placeInfo.adress.value,
+                            style: theme.textTheme.bodyMedium?.copyWith(
                               color: const Color.fromRGBO(44, 44, 46, 1),
                               fontSize: 14,
                               fontWeight: FontWeight.w400,
@@ -128,7 +122,7 @@ class HousingSmallCard extends StatelessWidget {
                       const SizedBox(width: 6.42),
                       Text(
                         'от ${housing.price} ₽',
-                        style: theme.textTheme.bodyText2?.copyWith(
+                        style: theme.textTheme.bodyMedium?.copyWith(
                           color: const Color.fromRGBO(44, 44, 46, 1),
                           fontSize: 14,
                           fontWeight: FontWeight.w400,

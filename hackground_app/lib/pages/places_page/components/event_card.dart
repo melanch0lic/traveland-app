@@ -40,7 +40,7 @@ class EventCard extends StatelessWidget {
               padding: const EdgeInsets.only(left: 15, right: 15, bottom: 20, top: 15),
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text(event.placeInfo.name,
-                    style: Theme.of(context).textTheme.headline1?.copyWith(
+                    style: Theme.of(context).textTheme.displayLarge?.copyWith(
                           color: const Color.fromRGBO(44, 44, 46, 1),
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
@@ -58,7 +58,7 @@ class EventCard extends StatelessWidget {
                       ),
                       child: Text(
                         '${event.placeInfo.meanRating.value}',
-                        style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               color: const Color.fromRGBO(255, 255, 255, 1),
                               fontSize: 14,
                             ),
@@ -67,7 +67,7 @@ class EventCard extends StatelessWidget {
                     const SizedBox(width: 11),
                     Text(
                       '${event.placeInfo.ratingCount.value} отзывов',
-                      style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             color: const Color.fromRGBO(44, 44, 46, 1),
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
@@ -87,8 +87,8 @@ class EventCard extends StatelessWidget {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        event.placeInfo.adress,
-                        style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                        event.placeInfo.adress.value,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               color: const Color.fromRGBO(44, 44, 46, 1),
                               fontSize: 14,
                               fontWeight: FontWeight.w400,
@@ -109,7 +109,7 @@ class EventCard extends StatelessWidget {
                     const SizedBox(width: 6.42),
                     Text(
                       event.price.isValid ? 'от ${event.price.value} ₽' : 'Бесплатно',
-                      style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             color: const Color.fromRGBO(44, 44, 46, 1),
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
