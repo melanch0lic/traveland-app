@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:hackground_app/pages/detailis_exursion_page/components/price_excursion_widget.dart';
-import 'package:hackground_app/pages/detailis_exursion_page/components/provided-by-tripster-or-not_widget.dart';
-import 'package:hackground_app/pages/detailis_exursion_page/components/review_exursion_widget.dart';
-import 'package:hackground_app/pages/detailis_exursion_page/components/route_map.dart';
-import 'package:hackground_app/pages/detailis_exursion_page/components/show_description_excursion_widget.dart';
 import 'package:provider/provider.dart';
+
 import '../../../data/network/models/entity/tour_entity.dart';
 import '../../../dummy_data.dart';
 import '../../../widgets/excursion_small_listview.dart';
 import '../../../widgets/image_slider.dart';
-
 import '../../../widgets/name_row_header_excursions.dart';
-
 import '../../details_page/components/review_card.dart';
 import '../../review_page/components/sent_review_button_excursions.dart';
 import '../detailis_exursion_page_model.dart';
@@ -20,6 +14,11 @@ import 'description_excursion_widget.dart';
 import 'duration_excursion_widget.dart';
 import 'info_guide_widget.dart';
 import 'name_row_header_exursion.dart';
+import 'price_excursion_widget.dart';
+import 'provided-by-tripster-or-not_widget.dart';
+import 'review_exursion_widget.dart';
+import 'route_map.dart';
+import 'show_description_excursion_widget.dart';
 
 class BodyExcursion extends StatelessWidget {
   const BodyExcursion({
@@ -38,8 +37,7 @@ class BodyExcursion extends StatelessWidget {
     return ListView(
       children: [
         ImageSlider(
-          urlImages:
-              selectedModel.photos.map((e) => e.mediumAvatarUrl).toList(),
+          urlImages: selectedModel.photos.map((e) => e.mediumAvatarUrl).toList(),
         ),
         Padding(
           padding: const EdgeInsets.all(15),

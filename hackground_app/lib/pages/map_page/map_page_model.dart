@@ -57,11 +57,17 @@ class MapPageViewModel with ChangeNotifier {
   List<LatLng> _polylinePoints = [];
   List<LatLng> get polylinePoints => _polylinePoints;
 
+  double? _routeDuration;
+  int? get routeDuration => _routeDuration == null ? null : _routeDuration! ~/ 60;
+
   HousingEntity? _selectedHousing;
   HousingEntity? get selectedHousing => _selectedHousing;
 
   dynamic _selectedPlace;
   dynamic get selectedPlace => _selectedPlace;
+
+  final List<dynamic> _selectedPlaces = [];
+  List<dynamic> get selectedPlaces => _selectedPlaces;
 
   bool _isSearchOpened = false;
   bool get isSearchOpened => _isSearchOpened;
@@ -93,6 +99,7 @@ class MapPageViewModel with ChangeNotifier {
 
   void onBackRouteButtonPressed() {
     _isRouteWindowOpened = false;
+    _selectedPlaces.clear();
     _selectedPositions.clear();
     _polylinePoints.clear();
     notifyListeners();
@@ -195,6 +202,8 @@ class MapPageViewModel with ChangeNotifier {
   }
 
   Future<void> _fetchRouteFromOrsm() async {
+    _routeDuration = null;
+    notifyListeners();
     final response = await osrmService.getRouteFromOsrm(
         CoordinatesRequestBody(coordinates: [
           [_currentLocationPosition!.longitude, _currentLocationPosition!.latitude],
@@ -205,6 +214,7 @@ class MapPageViewModel with ChangeNotifier {
         _selectedRouteType == RouteType.driving ? 'driving-car' : 'foot-walking');
     response.fold((result) {
       _polylinePoints = result.routes.first.geometry.coordinates.map((e) => LatLng(e[1], e[0])).toList();
+      _routeDuration = result.routes.first.properties.summary.duration;
       notifyListeners();
     }, (exception, error) {});
   }
@@ -226,6 +236,13 @@ class MapPageViewModel with ChangeNotifier {
 
     final Position currentPosition = await Geolocator.getCurrentPosition();
     _currentLocationPosition = LatLng(currentPosition.latitude, currentPosition.longitude);
+    notifyListeners();
+  }
+
+  void onSelectAllCategoryButtonPressed() {
+    _selectedPlace = null;
+    _selectedPosition = null;
+    _selectedPlaceType = PlaceType.all;
     notifyListeners();
   }
 
@@ -266,6 +283,7 @@ class MapPageViewModel with ChangeNotifier {
 
   Future<void> onDrawRouteButtonPressed() async {
     if (!_selectedPositions.contains(_selectedPosition)) {
+      _selectedPlaces.add(_selectedPlace);
       _selectedPositions.add(_selectedPosition!);
     }
     await _fetchRouteFromOrsm().whenComplete(() {
@@ -293,6 +311,7 @@ class MapPageViewModel with ChangeNotifier {
             (_selectedPositions[0].longitude - position.longitude).abs() < 0.0015) {
           _polylinePoints.clear();
           _selectedPositions.removeAt(0);
+          _selectedPlaces.removeAt(0);
         }
       }
     });

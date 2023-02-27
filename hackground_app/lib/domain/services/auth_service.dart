@@ -53,7 +53,7 @@ class AuthService {
     final response = await mainApiClient.login(body);
     if (response.isSuccess()) {
       final success = response as Success;
-      await sessionData.saveUserData(success.value.jwtToken.token, body.mail, body.password);
+      await sessionData.saveUserData(success.value.result.token, body.mail, body.password);
     }
     return response;
   }

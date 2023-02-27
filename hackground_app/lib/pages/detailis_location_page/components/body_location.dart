@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hackground_app/pages/detailis_location_page/components/price_location_widget.dart';
-import 'package:hackground_app/pages/detailis_location_page/components/show_description_location_widget.dart';
-import 'package:hackground_app/pages/detailis_location_page/components/time_location_widget.dart';
+import 'price_location_widget.dart';
+import 'show_description_location_widget.dart';
+import 'time_location_widget.dart';
 
 import '../../../data/network/models/entity/place_entity.dart';
 import '../../../dummy_data.dart';
@@ -44,10 +44,8 @@ class BodyLocation extends StatelessWidget {
             children: [
               Text(
                 selectedModel.placeInfo.name,
-                style: theme.textTheme.headline2!.copyWith(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500),
+                style: theme.textTheme.displayMedium!
+                    .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 10),
               TimeLocationWidget(theme: theme),
@@ -56,24 +54,20 @@ class BodyLocation extends StatelessWidget {
               const SizedBox(height: 30),
               Text(
                 'Описание',
-                style: Theme.of(context).textTheme.headline1?.copyWith(
+                style: Theme.of(context).textTheme.displayLarge?.copyWith(
                       fontSize: 20,
                       color: const Color.fromRGBO(44, 44, 46, 1),
                       fontWeight: FontWeight.w500,
                     ),
               ),
               const SizedBox(height: 15),
-              DescriptionLocationWidget(
-                  selectedModel: selectedModel,
-                  theme: theme,
-                  isFullTextShowed: isFullTextShowed),
+              DescriptionLocationWidget(selectedModel: selectedModel, theme: theme, isFullTextShowed: isFullTextShowed),
               const SizedBox(height: 10),
-              ShowDescriptionLocationWidget(
-                  theme: theme, isFullTextShowed: isFullTextShowed),
+              ShowDescriptionLocationWidget(theme: theme, isFullTextShowed: isFullTextShowed),
               const SizedBox(height: 30),
               Text(
                 'Местоположение',
-                style: Theme.of(context).textTheme.headline1?.copyWith(
+                style: Theme.of(context).textTheme.displayLarge?.copyWith(
                       fontSize: 20,
                       color: const Color.fromRGBO(44, 44, 46, 1),
                       fontWeight: FontWeight.w500,
@@ -81,8 +75,8 @@ class BodyLocation extends StatelessWidget {
               ),
               const SizedBox(height: 15),
               Text(
-                selectedModel.placeInfo.adress,
-                style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                selectedModel.placeInfo.adress.value,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: const Color.fromRGBO(44, 44, 46, 1),
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
@@ -93,7 +87,7 @@ class BodyLocation extends StatelessWidget {
               const SizedBox(height: 30),
               Text(
                 'Контакты',
-                style: Theme.of(context).textTheme.headline1?.copyWith(
+                style: Theme.of(context).textTheme.displayLarge?.copyWith(
                       fontSize: 20,
                       color: const Color.fromRGBO(44, 44, 46, 1),
                       fontWeight: FontWeight.w500,

@@ -18,18 +18,14 @@ class DescriptionLocationWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedCrossFade(
         firstChild: Text(
-          selectedModel.placeInfo.description,
-          style: theme.textTheme.bodyText1!.copyWith(
-              color: theme.primaryColorDark, fontWeight: FontWeight.w400),
+          selectedModel.placeInfo.description.value,
+          style: theme.textTheme.bodyLarge!.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
         ),
         secondChild: Text(
-          selectedModel.placeInfo.description,
-          style: theme.textTheme.bodyText1!.copyWith(
-              color: theme.primaryColorDark, fontWeight: FontWeight.w400),
+          selectedModel.placeInfo.description.value,
+          style: theme.textTheme.bodyLarge!.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
         ),
-        crossFadeState: isFullTextShowed
-            ? CrossFadeState.showSecond
-            : CrossFadeState.showFirst,
+        crossFadeState: isFullTextShowed ? CrossFadeState.showSecond : CrossFadeState.showFirst,
         duration: const Duration(milliseconds: 400));
   }
 }

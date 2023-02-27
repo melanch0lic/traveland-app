@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 
-class ContactItem extends StatelessWidget {
-  const ContactItem({Key? key, required this.iconPath, required this.text, required this.callback}) : super(key: key);
-  final String iconPath;
+class ContactEmailWidget extends StatelessWidget {
   final String text;
-  final Function callback;
+  const ContactEmailWidget({Key? key, required this.text}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return InkWell(
-      onTap: () => callback(),
+      onTap: () async {
+        await Clipboard.setData(ClipboardData(text: text));
+      },
       child: Row(
         children: [
           SvgPicture.asset(
-            iconPath,
+            'assets/images/email_icon.svg',
             width: 16,
             height: 16,
             color: theme.primaryColorDark,
@@ -25,7 +26,7 @@ class ContactItem extends StatelessWidget {
           ),
           Text(
             text,
-            style: theme.textTheme.bodyText1!.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
+            style: theme.textTheme.bodyLarge!.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
           )
         ],
       ),

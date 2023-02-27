@@ -15,10 +15,10 @@ class PlaceInfoEntity {
   final String name;
 
   @JsonKey(name: 'description')
-  final String description;
+  final StringEntity description;
 
   @JsonKey(name: 'adress')
-  final String adress;
+  final StringEntity adress;
 
   @JsonKey(name: 'latitude')
   final FloatEntity latitude;
@@ -28,6 +28,9 @@ class PlaceInfoEntity {
 
   @JsonKey(name: 'number')
   final StringEntity number;
+
+  @JsonKey(name: 'non-format-number')
+  final StringEntity nonFormattedNumber;
 
   @JsonKey(name: 'mail')
   final StringEntity mail;
@@ -54,6 +57,7 @@ class PlaceInfoEntity {
       required this.mail,
       required this.meanRating,
       required this.number,
+      required this.nonFormattedNumber,
       required this.photos,
       required this.ratingCount,
       required this.url});

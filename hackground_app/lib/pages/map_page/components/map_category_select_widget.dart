@@ -9,50 +9,69 @@ class MapCategorySelectWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Row(
-      children: [
-        ElevatedButton(
-          onPressed: () {
-            context.read<MapPageViewModel>().onSelectHousingCategoryButtonPressed();
-          },
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
+    return SizedBox(
+      height: 40,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        physics: const BouncingScrollPhysics(),
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              context.read<MapPageViewModel>().onSelectAllCategoryButtonPressed();
+            },
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              backgroundColor: Colors.black.withOpacity(0.6),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             ),
-            backgroundColor: Colors.black.withOpacity(0.6),
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            child: Text('Сбросить фильтры', style: theme.textTheme.bodyText1!.copyWith(fontSize: 14)),
           ),
-          child: Text('Жильё', style: theme.textTheme.bodyText1!.copyWith(fontSize: 14)),
-        ),
-        const SizedBox(width: 10),
-        ElevatedButton(
-          onPressed: () {
-            context.read<MapPageViewModel>().onSelectLocationCategoryButtonPressed();
-          },
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
+          const SizedBox(width: 10),
+          ElevatedButton(
+            onPressed: () {
+              context.read<MapPageViewModel>().onSelectHousingCategoryButtonPressed();
+            },
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              backgroundColor: Colors.black.withOpacity(0.6),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             ),
-            backgroundColor: Colors.black.withOpacity(0.6),
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            child: Text('Жильё', style: theme.textTheme.bodyText1!.copyWith(fontSize: 14)),
           ),
-          child: Text('Локации', style: theme.textTheme.bodyText1!.copyWith(fontSize: 14)),
-        ),
-        const SizedBox(width: 10),
-        ElevatedButton(
-          onPressed: () {
-            context.read<MapPageViewModel>().onSelectEventCategoryButtonPressed();
-          },
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
+          const SizedBox(width: 10),
+          ElevatedButton(
+            onPressed: () {
+              context.read<MapPageViewModel>().onSelectLocationCategoryButtonPressed();
+            },
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              backgroundColor: Colors.black.withOpacity(0.6),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             ),
-            backgroundColor: Colors.black.withOpacity(0.6),
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            child: Text('Локации', style: theme.textTheme.bodyText1!.copyWith(fontSize: 14)),
           ),
-          child: Text('События', style: theme.textTheme.bodyText1!.copyWith(fontSize: 14)),
-        ),
-      ],
+          const SizedBox(width: 10),
+          ElevatedButton(
+            onPressed: () {
+              context.read<MapPageViewModel>().onSelectEventCategoryButtonPressed();
+            },
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              backgroundColor: Colors.black.withOpacity(0.6),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            ),
+            child: Text('События', style: theme.textTheme.bodyText1!.copyWith(fontSize: 14)),
+          ),
+        ],
+      ),
     );
   }
 }
