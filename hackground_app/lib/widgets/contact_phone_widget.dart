@@ -24,6 +24,7 @@ class ContactPhoneWidget extends StatelessWidget {
     return InkWell(
       onTap: () => openPhoneNumber(context),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           SvgPicture.asset(
             'assets/images/phone_icon.svg',

@@ -66,6 +66,9 @@ class MapPageViewModel with ChangeNotifier {
   dynamic _selectedPlace;
   dynamic get selectedPlace => _selectedPlace;
 
+  final List<dynamic> _selectedPlaces = [];
+  List<dynamic> get selectedPlaces => _selectedPlaces;
+
   bool _isSearchOpened = false;
   bool get isSearchOpened => _isSearchOpened;
 
@@ -96,6 +99,7 @@ class MapPageViewModel with ChangeNotifier {
 
   void onBackRouteButtonPressed() {
     _isRouteWindowOpened = false;
+    _selectedPlaces.clear();
     _selectedPositions.clear();
     _polylinePoints.clear();
     notifyListeners();
@@ -279,6 +283,7 @@ class MapPageViewModel with ChangeNotifier {
 
   Future<void> onDrawRouteButtonPressed() async {
     if (!_selectedPositions.contains(_selectedPosition)) {
+      _selectedPlaces.add(_selectedPlace);
       _selectedPositions.add(_selectedPosition!);
     }
     await _fetchRouteFromOrsm().whenComplete(() {
@@ -306,6 +311,7 @@ class MapPageViewModel with ChangeNotifier {
             (_selectedPositions[0].longitude - position.longitude).abs() < 0.0015) {
           _polylinePoints.clear();
           _selectedPositions.removeAt(0);
+          _selectedPlaces.removeAt(0);
         }
       }
     });
