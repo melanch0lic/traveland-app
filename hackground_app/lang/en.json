@@ -1,4 +1,8 @@
 {
+    "or_text": "or",
+    "guest_text": "Continue as a guest",
+    "sign_in": "Sign in",
+    "sign_up": "Sign up",
     "search_text" : "Search",
     "profile_appbar_text": "Profile",
     "male_text": "Male",

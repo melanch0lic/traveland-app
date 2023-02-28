@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
+import '../../../app_localizations.dart';
 import '../../../navigation/router.gr.dart';
 
 class StartRegistrationButton extends StatelessWidget {
@@ -14,8 +15,7 @@ class StartRegistrationButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color.fromRGBO(37, 65, 178, 1),
           foregroundColor: const Color.fromRGBO(30, 53, 144, 1),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           elevation: 0,
         ),
         onPressed: () {
@@ -23,8 +23,8 @@ class StartRegistrationButton extends StatelessWidget {
         },
         child: Center(
             child: Text(
-          'Зарегистрироваться',
-          style: Theme.of(context).textTheme.bodyText1,
+          translate(context, 'sign_up'),
+          style: Theme.of(context).textTheme.bodyLarge,
         )),
       ),
     );

@@ -15,37 +15,31 @@ class SexDropDown extends StatelessWidget {
       translate(context, 'female_text'),
     ];
     final theme = Theme.of(context);
-    final isSexCorrect =
-        context.select((AboutInfoPageViewModel model) => model.isSexCorrect);
+    final isSexCorrect = context.select((AboutInfoPageViewModel model) => model.isSexCorrect);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           'Пол',
-          style: theme.textTheme.bodyText2,
+          style: theme.textTheme.bodyMedium,
         ),
         const SizedBox(height: 10),
         DropdownButtonFormField2(
-          style: theme.textTheme.bodyText2,
+          style: theme.textTheme.bodyMedium,
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.all(15),
-            hintStyle: theme.textTheme.bodyText2,
+            contentPadding: const EdgeInsets.all(15),
+            hintStyle: theme.textTheme.bodyMedium,
             hintText: 'Не указан',
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
               borderSide: BorderSide(
-                  color: isSexCorrect
-                      ? theme.textTheme.bodyText2!.color!
-                      : const Color.fromRGBO(255, 47, 47, 1),
+                  color: isSexCorrect ? theme.textTheme.bodyMedium!.color! : const Color.fromRGBO(255, 47, 47, 1),
                   width: 2),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
               borderSide: BorderSide(
-                  color: isSexCorrect
-                      ? theme.indicatorColor
-                      : const Color.fromRGBO(255, 47, 47, 1),
-                  width: 2),
+                  color: isSexCorrect ? theme.indicatorColor : const Color.fromRGBO(255, 47, 47, 1), width: 2),
             ),
           ),
           items: genderItems
@@ -53,7 +47,7 @@ class SexDropDown extends StatelessWidget {
                     value: item,
                     child: Text(
                       item,
-                      style: theme.textTheme.bodyText2,
+                      style: theme.textTheme.bodyMedium,
                     ),
                   ))
               .toList(),
@@ -66,9 +60,7 @@ class SexDropDown extends StatelessWidget {
             }
             return null;
           },
-          onChanged: (value) => context
-              .read<AboutInfoPageViewModel>()
-              .onSexChange(value.toString()),
+          onChanged: (value) => context.read<AboutInfoPageViewModel>().onSexChange(value.toString()),
           onSaved: (value) {
             // selectedValue = value.toString();
           },
