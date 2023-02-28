@@ -1,4 +1,9 @@
 {
+    "reg_text": "Sign up",
+    "at_least_six_text": "At least 6 symbols",
+    "password_repeat_text": "Repeat the password",
+    "password_text": "Password",
+    "confirm_text": "Confirm",
     "or_text": "or",
     "guest_text": "Continue as a guest",
     "sign_in": "Sign in",

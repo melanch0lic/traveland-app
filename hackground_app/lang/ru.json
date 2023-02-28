@@ -1,4 +1,9 @@
 {
+    "reg_text": "Регистрация",
+    "at_least_six_text": "Минимум 6 символов",
+    "password_repeat_text": "Повторите пароль",
+    "password_text": "Пароль",
+    "confirm_text": "Потвердить",
     "or_text": "или",
     "guest_text": "Продолжить как гость",
     "sign_in": "Войти",

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
+import '../../app_localizations.dart';
 import 'components/register_button.dart';
 import 'components/register_emai_texfield.dart';
 import 'components/register_password_textfield.dart';
@@ -30,11 +31,11 @@ class RegisterPage extends StatelessWidget {
           ),
           title: Container(
             padding: const EdgeInsets.only(right: 10),
-            child: Text('Регистрация',
-                style: theme.textTheme.headline2!
+            child: Text(translate(context, 'reg_text'),
+                style: theme.textTheme.displayMedium!
                     .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500)),
           ),
-          backgroundColor: theme.bottomAppBarColor,
+          backgroundColor: theme.bottomAppBarTheme.color,
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
