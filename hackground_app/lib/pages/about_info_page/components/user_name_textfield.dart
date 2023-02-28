@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../app_localizations.dart';
 import '../about_info_page_model.dart';
 
 class UserNameTextField extends StatelessWidget {
@@ -14,7 +15,7 @@ class UserNameTextField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Имя пользователя',
+          translate(context, 'username_text'),
           style: theme.textTheme.bodyMedium,
         ),
         const SizedBox(height: 10),
@@ -26,7 +27,7 @@ class UserNameTextField extends StatelessWidget {
               minWidth: 16,
               minHeight: 14,
             ),
-            hintText: 'Иван',
+            hintText: translate(context, 'ivan'),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
               borderSide: BorderSide(

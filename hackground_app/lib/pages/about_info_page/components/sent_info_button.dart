@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../app_localizations.dart';
 import '../about_info_page_model.dart';
 
 class SentInfoButton extends StatelessWidget {
@@ -9,6 +10,7 @@ class SentInfoButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final authButtonState = context.select((AboutInfoPageViewModel model) => model.authButtonState);
     return SizedBox(
       height: 48,
@@ -23,8 +25,8 @@ class SentInfoButton extends StatelessWidget {
               }
             : null,
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color.fromRGBO(37, 65, 178, 1),
-          foregroundColor: const Color.fromRGBO(30, 53, 144, 1),
+          backgroundColor: theme.indicatorColor,
+          foregroundColor: theme.highlightColor,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           elevation: 0,
         ),
@@ -32,8 +34,8 @@ class SentInfoButton extends StatelessWidget {
             child: authButtonState == ButtonState.authProcess
                 ? const CircularProgressIndicator()
                 : Text(
-                    'Указать информацию',
-                    style: Theme.of(context).textTheme.bodyText1,
+                    translate(context, 'sign_up'),
+                    style: theme.textTheme.bodyLarge,
                   )),
       ),
     );

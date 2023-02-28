@@ -1,4 +1,8 @@
 {
+    "username_text": "Имя пользователя",
+    "ivan": "Иван",
+    "not_specified_text":"Не указан",
+    "gender_text": "Пол",
     "reg_text": "Регистрация",
     "at_least_six_text": "Минимум 6 символов",
     "password_repeat_text": "Повторите пароль",

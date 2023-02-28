@@ -1,4 +1,8 @@
 {
+    "username_text": "Username",
+    "ivan": "Ivan",
+    "not_specified_text":"Not specified",
+    "gender_text": "Gender",
     "reg_text": "Sign up",
     "at_least_six_text": "At least 6 symbols",
     "password_repeat_text": "Repeat the password",

@@ -20,7 +20,7 @@ class SexDropDown extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Пол',
+          translate(context, 'gender_text'),
           style: theme.textTheme.bodyMedium,
         ),
         const SizedBox(height: 10),
@@ -29,7 +29,7 @@ class SexDropDown extends StatelessWidget {
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.all(15),
             hintStyle: theme.textTheme.bodyMedium,
-            hintText: 'Не указан',
+            hintText: translate(context, 'not_specified_text'),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
               borderSide: BorderSide(
@@ -54,16 +54,7 @@ class SexDropDown extends StatelessWidget {
           dropdownDecoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
           ),
-          validator: (value) {
-            if (value == null) {
-              return 'None';
-            }
-            return null;
-          },
           onChanged: (value) => context.read<AboutInfoPageViewModel>().onSexChange(value.toString()),
-          onSaved: (value) {
-            // selectedValue = value.toString();
-          },
         )
       ],
     );
