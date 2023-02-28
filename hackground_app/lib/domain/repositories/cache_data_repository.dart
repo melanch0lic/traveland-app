@@ -9,5 +9,18 @@ class CachedDataRepository {
   List<TourEntity>? excursionList;
   List<HousingEntity>? housingList;
 
-  void clear() {}
+  void clear() {
+    if (eventList != null) {
+      eventList!.clear();
+    }
+    if (placesList != null) {
+      placesList!.clear();
+    }
+    if (excursionList != null) {
+      excursionList!.clear();
+    }
+    if (housingList != null) {
+      housingList!.clear();
+    }
+  }
 }

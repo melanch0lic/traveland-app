@@ -75,7 +75,11 @@ class InitializeProvider with ChangeNotifier {
     _settings = Settings(_sharedPreferences);
     _cachedDataRepository = CachedDataRepository();
     _sessionData = const SessionData(FlutterSecureStorage(aOptions: AndroidOptions(encryptedSharedPreferences: true)));
-    _authService = AuthService(sessionData: _sessionData, mainApiClient: _mainApiClient, settings: _settings);
+    _authService = AuthService(
+        cachedDataRepository: _cachedDataRepository,
+        sessionData: _sessionData,
+        mainApiClient: _mainApiClient,
+        settings: _settings);
     _eventsService = EventsService(mainApiClient: _mainApiClient);
     _housingService = HousingService(mainApiClient: _mainApiClient);
     _placesService = PlacesService(mainApiClient: _mainApiClient);

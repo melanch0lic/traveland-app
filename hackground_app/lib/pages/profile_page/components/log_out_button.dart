@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../navigation/router.gr.dart';
 import '../profile_page_model.dart';
 
 class LogOutButton extends StatelessWidget {
@@ -24,12 +25,12 @@ class LogOutButton extends StatelessWidget {
           context
               .read<ProfilePageViewModel>()
               .onButtonExitPressed()
-              .whenComplete(() => context.router.replaceNamed('/'));
+              .whenComplete(() => context.router.replace(const LoginRouter()));
         },
         child: Center(
           child: Text(
             'Выйти',
-            style: theme.textTheme.bodyText1!.copyWith(color: theme.indicatorColor),
+            style: theme.textTheme.bodyLarge!.copyWith(color: theme.indicatorColor),
           ),
         ),
       ),
