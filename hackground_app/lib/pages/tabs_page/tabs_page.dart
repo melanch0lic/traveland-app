@@ -77,14 +77,12 @@ class _TabsPageState extends State<TabsPage> {
       create: (context) => TabsPageViewModel(),
       child: Builder(builder: (context) {
         final theme = Theme.of(context);
-        final currentRouterIndex = context
-            .select((TabsPageViewModel model) => model.currentRouterIndex);
+        final currentRouterIndex = context.select((TabsPageViewModel model) => model.currentRouterIndex);
         return WillPopScope(
           onWillPop: () async {
             final isFirstRouteInCurrentTab = currentRouterIndex == 0;
             if (!isFirstRouteInCurrentTab) {
-              if (context.read<InitializeProvider>().appRouter.current.path !=
-                  '/home') {
+              if (context.read<InitializeProvider>().appRouter.current.path != '/home') {
                 context.navigateTo(const HomeRouter());
                 context.read<TabsPageViewModel>().changeRouterIndex(0);
                 return false;
@@ -93,13 +91,7 @@ class _TabsPageState extends State<TabsPage> {
             return isFirstRouteInCurrentTab;
           },
           child: AutoTabsScaffold(
-            routes: const [
-              HomeRouter(),
-              HotelsRouter(),
-              MapRouter(),
-              PlacesRouter(),
-              ProfileRouter()
-            ],
+            routes: const [HomeRouter(), HotelsRouter(), MapRouter(), PlacesRouter(), ProfileRouter()],
             bottomNavigationBuilder: (_, tabsRouter) {
               return BottomNavigationBar(
                 backgroundColor: theme.bottomAppBarColor,
@@ -110,8 +102,7 @@ class _TabsPageState extends State<TabsPage> {
                   context.read<TabsPageViewModel>().changeRouterIndex(index);
                 },
                 unselectedIconTheme: const IconThemeData(color: Colors.black),
-                selectedIconTheme:
-                    const IconThemeData(color: Colors.amberAccent, size: 30),
+                selectedIconTheme: const IconThemeData(color: Colors.amberAccent, size: 30),
                 showSelectedLabels: false,
                 showUnselectedLabels: false,
                 type: BottomNavigationBarType.fixed,
