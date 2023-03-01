@@ -40,14 +40,10 @@ class PlacesPageViewModel with ChangeNotifier {
   bool _isEventsLoading = false;
   bool get isEventsLoading => _isEventsLoading;
 
-  PageController? _controller;
-  PageController? get controller => _controller;
-
   int _pageIndex = 0;
   int get pageIndex => _pageIndex;
 
   PlacesPageViewModel({required this.placesService, required this.eventsService, required this.excursionsService}) {
-    _controller = PageController();
     _excursionController = ScrollController();
     init();
   }

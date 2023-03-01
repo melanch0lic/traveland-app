@@ -6,11 +6,12 @@ import '../navigation/router.gr.dart';
 import '../pages/tabs_page/tabs_page_model.dart';
 
 class NameRowHeaderEvents extends StatelessWidget {
-  final String? name;
-  final Function? callback;
+  final String name;
 
-  const NameRowHeaderEvents({Key? key, this.name, this.callback})
-      : super(key: key);
+  const NameRowHeaderEvents({
+    Key? key,
+    required this.name,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,23 +19,25 @@ class NameRowHeaderEvents extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          name!,
-          style: Theme.of(context).textTheme.headline2?.copyWith(
+          name,
+          style: Theme.of(context).textTheme.displayMedium?.copyWith(
                 color: const Color.fromRGBO(44, 44, 46, 1),
                 fontSize: 20,
                 fontWeight: FontWeight.w500,
               ),
         ),
         TextButton(
-          onPressed: callback != null
-              ? callback!()
-              : () {
-                  context.read<TabsPageViewModel>().changeRouterIndex(1);
-                  context.navigateTo(const PlacesRouter());
-                },
+          onPressed: () {
+            context.read<TabsPageViewModel>().changeRouterIndex(1);
+            context.navigateTo(const PlacesRouter());
+            Future.delayed(const Duration(milliseconds: 500)).whenComplete(() => context
+                .read<TabsPageViewModel>()
+                .placesController!
+                .animateToPage(2, duration: const Duration(milliseconds: 500), curve: Curves.easeInOut));
+          },
           child: Text(
             'Больше',
-            style: Theme.of(context).textTheme.bodyText1?.copyWith(
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   color: const Color.fromRGBO(37, 65, 178, 1),
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
