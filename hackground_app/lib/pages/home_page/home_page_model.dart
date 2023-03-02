@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../data/network/models/entity/event_entity.dart';
@@ -25,6 +28,9 @@ class HomePageViewModel with ChangeNotifier {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
+  bool _isConnected = true;
+  bool get isConnected => _isConnected;
+
   HomePageViewModel(
       {required this.cachedDataRepository,
       required this.eventsService,
@@ -49,31 +55,48 @@ class HomePageViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  void _checkError(dynamic exception) {
+    if (exception is DioError) {
+      _isConnected = exception.error is SocketException ? false : true;
+    } else {
+      _isConnected = true;
+    }
+  }
+
   Future<void> fetchEventsData() async {
     final response = await eventsService.getEvents();
     response.fold((result) {
       cachedDataRepository.eventList = result.result.places;
-    }, (exception, error) {});
+    }, (exception, error) {
+      _checkError(exception);
+    });
   }
 
   Future<void> fetchPlacesData() async {
     final response = await placesService.getPlaces();
     response.fold((result) {
       cachedDataRepository.placesList = result.result.places + result.result.places + result.result.places;
-    }, (exception, error) {});
+    }, (exception, error) {
+      _checkError(exception);
+    });
   }
 
   Future<void> fetchHousingsData() async {
     final response = await housingService.getHousings();
     response.fold((result) {
       cachedDataRepository.housingList = result.result.places + result.result.places + result.result.places;
-    }, (exception, error) {});
+    }, (exception, error) {
+      _checkError(exception);
+    });
   }
 
   Future<void> fetchExcursionsData() async {
     final response = await excursionsService.getTours(1);
     response.fold((result) {
       cachedDataRepository.excursionList = result.results;
-    }, (exception, error) {});
+    }, (exception, error) {
+      _checkError(exception);
+      cachedDataRepository.excursionList = [];
+    });
   }
 }
