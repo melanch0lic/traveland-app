@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../data/network/models/entity/event_entity.dart';
 
-import '../pages/home_page/components/attraction_card_general.dart';
+import 'event_small_card.dart';
 
 class EventSmallListView extends StatelessWidget {
   final List<EventsEntity> events;
