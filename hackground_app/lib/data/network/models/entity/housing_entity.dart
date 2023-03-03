@@ -1,13 +1,14 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'place_info_entity.dart';
+import 'string_entity.dart';
 
 part 'housing_entity.g.dart';
 
 @JsonSerializable()
 class HousingEntity {
   @JsonKey(name: 'house-price')
-  final String price;
+  final StringEntity price;
 
   @JsonKey(name: 'house-type')
   final int houseType;
