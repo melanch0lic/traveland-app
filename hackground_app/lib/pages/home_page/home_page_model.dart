@@ -69,24 +69,27 @@ class HomePageViewModel with ChangeNotifier {
       cachedDataRepository.eventList = result.result.places;
     }, (exception, error) {
       _checkError(exception);
+      cachedDataRepository.eventList = [];
     });
   }
 
   Future<void> fetchPlacesData() async {
     final response = await placesService.getPlaces();
     response.fold((result) {
-      cachedDataRepository.placesList = result.result.places + result.result.places + result.result.places;
+      cachedDataRepository.placesList = result.result.places;
     }, (exception, error) {
       _checkError(exception);
+      cachedDataRepository.placesList = [];
     });
   }
 
   Future<void> fetchHousingsData() async {
     final response = await housingService.getHousings();
     response.fold((result) {
-      cachedDataRepository.housingList = result.result.places + result.result.places + result.result.places;
+      cachedDataRepository.housingList = result.result.places;
     }, (exception, error) {
       _checkError(exception);
+      cachedDataRepository.housingList = [];
     });
   }
 

@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 
 import '../data/network/models/entity/event_entity.dart';
 import '../navigation/router.gr.dart';
@@ -39,34 +40,35 @@ class EventSmallCard extends StatelessWidget {
                   width: double.infinity,
                   child: CachedNetworkImage(
                     fit: BoxFit.cover,
-                    imageUrl: 'https://i.pinimg.com/564x/97/c7/7a/97c77ae15045eede386338737aaac8e7.jpg',
+                    imageUrl: 'http://176.119.159.9/media/${event.placeInfo.photos!.first}',
                     progressIndicatorBuilder: (context, url, progress) => Center(
                       child: SpinKitSpinningLines(color: theme.indicatorColor),
                     ),
                   ),
                 ),
-                Positioned(
-                  left: 15,
-                  bottom: 15,
-                  child: Container(
-                    width: 42,
-                    height: 27,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(7),
-                      color: const Color.fromRGBO(56, 176, 0, 1),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
-                      child: Text(
-                        '${event.placeInfo.meanRating.value}',
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: const Color.fromRGBO(255, 255, 255, 1),
-                              fontSize: 14,
-                            ),
+                if (event.placeInfo.meanRating.isValid)
+                  Positioned(
+                    left: 15,
+                    bottom: 15,
+                    child: Container(
+                      width: 42,
+                      height: 27,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(7),
+                        color: const Color.fromRGBO(56, 176, 0, 1),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
+                        child: Text(
+                          '${event.placeInfo.meanRating.value}',
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                color: const Color.fromRGBO(255, 255, 255, 1),
+                                fontSize: 14,
+                              ),
+                        ),
                       ),
                     ),
-                  ),
-                )
+                  )
               ]),
             ),
             const SizedBox(height: 15),
@@ -114,7 +116,9 @@ class EventSmallCard extends StatelessWidget {
                         height: 14.17,
                       ),
                       const SizedBox(width: 6.42),
-                      const Text('27 декабря'),
+                      Text(event.eventDate.isValid
+                          ? DateFormat('d MMMM', 'ru').format(DateTime.parse(event.eventDate.value))
+                          : 'Не указано'),
                       const SizedBox(width: 11.42),
                       SvgPicture.asset(
                         'assets/images/time.svg',
@@ -123,7 +127,9 @@ class EventSmallCard extends StatelessWidget {
                         height: 14.17,
                       ),
                       const SizedBox(width: 6.42),
-                      const Text('19:00'),
+                      Text(event.eventStartTime.isValid
+                          ? DateFormat('HH:mm', 'ru').format(DateTime.parse(event.eventStartTime.value))
+                          : 'Не указано'),
                     ],
                   ),
                   const SizedBox(height: 5),

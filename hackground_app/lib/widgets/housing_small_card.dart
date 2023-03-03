@@ -39,34 +39,35 @@ class HousingSmallCard extends StatelessWidget {
                   width: double.infinity,
                   child: CachedNetworkImage(
                     fit: BoxFit.cover,
-                    imageUrl: 'https://i.pinimg.com/564x/e6/35/41/e635416caab186b4a13cb45aa058b5af.jpg',
+                    imageUrl: 'http://176.119.159.9/media/${housing.placeInfo.photos!.first}',
                     progressIndicatorBuilder: (context, url, progress) => Center(
                       child: SpinKitSpinningLines(color: theme.indicatorColor),
                     ),
                   ),
                 ),
-                Positioned(
-                  left: 15,
-                  bottom: 15,
-                  child: Container(
-                    width: 42,
-                    height: 27,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(7),
-                      color: const Color.fromRGBO(56, 176, 0, 1),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
-                      child: Text(
-                        '${housing.placeInfo.meanRating.value}',
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          color: const Color.fromRGBO(255, 255, 255, 1),
-                          fontSize: 14,
+                if (housing.placeInfo.meanRating.isValid)
+                  Positioned(
+                    left: 15,
+                    bottom: 15,
+                    child: Container(
+                      width: 42,
+                      height: 27,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(7),
+                        color: const Color.fromRGBO(56, 176, 0, 1),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
+                        child: Text(
+                          '${housing.placeInfo.meanRating.value}',
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: const Color.fromRGBO(255, 255, 255, 1),
+                            fontSize: 14,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                )
+                  )
               ]),
             ),
             Padding(
@@ -120,7 +121,7 @@ class HousingSmallCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 6.42),
                       Text(
-                        'от ${housing.price} ₽',
+                        housing.price.isValid ? 'от ${housing.price.value} ₽' : 'Не указано',
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: const Color.fromRGBO(44, 44, 46, 1),
                           fontSize: 14,

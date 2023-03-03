@@ -48,7 +48,11 @@ class HomePage extends StatelessWidget {
               ? Center(
                   child: SpinKitSpinningLines(color: theme.indicatorColor),
                 )
-              : isConnected
+              : isConnected &&
+                      excursions!.isNotEmpty &&
+                      housings!.isNotEmpty &&
+                      places!.isNotEmpty &&
+                      events!.isNotEmpty
                   ? SafeArea(
                       child: SingleChildScrollView(
                         child: Column(
@@ -66,19 +70,19 @@ class HomePage extends StatelessWidget {
                                 const NameRowHeaderExcursions(
                                   name: 'Экскурсии',
                                 ),
-                                ExcursionSmallListView(excursions: excursions!),
+                                ExcursionSmallListView(excursions: excursions),
                                 const NameRowHeaderHousing(
                                   name: 'Жильё',
                                 ),
-                                HousingSmallListView(housings: housings!),
+                                HousingSmallListView(housings: housings),
                                 const NameRowHeaderPlaces(
                                   name: 'Места',
                                 ),
-                                LocationSmallListView(places: places!),
+                                LocationSmallListView(places: places),
                                 const NameRowHeaderEvents(
                                   name: 'События',
                                 ),
-                                EventSmallListView(events: events!),
+                                EventSmallListView(events: events),
                               ]),
                             )
                           ],
