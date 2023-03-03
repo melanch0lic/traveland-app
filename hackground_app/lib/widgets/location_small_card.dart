@@ -1,10 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
-import '../navigation/router.gr.dart';
 
 import '../data/network/models/entity/place_entity.dart';
+import '../navigation/router.gr.dart';
 
 class LocationSmallCard extends StatelessWidget {
   final PlaceEntity place;
@@ -40,9 +41,7 @@ class LocationSmallCard extends StatelessWidget {
                     fit: BoxFit.cover,
                     imageUrl: 'https://i.pinimg.com/564x/71/cd/5d/71cd5d2217b5fb6b4d63eb9e5062c658.jpg',
                     progressIndicatorBuilder: (context, url, progress) => Center(
-                      child: CircularProgressIndicator(
-                        value: progress.progress,
-                      ),
+                      child: SpinKitSpinningLines(color: theme.indicatorColor),
                     ),
                   ),
                 ),

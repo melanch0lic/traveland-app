@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
@@ -19,41 +20,41 @@ class ProfilePage extends StatelessWidget {
       create: (context) => ProfilePageViewModel(context.read<InitializeProvider>().authService),
       child: Builder(builder: (context) {
         final isLoading = context.select((ProfilePageViewModel model) => model.isLoading);
-        return isLoading
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
-            : Scaffold(
-                appBar: AppBar(
-                  title: Text(
-                    'Профиль',
-                    style: theme.textTheme.headline2!.copyWith(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                    ),
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'Профиль',
+              style: theme.textTheme.displayMedium!.copyWith(
+                color: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            actions: [
+              if (!isLoading) ...[
+                IconButton(
+                  splashRadius: 15,
+                  icon: SvgPicture.asset(
+                    'assets/images/redact.svg',
+                    color: Colors.black,
                   ),
-                  actions: [
-                    IconButton(
-                      splashRadius: 15,
-                      icon: SvgPicture.asset(
-                        'assets/images/redact.svg',
-                        color: Colors.black,
-                      ),
-                      onPressed: () => context.router
-                          .push(EditingProfileRoute(userInfo: context.read<ProfilePageViewModel>().userInfo!)),
-                    ),
-                    IconButton(
-                      splashRadius: 15,
-                      icon: SvgPicture.asset(
-                        'assets/images/settings.svg',
-                        color: Colors.black,
-                      ),
-                      onPressed: () => context.router.push(const ApplicationSettingsRoute()),
-                    ),
-                  ],
+                  onPressed: () => context.router
+                      .push(EditingProfileRoute(userInfo: context.read<ProfilePageViewModel>().userInfo!)),
                 ),
-                body: Padding(
+                IconButton(
+                  splashRadius: 15,
+                  icon: SvgPicture.asset(
+                    'assets/images/settings.svg',
+                    color: Colors.black,
+                  ),
+                  onPressed: () => context.router.push(const ApplicationSettingsRoute()),
+                ),
+              ]
+            ],
+          ),
+          body: isLoading
+              ? SpinKitSpinningLines(color: theme.indicatorColor)
+              : Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -68,7 +69,7 @@ class ProfilePage extends StatelessWidget {
                     ],
                   ),
                 ),
-              );
+        );
       }),
     );
   }

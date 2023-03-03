@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../data/network/models/entity/event_entity.dart';
@@ -13,6 +14,7 @@ class EventSmallCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return GestureDetector(
       onTap: () {
         context.router.push(DetailisEventRoute(selectedModel: event));
@@ -39,9 +41,7 @@ class EventSmallCard extends StatelessWidget {
                     fit: BoxFit.cover,
                     imageUrl: 'https://i.pinimg.com/564x/97/c7/7a/97c77ae15045eede386338737aaac8e7.jpg',
                     progressIndicatorBuilder: (context, url, progress) => Center(
-                      child: CircularProgressIndicator(
-                        value: progress.progress,
-                      ),
+                      child: SpinKitSpinningLines(color: theme.indicatorColor),
                     ),
                   ),
                 ),

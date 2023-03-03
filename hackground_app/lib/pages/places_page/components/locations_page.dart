@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
 import '../places_page_model.dart';
@@ -10,11 +11,12 @@ class LocationsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final isLoading = context.select((PlacesPageViewModel model) => model.isLocationsLoading);
     final places = context.select((PlacesPageViewModel model) => model.places);
     return isLoading
-        ? const Center(
-            child: CircularProgressIndicator(),
+        ? Center(
+            child: SpinKitSpinningLines(color: theme.indicatorColor),
           )
         : Padding(
             padding: const EdgeInsets.only(top: 30, left: 15, right: 15),

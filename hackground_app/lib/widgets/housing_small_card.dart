@@ -1,10 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
-import '../navigation/router.gr.dart';
 
 import '../data/network/models/entity/housing_entity.dart';
+import '../navigation/router.gr.dart';
 
 class HousingSmallCard extends StatelessWidget {
   final HousingEntity housing;
@@ -40,9 +41,7 @@ class HousingSmallCard extends StatelessWidget {
                     fit: BoxFit.cover,
                     imageUrl: 'https://i.pinimg.com/564x/e6/35/41/e635416caab186b4a13cb45aa058b5af.jpg',
                     progressIndicatorBuilder: (context, url, progress) => Center(
-                      child: CircularProgressIndicator(
-                        value: progress.progress,
-                      ),
+                      child: SpinKitSpinningLines(color: theme.indicatorColor),
                     ),
                   ),
                 ),

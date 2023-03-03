@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../data/network/models/entity/tour_entity.dart';
@@ -9,8 +10,7 @@ import '../navigation/router.gr.dart';
 class ExcursionSmallCard extends StatelessWidget {
   final TourEntity excursion;
 
-  const ExcursionSmallCard({Key? key, required this.excursion})
-      : super(key: key);
+  const ExcursionSmallCard({Key? key, required this.excursion}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +42,7 @@ class ExcursionSmallCard extends StatelessWidget {
                   fit: BoxFit.cover,
                   imageUrl: excursion.coverImage,
                   progressIndicatorBuilder: (context, url, progress) => Center(
-                    child: CircularProgressIndicator(
-                      value: progress.progress,
-                    ),
+                    child: SpinKitSpinningLines(color: theme.indicatorColor),
                   ),
                 ),
               ),
@@ -63,11 +61,10 @@ class ExcursionSmallCard extends StatelessWidget {
                             : const Color.fromRGBO(253, 197, 0, 1),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 5, horizontal: 10.5),
+                    padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
                     child: Text(
                       '${excursion.rating}',
-                      style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             color: const Color.fromRGBO(255, 255, 255, 1),
                             fontSize: 14,
                           ),
@@ -84,7 +81,7 @@ class ExcursionSmallCard extends StatelessWidget {
                 SizedBox(
                   height: 40,
                   child: Text(excursion.title,
-                      style: Theme.of(context).textTheme.headline1?.copyWith(
+                      style: Theme.of(context).textTheme.displayLarge?.copyWith(
                             color: const Color.fromRGBO(44, 44, 46, 1),
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
@@ -106,7 +103,7 @@ class ExcursionSmallCard extends StatelessWidget {
                       excursion.duration != null
                           ? '${excursion.duration!.toInt()} часов • ${excursion.movementType == 'car' ? 'На машине' : excursion.movementType == 'foot' ? 'Пешком' : 'На автобусе'}'
                           : 'Время не указано',
-                      style: theme.textTheme.bodyText2?.copyWith(
+                      style: theme.textTheme.bodyMedium?.copyWith(
                         color: const Color.fromRGBO(44, 44, 46, 1),
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
@@ -127,7 +124,7 @@ class ExcursionSmallCard extends StatelessWidget {
                     const SizedBox(width: 5),
                     Text(
                       '${excursion.price.value.toInt()} ₽',
-                      style: theme.textTheme.bodyText2?.copyWith(
+                      style: theme.textTheme.bodyMedium?.copyWith(
                         color: const Color.fromRGBO(44, 44, 46, 1),
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
@@ -135,7 +132,7 @@ class ExcursionSmallCard extends StatelessWidget {
                     ),
                     Text(
                       ' на ${excursion.maxPersons} человек',
-                      style: theme.textTheme.bodyText2?.copyWith(
+                      style: theme.textTheme.bodyMedium?.copyWith(
                         color: const Color.fromRGBO(44, 44, 46, 1),
                         fontSize: 14,
                         fontWeight: FontWeight.w400,

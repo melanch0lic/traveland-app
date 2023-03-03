@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
 import '../../app_initialization.dart';
@@ -44,8 +45,8 @@ class HomePage extends StatelessWidget {
             ),
           ),
           body: isLoading
-              ? const Center(
-                  child: CircularProgressIndicator(),
+              ? Center(
+                  child: SpinKitSpinningLines(color: theme.indicatorColor),
                 )
               : isConnected
                   ? SafeArea(

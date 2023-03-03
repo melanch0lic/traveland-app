@@ -44,6 +44,7 @@ dependencies:
   shared_preferences: ^2.0.17
   geolocator: ^9.0.2
   flutter_map_marker_cluster: ^1.0.2
+  flutter_spinkit: ^5.1.0
 
 dev_dependencies:
   flutter_test:
