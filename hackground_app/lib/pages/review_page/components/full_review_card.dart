@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../data/network/models/entity/review_entity.dart';
-import '../../../domain/models/review.dart';
 
 class FullReviewCard extends StatelessWidget {
   final ReviewEntity review;
@@ -16,11 +15,7 @@ class FullReviewCard extends StatelessWidget {
       decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(15)),
           color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Color.fromRGBO(149, 157, 165, 0.25),
-            )
-          ]),
+          boxShadow: [BoxShadow(color: Color.fromRGBO(149, 157, 165, 0.25), blurRadius: 2)]),
       child: Column(children: [
         Row(
           children: [
@@ -28,8 +23,7 @@ class FullReviewCard extends StatelessWidget {
               maxRadius: 25,
               backgroundImage: review.avatars.mediumAvatarUrl != null
                   ? NetworkImage(review.avatars.mediumAvatarUrl!)
-                  : NetworkImage(
-                      'https://ru.pinterest.com/pin/961026007962154699/'),
+                  : const NetworkImage('https://ru.pinterest.com/pin/961026007962154699/'),
             ),
             const SizedBox(
               width: 10,
@@ -39,18 +33,16 @@ class FullReviewCard extends StatelessWidget {
               children: [
                 Text(
                   review.name,
-                  style: theme.textTheme.bodyText1!.copyWith(
-                      color: theme.primaryColorDark,
-                      fontWeight: FontWeight.w400),
+                  style:
+                      theme.textTheme.bodyLarge!.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                 ),
                 const SizedBox(
                   height: 5,
                 ),
                 Text(
                   review.reviewDate,
-                  style: theme.textTheme.bodyText1!.copyWith(
-                      color: theme.primaryColorDark,
-                      fontWeight: FontWeight.w400),
+                  style:
+                      theme.textTheme.bodyLarge!.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                 )
               ],
             ),
@@ -64,11 +56,10 @@ class FullReviewCard extends StatelessWidget {
                 color: const Color.fromRGBO(56, 176, 0, 1),
               ),
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
+                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
                 child: Text(
                   review.rating.toStringAsFixed(1),
-                  style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: const Color.fromRGBO(255, 255, 255, 1),
                         fontSize: 14,
                       ),
@@ -82,10 +73,8 @@ class FullReviewCard extends StatelessWidget {
         ),
         Text(
           review.text,
-          style: theme.textTheme.bodyText1!.copyWith(
-              color: theme.primaryColorDark,
-              fontWeight: FontWeight.w400,
-              fontSize: 14),
+          style: theme.textTheme.bodyLarge!
+              .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400, fontSize: 14),
         )
       ]),
     );

@@ -16,7 +16,7 @@ class ReviewPageViewModel with ChangeNotifier {
   bool _isReviewsLoadingMore = false;
   bool get isReviewsLoadingMore => _isReviewsLoadingMore;
 
-  List<ReviewEntity> _reviews = [];
+  final List<ReviewEntity> _reviews = [];
   List<ReviewEntity> get reviews => _reviews;
 
   bool _isLoading = false;
@@ -29,9 +29,7 @@ class ReviewPageViewModel with ChangeNotifier {
 
   Future<void> init() async {
     _reviewController.addListener(() async {
-      if (_reviewController.position.extentAfter < 200 &&
-          _isReviewsLoadingMore == false &&
-          _reviewsHasNextPage) {
+      if (_reviewController.position.extentAfter < 200 && _isReviewsLoadingMore == false && _reviewsHasNextPage) {
         _isReviewsLoadingMore = true;
         notifyListeners();
 
@@ -50,8 +48,7 @@ class ReviewPageViewModel with ChangeNotifier {
   }
 
   Future<void> fetchReviewsData() async {
-    final response =
-        await excursionsService.getTripsterReviews(excursionId, _reviewsOffset);
+    final response = await excursionsService.getTripsterReviews(excursionId, _reviewsOffset);
     response.fold((result) {
       _reviewsHasNextPage = result.next == null ? false : true;
       _reviews.addAll(result.results);

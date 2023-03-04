@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../domain/models/review.dart';
+import '../domain/models/review.dart';
 
 class ReviewCard extends StatelessWidget {
   final Review review;
@@ -16,11 +16,7 @@ class ReviewCard extends StatelessWidget {
       decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(15)),
           color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Color.fromRGBO(149, 157, 165, 0.25),
-            )
-          ]),
+          boxShadow: [BoxShadow(color: Color.fromRGBO(149, 157, 165, 0.25), blurRadius: 2)]),
       child: Column(children: [
         Row(
           children: [
@@ -36,18 +32,16 @@ class ReviewCard extends StatelessWidget {
               children: [
                 Text(
                   review.name,
-                  style: theme.textTheme.bodyText1!.copyWith(
-                      color: theme.primaryColorDark,
-                      fontWeight: FontWeight.w400),
+                  style:
+                      theme.textTheme.bodyLarge!.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                 ),
                 const SizedBox(
                   height: 5,
                 ),
                 Text(
                   review.date,
-                  style: theme.textTheme.bodyText1!.copyWith(
-                      color: theme.primaryColorDark,
-                      fontWeight: FontWeight.w400),
+                  style:
+                      theme.textTheme.bodyLarge!.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                 )
               ],
             ),
@@ -61,11 +55,10 @@ class ReviewCard extends StatelessWidget {
                 color: const Color.fromRGBO(56, 176, 0, 1),
               ),
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
+                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
                 child: Text(
                   '${review.rating}',
-                  style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: const Color.fromRGBO(255, 255, 255, 1),
                         fontSize: 14,
                       ),
@@ -79,10 +72,8 @@ class ReviewCard extends StatelessWidget {
         ),
         Text(
           review.description,
-          style: theme.textTheme.bodyText1!.copyWith(
-              color: theme.primaryColorDark,
-              fontWeight: FontWeight.w400,
-              fontSize: 14),
+          style: theme.textTheme.bodyLarge!
+              .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400, fontSize: 14),
         )
       ]),
     );

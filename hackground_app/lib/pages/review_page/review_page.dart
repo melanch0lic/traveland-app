@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hackground_app/pages/review_page/review_page_model.dart';
+import 'review_page_model.dart';
 import 'package:provider/provider.dart';
 import '../../app_initialization.dart';
 import '../../data/network/models/entity/tour_entity.dart';
@@ -26,12 +26,9 @@ class ReviewPage extends StatelessWidget {
 
     final theme = Theme.of(context);
     return ChangeNotifierProvider(
-      create: (context) => ReviewPageViewModel(
-          context.read<InitializeProvider>().excursionsService,
-          selectedModel.id),
+      create: (context) => ReviewPageViewModel(context.read<InitializeProvider>().excursionsService, selectedModel.id),
       child: Builder(builder: (context) {
-        final isLoadingMore = context
-            .select((ReviewPageViewModel model) => model.isReviewsLoadingMore);
+        final isLoadingMore = context.select((ReviewPageViewModel model) => model.isReviewsLoadingMore);
         final isLoading = context.select(
           (ReviewPageViewModel model) => model.isLoading,
         );
@@ -51,22 +48,20 @@ class ReviewPage extends StatelessWidget {
             ),
             title: Text(
               'Отзывы',
-              style: theme.textTheme.headline2!.copyWith(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500),
+              style: theme.textTheme.displayMedium!
+                  .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
             ),
             backgroundColor: theme.primaryColorLight,
           ),
           body: isLoading
-              ? Center(
+              ? const Center(
                   child: CircularProgressIndicator(),
                 )
               : Padding(
-                  padding: EdgeInsets.only(left: 15, right: 15),
+                  padding: const EdgeInsets.only(left: 15, right: 15),
                   child: Column(children: [
                     //FilterHeaderReviews(),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Row(
                       children: [
                         Container(
@@ -77,16 +72,11 @@ class ReviewPage extends StatelessWidget {
                             color: const Color.fromRGBO(56, 176, 0, 1),
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 10.5),
+                            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
                             child: Text(
                               selectedModel.rating.toStringAsFixed(1),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText2
-                                  ?.copyWith(
-                                    color:
-                                        const Color.fromRGBO(255, 255, 255, 1),
+                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: const Color.fromRGBO(255, 255, 255, 1),
                                     fontSize: 14,
                                   ),
                             ),
@@ -97,33 +87,27 @@ class ReviewPage extends StatelessWidget {
                         ),
                         Text(
                           '${selectedModel.reviewCount} отзывов',
-                          style: theme.textTheme.bodyText1!.copyWith(
-                              color: theme.primaryColorDark,
-                              fontWeight: FontWeight.w400),
+                          style: theme.textTheme.bodyLarge!
+                              .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                         ),
                       ],
                     ),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                     Expanded(
                       child: ListView.builder(
-                          controller: context
-                              .read<ReviewPageViewModel>()
-                              .reviewController,
-                          scrollDirection: Axis.vertical,
+                          controller: context.read<ReviewPageViewModel>().reviewController,
                           physics: const BouncingScrollPhysics(),
                           itemCount: reviews.length,
-                          itemBuilder: (context, index) =>
-                              reviews.length == index + 1
-                                  ? Column(
-                                      children: [
-                                        FullReviewCard(review: reviews[index]),
-                                        if (isLoadingMore)
-                                          const CircularProgressIndicator()
-                                      ],
-                                    )
-                                  : FullReviewCard(
-                                      review: reviews[index],
-                                    )),
+                          itemBuilder: (context, index) => reviews.length == index + 1
+                              ? Column(
+                                  children: [
+                                    FullReviewCard(review: reviews[index]),
+                                    if (isLoadingMore) const CircularProgressIndicator()
+                                  ],
+                                )
+                              : FullReviewCard(
+                                  review: reviews[index],
+                                )),
                     ),
                   ]),
                 ),
