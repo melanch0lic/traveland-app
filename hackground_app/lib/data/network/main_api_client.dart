@@ -26,7 +26,7 @@ abstract class MainApiClient {
   @POST('5555/auth/sign-up')
   Future<Result<RegisterResponse>> registerUser(@Body() RegisterRequestBody body);
 
-  @GET('5555/api/place/get-all-place/3')
+  @GET('5555/api/place/get-all-place/3?limit=100')
   Future<Result<PlacesResponse>> getPlaces();
 
   @GET('5555/api/place/get-all-place/2')
