@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../../data/network/models/entity/review_entity.dart';
+import '../../domain/repositories/cache_data_repository.dart';
 import '../../domain/services/excursions_service.dart';
 
 class ReviewPageViewModel with ChangeNotifier {
+  final CachedDataRepository cachedDataRepository;
   final ExcursionsService excursionsService;
   final int excursionId;
 
@@ -16,13 +18,9 @@ class ReviewPageViewModel with ChangeNotifier {
   bool _isReviewsLoadingMore = false;
   bool get isReviewsLoadingMore => _isReviewsLoadingMore;
 
-  final List<ReviewEntity> _reviews = [];
-  List<ReviewEntity> get reviews => _reviews;
+  List<ReviewEntity> get reviews => cachedDataRepository.reviewsList!;
 
-  bool _isLoading = false;
-  bool get isLoading => _isLoading;
-
-  ReviewPageViewModel(this.excursionsService, this.excursionId) {
+  ReviewPageViewModel(this.excursionsService, this.excursionId, this.cachedDataRepository) {
     _reviewController = ScrollController();
     init();
   }
@@ -38,20 +36,13 @@ class ReviewPageViewModel with ChangeNotifier {
         notifyListeners();
       }
     });
-    _isLoading = true;
-    notifyListeners();
-
-    await fetchReviewsData();
-
-    _isLoading = false;
-    notifyListeners();
   }
 
   Future<void> fetchReviewsData() async {
     final response = await excursionsService.getTripsterReviews(excursionId, _reviewsOffset);
     response.fold((result) {
       _reviewsHasNextPage = result.next == null ? false : true;
-      _reviews.addAll(result.results);
+      cachedDataRepository.reviewsList!.addAll(result.results);
       _reviewsOffset++;
     }, (exception, error) {});
   }

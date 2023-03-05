@@ -1,24 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:hackground_app/pages/detailis_event_page/components/duration_event_widget.dart';
-import 'package:hackground_app/pages/detailis_event_page/components/price_event_widget.dart';
-import 'package:hackground_app/pages/detailis_event_page/components/review_event_widget.dart';
-import 'package:hackground_app/pages/detailis_event_page/components/show_description_event_widget.dart';
-import 'package:hackground_app/pages/detailis_event_page/components/url_event_widget.dart';
-import 'package:provider/provider.dart';
 
 import '../../../data/network/models/entity/event_entity.dart';
-import '../../../dummy_data.dart';
-import '../../../widgets/event_small_listview.dart';
 import '../../../widgets/image_slider.dart';
 import '../../../widgets/name_row_header.dart';
 import '../../../widgets/name_row_header_events.dart';
-import '../../../widgets/name_row_header_housing.dart';
-import '../../detailis_exursion_page/components/route_map.dart';
-import '../../details_page/components/review_card.dart';
+import '../../detailis_location_page/components/route_map.dart';
 import '../../details_page/components/sent_review_button.dart';
-import '../detailis_event_page_model.dart';
 import 'contact_event_widget.dart';
 import 'description_event_widget.dart';
+import 'duration_event_widget.dart';
+import 'price_event_widget.dart';
+import 'review_event_widget.dart';
+import 'show_description_event_widget.dart';
+import 'url_event_widget.dart';
 
 class BodyEvent extends StatelessWidget {
   const BodyEvent({
@@ -49,18 +43,14 @@ class BodyEvent extends StatelessWidget {
             children: [
               Text(
                 '${selectedModel.placeInfo.name} • 0+',
-                style: theme.textTheme.headline2!.copyWith(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500),
+                style: theme.textTheme.displayMedium!
+                    .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 10),
               Text(
                 'Балет • Ёлки • Детям',
-                style: theme.textTheme.headline2!.copyWith(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400),
+                style: theme.textTheme.displayMedium!
+                    .copyWith(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w400),
               ),
               const SizedBox(height: 10),
               DurationEventWidget(theme: theme),
@@ -69,7 +59,7 @@ class BodyEvent extends StatelessWidget {
               const SizedBox(height: 30),
               Text(
                 'Описание',
-                style: Theme.of(context).textTheme.headline1?.copyWith(
+                style: Theme.of(context).textTheme.displayLarge?.copyWith(
                       fontSize: 20,
                       color: const Color.fromRGBO(44, 44, 46, 1),
                       fontWeight: FontWeight.w500,
@@ -88,7 +78,7 @@ class BodyEvent extends StatelessWidget {
               const SizedBox(height: 30),
               Text(
                 'Местоположение',
-                style: Theme.of(context).textTheme.headline1?.copyWith(
+                style: Theme.of(context).textTheme.displayLarge?.copyWith(
                       fontSize: 20,
                       color: const Color.fromRGBO(44, 44, 46, 1),
                       fontWeight: FontWeight.w500,
@@ -97,7 +87,7 @@ class BodyEvent extends StatelessWidget {
               const SizedBox(height: 15),
               Text(
                 'КЗ СОГУ, ул. Бутырина, 37 • 95 м',
-                style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: const Color.fromRGBO(44, 44, 46, 1),
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
@@ -108,7 +98,7 @@ class BodyEvent extends StatelessWidget {
               const SizedBox(height: 30),
               Text(
                 'Контакты',
-                style: Theme.of(context).textTheme.headline1?.copyWith(
+                style: Theme.of(context).textTheme.displayLarge?.copyWith(
                       fontSize: 20,
                       color: const Color.fromRGBO(44, 44, 46, 1),
                       fontWeight: FontWeight.w500,
@@ -125,15 +115,15 @@ class BodyEvent extends StatelessWidget {
               const SizedBox(height: 15),
               ReviewEventWidget(theme: theme),
               const SizedBox(height: 10),
-              SizedBox(
-                height: 180,
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 8,
-                    itemBuilder: (context, index) => ReviewCard(
-                          review: reviewList[0],
-                        )),
-              ),
+              // SizedBox(
+              //   height: 180,
+              //   child: ListView.builder(
+              //       scrollDirection: Axis.horizontal,
+              //       itemCount: 8,
+              //       itemBuilder: (context, index) => ReviewCard(
+              //             review: reviewList[0],
+              //           )),
+              // ),
               const SizedBox(height: 15),
               const SentReviewButton(),
               const SizedBox(height: 30),

@@ -4,14 +4,12 @@ import 'package:provider/provider.dart';
 
 import '../../app_localizations.dart';
 import '../../data/network/models/entity/housing_entity.dart';
-import '../../dummy_data.dart';
 import '../../widgets/actions_icons_appbar_widget.dart';
 import '../../widgets/contact_email_widget.dart';
 import '../../widgets/contact_phone_widget.dart';
 import '../../widgets/contact_website_widget.dart';
 import '../../widgets/image_slider.dart';
 import '../../widgets/name_row_header.dart';
-import 'components/review_card.dart';
 import 'components/sent_review_button.dart';
 import 'details_page_model.dart';
 
@@ -253,15 +251,15 @@ class DetailsPage extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      SizedBox(
-                        height: 180,
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: 8,
-                            itemBuilder: (context, index) => ReviewCard(
-                                  review: reviewList[0],
-                                )),
-                      ),
+                      // SizedBox(
+                      //   height: 180,
+                      //   child: ListView.builder(
+                      //       scrollDirection: Axis.horizontal,
+                      //       itemCount: 8,
+                      //       itemBuilder: (context, index) => ReviewCard(
+                      //             review: reviewList[0],
+                      //           )),
+                      // ),
                       const SizedBox(
                         height: 15,
                       ),

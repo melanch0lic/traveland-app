@@ -18,18 +18,13 @@ class ShowDescriptionExcursionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          context
-              .read<DetailsExursionPageViewModel>()
-              .onShowFullButtonPressed();
+          context.read<DetailsExursionPageViewModel>().onShowFullButtonPressed();
         },
         splashColor: Colors.black,
         highlightColor: theme.indicatorColor.withOpacity(0.5),
         child: Text(
-          isFullTextShowed
-              ? translate(context, 'hide_text')
-              : translate(context, 'show_full_text'),
-          style:
-              theme.textTheme.bodyText2!.copyWith(color: theme.indicatorColor),
+          isFullTextShowed ? translate(context, 'hide_text') : translate(context, 'show_full_text'),
+          style: theme.textTheme.bodyMedium!.copyWith(color: theme.indicatorColor),
         ));
   }
 }

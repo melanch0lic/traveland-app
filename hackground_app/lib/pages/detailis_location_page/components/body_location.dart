@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
-import 'price_location_widget.dart';
-import 'show_description_location_widget.dart';
-import 'time_location_widget.dart';
 
 import '../../../data/network/models/entity/place_entity.dart';
-import '../../../dummy_data.dart';
 import '../../../widgets/image_slider.dart';
 import '../../../widgets/name_row_header.dart';
 import '../../../widgets/name_row_header_places.dart';
 import '../../detailis_event_page/components/review_event_widget.dart';
-import '../../detailis_exursion_page/components/route_map.dart';
-import '../../details_page/components/review_card.dart';
 import '../../details_page/components/sent_review_button.dart';
 import 'contact_location_widget.dart';
 import 'description_location_widget.dart';
+import 'price_location_widget.dart';
+import 'route_map.dart';
+import 'show_description_location_widget.dart';
+import 'time_location_widget.dart';
 
 class BodyLocation extends StatelessWidget {
   const BodyLocation({
@@ -99,15 +97,15 @@ class BodyLocation extends StatelessWidget {
               const SizedBox(height: 15),
               ReviewEventWidget(theme: theme),
               const SizedBox(height: 10),
-              SizedBox(
-                height: 180,
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 8,
-                    itemBuilder: (context, index) => ReviewCard(
-                          review: reviewList[0],
-                        )),
-              ),
+              // SizedBox(
+              //   height: 180,
+              //   child: ListView.builder(
+              //       scrollDirection: Axis.horizontal,
+              //       itemCount: 8,
+              //       itemBuilder: (context, index) => ReviewCard(
+              //             review: reviewList[0],
+              //           )),
+              // ),
               const SizedBox(height: 15),
               const SentReviewButton(),
               const SizedBox(height: 30),

@@ -131,7 +131,7 @@ class ExcursionSmallCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      ' на ${excursion.maxPersons} человек',
+                      ' ${excursion.price.unitString}',
                       style: theme.textTheme.bodyMedium?.copyWith(
                         color: const Color.fromRGBO(44, 44, 46, 1),
                         fontSize: 14,

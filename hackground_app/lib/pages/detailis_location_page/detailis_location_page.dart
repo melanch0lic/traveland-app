@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hackground_app/widgets/actions_icons_appbar_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/network/models/entity/place_entity.dart';
+import '../../widgets/actions_icons_appbar_widget.dart';
 import 'components/body_location.dart';
 import 'detailis_location_model_page.dart';
 
 class DetailisLocationPage extends StatelessWidget {
   final PlaceEntity selectedModel;
-  const DetailisLocationPage({Key? key, required this.selectedModel})
-      : super(key: key);
+  const DetailisLocationPage({Key? key, required this.selectedModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +34,7 @@ class DetailisLocationPage extends StatelessWidget {
               title: Expanded(
                 child: Text(
                   selectedModel.placeInfo.name,
-                  style: theme.textTheme.headline2!.copyWith(
+                  style: theme.textTheme.displayMedium!.copyWith(
                     color: Colors.black,
                     fontSize: 20,
                     fontWeight: FontWeight.w500,

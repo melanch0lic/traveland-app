@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../domain/models/review.dart';
+import '../data/network/models/entity/review_entity.dart';
 
 class ReviewCard extends StatelessWidget {
-  final Review review;
+  final ReviewEntity review;
   const ReviewCard({Key? key, required this.review}) : super(key: key);
 
   @override
@@ -22,7 +22,8 @@ class ReviewCard extends StatelessWidget {
           children: [
             CircleAvatar(
               maxRadius: 25,
-              backgroundImage: NetworkImage(review.avatarUrl),
+              backgroundImage: NetworkImage(review.avatars.mediumAvatarUrl ??
+                  'https://i.pinimg.com/564x/d9/7b/bb/d97bbb08017ac2309307f0822e63d082.jpg'),
             ),
             const SizedBox(
               width: 10,
@@ -39,7 +40,7 @@ class ReviewCard extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                  review.date,
+                  review.reviewDate,
                   style:
                       theme.textTheme.bodyLarge!.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                 )
@@ -71,7 +72,7 @@ class ReviewCard extends StatelessWidget {
           height: 10,
         ),
         Text(
-          review.description,
+          review.text.length > 150 ? '${review.text.substring(0, 150)}...' : review.text,
           style: theme.textTheme.bodyLarge!
               .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400, fontSize: 14),
         )
