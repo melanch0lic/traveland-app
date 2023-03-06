@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../../data/network/models/entity/review_entity.dart';
 
@@ -21,9 +23,8 @@ class FullReviewCard extends StatelessWidget {
           children: [
             CircleAvatar(
               maxRadius: 25,
-              backgroundImage: review.avatars.mediumAvatarUrl != null
-                  ? NetworkImage(review.avatars.mediumAvatarUrl!)
-                  : const NetworkImage('https://ru.pinterest.com/pin/961026007962154699/'),
+              backgroundImage: NetworkImage(review.avatars.mediumAvatarUrl ??
+                  'https://i.pinimg.com/564x/d9/7b/bb/d97bbb08017ac2309307f0822e63d082.jpg'),
             ),
             const SizedBox(
               width: 10,
@@ -75,7 +76,54 @@ class FullReviewCard extends StatelessWidget {
           review.text,
           style: theme.textTheme.bodyLarge!
               .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400, fontSize: 14),
-        )
+        ),
+        if (review.photos!.isNotEmpty) ...[
+          const SizedBox(height: 10),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: SizedBox(
+              height: 100,
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: review.photos!.length,
+                  itemBuilder: (context, index) => Container(
+                        margin: const EdgeInsets.only(right: 5),
+                        child: GestureDetector(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (_) => AlertDialog(
+                                content: CachedNetworkImage(
+                                  progressIndicatorBuilder: (context, url, progress) =>
+                                      Center(child: SpinKitFadingCircle(color: theme.indicatorColor)),
+                                  imageUrl: review.photos![index].mediumPhotoUrl,
+                                  fit: BoxFit.cover,
+                                ),
+                                actions: [
+                                  TextButton(
+                                    child: const Text('Close'),
+                                    onPressed: () {
+                                      Navigator.of(context, rootNavigator: true).pop();
+                                    },
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: CachedNetworkImage(
+                              progressIndicatorBuilder: (context, url, progress) =>
+                                  Center(child: SpinKitFadingCircle(color: theme.indicatorColor)),
+                              imageUrl: review.photos![index].mediumPhotoUrl,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      )),
+            ),
+          ),
+        ]
       ]),
     );
   }

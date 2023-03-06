@@ -15,10 +15,14 @@ class ReviewPageViewModel with ChangeNotifier {
   late ScrollController _reviewController;
   ScrollController get reviewController => _reviewController;
 
+  bool _isFirstLoading = false;
+  bool get isFirstLoading => _isFirstLoading;
+
   bool _isReviewsLoadingMore = false;
   bool get isReviewsLoadingMore => _isReviewsLoadingMore;
 
-  List<ReviewEntity> get reviews => cachedDataRepository.reviewsList!;
+  final List<ReviewEntity> _reviews = [];
+  List<ReviewEntity> get reviews => _reviews;
 
   ReviewPageViewModel(this.excursionsService, this.excursionId, this.cachedDataRepository) {
     _reviewController = ScrollController();
@@ -36,13 +40,21 @@ class ReviewPageViewModel with ChangeNotifier {
         notifyListeners();
       }
     });
+
+    _isFirstLoading = true;
+    notifyListeners();
+
+    await fetchReviewsData();
+
+    _isFirstLoading = false;
+    notifyListeners();
   }
 
   Future<void> fetchReviewsData() async {
     final response = await excursionsService.getTripsterReviews(excursionId, _reviewsOffset);
     response.fold((result) {
       _reviewsHasNextPage = result.next == null ? false : true;
-      cachedDataRepository.reviewsList!.addAll(result.results);
+      _reviews.addAll(result.results);
       _reviewsOffset++;
     }, (exception, error) {});
   }

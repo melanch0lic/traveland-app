@@ -23,8 +23,8 @@ class WriteReviewPage extends StatelessWidget {
         ),
         title: Text(
           'Оставить отзыв',
-          style: theme.textTheme.headline2!.copyWith(
-              color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
+          style:
+              theme.textTheme.displayMedium!.copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
         ),
         backgroundColor: theme.primaryColorLight,
       ),
@@ -34,55 +34,52 @@ class WriteReviewPage extends StatelessWidget {
           right: 15,
         ),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
           Text(
             'Оценить жильё',
-            style: Theme.of(context).textTheme.headline1?.copyWith(
+            style: Theme.of(context).textTheme.displayLarge?.copyWith(
                   fontSize: 20,
                   color: const Color.fromRGBO(44, 44, 46, 1),
                   fontWeight: FontWeight.w500,
                 ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Row(
-            children: [
-              ...List.generate(5, (index) => buildStar(context, index, 0))
-            ],
+            children: [...List.generate(5, (index) => buildStar(context, index, 0))],
           ),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
           Text(
             'Отзыв',
-            style: theme.textTheme.bodyText1!.copyWith(
-                color: theme.primaryColorDark, fontWeight: FontWeight.w400),
+            style: theme.textTheme.bodyLarge!.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Container(
             height: 144,
             width: double.infinity,
-            padding: EdgeInsets.only(top: 15, left: 15),
+            padding: const EdgeInsets.only(top: 15, left: 15),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               border: Border.all(
                 width: 2,
-                color: Color.fromRGBO(174, 174, 178, 1),
+                color: const Color.fromRGBO(174, 174, 178, 1),
               ),
             ),
             child: Text(
               'Поделитесь своим мнением',
-              style: theme.textTheme.bodyText1!.copyWith(
-                color: Color.fromRGBO(174, 174, 178, 1),
+              style: theme.textTheme.bodyLarge!.copyWith(
+                color: const Color.fromRGBO(174, 174, 178, 1),
                 fontWeight: FontWeight.w400,
                 fontSize: 16,
               ),
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
                 '0/2000',
-                style: Theme.of(context).textTheme.headline1?.copyWith(
+                style: Theme.of(context).textTheme.displayLarge?.copyWith(
                       fontSize: 16,
                       color: const Color.fromRGBO(44, 44, 46, 1),
                       fontWeight: FontWeight.w400,
@@ -90,8 +87,8 @@ class WriteReviewPage extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 30),
-          SentWriteReviewButtonExcursions()
+          const SizedBox(height: 30),
+          const SentWriteReviewButtonExcursions()
         ]),
       ),
     );

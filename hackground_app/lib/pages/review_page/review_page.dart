@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
@@ -13,20 +14,13 @@ class ReviewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> sortList = [
-      'Сначала популярные',
-      'Сначала положительные',
-      'Сначала отрицательные',
-      'Сначала новые',
-      'Сначала старые'
-    ];
-
     final theme = Theme.of(context);
     return ChangeNotifierProvider(
       create: (context) => ReviewPageViewModel(context.read<InitializeProvider>().excursionsService, selectedModel.id,
           context.read<InitializeProvider>().cachedDataRepository),
       child: Builder(builder: (context) {
         final isLoadingMore = context.select((ReviewPageViewModel model) => model.isReviewsLoadingMore);
+        final isFirstLoading = context.select((ReviewPageViewModel model) => model.isFirstLoading);
         final reviews = context.select(
           (ReviewPageViewModel model) => model.reviews,
         );
@@ -84,22 +78,29 @@ class ReviewPage extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 15),
-              Expanded(
-                child: ListView.builder(
-                    controller: context.read<ReviewPageViewModel>().reviewController,
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: reviews.length,
-                    itemBuilder: (context, index) => reviews.length == index + 1
-                        ? Column(
-                            children: [
-                              FullReviewCard(review: reviews[index]),
-                              if (isLoadingMore) const CircularProgressIndicator()
-                            ],
-                          )
-                        : FullReviewCard(
-                            review: reviews[index],
-                          )),
-              ),
+              isFirstLoading
+                  ? Center(
+                      child: SpinKitCircle(color: theme.indicatorColor),
+                    )
+                  : Expanded(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: ListView.builder(
+                            controller: context.read<ReviewPageViewModel>().reviewController,
+                            physics: const BouncingScrollPhysics(),
+                            itemCount: reviews.length,
+                            itemBuilder: (context, index) => reviews.length == index + 1
+                                ? Column(
+                                    children: [
+                                      FullReviewCard(review: reviews[index]),
+                                      if (isLoadingMore) SpinKitCircle(color: theme.indicatorColor)
+                                    ],
+                                  )
+                                : FullReviewCard(
+                                    review: reviews[index],
+                                  )),
+                      ),
+                    ),
             ]),
           ),
         );

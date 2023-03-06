@@ -29,14 +29,12 @@ class DetailisExursionPage extends StatelessWidget {
                 ),
                 onPressed: () => Navigator.of(context).pop(),
               ),
-              title: Expanded(
-                child: Text(
-                  selectedModel.title,
-                  style: theme.textTheme.displayMedium!.copyWith(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                  ),
+              title: Text(
+                selectedModel.title,
+                style: theme.textTheme.displayMedium!.copyWith(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
               actions: [

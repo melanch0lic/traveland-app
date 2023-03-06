@@ -72,7 +72,7 @@ class ReviewCard extends StatelessWidget {
           height: 10,
         ),
         Text(
-          review.text.length > 150 ? '${review.text.substring(0, 150)}...' : review.text,
+          review.text.length > 120 ? '${review.text.substring(0, 120)}...' : review.text,
           style: theme.textTheme.bodyLarge!
               .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400, fontSize: 14),
         )
