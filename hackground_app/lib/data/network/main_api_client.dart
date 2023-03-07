@@ -29,10 +29,10 @@ abstract class MainApiClient {
   @GET('5555/api/place/get-all-place/3?limit=100')
   Future<Result<PlacesResponse>> getPlaces();
 
-  @GET('5555/api/place/get-all-place/2')
+  @GET('5555/api/place/get-all-place/2?limit=100')
   Future<Result<EventsResponse>> getEvents();
 
-  @GET('5555/api/place/get-all-place/1')
+  @GET('5555/api/place/get-all-place/1?limit=100')
   Future<Result<HousingResponse>> getHousings();
 
   @GET('5555/api/user/get-user/')
