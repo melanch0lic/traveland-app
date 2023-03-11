@@ -5,7 +5,7 @@ import '../../../widgets/image_slider.dart';
 import '../../../widgets/name_row_header.dart';
 import '../../../widgets/name_row_header_places.dart';
 import '../../detailis_event_page/components/review_event_widget.dart';
-import '../../details_page/components/sent_review_button.dart';
+import '../../details_housing_page/components/sent_review_button.dart';
 import 'contact_location_widget.dart';
 import 'description_location_widget.dart';
 import 'price_location_widget.dart';
@@ -30,10 +30,7 @@ class BodyLocation extends StatelessWidget {
     return ListView(
       children: [
         ImageSlider(
-          urlImages: const [
-            'https://i.pinimg.com/564x/59/fa/0c/59fa0cbe6745f482b5df4bbb08d371df.jpg',
-            'https://i.pinimg.com/564x/09/25/19/092519cf8a856ecd8427ed4e38dc77dc.jpg'
-          ],
+          urlImages: selectedModel.placeInfo.photos!.map((e) => 'http://176.119.159.9/media/$e').toList(),
         ),
         Padding(
           padding: const EdgeInsets.all(15.0),

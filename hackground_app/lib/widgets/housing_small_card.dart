@@ -17,7 +17,7 @@ class HousingSmallCard extends StatelessWidget {
     final theme = Theme.of(context);
     return GestureDetector(
       onTap: () {
-        context.router.push(DetailsRoute(selectedModel: housing));
+        context.router.push(DetailsHousingRoute(selectedModel: housing));
       },
       child: Container(
         margin: const EdgeInsets.only(right: 10),

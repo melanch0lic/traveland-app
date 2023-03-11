@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class DetailsPageViewModel with ChangeNotifier {
-  DetailsPageViewModel();
+class DetailsHousingPageViewModel with ChangeNotifier {
+  DetailsHousingPageViewModel();
 
   bool _isFullTextShowed = false;
   bool get isFullTextShowed => _isFullTextShowed;

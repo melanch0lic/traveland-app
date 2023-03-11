@@ -14,18 +14,15 @@ class SentReviewButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
           foregroundColor: const Color.fromRGBO(37, 65, 178, 0.2),
-          side:
-              const BorderSide(color: Color.fromRGBO(37, 65, 178, 1), width: 2),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          side: const BorderSide(color: Color.fromRGBO(37, 65, 178, 1), width: 2),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           elevation: 0,
         ),
         onPressed: () {},
         child: Center(
           child: Text(
             'Оставить отзыв',
-            style: theme.textTheme.bodyText1!
-                .copyWith(color: theme.indicatorColor),
+            style: theme.textTheme.bodyLarge!.copyWith(color: theme.indicatorColor),
           ),
         ),
       ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../domain/models/attraction_model.dart';
 
 import '../../../data/network/models/entity/housing_entity.dart';
 import '../../../unities.dart';

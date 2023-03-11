@@ -5,7 +5,7 @@ import '../../../widgets/image_slider.dart';
 import '../../../widgets/name_row_header.dart';
 import '../../../widgets/name_row_header_events.dart';
 import '../../detailis_location_page/components/route_map.dart';
-import '../../details_page/components/sent_review_button.dart';
+import '../../details_housing_page/components/sent_review_button.dart';
 import 'contact_event_widget.dart';
 import 'description_event_widget.dart';
 import 'duration_event_widget.dart';

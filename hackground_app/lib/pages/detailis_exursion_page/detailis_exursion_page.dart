@@ -37,16 +37,6 @@ class DetailisExursionPage extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              actions: [
-                IconButton(
-                  splashRadius: 15,
-                  icon: SvgPicture.asset(
-                    'assets/images/heart.svg',
-                    color: Colors.black,
-                  ),
-                  onPressed: () {},
-                ),
-              ],
               backgroundColor: theme.primaryColorLight,
             ),
             body: BodyExcursion(selectedModel: selectedModel),

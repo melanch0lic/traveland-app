@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import 'components/sent_review_button_excursions.dart';
 import 'components/sent_write_review_button_excursions.dart';
 
 class WriteReviewPage extends StatelessWidget {

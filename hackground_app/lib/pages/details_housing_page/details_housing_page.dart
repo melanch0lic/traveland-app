@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 
 import '../../app_localizations.dart';
 import '../../data/network/models/entity/housing_entity.dart';
-import '../../widgets/actions_icons_appbar_widget.dart';
 import '../../widgets/contact_email_widget.dart';
 import '../../widgets/contact_phone_widget.dart';
 import '../../widgets/contact_website_widget.dart';
@@ -13,18 +12,18 @@ import '../../widgets/name_row_header.dart';
 import 'components/sent_review_button.dart';
 import 'details_page_model.dart';
 
-class DetailsPage extends StatelessWidget {
+class DetailsHousingPage extends StatelessWidget {
   final HousingEntity selectedModel;
-  const DetailsPage({Key? key, required this.selectedModel}) : super(key: key);
+  const DetailsHousingPage({Key? key, required this.selectedModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return ChangeNotifierProvider(
-      create: (context) => DetailsPageViewModel(),
+      create: (context) => DetailsHousingPageViewModel(),
       child: Builder(builder: (context) {
         final isFullTextShowed = context.select(
-          (DetailsPageViewModel model) => model.isFullTextShowed,
+          (DetailsHousingPageViewModel model) => model.isFullTextShowed,
         );
         return Scaffold(
             appBar: AppBar(
@@ -37,28 +36,20 @@ class DetailsPage extends StatelessWidget {
                 ),
                 onPressed: () => Navigator.of(context).pop(),
               ),
-              title: Expanded(
-                child: Text(
-                  selectedModel.placeInfo.name,
-                  style: theme.textTheme.displayMedium!.copyWith(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                  ),
+              title: Text(
+                selectedModel.placeInfo.name,
+                style: theme.textTheme.displayMedium!.copyWith(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
-              actions: const [
-                ActionsIconsAppBarWidget(),
-              ],
               backgroundColor: theme.primaryColorLight,
             ),
             body: ListView(
               children: [
                 ImageSlider(
-                  urlImages: const [
-                    'https://i.pinimg.com/564x/59/fa/0c/59fa0cbe6745f482b5df4bbb08d371df.jpg',
-                    'https://i.pinimg.com/564x/09/25/19/092519cf8a856ecd8427ed4e38dc77dc.jpg'
-                  ],
+                  urlImages: selectedModel.placeInfo.photos!.map((e) => 'http://176.119.159.9/media/$e').toList(),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(15),
@@ -111,7 +102,7 @@ class DetailsPage extends StatelessWidget {
                             width: 5,
                           ),
                           Text(
-                            'от ${selectedModel.price} ₽ за ночь',
+                            'от ${selectedModel.price.value} ₽ за ночь',
                             style: theme.textTheme.bodyLarge!
                                 .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                           )
@@ -146,7 +137,7 @@ class DetailsPage extends StatelessWidget {
                       ),
                       InkWell(
                           onTap: () {
-                            context.read<DetailsPageViewModel>().onShowFullButtonPressed();
+                            context.read<DetailsHousingPageViewModel>().onShowFullButtonPressed();
                           },
                           splashColor: Colors.black,
                           highlightColor: theme.indicatorColor.withOpacity(0.5),
