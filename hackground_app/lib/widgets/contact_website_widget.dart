@@ -33,7 +33,7 @@ class ContactWebsiteWidget extends StatelessWidget {
             width: 10,
           ),
           Text(
-            websiteUrl,
+            'Ссылка на сайт',
             style: theme.textTheme.bodyLarge!.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
           )
         ],

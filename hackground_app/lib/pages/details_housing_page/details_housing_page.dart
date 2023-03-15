@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 
+import '../../app_initialization.dart';
 import '../../app_localizations.dart';
 import '../../data/network/models/entity/housing_entity.dart';
 import '../../widgets/contact_email_widget.dart';
 import '../../widgets/contact_phone_widget.dart';
 import '../../widgets/contact_website_widget.dart';
+import '../../widgets/housing_small_listview.dart';
 import '../../widgets/image_slider.dart';
 import '../../widgets/name_row_header.dart';
+import 'components/review_housing_list.dart';
 import 'components/sent_review_button.dart';
 import 'details_page_model.dart';
 
@@ -20,11 +25,10 @@ class DetailsHousingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return ChangeNotifierProvider(
-      create: (context) => DetailsHousingPageViewModel(),
+      create: (context) => DetailsHousingPageViewModel(context.read<InitializeProvider>().cachedDataRepository,
+          context.read<InitializeProvider>().housingService, selectedModel.placeInfo.id),
       child: Builder(builder: (context) {
-        final isFullTextShowed = context.select(
-          (DetailsHousingPageViewModel model) => model.isFullTextShowed,
-        );
+        final reviews = context.select((DetailsHousingPageViewModel model) => model.reviews);
         return Scaffold(
             appBar: AppBar(
               leading: IconButton(
@@ -56,15 +60,6 @@ class DetailsHousingPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          ...List.generate(
-                              5, (index) => buildStar(context, index, selectedModel.placeInfo.meanRating.value))
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
                       Text(
                         selectedModel.placeInfo.name,
                         style: theme.textTheme.displayMedium!
@@ -73,44 +68,27 @@ class DetailsHousingPage extends StatelessWidget {
                       const SizedBox(
                         height: 15,
                       ),
-                      Row(
-                        children: [
-                          SvgPicture.asset(
-                            'assets/images/location_icon.svg',
-                            color: theme.primaryColorDark,
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            '700м до центра',
-                            style: theme.textTheme.bodyLarge!
-                                .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Row(
-                        children: [
-                          SvgPicture.asset(
-                            'assets/images/wallet_icon.svg',
-                            color: theme.primaryColorDark,
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            'от ${selectedModel.price.value} ₽ за ночь',
-                            style: theme.textTheme.bodyLarge!
-                                .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
+                      if (selectedModel.price.isValid) ...[
+                        Row(
+                          children: [
+                            SvgPicture.asset(
+                              'assets/images/wallet_icon.svg',
+                              color: theme.primaryColorDark,
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'от ${selectedModel.price.value} ₽ за ночь',
+                              style: theme.textTheme.bodyLarge!
+                                  .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                      ],
                       Text(
                         translate(context, 'description_text'),
                         style: theme.textTheme.displayMedium!
@@ -119,34 +97,13 @@ class DetailsHousingPage extends StatelessWidget {
                       const SizedBox(
                         height: 15,
                       ),
-                      AnimatedCrossFade(
-                          firstChild: Text(
-                            selectedModel.placeInfo.description.value,
-                            style: theme.textTheme.bodyLarge!
-                                .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
-                          ),
-                          secondChild: Text(
-                            selectedModel.placeInfo.description.value,
-                            style: theme.textTheme.bodyLarge!
-                                .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
-                          ),
-                          crossFadeState: isFullTextShowed ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-                          duration: const Duration(milliseconds: 400)),
-                      const SizedBox(
-                        height: 10,
+                      Text(
+                        selectedModel.placeInfo.description.value,
+                        style: theme.textTheme.bodyLarge!
+                            .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                       ),
-                      InkWell(
-                          onTap: () {
-                            context.read<DetailsHousingPageViewModel>().onShowFullButtonPressed();
-                          },
-                          splashColor: Colors.black,
-                          highlightColor: theme.indicatorColor.withOpacity(0.5),
-                          child: Text(
-                            isFullTextShowed ? translate(context, 'hide_text') : translate(context, 'show_full_text'),
-                            style: theme.textTheme.bodyMedium!.copyWith(color: theme.indicatorColor),
-                          )),
                       const SizedBox(
-                        height: 30,
+                        height: 25,
                       ),
                       Text(
                         translate(context, 'location_text'),
@@ -156,84 +113,14 @@ class DetailsHousingPage extends StatelessWidget {
                       const SizedBox(
                         height: 15,
                       ),
-                      Text(
-                        '${selectedModel.placeInfo.adress} • ${selectedModel.placeInfo.latitude.value} ${selectedModel.placeInfo.longitude.value}',
-                        style: theme.textTheme.bodyLarge!
-                            .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                          height: 200,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                            image: DecorationImage(
-                                image: AssetImage(
-                                  'assets/images/map_alex.png',
-                                ),
-                                fit: BoxFit.cover),
-                          )),
-                      const SizedBox(
-                        height: 30,
-                      ),
-
-                      Text(
-                        translate(context, 'contacts_text'),
-                        style: theme.textTheme.displayMedium!
-                            .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-
-                      ContactPhoneWidget(
-                          phoneNumber: selectedModel.placeInfo.number.value,
-                          text: selectedModel.placeInfo.number.value),
-                      const SizedBox(
-                        height: 10,
-                      ),
-
-                      ContactEmailWidget(text: selectedModel.placeInfo.mail.value),
-                      const SizedBox(
-                        height: 10,
-                      ),
-
-                      ContactWebsiteWidget(websiteUrl: selectedModel.placeInfo.url.value),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      NameRowHeader(
-                        name: translate(context, 'reviews_text'),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
                       Row(
                         children: [
-                          Container(
-                            width: 42,
-                            height: 27,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(7),
-                              color: const Color.fromRGBO(56, 176, 0, 1),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
-                              child: Text(
-                                '${selectedModel.placeInfo.meanRating.value}',
-                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                      color: const Color.fromRGBO(255, 255, 255, 1),
-                                      fontSize: 14,
-                                    ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 5,
+                          SvgPicture.asset(
+                            'assets/images/vector_icon.svg',
+                            color: Colors.black,
                           ),
                           Text(
-                            '${selectedModel.placeInfo.ratingCount.value} отзывов',
+                            selectedModel.placeInfo.adress.value,
                             style: theme.textTheme.bodyLarge!
                                 .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                           ),
@@ -242,18 +129,120 @@ class DetailsHousingPage extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      // SizedBox(
-                      //   height: 180,
-                      //   child: ListView.builder(
-                      //       scrollDirection: Axis.horizontal,
-                      //       itemCount: 8,
-                      //       itemBuilder: (context, index) => ReviewCard(
-                      //             review: reviewList[0],
-                      //           )),
-                      // ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: SizedBox(
+                          height: 200,
+                          child: FlutterMap(
+                            options: MapOptions(
+                                interactiveFlags: InteractiveFlag.pinchZoom | InteractiveFlag.drag,
+                                center: LatLng(
+                                  selectedModel.placeInfo.longitude.value,
+                                  selectedModel.placeInfo.latitude.value,
+                                ),
+                                zoom: 16,
+                                maxZoom: 17,
+                                minZoom: 8),
+                            children: [
+                              TileLayer(
+                                urlTemplate: 'https://osm.rrze.fau.de/osmhd/{z}/{x}/{y}.png',
+                                userAgentPackageName: 'com.example.hackground_app',
+                                subdomains: const [
+                                  'a',
+                                  'b',
+                                ],
+                              ),
+                              MarkerLayer(
+                                markers: [
+                                  Marker(
+                                      point: LatLng(
+                                        selectedModel.placeInfo.longitude.value,
+                                        selectedModel.placeInfo.latitude.value,
+                                      ),
+                                      builder: (_) => SvgPicture.asset('assets/images/location_marker_icon.svg'))
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Text(
+                        translate(context, 'contacts_text'),
+                        style: theme.textTheme.displayMedium!
+                            .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
+                      ),
                       const SizedBox(
                         height: 15,
                       ),
+                      ContactWebsiteWidget(websiteUrl: selectedModel.placeInfo.url.value),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      ContactPhoneWidget(
+                          phoneNumber: selectedModel.placeInfo.number.value,
+                          text: selectedModel.placeInfo.number.value),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      ContactEmailWidget(text: selectedModel.placeInfo.mail.value),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      if (reviews.isNotEmpty) ...[
+                        NameRowHeader(
+                          name: translate(context, 'reviews_text'),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          children: [
+                            Container(
+                              width: 42,
+                              height: 27,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(7),
+                                color: const Color.fromRGBO(56, 176, 0, 1),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
+                                child: Text(
+                                  '${selectedModel.placeInfo.meanRating.value}',
+                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                        color: const Color.fromRGBO(255, 255, 255, 1),
+                                        fontSize: 14,
+                                      ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              '${selectedModel.placeInfo.ratingCount.value.toInt()} отзывов',
+                              style: theme.textTheme.bodyLarge!
+                                  .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const ReviewHousingList(),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                      ] else ...[
+                        const Center(
+                          child: Text('Отзывов еще нет, будьте первым!'),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        )
+                      ],
                       const SentReviewButton(),
                       const SizedBox(
                         height: 30,
@@ -262,7 +251,12 @@ class DetailsHousingPage extends StatelessWidget {
                       const SizedBox(
                         height: 15,
                       ),
-                      // EventSmallListView(attractionListHouse.sublist(1)),
+                      HousingSmallListView(
+                          housings: context
+                              .read<DetailsHousingPageViewModel>()
+                              .housings
+                              .where((element) => element.placeInfo.id != selectedModel.placeInfo.id)
+                              .toList()),
                     ],
                   ),
                 ),
@@ -270,20 +264,5 @@ class DetailsHousingPage extends StatelessWidget {
             ));
       }),
     );
-  }
-
-  Widget buildStar(BuildContext context, int index, double rating) {
-    Icon icon;
-    if (index >= rating) {
-      icon = const Icon(
-        Icons.star_border,
-        color: Color.fromRGBO(253, 197, 0, 1),
-      );
-    } else if (index > rating - 1 && index < rating) {
-      icon = const Icon(Icons.star_half, color: Color.fromRGBO(253, 197, 0, 1));
-    } else {
-      icon = const Icon(Icons.star, color: Color.fromRGBO(253, 197, 0, 1));
-    }
-    return icon;
   }
 }

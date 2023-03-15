@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import '../../../app_localizations.dart';
+import '../../../navigation/router.gr.dart';
 
 class SentReviewButton extends StatelessWidget {
   const SentReviewButton({Key? key}) : super(key: key);
@@ -18,7 +20,9 @@ class SentReviewButton extends StatelessWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           elevation: 0,
         ),
-        onPressed: () {},
+        onPressed: () {
+          context.router.navigate(const WriteReviewRoute());
+        },
         child: Center(
           child: Text(
             'Оставить отзыв',

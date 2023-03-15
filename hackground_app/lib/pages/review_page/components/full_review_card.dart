@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:intl/intl.dart';
 
 import '../../../data/network/models/entity/review_entity.dart';
 
@@ -41,7 +42,7 @@ class FullReviewCard extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                  review.reviewDate,
+                  DateFormat('d MMMM', 'ru').format(DateTime.parse(review.reviewDate)),
                   style:
                       theme.textTheme.bodyLarge!.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                 )

@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../detailis_exursion_page_model.dart';
-import 'review_card.dart';
+import '../../../widgets/review_place_small_card.dart';
+import '../details_page_model.dart';
 
-class ReviewExcursionList extends StatelessWidget {
-  const ReviewExcursionList({Key? key}) : super(key: key);
+class ReviewHousingList extends StatelessWidget {
+  const ReviewHousingList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final reviews = context.select((DetailsExursionPageViewModel model) => model.reviews);
+    final reviews = context.select((DetailsHousingPageViewModel model) => model.reviews);
     return SizedBox(
       height: 185,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: reviews.length,
-          itemBuilder: (context, index) => ReviewCard(
+          itemBuilder: (context, index) => ReviewPlaceSmallCard(
                 review: reviews[index],
               )),
     );

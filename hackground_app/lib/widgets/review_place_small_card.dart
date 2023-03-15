@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import '../data/network/models/entity/review_api_entity.dart';
 
-import '../data/network/models/entity/review_entity.dart';
-
-class ReviewCard extends StatelessWidget {
-  final ReviewEntity review;
-  const ReviewCard({Key? key, required this.review}) : super(key: key);
+class ReviewPlaceSmallCard extends StatelessWidget {
+  final ReviewApiEntity review;
+  const ReviewPlaceSmallCard({Key? key, required this.review}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +20,9 @@ class ReviewCard extends StatelessWidget {
       child: Column(children: [
         Row(
           children: [
-            CircleAvatar(
+            const CircleAvatar(
               maxRadius: 25,
-              backgroundImage: NetworkImage(review.avatars.mediumAvatarUrl ??
-                  'https://i.pinimg.com/564x/d9/7b/bb/d97bbb08017ac2309307f0822e63d082.jpg'),
+              backgroundImage: NetworkImage('https://i.pinimg.com/564x/d9/7b/bb/d97bbb08017ac2309307f0822e63d082.jpg'),
             ),
             const SizedBox(
               width: 10,
@@ -32,7 +31,7 @@ class ReviewCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  review.name,
+                  'Пользователь',
                   style:
                       theme.textTheme.bodyLarge!.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                 ),
@@ -40,7 +39,7 @@ class ReviewCard extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                  review.reviewDate,
+                  DateFormat('d MMMM', 'ru').format(DateTime.parse(review.reviewTime)),
                   style:
                       theme.textTheme.bodyLarge!.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                 )

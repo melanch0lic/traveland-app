@@ -54,6 +54,7 @@ import '../pages/tabs_page/tabs_page.dart';
             AutoRoute(path: ':selectedModel', page: DetailisLocationPage),
             AutoRoute(path: ':selectedModel', page: DetailisExursionPage),
             AutoRoute(path: ':selectedModel/reviews', page: ReviewPage),
+            AutoRoute(path: ':selectedModel/writeReviews', page: WriteReviewPage),
           ],
         ),
         AutoRoute(path: 'hotels', name: 'HotelsRouter', page: EmptyRouterPage, children: [
