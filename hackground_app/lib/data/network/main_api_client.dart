@@ -10,6 +10,7 @@ import 'models/response/login_response.dart';
 import 'models/response/orsm_route_response.dart';
 import 'models/response/places_response.dart';
 import 'models/response/register_response.dart';
+import 'models/response/reviews_api_response.dart';
 import 'models/response/search_response.dart';
 import 'models/response/user_by_id_response.dart';
 import 'result.dart';
@@ -34,6 +35,9 @@ abstract class MainApiClient {
 
   @GET('5555/api/place/get-all-place/1?limit=100')
   Future<Result<HousingResponse>> getHousings();
+
+  @GET('5555/api/review/get-all-reviews?place_id={placeId}')
+  Future<Result<ReviewsApiResponse>> getReviews(@Path() int placeId);
 
   @GET('5555/api/user/get-user/')
   Future<Result<UserByIdResponse>> getUserInfoById();

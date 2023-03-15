@@ -11,6 +11,7 @@ import 'models/response/login_response.dart';
 import 'models/response/orsm_route_response.dart';
 import 'models/response/places_response.dart';
 import 'models/response/register_response.dart';
+import 'models/response/reviews_api_response.dart';
 import 'models/response/search_response.dart';
 import 'models/response/user_by_id_response.dart';
 import 'result.dart';
@@ -45,6 +46,11 @@ class MainSafeApiClient implements MainApiClient {
   @override
   Future<Result<HousingResponse>> getHousings() {
     return _wrapUnsafeCall<HousingResponse>(() => _client.getHousings());
+  }
+
+  @override
+  Future<Result<ReviewsApiResponse>> getReviews(int placeId) {
+    return _wrapUnsafeCall<ReviewsApiResponse>(() => _client.getReviews(placeId));
   }
 
   @override
