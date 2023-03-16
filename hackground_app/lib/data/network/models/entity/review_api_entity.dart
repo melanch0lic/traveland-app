@@ -7,32 +7,20 @@ class ReviewApiEntity {
   @JsonKey(name: 'rewiew-id')
   final int id;
 
-  @JsonKey(name: 'user-id')
-  final int userId;
+  @JsonKey(name: 'user-name')
+  final String userName;
 
   @JsonKey(name: 'rating')
-  final double rating;
+  final int rating;
 
-  @JsonKey(name: 'rewiew-text')
+  @JsonKey(name: 'review-text')
   final String text;
 
-  @JsonKey(name: 'rewiew-time')
+  @JsonKey(name: 'review-time')
   final String reviewTime;
 
-  @JsonKey(name: 'place-id')
-  final int placeId;
-
-  @JsonKey(name: 'guide-id')
-  final int guideId;
-
   ReviewApiEntity(
-      {required this.id,
-      required this.userId,
-      required this.rating,
-      required this.text,
-      required this.reviewTime,
-      required this.placeId,
-      required this.guideId});
+      {required this.id, required this.userName, required this.rating, required this.text, required this.reviewTime});
 
   factory ReviewApiEntity.fromJson(Map<String, dynamic> json) => _$ReviewApiEntityFromJson(json);
 

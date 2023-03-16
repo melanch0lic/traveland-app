@@ -17,9 +17,9 @@ import '../pages/places_page/places_page.dart';
 import '../pages/profile_page/profile_page.dart';
 import '../pages/register_page/register_page.dart';
 import '../pages/review_page/review_page.dart';
-import '../pages/review_page/write_review_page.dart';
 import '../pages/start_page/start_page.dart';
 import '../pages/tabs_page/tabs_page.dart';
+import '../pages/write_review_page/write_review_page.dart';
 
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
