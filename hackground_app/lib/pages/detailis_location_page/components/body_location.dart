@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:provider/provider.dart';
 
 import '../../../data/network/models/entity/place_entity.dart';
 import '../../../widgets/image_slider.dart';
-import '../../../widgets/name_row_header.dart';
+import '../../../widgets/location_small_listview.dart';
 import '../../../widgets/name_row_header_places.dart';
-import '../../detailis_event_page/components/review_event_widget.dart';
-import '../../details_housing_page/components/sent_review_button.dart';
+import '../detailis_location_model_page.dart';
 import 'contact_location_widget.dart';
 import 'description_location_widget.dart';
-import 'price_location_widget.dart';
-import 'route_map.dart';
-import 'show_description_location_widget.dart';
 import 'time_location_widget.dart';
 
 class BodyLocation extends StatelessWidget {
@@ -18,12 +18,10 @@ class BodyLocation extends StatelessWidget {
     Key? key,
     required this.selectedModel,
     required this.theme,
-    required this.isFullTextShowed,
   }) : super(key: key);
 
   final PlaceEntity selectedModel;
   final ThemeData theme;
-  final bool isFullTextShowed;
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +42,8 @@ class BodyLocation extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               TimeLocationWidget(theme: theme),
-              const SizedBox(height: 15),
-              PriceLocationWidget(theme: theme, selectedModel: selectedModel),
+              // const SizedBox(height: 15),
+              // PriceLocationWidget(theme: theme, selectedModel: selectedModel),
               const SizedBox(height: 30),
               Text(
                 'Описание',
@@ -56,9 +54,8 @@ class BodyLocation extends StatelessWidget {
                     ),
               ),
               const SizedBox(height: 15),
-              DescriptionLocationWidget(selectedModel: selectedModel, theme: theme, isFullTextShowed: isFullTextShowed),
+              DescriptionLocationWidget(selectedModel: selectedModel, theme: theme),
               const SizedBox(height: 10),
-              ShowDescriptionLocationWidget(theme: theme, isFullTextShowed: isFullTextShowed),
               const SizedBox(height: 30),
               Text(
                 'Местоположение',
@@ -78,7 +75,43 @@ class BodyLocation extends StatelessWidget {
                     ),
               ),
               const SizedBox(height: 10),
-              const RouteMap(),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: SizedBox(
+                  height: 200,
+                  child: FlutterMap(
+                    options: MapOptions(
+                        interactiveFlags: InteractiveFlag.pinchZoom | InteractiveFlag.drag,
+                        center: LatLng(
+                          selectedModel.placeInfo.longitude.value,
+                          selectedModel.placeInfo.latitude.value,
+                        ),
+                        zoom: 16,
+                        maxZoom: 17,
+                        minZoom: 8),
+                    children: [
+                      TileLayer(
+                        urlTemplate: 'https://osm.rrze.fau.de/osmhd/{z}/{x}/{y}.png',
+                        userAgentPackageName: 'com.example.hackground_app',
+                        subdomains: const [
+                          'a',
+                          'b',
+                        ],
+                      ),
+                      MarkerLayer(
+                        markers: [
+                          Marker(
+                              point: LatLng(
+                                selectedModel.placeInfo.longitude.value,
+                                selectedModel.placeInfo.latitude.value,
+                              ),
+                              builder: (_) => SvgPicture.asset('assets/images/location_marker_icon.svg'))
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
               const SizedBox(height: 30),
               Text(
                 'Контакты',
@@ -90,10 +123,10 @@ class BodyLocation extends StatelessWidget {
               ),
               const SizedBox(height: 15),
               ContactLocationWidget(theme: theme),
-              const NameRowHeader(name: 'Отзывы'),
-              const SizedBox(height: 15),
-              ReviewEventWidget(theme: theme),
-              const SizedBox(height: 10),
+              // const NameRowHeader(name: 'Отзывы'),
+              // const SizedBox(height: 15),
+              // ReviewEventWidget(theme: theme),
+              // const SizedBox(height: 10),
               // SizedBox(
               //   height: 180,
               //   child: ListView.builder(
@@ -104,10 +137,16 @@ class BodyLocation extends StatelessWidget {
               //           )),
               // ),
               const SizedBox(height: 15),
-              const SentReviewButton(),
-              const SizedBox(height: 30),
+              // const SentReviewButton(),
+              // const SizedBox(height: 30),
               const NameRowHeaderPlaces(name: 'Также рекомендуем'),
               const SizedBox(height: 15),
+              LocationSmallListView(
+                  places: context
+                      .read<DetailsLocationPageViewModel>()
+                      .places
+                      .where((element) => element.placeInfo.id != selectedModel.placeInfo.id)
+                      .toList()),
             ],
           ),
         )

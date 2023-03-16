@@ -36,8 +36,7 @@ class FilterHeaderEvents extends StatelessWidget {
                 ),
                 Text(
                   'По стоимости',
-                  style: theme.textTheme.bodyText2!
-                      .copyWith(color: theme.primaryColorDark),
+                  style: theme.textTheme.bodyMedium!.copyWith(color: theme.primaryColorDark),
                 )
               ]),
             ),
@@ -57,13 +56,11 @@ class FilterHeaderEvents extends StatelessWidget {
                 ),
                 Text(
                   'По удаленности',
-                  style: theme.textTheme.bodyText2!
-                      .copyWith(color: theme.primaryColorDark),
+                  style: theme.textTheme.bodyMedium!.copyWith(color: theme.primaryColorDark),
                 )
               ]),
             ),
-            crossFadeState:
-                sortFlag ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+            crossFadeState: sortFlag ? CrossFadeState.showFirst : CrossFadeState.showSecond,
             duration: const Duration(milliseconds: 100),
           ),
         ),

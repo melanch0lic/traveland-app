@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import 'components/sent_write_review_button_excursions.dart';
+import '../review_page/components/sent_write_review_button_excursions.dart';
 
 class WriteReviewPage extends StatelessWidget {
   const WriteReviewPage({Key? key}) : super(key: key);

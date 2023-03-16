@@ -9,7 +9,6 @@ import '../../app_initialization.dart';
 import '../../widgets/contact_email_widget.dart';
 import '../../widgets/contact_phone_widget.dart';
 import '../../widgets/contact_website_widget.dart';
-import 'components/map_category_select_widget.dart';
 import 'components/map_widget.dart';
 import 'components/search_map_widget.dart';
 import 'components/search_opened_widget.dart';
@@ -79,10 +78,78 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
                     firstChild: Padding(
                       padding: const EdgeInsets.all(15),
                       child: Column(
-                        children: const [
-                          SearchMapWidget(),
-                          SizedBox(height: 5),
-                          MapCategorySelectWidget(),
+                        children: [
+                          const SearchMapWidget(),
+                          const SizedBox(height: 5),
+                          SizedBox(
+                            height: 40,
+                            child: ListView(
+                              scrollDirection: Axis.horizontal,
+                              physics: const BouncingScrollPhysics(),
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () {
+                                    context.read<MapPageViewModel>().onSelectAllCategoryButtonPressed();
+                                    _animatedMapMove(context.read<MapPageViewModel>().currentLocationPosition!, 12);
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    backgroundColor: Colors.black.withOpacity(0.6),
+                                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                                  ),
+                                  child: Text('Сбросить фильтры',
+                                      style: theme.textTheme.bodyLarge!.copyWith(fontSize: 14)),
+                                ),
+                                const SizedBox(width: 10),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    context.read<MapPageViewModel>().onSelectHousingCategoryButtonPressed();
+                                    _animatedMapMove(context.read<MapPageViewModel>().currentLocationPosition!, 12);
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    backgroundColor: Colors.black.withOpacity(0.6),
+                                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                                  ),
+                                  child: Text('Жильё', style: theme.textTheme.bodyLarge!.copyWith(fontSize: 14)),
+                                ),
+                                const SizedBox(width: 10),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    context.read<MapPageViewModel>().onSelectLocationCategoryButtonPressed();
+                                    _animatedMapMove(context.read<MapPageViewModel>().currentLocationPosition!, 12);
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    backgroundColor: Colors.black.withOpacity(0.6),
+                                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                                  ),
+                                  child: Text('Локации', style: theme.textTheme.bodyLarge!.copyWith(fontSize: 14)),
+                                ),
+                                const SizedBox(width: 10),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    context.read<MapPageViewModel>().onSelectEventCategoryButtonPressed();
+                                    _animatedMapMove(context.read<MapPageViewModel>().currentLocationPosition!, 12);
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    backgroundColor: Colors.black.withOpacity(0.6),
+                                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                                  ),
+                                  child: Text('События', style: theme.textTheme.bodyLarge!.copyWith(fontSize: 14)),
+                                ),
+                              ],
+                            ),
+                          )
                         ],
                       ),
                     ),

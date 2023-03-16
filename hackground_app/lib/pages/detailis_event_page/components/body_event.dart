@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:latlong2/latlong.dart';
 
 import '../../../data/network/models/entity/event_entity.dart';
 import '../../../widgets/image_slider.dart';
 import '../../../widgets/name_row_header.dart';
 import '../../../widgets/name_row_header_events.dart';
-import '../../detailis_location_page/components/route_map.dart';
 import '../../details_housing_page/components/sent_review_button.dart';
 import 'contact_event_widget.dart';
-import 'description_event_widget.dart';
 import 'duration_event_widget.dart';
 import 'price_event_widget.dart';
 import 'review_event_widget.dart';
-import 'show_description_event_widget.dart';
 import 'url_event_widget.dart';
 
 class BodyEvent extends StatelessWidget {
@@ -31,10 +31,7 @@ class BodyEvent extends StatelessWidget {
     return ListView(
       children: [
         ImageSlider(
-          urlImages: const [
-            'https://i.pinimg.com/564x/59/fa/0c/59fa0cbe6745f482b5df4bbb08d371df.jpg',
-            'https://i.pinimg.com/564x/09/25/19/092519cf8a856ecd8427ed4e38dc77dc.jpg'
-          ],
+          urlImages: selectedModel.placeInfo.photos!.map((e) => 'http://176.119.159.9/media/$e').toList(),
         ),
         Padding(
           padding: const EdgeInsets.all(15.0),
@@ -42,21 +39,15 @@ class BodyEvent extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '${selectedModel.placeInfo.name} • 0+',
+                selectedModel.placeInfo.name,
                 style: theme.textTheme.displayMedium!
                     .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Балет • Ёлки • Детям',
-                style: theme.textTheme.displayMedium!
-                    .copyWith(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w400),
               ),
               const SizedBox(height: 10),
               DurationEventWidget(theme: theme),
               const SizedBox(height: 15),
               PriceEventWidget(theme: theme),
-              const SizedBox(height: 30),
+              const SizedBox(height: 15),
               Text(
                 'Описание',
                 style: Theme.of(context).textTheme.displayLarge?.copyWith(
@@ -66,14 +57,9 @@ class BodyEvent extends StatelessWidget {
                     ),
               ),
               const SizedBox(height: 15),
-              DescriptionEventWidget(
-                theme: theme,
-                isFullTextShowed: isFullTextShowed,
-              ),
-              const SizedBox(height: 10),
-              ShowDescriptionEventWidget(
-                theme: theme,
-                isFullTextShowed: isFullTextShowed,
+              Text(
+                selectedModel.placeInfo.description.value,
+                style: theme.textTheme.bodyLarge!.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
               ),
               const SizedBox(height: 30),
               Text(
@@ -94,7 +80,43 @@ class BodyEvent extends StatelessWidget {
                     ),
               ),
               const SizedBox(height: 10),
-              const RouteMap(),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: SizedBox(
+                  height: 200,
+                  child: FlutterMap(
+                    options: MapOptions(
+                        interactiveFlags: InteractiveFlag.pinchZoom | InteractiveFlag.drag,
+                        center: LatLng(
+                          selectedModel.placeInfo.longitude.value,
+                          selectedModel.placeInfo.latitude.value,
+                        ),
+                        zoom: 16,
+                        maxZoom: 17,
+                        minZoom: 8),
+                    children: [
+                      TileLayer(
+                        urlTemplate: 'https://osm.rrze.fau.de/osmhd/{z}/{x}/{y}.png',
+                        userAgentPackageName: 'com.example.hackground_app',
+                        subdomains: const [
+                          'a',
+                          'b',
+                        ],
+                      ),
+                      MarkerLayer(
+                        markers: [
+                          Marker(
+                              point: LatLng(
+                                selectedModel.placeInfo.longitude.value,
+                                selectedModel.placeInfo.latitude.value,
+                              ),
+                              builder: (_) => SvgPicture.asset('assets/images/location_marker_icon.svg'))
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
               const SizedBox(height: 30),
               Text(
                 'Контакты',

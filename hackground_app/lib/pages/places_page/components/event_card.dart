@@ -31,7 +31,7 @@ class EventCard extends StatelessWidget {
               width: double.infinity,
               height: 194,
               child: Image.network(
-                'https://i.pinimg.com/564x/76/50/4a/76504af6e73882296e5934a7059bc9a4.jpg',
+                'http://176.119.159.9/media/${event.placeInfo.photos!.first}',
                 fit: BoxFit.cover,
               ),
             ),

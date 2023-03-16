@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../data/network/models/entity/housing_entity.dart';
+import '../../../navigation/router.gr.dart';
 
 class HousingCard extends StatelessWidget {
   final HousingEntity housing;
@@ -14,7 +16,7 @@ class HousingCard extends StatelessWidget {
     final theme = Theme.of(context);
     return GestureDetector(
       onTap: () {
-        // context.router.push(DetailsRoute(selectedModel: attraction));
+        context.router.push(DetailsHousingRoute(selectedModel: housing));
       },
       child: Container(
         margin: const EdgeInsets.only(bottom: 15),
@@ -32,7 +34,7 @@ class HousingCard extends StatelessWidget {
               width: double.infinity,
               child: CachedNetworkImage(
                 fit: BoxFit.cover,
-                imageUrl: 'https://i.pinimg.com/564x/e6/35/41/e635416caab186b4a13cb45aa058b5af.jpg',
+                imageUrl: 'http://176.119.159.9/media/${housing.placeInfo.photos!.first}',
                 progressIndicatorBuilder: (context, url, progress) => Center(
                   child: CircularProgressIndicator(
                     value: progress.progress,
@@ -45,7 +47,7 @@ class HousingCard extends StatelessWidget {
               padding: const EdgeInsets.only(left: 15, right: 15, bottom: 20, top: 15),
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text(housing.placeInfo.name,
-                    style: theme.textTheme.headline1?.copyWith(
+                    style: theme.textTheme.displayLarge?.copyWith(
                       color: const Color.fromRGBO(44, 44, 46, 1),
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -65,7 +67,7 @@ class HousingCard extends StatelessWidget {
                         children: [
                           Text(
                             '${housing.placeInfo.meanRating.value}',
-                            style: theme.textTheme.bodyText2?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                               color: const Color.fromRGBO(255, 255, 255, 1),
                               fontSize: 14,
                             ),
@@ -76,7 +78,7 @@ class HousingCard extends StatelessWidget {
                     const SizedBox(width: 11),
                     Text(
                       '${housing.placeInfo.ratingCount.value} отзывов',
-                      style: theme.textTheme.bodyText2?.copyWith(
+                      style: theme.textTheme.bodyMedium?.copyWith(
                         color: const Color.fromRGBO(44, 44, 46, 1),
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
@@ -96,8 +98,8 @@ class HousingCard extends StatelessWidget {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        '${housing.placeInfo.adress} ',
-                        style: theme.textTheme.bodyText2?.copyWith(
+                        '${housing.placeInfo.adress.value} ',
+                        style: theme.textTheme.bodyMedium?.copyWith(
                           color: const Color.fromRGBO(44, 44, 46, 1),
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
@@ -117,8 +119,8 @@ class HousingCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 6.42),
                     Text(
-                      'от ${housing.price} ₽',
-                      style: theme.textTheme.bodyText2?.copyWith(
+                      housing.price.isValid ? 'от ${housing.price.value} ₽' : 'Не указано',
+                      style: theme.textTheme.bodyMedium?.copyWith(
                         color: const Color.fromRGBO(44, 44, 46, 1),
                         fontSize: 14,
                         fontWeight: FontWeight.w400,

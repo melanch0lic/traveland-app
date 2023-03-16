@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
+import '../../data/network/models/entity/place_entity.dart';
+import '../../domain/repositories/cache_data_repository.dart';
+import '../../domain/services/places_service.dart';
+
 class DetailsLocationPageViewModel with ChangeNotifier {
-  DetailsLocationPageViewModel();
+  final CachedDataRepository cachedDataRepository;
+  final PlacesService placesService;
+  final int placeId;
+  DetailsLocationPageViewModel(this.cachedDataRepository, this.placesService, this.placeId);
 
-  bool _isFullTextShowed = false;
-  bool get isFullTextShowed => _isFullTextShowed;
-
-  void onShowFullButtonPressed() {
-    _isFullTextShowed = !_isFullTextShowed;
-    notifyListeners();
-  }
+  List<PlaceEntity> get places => cachedDataRepository.placesList!;
 }

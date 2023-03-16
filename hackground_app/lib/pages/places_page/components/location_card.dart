@@ -35,7 +35,7 @@ class LocationCard extends StatelessWidget {
               width: double.infinity,
               child: CachedNetworkImage(
                 fit: BoxFit.cover,
-                imageUrl: 'https://i.pinimg.com/564x/71/cd/5d/71cd5d2217b5fb6b4d63eb9e5062c658.jpg',
+                imageUrl: 'http://176.119.159.9/media/${place.placeInfo.photos!.first}',
                 progressIndicatorBuilder: (context, url, progress) => Center(
                   child: SpinKitSpinningLines(color: theme.indicatorColor),
                 ),
@@ -97,7 +97,7 @@ class LocationCard extends StatelessWidget {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        '${place.placeInfo.adress} ',
+                        '${place.placeInfo.adress.value} ',
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: const Color.fromRGBO(44, 44, 46, 1),
                           fontSize: 14,
@@ -118,7 +118,7 @@ class LocationCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 6.42),
                     Text(
-                      'от ${place.price.value} ₽',
+                      place.price.isValid ? 'от ${place.price.value} ₽' : 'Не указано',
                       style: theme.textTheme.bodyMedium?.copyWith(
                         color: const Color.fromRGBO(44, 44, 46, 1),
                         fontSize: 14,
