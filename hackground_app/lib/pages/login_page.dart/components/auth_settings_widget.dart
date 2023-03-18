@@ -1,7 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../app_localizations.dart';
 import '../login_page_model.dart';
 
 class AuthSettingsWidget extends StatelessWidget {
@@ -24,7 +24,7 @@ class AuthSettingsWidget extends StatelessWidget {
         GestureDetector(
           onTap: context.read<LoginPageViewModel>().changeRememberUserMode,
           child: Text(
-            translate(context, 'remember_password_text'),
+            tr('remember_password_text'),
             style: theme.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w300),
           ),
         ),

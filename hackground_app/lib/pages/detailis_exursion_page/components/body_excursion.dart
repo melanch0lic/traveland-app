@@ -1,7 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../app_localizations.dart';
 import '../../../data/network/models/entity/tour_entity.dart';
 import '../../../widgets/excursion_small_listview.dart';
 import '../../../widgets/image_slider.dart';
@@ -61,7 +61,7 @@ class BodyExcursion extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               Text(
-                translate(context, 'description_text'),
+                tr('description_text'),
                 style: Theme.of(context).textTheme.displayLarge?.copyWith(
                       fontSize: 20,
                       color: const Color.fromRGBO(44, 44, 46, 1),
@@ -80,7 +80,7 @@ class BodyExcursion extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               Text(
-                translate(context, 'guide_text'),
+                tr('guide_text'),
                 style: Theme.of(context).textTheme.displayLarge?.copyWith(
                       fontSize: 20,
                       color: const Color.fromRGBO(44, 44, 46, 1),
@@ -91,7 +91,7 @@ class BodyExcursion extends StatelessWidget {
               InfoGuideWidget(selectedModel: selectedModel),
               const SizedBox(height: 30),
               Text(
-                translate(context, 'contacts_text'),
+                tr('contacts_text'),
                 style: Theme.of(context).textTheme.displayLarge?.copyWith(
                       fontSize: 20,
                       color: const Color.fromRGBO(44, 44, 46, 1),
@@ -106,7 +106,7 @@ class BodyExcursion extends StatelessWidget {
               const SizedBox(height: 10),
               if (!isLoading) const ReviewExcursionList(),
               const SizedBox(height: 15),
-              NameRowHeaderExcursions(name: translate(context, 'also_recommended')),
+              NameRowHeaderExcursions(name: tr('also_recommended')),
               const SizedBox(
                 height: 15,
               ),

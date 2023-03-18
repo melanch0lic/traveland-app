@@ -1,6 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
-import '../../../app_localizations.dart';
 
 class StartGuestButton extends StatelessWidget {
   const StartGuestButton({
@@ -23,7 +22,7 @@ class StartGuestButton extends StatelessWidget {
         onPressed: () {},
         child: Center(
             child: Text(
-          translate(context, 'guest_text'),
+          tr('guest_text'),
           style: theme.textTheme.bodyLarge!.copyWith(color: theme.indicatorColor),
         )),
       ),

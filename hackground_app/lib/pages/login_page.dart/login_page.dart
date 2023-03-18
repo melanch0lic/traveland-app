@@ -1,9 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 import '../../app_initialization.dart';
-import '../../app_localizations.dart';
 import 'components/auth_button.dart';
 import 'components/auth_settings_widget.dart';
 import 'components/email_textfield.dart';
@@ -30,7 +30,7 @@ class LoginPage extends StatelessWidget {
               ),
               onPressed: () => Navigator.of(context).pop(),
             ),
-            title: Text(translate(context, 'remember_password_text'),
+            title: Text(tr('remember_password_text'),
                 style: theme.textTheme.displayMedium!
                     .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500)),
             backgroundColor: theme.bottomAppBarTheme.color,

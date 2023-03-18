@@ -1,6 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
-import '../../../app_localizations.dart';
 
 class OrDividerWidget extends StatelessWidget {
   const OrDividerWidget({
@@ -16,7 +15,7 @@ class OrDividerWidget extends StatelessWidget {
       )),
       const SizedBox(width: 10),
       Text(
-        translate(context, 'or_text'),
+        tr('or_text'),
         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               fontSize: 14,
               color: const Color.fromRGBO(44, 44, 46, 1),

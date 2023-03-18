@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 
 import '../map_page_model.dart';
@@ -25,20 +26,18 @@ class MapWidget extends StatelessWidget {
       options: MapOptions(
           onTap: (tapPosition, point) {},
           interactiveFlags: InteractiveFlag.pinchZoom | InteractiveFlag.drag,
-          center: currentLocationPosition,
+          center: LatLng(43.0367, 44.6678),
           zoom: 16,
           maxZoom: 17,
           minZoom: 8),
       children: [
         TileLayer(
-          // retinaMode: MediaQuery.of(context).devicePixelRatio > 1.0,
           urlTemplate: 'https://osm.rrze.fau.de/osmhd/{z}/{x}/{y}.png',
           userAgentPackageName: 'com.example.hackground_app',
           subdomains: const [
             'a',
             'b',
           ],
-          // errorImage: const NetworkImage('https://tile.openstreetmap.org/18/0/0.png'),
         ),
         PolylineLayer(
           polylineCulling: true,

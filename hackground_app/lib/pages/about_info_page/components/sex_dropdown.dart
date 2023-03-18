@@ -1,8 +1,8 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../app_localizations.dart';
 import '../about_info_page_model.dart';
 
 class SexDropDown extends StatelessWidget {
@@ -11,8 +11,8 @@ class SexDropDown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<String> genderItems = [
-      translate(context, 'male_text'),
-      translate(context, 'female_text'),
+      tr('male_text'),
+      tr('female_text'),
     ];
     final theme = Theme.of(context);
     final isSexCorrect = context.select((AboutInfoPageViewModel model) => model.isSexCorrect);
@@ -20,7 +20,7 @@ class SexDropDown extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          translate(context, 'gender_text'),
+          tr('gender_text'),
           style: theme.textTheme.bodyMedium,
         ),
         const SizedBox(height: 10),
@@ -29,7 +29,7 @@ class SexDropDown extends StatelessWidget {
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.all(15),
             hintStyle: theme.textTheme.bodyMedium,
-            hintText: translate(context, 'not_specified_text'),
+            hintText: tr('not_specified_text'),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
               borderSide: BorderSide(

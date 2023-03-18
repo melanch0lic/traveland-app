@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../app_localizations.dart';
 import '../about_info_page_model.dart';
 
 class SentInfoButton extends StatelessWidget {
@@ -34,7 +34,7 @@ class SentInfoButton extends StatelessWidget {
             child: authButtonState == ButtonState.authProcess
                 ? const CircularProgressIndicator()
                 : Text(
-                    translate(context, 'sign_up'),
+                    tr('sign_up'),
                     style: theme.textTheme.bodyLarge,
                   )),
       ),

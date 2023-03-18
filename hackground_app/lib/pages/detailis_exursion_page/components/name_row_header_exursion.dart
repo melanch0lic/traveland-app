@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../../app_localizations.dart';
 import '../../../data/network/models/entity/tour_entity.dart';
 import '../../../navigation/router.gr.dart';
 
@@ -16,7 +16,7 @@ class NameRowHeaderExursion extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          translate(context, 'reviews_text'),
+          tr('reviews_text'),
           style: Theme.of(context).textTheme.displayMedium?.copyWith(
                 color: const Color.fromRGBO(44, 44, 46, 1),
                 fontSize: 20,
@@ -28,7 +28,7 @@ class NameRowHeaderExursion extends StatelessWidget {
             context.router.push(ReviewRoute(selectedModel: selectedModel));
           },
           child: Text(
-            translate(context, 'more_text'),
+            tr('more_text'),
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   color: const Color.fromRGBO(37, 65, 178, 1),
                   fontSize: 14,

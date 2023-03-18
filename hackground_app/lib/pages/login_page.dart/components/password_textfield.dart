@@ -1,8 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-import '../../../app_localizations.dart';
 import '../login_page_model.dart';
 
 class PasswordTextfield extends StatelessWidget {
@@ -17,7 +17,7 @@ class PasswordTextfield extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          translate(context, 'password_text'),
+          tr('password_text'),
           style: isDataCorrect
               ? theme.textTheme.bodyMedium
               : theme.textTheme.bodyMedium!.copyWith(color: const Color.fromRGBO(255, 47, 47, 1)),
@@ -55,7 +55,7 @@ class PasswordTextfield extends StatelessWidget {
                     color: theme.textTheme.bodyMedium!.color,
                   ),
                 )),
-            hintText: translate(context, 'at_least_six_text'),
+            hintText: tr('at_least_six_text'),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
               borderSide: BorderSide(

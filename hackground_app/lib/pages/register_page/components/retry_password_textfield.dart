@@ -1,8 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-import '../../../app_localizations.dart';
 import '../register_page_model.dart';
 
 class RetryPasswordTextfield extends StatelessWidget {
@@ -17,7 +17,7 @@ class RetryPasswordTextfield extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          translate(context, 'password_repeat_text'),
+          tr('password_repeat_text'),
           style: theme.textTheme.bodyMedium,
         ),
         const SizedBox(height: 10),
@@ -53,7 +53,7 @@ class RetryPasswordTextfield extends StatelessWidget {
                     color: theme.textTheme.bodyMedium!.color,
                   ),
                 )),
-            hintText: translate(context, 'at_least_six_text'),
+            hintText: tr('at_least_six_text'),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
               borderSide: BorderSide(

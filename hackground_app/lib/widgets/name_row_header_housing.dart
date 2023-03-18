@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../app_localizations.dart';
 import '../navigation/router.gr.dart';
 import '../pages/tabs_page/tabs_page_model.dart';
 
@@ -31,7 +31,7 @@ class NameRowHeaderHousing extends StatelessWidget {
             context.navigateTo(const HotelsRouter());
           },
           child: Text(
-            translate(context, 'more_text'),
+            tr('more_text'),
             style: theme.textTheme.bodyLarge?.copyWith(
               color: const Color.fromRGBO(37, 65, 178, 1),
               fontSize: 14,

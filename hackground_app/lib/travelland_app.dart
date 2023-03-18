@@ -1,9 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 import 'app_initialization.dart';
-import 'app_localizations.dart';
 import 'theme/app_theme.dart';
 
 class TravellandApp extends StatelessWidget {
@@ -21,20 +20,11 @@ class TravellandApp extends StatelessWidget {
               return snapshot.connectionState == ConnectionState.waiting
                   ? const SizedBox.shrink()
                   : MaterialApp.router(
+                      localizationsDelegates: context.localizationDelegates,
+                      supportedLocales: context.supportedLocales,
+                      locale: context.locale,
                       theme: AppTheme.lightTheme,
                       debugShowCheckedModeBanner: false,
-                      localizationsDelegates: const [
-                        AppLocalizations.delegate,
-                        GlobalMaterialLocalizations.delegate,
-                        GlobalWidgetsLocalizations.delegate,
-                      ],
-                      localeResolutionCallback: (locale, supportedLocales) {
-                        if (supportedLocales.contains(locale)) {
-                          return locale;
-                        }
-                        return supportedLocales.first;
-                      },
-                      title: 'Hackground Booking',
                       routerDelegate: appRouter.delegate(),
                       routeInformationParser: appRouter.defaultRouteParser(),
                     );

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_svg/svg.dart';
@@ -5,7 +6,6 @@ import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 
 import '../../app_initialization.dart';
-import '../../app_localizations.dart';
 import '../../data/network/models/entity/housing_entity.dart';
 import '../../widgets/contact_email_widget.dart';
 import '../../widgets/contact_phone_widget.dart';
@@ -90,7 +90,7 @@ class DetailsHousingPage extends StatelessWidget {
                         ),
                       ],
                       Text(
-                        translate(context, 'description_text'),
+                        tr('description_text'),
                         style: theme.textTheme.displayMedium!
                             .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
                       ),
@@ -106,7 +106,7 @@ class DetailsHousingPage extends StatelessWidget {
                         height: 25,
                       ),
                       Text(
-                        translate(context, 'location_text'),
+                        tr('location_text'),
                         style: theme.textTheme.displayMedium!
                             .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
                       ),
@@ -170,7 +170,7 @@ class DetailsHousingPage extends StatelessWidget {
                         height: 30,
                       ),
                       Text(
-                        translate(context, 'contacts_text'),
+                        tr('contacts_text'),
                         style: theme.textTheme.displayMedium!
                             .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
                       ),
@@ -193,7 +193,7 @@ class DetailsHousingPage extends StatelessWidget {
                       ),
                       if (reviews.isNotEmpty) ...[
                         NameRowHeader(
-                          name: translate(context, 'reviews_text'),
+                          name: tr('reviews_text'),
                         ),
                         const SizedBox(
                           height: 15,
@@ -247,7 +247,7 @@ class DetailsHousingPage extends StatelessWidget {
                       const SizedBox(
                         height: 30,
                       ),
-                      NameRowHeader(name: translate(context, 'also_recommended')),
+                      NameRowHeader(name: tr('also_recommended')),
                       const SizedBox(
                         height: 15,
                       ),

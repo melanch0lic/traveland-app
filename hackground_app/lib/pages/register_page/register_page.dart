@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-import '../../app_localizations.dart';
 import 'components/register_button.dart';
 import 'components/register_emai_texfield.dart';
 import 'components/register_password_textfield.dart';
@@ -31,7 +31,7 @@ class RegisterPage extends StatelessWidget {
           ),
           title: Container(
             padding: const EdgeInsets.only(right: 10),
-            child: Text(translate(context, 'reg_text'),
+            child: Text(tr('reg_text'),
                 style: theme.textTheme.displayMedium!
                     .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500)),
           ),
