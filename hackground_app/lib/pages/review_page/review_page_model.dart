@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../data/network/models/entity/review_entity.dart';
-import '../../domain/repositories/cache_data_repository.dart';
 import '../../domain/services/excursions_service.dart';
 
 class ReviewPageViewModel with ChangeNotifier {
-  final CachedDataRepository cachedDataRepository;
   final ExcursionsService excursionsService;
   final int excursionId;
 
@@ -24,7 +22,7 @@ class ReviewPageViewModel with ChangeNotifier {
   final List<ReviewEntity> _reviews = [];
   List<ReviewEntity> get reviews => _reviews;
 
-  ReviewPageViewModel(this.excursionsService, this.excursionId, this.cachedDataRepository) {
+  ReviewPageViewModel(this.excursionsService, this.excursionId) {
     _reviewController = ScrollController();
     init();
   }

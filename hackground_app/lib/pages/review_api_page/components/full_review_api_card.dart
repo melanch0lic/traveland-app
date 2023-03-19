@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../data/network/models/entity/review_api_entity.dart';
 
-class ReviewPlaceSmallCard extends StatelessWidget {
+import '../../../data/network/models/entity/review_api_entity.dart';
+
+class FullReviewApiCard extends StatelessWidget {
   final ReviewApiEntity review;
-  const ReviewPlaceSmallCard({Key? key, required this.review}) : super(key: key);
+  const FullReviewApiCard({Key? key, required this.review}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
       padding: const EdgeInsets.all(15),
-      margin: const EdgeInsets.only(right: 10),
-      width: 320,
+      margin: const EdgeInsets.only(bottom: 15),
       decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(15)),
           color: Colors.white,
@@ -31,7 +31,7 @@ class ReviewPlaceSmallCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Пользователь',
+                  review.userName,
                   style:
                       theme.textTheme.bodyLarge!.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                 ),
@@ -57,7 +57,7 @@ class ReviewPlaceSmallCard extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
                 child: Text(
-                  '${review.rating.toDouble()}',
+                  review.rating.toStringAsFixed(1),
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: const Color.fromRGBO(255, 255, 255, 1),
                         fontSize: 14,
@@ -71,10 +71,10 @@ class ReviewPlaceSmallCard extends StatelessWidget {
           height: 10,
         ),
         Text(
-          review.text.length > 120 ? '${review.text.substring(0, 120)}...' : review.text,
+          review.text,
           style: theme.textTheme.bodyLarge!
               .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400, fontSize: 14),
-        )
+        ),
       ]),
     );
   }

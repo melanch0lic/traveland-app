@@ -16,8 +16,7 @@ class ReviewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return ChangeNotifierProvider(
-      create: (context) => ReviewPageViewModel(context.read<InitializeProvider>().excursionsService, selectedModel.id,
-          context.read<InitializeProvider>().cachedDataRepository),
+      create: (context) => ReviewPageViewModel(context.read<InitializeProvider>().excursionsService, selectedModel.id),
       child: Builder(builder: (context) {
         final isLoadingMore = context.select((ReviewPageViewModel model) => model.isReviewsLoadingMore);
         final isFirstLoading = context.select((ReviewPageViewModel model) => model.isFirstLoading);

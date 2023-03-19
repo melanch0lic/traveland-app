@@ -5,7 +5,6 @@ import 'package:latlong2/latlong.dart';
 
 import '../../../data/network/models/entity/event_entity.dart';
 import '../../../widgets/image_slider.dart';
-import '../../../widgets/name_row_header.dart';
 import '../../../widgets/name_row_header_events.dart';
 import '../../details_housing_page/components/sent_review_button.dart';
 import 'contact_event_widget.dart';
@@ -131,9 +130,9 @@ class BodyEvent extends StatelessWidget {
               const SizedBox(height: 10),
               UrlEventWidget(theme: theme),
               const SizedBox(height: 30),
-              const NameRowHeader(
-                name: 'Отзывы',
-              ),
+              // const NameRowHeader(
+              //   name: 'Отзывы',
+              // ),
               const SizedBox(height: 15),
               ReviewEventWidget(theme: theme),
               const SizedBox(height: 10),

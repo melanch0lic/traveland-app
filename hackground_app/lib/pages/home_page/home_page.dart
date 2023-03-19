@@ -71,7 +71,7 @@ class HomePage extends StatelessWidget {
                                   name: 'Экскурсии',
                                 ),
                                 ExcursionSmallListView(excursions: excursions),
-                                const NameRowHeaderHousing(
+                                const NameRowHeaderHousings(
                                   name: 'Жильё',
                                 ),
                                 HousingSmallListView(housings: housings),

@@ -12,7 +12,8 @@ import '../../widgets/contact_phone_widget.dart';
 import '../../widgets/contact_website_widget.dart';
 import '../../widgets/housing_small_listview.dart';
 import '../../widgets/image_slider.dart';
-import '../../widgets/name_row_header.dart';
+import '../../widgets/name_row_header_housing.dart';
+import 'components/name_row_header_housing.dart';
 import 'components/review_housing_list.dart';
 import 'components/sent_review_button.dart';
 import 'details_page_model.dart';
@@ -192,8 +193,9 @@ class DetailsHousingPage extends StatelessWidget {
                         height: 15,
                       ),
                       if (reviews.isNotEmpty) ...[
-                        NameRowHeader(
-                          name: tr('reviews_text'),
+                        NameRowHeaderHousing(
+                          selectedModel: selectedModel,
+                          reviews: reviews,
                         ),
                         const SizedBox(
                           height: 15,
@@ -236,8 +238,11 @@ class DetailsHousingPage extends StatelessWidget {
                           height: 15,
                         ),
                       ] else ...[
-                        const Center(
-                          child: Text('Отзывов еще нет, будьте первым!'),
+                        Center(
+                          child: Text(
+                            'Отзывов еще нет, будьте первым!',
+                            style: theme.textTheme.bodyMedium,
+                          ),
                         ),
                         const SizedBox(
                           height: 15,
@@ -247,7 +252,7 @@ class DetailsHousingPage extends StatelessWidget {
                       const SizedBox(
                         height: 30,
                       ),
-                      NameRowHeader(name: tr('also_recommended')),
+                      NameRowHeaderHousings(name: tr('also_recommended')),
                       const SizedBox(
                         height: 15,
                       ),

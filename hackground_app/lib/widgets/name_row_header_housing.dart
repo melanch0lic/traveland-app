@@ -6,10 +6,10 @@ import 'package:provider/provider.dart';
 import '../navigation/router.gr.dart';
 import '../pages/tabs_page/tabs_page_model.dart';
 
-class NameRowHeaderHousing extends StatelessWidget {
+class NameRowHeaderHousings extends StatelessWidget {
   final String name;
 
-  const NameRowHeaderHousing({Key? key, required this.name}) : super(key: key);
+  const NameRowHeaderHousings({Key? key, required this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
