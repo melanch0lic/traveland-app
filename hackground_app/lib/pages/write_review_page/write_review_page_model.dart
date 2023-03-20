@@ -16,7 +16,7 @@ class WriteReviewPageViewModel with ChangeNotifier {
 
   bool get isFilled => _rating != 0 && _reviewText.isNotEmpty;
 
-  init() {
+  void init() {
     _textController = TextEditingController();
   }
 

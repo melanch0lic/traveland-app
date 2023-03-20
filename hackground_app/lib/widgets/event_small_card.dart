@@ -40,7 +40,9 @@ class EventSmallCard extends StatelessWidget {
                   width: double.infinity,
                   child: CachedNetworkImage(
                     fit: BoxFit.cover,
-                    imageUrl: 'http://176.119.159.9/media/${event.placeInfo.photos!.first}',
+                    imageUrl: event.placeInfo.photos!.isNotEmpty
+                        ? 'http://176.119.159.9/media/${event.placeInfo.photos!.first}'
+                        : 'https://i.pinimg.com/564x/ed/09/b9/ed09b94a7b0a68292129677eebf9bd7e.jpg',
                     progressIndicatorBuilder: (context, url, progress) => Center(
                       child: SpinKitSpinningLines(color: theme.indicatorColor),
                     ),
@@ -136,10 +138,10 @@ class EventSmallCard extends StatelessWidget {
                   Row(
                     children: [
                       SvgPicture.asset(
-                        'assets/images/Wallet.svg',
-                        color: const Color.fromRGBO(44, 44, 46, 1),
-                        width: 14.17,
-                        height: 12.75,
+                        'assets/images/wallet_icon.svg',
+                        width: 14,
+                        height: 13,
+                        color: theme.primaryColorDark,
                       ),
                       const SizedBox(width: 6.42),
                       Text(

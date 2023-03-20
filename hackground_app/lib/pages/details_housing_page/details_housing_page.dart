@@ -13,6 +13,7 @@ import '../../widgets/contact_website_widget.dart';
 import '../../widgets/housing_small_listview.dart';
 import '../../widgets/image_slider.dart';
 import '../../widgets/name_row_header_housing.dart';
+import '../../widgets/reviews_rating_widget.dart';
 import '../../widgets/sent_review_button.dart';
 import 'components/name_row_header_housing.dart';
 import 'components/review_housing_list.dart';
@@ -90,22 +91,25 @@ class DetailsHousingPage extends StatelessWidget {
                           height: 15,
                         ),
                       ],
-                      Text(
-                        tr('description_text'),
-                        style: theme.textTheme.displayMedium!
-                            .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Text(
-                        selectedModel.placeInfo.description.value,
-                        style: theme.textTheme.bodyLarge!
-                            .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
-                      ),
-                      const SizedBox(
-                        height: 25,
-                      ),
+                      if (selectedModel.placeInfo.description.value != '' &&
+                          selectedModel.placeInfo.description.isValid) ...[
+                        Text(
+                          tr('description_text'),
+                          style: theme.textTheme.displayMedium!
+                              .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          selectedModel.placeInfo.description.value,
+                          style: theme.textTheme.bodyLarge!
+                              .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
+                        ),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                      ],
                       Text(
                         tr('location_text'),
                         style: theme.textTheme.displayMedium!
@@ -178,20 +182,26 @@ class DetailsHousingPage extends StatelessWidget {
                       const SizedBox(
                         height: 15,
                       ),
-                      ContactWebsiteWidget(websiteUrl: selectedModel.placeInfo.url.value),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      ContactPhoneWidget(
-                          phoneNumber: selectedModel.placeInfo.number.value,
-                          text: selectedModel.placeInfo.number.value),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      ContactEmailWidget(text: selectedModel.placeInfo.mail.value),
-                      const SizedBox(
-                        height: 15,
-                      ),
+                      if (selectedModel.placeInfo.url.isValid) ...[
+                        ContactWebsiteWidget(websiteUrl: selectedModel.placeInfo.url.value),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                      if (selectedModel.placeInfo.number.isValid) ...[
+                        ContactPhoneWidget(
+                            phoneNumber: selectedModel.placeInfo.number.value,
+                            text: selectedModel.placeInfo.number.value),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                      if (selectedModel.placeInfo.mail.isValid) ...[
+                        ContactEmailWidget(text: selectedModel.placeInfo.mail.value),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                      ],
                       if (reviews.isNotEmpty) ...[
                         NameRowHeaderHousing(
                           selectedModel: selectedModel,
@@ -200,36 +210,7 @@ class DetailsHousingPage extends StatelessWidget {
                         const SizedBox(
                           height: 15,
                         ),
-                        Row(
-                          children: [
-                            Container(
-                              width: 42,
-                              height: 27,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(7),
-                                color: const Color.fromRGBO(56, 176, 0, 1),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
-                                child: Text(
-                                  '${selectedModel.placeInfo.meanRating.value}',
-                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                        color: const Color.fromRGBO(255, 255, 255, 1),
-                                        fontSize: 14,
-                                      ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              '${selectedModel.placeInfo.ratingCount.value.toInt()} отзывов',
-                              style: theme.textTheme.bodyLarge!
-                                  .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
-                            ),
-                          ],
-                        ),
+                        ReviewRatingWidget(selectedModel: selectedModel),
                         const SizedBox(
                           height: 10,
                         ),

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
 import '../../../data/network/models/entity/review_entity.dart';
@@ -22,11 +23,20 @@ class FullReviewCard extends StatelessWidget {
       child: Column(children: [
         Row(
           children: [
-            CircleAvatar(
-              maxRadius: 25,
-              backgroundImage: NetworkImage(review.avatars.mediumAvatarUrl ??
-                  'https://i.pinimg.com/564x/d9/7b/bb/d97bbb08017ac2309307f0822e63d082.jpg'),
-            ),
+            review.avatars.mediumAvatarUrl != null
+                ? CircleAvatar(
+                    maxRadius: 25,
+                    backgroundImage: NetworkImage(review.avatars.mediumAvatarUrl!),
+                  )
+                : ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: SvgPicture.asset(
+                      'assets/images/avatar_icon.svg',
+                      width: 50,
+                      height: 50,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
             const SizedBox(
               width: 10,
             ),

@@ -58,10 +58,10 @@ class HomePage extends StatelessWidget {
                         child: Column(
                           children: [
                             ImageSlider(urlImages: const [
-                              'https://i.pinimg.com/564x/72/e5/07/72e507286f50612814fa92f054fa1e1e.jpg',
-                              'https://i.pinimg.com/564x/94/99/0a/94990a71c729fbe8416c7ab6084ea408.jpg',
+                              'https://i.pinimg.com/564x/8d/1a/31/8d1a313c3fd96aeddeefe1076630314e.jpg',
+                              'https://i.pinimg.com/564x/69/48/4b/69484bd5c1083474056160ffb0909156.jpg',
                               'https://i.pinimg.com/564x/cf/10/50/cf1050ce11decdaa259f5a52ee468453.jpg',
-                              'https://i.pinimg.com/564x/2f/00/7f/2f007fe235ee16822f48b00a9585bb86.jpg',
+                              'https://i.pinimg.com/564x/ad/ab/fc/adabfc4bc0da19d0d2d075607d5f2a88.jpg',
                               'https://i.pinimg.com/564x/5b/3a/e1/5b3ae1702549260dd72e8d9607c35631.jpg',
                             ]),
                             Padding(

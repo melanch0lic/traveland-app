@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
 import '../../../data/network/models/entity/review_api_entity.dart';
@@ -20,9 +21,14 @@ class FullReviewApiCard extends StatelessWidget {
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(
           children: [
-            const CircleAvatar(
-              maxRadius: 25,
-              backgroundImage: NetworkImage('https://i.pinimg.com/564x/d9/7b/bb/d97bbb08017ac2309307f0822e63d082.jpg'),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: SvgPicture.asset(
+                'assets/images/avatar_icon.svg',
+                width: 50,
+                height: 50,
+                fit: BoxFit.cover,
+              ),
             ),
             const SizedBox(
               width: 10,

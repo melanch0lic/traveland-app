@@ -62,9 +62,11 @@ class ExcursionCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(7),
                         color: excursion.rating.toInt() >= 4
                             ? const Color.fromRGBO(56, 176, 0, 1)
-                            : excursion.rating.toInt() <= 2
-                                ? const Color.fromRGBO(255, 47, 47, 1)
-                                : const Color.fromRGBO(253, 197, 0, 1),
+                            : excursion.rating.toInt() == 0
+                                ? Colors.grey
+                                : excursion.rating.toInt() <= 2
+                                    ? const Color.fromRGBO(255, 47, 47, 1)
+                                    : const Color.fromRGBO(253, 197, 0, 1),
                       ),
                       child: Text(
                         '${excursion.rating}',
@@ -138,10 +140,10 @@ class ExcursionCard extends StatelessWidget {
                 Row(
                   children: [
                     SvgPicture.asset(
-                      'assets/images/Wallet.svg',
-                      color: const Color.fromRGBO(44, 44, 46, 1),
-                      width: 14.17,
-                      height: 12.75,
+                      'assets/images/wallet_icon.svg',
+                      width: 14,
+                      height: 13,
+                      color: theme.primaryColorDark,
                     ),
                     const SizedBox(width: 6.42),
                     Text(

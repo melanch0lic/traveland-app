@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../data/network/models/entity/housing_entity.dart';
 import '../../../navigation/router.gr.dart';
+import '../../../widgets/reviews_rating_widget.dart';
 
 class HousingCard extends StatelessWidget {
   final HousingEntity housing;
@@ -53,39 +54,7 @@ class HousingCard extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     )),
                 const SizedBox(height: 6),
-                Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 6),
-                      width: 33,
-                      height: 19,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(7),
-                        color: const Color.fromRGBO(56, 176, 0, 1),
-                      ),
-                      child: Row(
-                        children: [
-                          Text(
-                            '${housing.placeInfo.meanRating.value}',
-                            style: theme.textTheme.bodyMedium?.copyWith(
-                              color: const Color.fromRGBO(255, 255, 255, 1),
-                              fontSize: 14,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 11),
-                    Text(
-                      '${housing.placeInfo.ratingCount.value} отзывов',
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: const Color.fromRGBO(44, 44, 46, 1),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
-                ),
+                ReviewRatingWidget(selectedModel: housing),
                 const SizedBox(height: 5),
                 Row(
                   children: [
@@ -112,10 +81,10 @@ class HousingCard extends StatelessWidget {
                 Row(
                   children: [
                     SvgPicture.asset(
-                      'assets/images/Wallet.svg',
-                      color: const Color.fromRGBO(44, 44, 46, 1),
-                      width: 14.17,
-                      height: 12.75,
+                      'assets/images/wallet_icon.svg',
+                      width: 14,
+                      height: 13,
+                      color: theme.primaryColorDark,
                     ),
                     const SizedBox(width: 6.42),
                     Text(

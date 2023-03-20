@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../data/network/models/entity/place_entity.dart';
 import '../../../navigation/router.gr.dart';
+import '../../../widgets/reviews_rating_widget.dart';
 
 class LocationCard extends StatelessWidget {
   final PlaceEntity place;
@@ -35,7 +36,9 @@ class LocationCard extends StatelessWidget {
               width: double.infinity,
               child: CachedNetworkImage(
                 fit: BoxFit.cover,
-                imageUrl: 'http://176.119.159.9/media/${place.placeInfo.photos!.first}',
+                imageUrl: place.placeInfo.photos!.isNotEmpty
+                    ? 'http://176.119.159.9/media/${place.placeInfo.photos!.first}'
+                    : 'https://i.pinimg.com/564x/ed/09/b9/ed09b94a7b0a68292129677eebf9bd7e.jpg',
                 progressIndicatorBuilder: (context, url, progress) => Center(
                   child: SpinKitSpinningLines(color: theme.indicatorColor),
                 ),
@@ -52,39 +55,7 @@ class LocationCard extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     )),
                 const SizedBox(height: 6),
-                Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 6),
-                      width: 33,
-                      height: 19,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(7),
-                        color: const Color.fromRGBO(56, 176, 0, 1),
-                      ),
-                      child: Row(
-                        children: [
-                          Text(
-                            '${place.placeInfo.meanRating.value}',
-                            style: theme.textTheme.bodyMedium?.copyWith(
-                              color: const Color.fromRGBO(255, 255, 255, 1),
-                              fontSize: 14,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 11),
-                    Text(
-                      '${place.placeInfo.ratingCount.value} отзывов',
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: const Color.fromRGBO(44, 44, 46, 1),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
-                ),
+                ReviewRatingWidget(selectedModel: place),
                 const SizedBox(height: 5),
                 Row(
                   children: [
@@ -111,10 +82,10 @@ class LocationCard extends StatelessWidget {
                 Row(
                   children: [
                     SvgPicture.asset(
-                      'assets/images/Wallet.svg',
-                      color: const Color.fromRGBO(44, 44, 46, 1),
-                      width: 14.17,
-                      height: 12.75,
+                      'assets/images/wallet_icon.svg',
+                      width: 14,
+                      height: 13,
+                      color: theme.primaryColorDark,
                     ),
                     const SizedBox(width: 6.42),
                     Text(
