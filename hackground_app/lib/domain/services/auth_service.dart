@@ -6,14 +6,20 @@ import '../../data/network/models/response/register_response.dart';
 import '../../data/network/models/response/user_by_id_response.dart';
 import '../../data/network/result.dart';
 import '../../data/network/session_data.dart';
+import '../repositories/cache_data_repository.dart';
 import '../settings.dart';
 
 class AuthService {
+  final CachedDataRepository cachedDataRepository;
   final SessionData sessionData;
   final MainApiClient mainApiClient;
   final Settings settings;
 
-  AuthService({required this.sessionData, required this.mainApiClient, required this.settings});
+  AuthService(
+      {required this.cachedDataRepository,
+      required this.sessionData,
+      required this.mainApiClient,
+      required this.settings});
 
   Future<bool> isUserAuthorized() async {
     final jwtToken = await sessionData.getJwtToken();
@@ -59,7 +65,7 @@ class AuthService {
   }
 
   Future<void> logout() async {
-    // cachedDataRepository.clear();
+    cachedDataRepository.clear();
     await sessionData.clearUserData();
     await settings.storageClear();
   }

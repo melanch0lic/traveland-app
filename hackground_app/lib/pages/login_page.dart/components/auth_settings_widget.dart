@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,8 +24,8 @@ class AuthSettingsWidget extends StatelessWidget {
         GestureDetector(
           onTap: context.read<LoginPageViewModel>().changeRememberUserMode,
           child: Text(
-            'Запомнить меня',
-            style: theme.textTheme.bodyText2!.copyWith(fontWeight: FontWeight.w300),
+            tr('remember_password_text'),
+            style: theme.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w300),
           ),
         ),
         const Spacer(),

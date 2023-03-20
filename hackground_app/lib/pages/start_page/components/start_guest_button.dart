@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class StartGuestButton extends StatelessWidget {
@@ -15,16 +16,14 @@ class StartGuestButton extends StatelessWidget {
           backgroundColor: Colors.transparent,
           foregroundColor: const Color.fromRGBO(37, 65, 178, 0.2),
           side: const BorderSide(color: Color.fromRGBO(37, 65, 178, 1)),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           elevation: 0,
         ),
         onPressed: () {},
         child: Center(
             child: Text(
-          'Продолжить как гость',
-          style:
-              theme.textTheme.bodyText1!.copyWith(color: theme.indicatorColor),
+          tr('guest_text'),
+          style: theme.textTheme.bodyLarge!.copyWith(color: theme.indicatorColor),
         )),
       ),
     );

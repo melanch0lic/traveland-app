@@ -1,7 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 
 import '../../../data/network/models/entity/review_entity.dart';
-import '../../../domain/models/review.dart';
 
 class FullReviewCard extends StatelessWidget {
   final ReviewEntity review;
@@ -16,21 +19,24 @@ class FullReviewCard extends StatelessWidget {
       decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(15)),
           color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Color.fromRGBO(149, 157, 165, 0.25),
-            )
-          ]),
+          boxShadow: [BoxShadow(color: Color.fromRGBO(149, 157, 165, 0.25), blurRadius: 2)]),
       child: Column(children: [
         Row(
           children: [
-            CircleAvatar(
-              maxRadius: 25,
-              backgroundImage: review.avatars.mediumAvatarUrl != null
-                  ? NetworkImage(review.avatars.mediumAvatarUrl!)
-                  : NetworkImage(
-                      'https://ru.pinterest.com/pin/961026007962154699/'),
-            ),
+            review.avatars.mediumAvatarUrl != null
+                ? CircleAvatar(
+                    maxRadius: 25,
+                    backgroundImage: NetworkImage(review.avatars.mediumAvatarUrl!),
+                  )
+                : ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: SvgPicture.asset(
+                      'assets/images/avatar_icon.svg',
+                      width: 50,
+                      height: 50,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
             const SizedBox(
               width: 10,
             ),
@@ -39,18 +45,16 @@ class FullReviewCard extends StatelessWidget {
               children: [
                 Text(
                   review.name,
-                  style: theme.textTheme.bodyText1!.copyWith(
-                      color: theme.primaryColorDark,
-                      fontWeight: FontWeight.w400),
+                  style:
+                      theme.textTheme.bodyLarge!.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                 ),
                 const SizedBox(
                   height: 5,
                 ),
                 Text(
-                  review.reviewDate,
-                  style: theme.textTheme.bodyText1!.copyWith(
-                      color: theme.primaryColorDark,
-                      fontWeight: FontWeight.w400),
+                  DateFormat('d MMMM', 'ru').format(DateTime.parse(review.reviewDate)),
+                  style:
+                      theme.textTheme.bodyLarge!.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                 )
               ],
             ),
@@ -64,11 +68,10 @@ class FullReviewCard extends StatelessWidget {
                 color: const Color.fromRGBO(56, 176, 0, 1),
               ),
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
+                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
                 child: Text(
                   review.rating.toStringAsFixed(1),
-                  style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: const Color.fromRGBO(255, 255, 255, 1),
                         fontSize: 14,
                       ),
@@ -82,11 +85,56 @@ class FullReviewCard extends StatelessWidget {
         ),
         Text(
           review.text,
-          style: theme.textTheme.bodyText1!.copyWith(
-              color: theme.primaryColorDark,
-              fontWeight: FontWeight.w400,
-              fontSize: 14),
-        )
+          style: theme.textTheme.bodyLarge!
+              .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400, fontSize: 14),
+        ),
+        if (review.photos!.isNotEmpty) ...[
+          const SizedBox(height: 10),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: SizedBox(
+              height: 100,
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: review.photos!.length,
+                  itemBuilder: (context, index) => Container(
+                        margin: const EdgeInsets.only(right: 5),
+                        child: GestureDetector(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (_) => AlertDialog(
+                                content: CachedNetworkImage(
+                                  progressIndicatorBuilder: (context, url, progress) =>
+                                      Center(child: SpinKitFadingCircle(color: theme.indicatorColor)),
+                                  imageUrl: review.photos![index].mediumPhotoUrl,
+                                  fit: BoxFit.cover,
+                                ),
+                                actions: [
+                                  TextButton(
+                                    child: const Text('Close'),
+                                    onPressed: () {
+                                      Navigator.of(context, rootNavigator: true).pop();
+                                    },
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: CachedNetworkImage(
+                              progressIndicatorBuilder: (context, url, progress) =>
+                                  Center(child: SpinKitFadingCircle(color: theme.indicatorColor)),
+                              imageUrl: review.photos![index].mediumPhotoUrl,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      )),
+            ),
+          ),
+        ]
       ]),
     );
   }

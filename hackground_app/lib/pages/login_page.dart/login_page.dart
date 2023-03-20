@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
@@ -29,10 +30,10 @@ class LoginPage extends StatelessWidget {
               ),
               onPressed: () => Navigator.of(context).pop(),
             ),
-            title: Text('Вход',
-                style: theme.textTheme.headline2!
+            title: Text(tr('remember_password_text'),
+                style: theme.textTheme.displayMedium!
                     .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500)),
-            backgroundColor: theme.bottomAppBarColor,
+            backgroundColor: theme.bottomAppBarTheme.color,
           ),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -41,7 +42,7 @@ class LoginPage extends StatelessWidget {
               children: [
                 Text(
                   context.select((LoginPageViewModel model) => model.authErrorTitle),
-                  style: theme.textTheme.bodyText1!.copyWith(color: Colors.black),
+                  style: theme.textTheme.bodyLarge!.copyWith(color: const Color.fromRGBO(255, 47, 47, 1)),
                 ),
                 const SizedBox(height: 5),
                 const EmailTextField(),

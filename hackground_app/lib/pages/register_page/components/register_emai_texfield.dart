@@ -9,8 +9,7 @@ class RegisterEmailTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isEmailCorrect =
-        context.select((RegisterPageViewModel model) => model.isEmailCorrect);
+    final isEmailCorrect = context.select((RegisterPageViewModel model) => model.isEmailCorrect);
     final theme = Theme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -18,54 +17,43 @@ class RegisterEmailTextField extends StatelessWidget {
         Text(
           'E-mail',
           style: isEmailCorrect
-              ? theme.textTheme.bodyText2
-              : theme.textTheme.bodyText2!
-                  .copyWith(color: const Color.fromRGBO(255, 47, 47, 1)),
+              ? theme.textTheme.bodyMedium
+              : theme.textTheme.bodyMedium!.copyWith(color: const Color.fromRGBO(255, 47, 47, 1)),
         ),
         const SizedBox(height: 10),
         TextField(
           style: isEmailCorrect
-              ? theme.textTheme.bodyText2
-              : theme.textTheme.bodyText2!
-                  .copyWith(color: const Color.fromRGBO(255, 47, 47, 1)),
+              ? theme.textTheme.bodyMedium
+              : theme.textTheme.bodyMedium!.copyWith(color: const Color.fromRGBO(255, 47, 47, 1)),
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.all(15),
+            contentPadding: const EdgeInsets.all(15),
             prefixIconConstraints: const BoxConstraints(
               minWidth: 16,
               minHeight: 14,
             ),
             prefixIcon: Padding(
-              padding: const EdgeInsets.only(
-                  left: 16, top: 16, bottom: 16, right: 6),
+              padding: const EdgeInsets.only(left: 16, top: 16, bottom: 16, right: 6),
               child: SvgPicture.asset(
                 'assets/images/email_icon.svg',
-                color: isEmailCorrect
-                    ? theme.textTheme.bodyText2!.color
-                    : const Color.fromRGBO(255, 47, 47, 1),
+                color: isEmailCorrect ? theme.textTheme.bodyMedium!.color : const Color.fromRGBO(255, 47, 47, 1),
               ),
             ),
             hintText: 'example@mail.com',
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
               borderSide: BorderSide(
-                  color: isEmailCorrect
-                      ? theme.textTheme.bodyText2!.color!
-                      : const Color.fromRGBO(255, 47, 47, 1),
+                  color: isEmailCorrect ? theme.textTheme.bodyMedium!.color! : const Color.fromRGBO(255, 47, 47, 1),
                   width: 2),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
               borderSide: BorderSide(
-                  color: isEmailCorrect
-                      ? theme.indicatorColor
-                      : const Color.fromRGBO(255, 47, 47, 1),
-                  width: 2),
+                  color: isEmailCorrect ? theme.indicatorColor : const Color.fromRGBO(255, 47, 47, 1), width: 2),
             ),
           ),
           autofillHints: const [AutofillHints.email],
           textInputAction: TextInputAction.next,
-          onChanged: (value) =>
-              context.read<RegisterPageViewModel>().onMailChange(value),
+          onChanged: (value) => context.read<RegisterPageViewModel>().onMailChange(value),
         )
       ],
     );

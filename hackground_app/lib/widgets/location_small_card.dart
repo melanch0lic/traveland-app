@@ -1,10 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
-import '../navigation/router.gr.dart';
 
 import '../data/network/models/entity/place_entity.dart';
+import '../navigation/router.gr.dart';
 
 class LocationSmallCard extends StatelessWidget {
   final PlaceEntity place;
@@ -38,36 +39,37 @@ class LocationSmallCard extends StatelessWidget {
                   width: double.infinity,
                   child: CachedNetworkImage(
                     fit: BoxFit.cover,
-                    imageUrl: 'https://i.pinimg.com/564x/71/cd/5d/71cd5d2217b5fb6b4d63eb9e5062c658.jpg',
+                    imageUrl: place.placeInfo.photos!.isNotEmpty
+                        ? 'http://176.119.159.9/media/${place.placeInfo.photos!.first}'
+                        : 'https://i.pinimg.com/564x/ed/09/b9/ed09b94a7b0a68292129677eebf9bd7e.jpg',
                     progressIndicatorBuilder: (context, url, progress) => Center(
-                      child: CircularProgressIndicator(
-                        value: progress.progress,
-                      ),
+                      child: SpinKitSpinningLines(color: theme.indicatorColor),
                     ),
                   ),
                 ),
-                Positioned(
-                  left: 15,
-                  bottom: 15,
-                  child: Container(
-                    width: 42,
-                    height: 27,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(7),
-                      color: const Color.fromRGBO(56, 176, 0, 1),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
-                      child: Text(
-                        '${place.placeInfo.meanRating.value}',
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          color: const Color.fromRGBO(255, 255, 255, 1),
-                          fontSize: 14,
+                if (place.placeInfo.meanRating.isValid)
+                  Positioned(
+                    left: 15,
+                    bottom: 15,
+                    child: Container(
+                      width: 42,
+                      height: 27,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(7),
+                        color: const Color.fromRGBO(56, 176, 0, 1),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
+                        child: Text(
+                          '${place.placeInfo.meanRating.value}',
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: const Color.fromRGBO(255, 255, 255, 1),
+                            fontSize: 14,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                )
+                  )
               ]),
             ),
             Padding(
@@ -114,14 +116,14 @@ class LocationSmallCard extends StatelessWidget {
                   Row(
                     children: [
                       SvgPicture.asset(
-                        'assets/images/Wallet.svg',
-                        color: const Color.fromRGBO(44, 44, 46, 1),
-                        width: 14.17,
-                        height: 12.75,
+                        'assets/images/wallet_icon.svg',
+                        width: 14,
+                        height: 13,
+                        color: theme.primaryColorDark,
                       ),
                       const SizedBox(width: 6.42),
                       Text(
-                        'от ${place.price.value} ₽',
+                        place.price.isValid ? 'от ${place.price.value} ₽' : 'Не указано',
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: const Color.fromRGBO(44, 44, 46, 1),
                           fontSize: 14,

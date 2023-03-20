@@ -36,10 +36,10 @@ class AboutInfoPage extends StatelessWidget {
             title: Container(
               padding: const EdgeInsets.only(right: 10),
               child: Text('О себе',
-                  style: theme.textTheme.headline2!
+                  style: theme.textTheme.displayMedium!
                       .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500)),
             ),
-            backgroundColor: theme.bottomAppBarColor,
+            backgroundColor: theme.bottomAppBarTheme.color,
           ),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -48,7 +48,7 @@ class AboutInfoPage extends StatelessWidget {
               children: [
                 Text(
                   errorText,
-                  style: theme.textTheme.bodyText1!.copyWith(color: Colors.black),
+                  style: theme.textTheme.bodyLarge!.copyWith(color: const Color.fromRGBO(255, 47, 47, 1)),
                 ),
                 const SizedBox(height: 5),
                 const UserNameTextField(),

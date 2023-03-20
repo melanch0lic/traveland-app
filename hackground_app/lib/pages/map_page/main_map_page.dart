@@ -6,7 +6,9 @@ import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../../app_initialization.dart';
-import 'components/map_category_select_widget.dart';
+import '../../widgets/contact_email_widget.dart';
+import '../../widgets/contact_phone_widget.dart';
+import '../../widgets/contact_website_widget.dart';
 import 'components/map_widget.dart';
 import 'components/search_map_widget.dart';
 import 'components/search_opened_widget.dart';
@@ -31,7 +33,6 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
         final isSearchOpened = context.select((MapPageViewModel model) => model.isSearchOpened);
         final selectedPlace = context.select((MapPageViewModel model) => model.selectedPlace);
         final selectedPosition = context.select((MapPageViewModel model) => model.selectedPosition);
-        final items = context.select((MapPageViewModel model) => model.items);
         final isRouteCreated = context.select((MapPageViewModel model) => model.isRouteWindowOpened);
         final searchList = context.select((MapPageViewModel model) => model.searchObjects);
         final mapController = context.read<MapPageViewModel>().mapController;
@@ -76,10 +77,78 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
                     firstChild: Padding(
                       padding: const EdgeInsets.all(15),
                       child: Column(
-                        children: const [
-                          SearchMapWidget(),
-                          SizedBox(height: 5),
-                          MapCategorySelectWidget(),
+                        children: [
+                          const SearchMapWidget(),
+                          const SizedBox(height: 5),
+                          SizedBox(
+                            height: 40,
+                            child: ListView(
+                              scrollDirection: Axis.horizontal,
+                              physics: const BouncingScrollPhysics(),
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () {
+                                    context.read<MapPageViewModel>().onSelectAllCategoryButtonPressed();
+                                    _animatedMapMove(LatLng(43.0367, 44.6678), 12);
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    backgroundColor: Colors.black.withOpacity(0.6),
+                                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                                  ),
+                                  child: Text('Сбросить фильтры',
+                                      style: theme.textTheme.bodyLarge!.copyWith(fontSize: 14)),
+                                ),
+                                const SizedBox(width: 10),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    context.read<MapPageViewModel>().onSelectHousingCategoryButtonPressed();
+                                    _animatedMapMove(LatLng(43.0367, 44.6678), 12);
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    backgroundColor: Colors.black.withOpacity(0.6),
+                                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                                  ),
+                                  child: Text('Жильё', style: theme.textTheme.bodyLarge!.copyWith(fontSize: 14)),
+                                ),
+                                const SizedBox(width: 10),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    context.read<MapPageViewModel>().onSelectLocationCategoryButtonPressed();
+                                    _animatedMapMove(LatLng(43.0367, 44.6678), 12);
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    backgroundColor: Colors.black.withOpacity(0.6),
+                                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                                  ),
+                                  child: Text('Локации', style: theme.textTheme.bodyLarge!.copyWith(fontSize: 14)),
+                                ),
+                                const SizedBox(width: 10),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    context.read<MapPageViewModel>().onSelectEventCategoryButtonPressed();
+                                    _animatedMapMove(LatLng(43.0367, 44.6678), 12);
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    backgroundColor: Colors.black.withOpacity(0.6),
+                                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                                  ),
+                                  child: Text('События', style: theme.textTheme.bodyLarge!.copyWith(fontSize: 14)),
+                                ),
+                              ],
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -255,7 +324,7 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
                   )),
             selectedPlace != null && !isSearchOpened
                 ? SlidingUpPanel(
-                    padding: const EdgeInsets.only(top: 10, bottom: 15, left: 15, right: 15),
+                    padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
                     minHeight: MediaQuery.of(context).size.height * 0.2,
                     maxHeight: MediaQuery.of(context).size.height * 0.85,
                     backdropEnabled: true,
@@ -366,47 +435,45 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
                         ),
                         const SizedBox(height: 15),
                         Expanded(
-                          child: SingleChildScrollView(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
+                          child: ListView(
+                            padding: const EdgeInsets.only(bottom: 15),
+                            children: [
+                              Text(
+                                '${selectedPlace.placeInfo.description.value}',
+                                style: theme.textTheme.bodyLarge!
+                                    .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
+                              ),
+                              const SizedBox(height: 10),
+                              if (selectedPlace.placeInfo.mail.isValid ||
+                                  selectedPlace.placeInfo.number.isValid ||
+                                  selectedPlace.placeInfo.url.isValid) ...[
                                 Text(
-                                  '${selectedPlace.placeInfo.description.value}',
-                                  style: theme.textTheme.bodyLarge!
-                                      .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
+                                  'Контакты',
+                                  style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                                        fontSize: 20,
+                                        color: const Color.fromRGBO(44, 44, 46, 1),
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                 ),
-                                // const SizedBox(height: 10),
-                                // if (selectedPlace.placeInfo.mail.isValid ||
-                                //     selectedPlace.placeInfo.number.isValid ||
-                                //     selectedPlace.placeInfo.url.isValid) ...[
-                                //   Text(
-                                //     'Контакты',
-                                //     style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                                //           fontSize: 20,
-                                //           color: const Color.fromRGBO(44, 44, 46, 1),
-                                //           fontWeight: FontWeight.w500,
-                                //         ),
-                                //   ),
-                                //   const SizedBox(height: 15),
-                                // ],
-                                // if (selectedPlace.placeInfo.number.isValid) ...[
-                                //   ContactPhoneWidget(
-                                //       phoneNumber: selectedPlace.placeInfo.number.value,
-                                //       text: selectedPlace.placeInfo.number.value),
-                                //   const SizedBox(
-                                //     height: 5,
-                                //   )
-                                // ],
-                                // if (selectedPlace.placeInfo.mail.isValid) ...[
-                                //   ContactEmailWidget(text: selectedPlace.placeInfo.mail.value),
-                                //   const SizedBox(
-                                //     height: 5,
-                                //   )
-                                // ],
-                                // if (selectedPlace.placeInfo.url.isValid)
-                                //   ContactWebsiteWidget(websiteUrl: selectedPlace.placeInfo.url.value),
+                                const SizedBox(height: 15),
                               ],
-                            ),
+                              if (selectedPlace.placeInfo.number.isValid) ...[
+                                ContactPhoneWidget(
+                                    phoneNumber: selectedPlace.placeInfo.number.value,
+                                    text: selectedPlace.placeInfo.number.value),
+                                const SizedBox(
+                                  height: 5,
+                                )
+                              ],
+                              if (selectedPlace.placeInfo.mail.isValid) ...[
+                                ContactEmailWidget(text: selectedPlace.placeInfo.mail.value),
+                                const SizedBox(
+                                  height: 5,
+                                )
+                              ],
+                              if (selectedPlace.placeInfo.url.isValid)
+                                ContactWebsiteWidget(websiteUrl: selectedPlace.placeInfo.url.value),
+                            ],
                           ),
                         ),
                       ],

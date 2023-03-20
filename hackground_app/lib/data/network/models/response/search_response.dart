@@ -3,7 +3,6 @@ import 'package:json_annotation/json_annotation.dart';
 import '../../api_error.dart';
 import '../../reflector.dart';
 import '../entity/places_search_list_entity.dart';
-import '../entity/token_entity.dart';
 
 part 'search_response.g.dart';
 

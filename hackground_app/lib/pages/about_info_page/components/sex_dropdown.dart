@@ -1,8 +1,8 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../app_localizations.dart';
 import '../about_info_page_model.dart';
 
 class SexDropDown extends StatelessWidget {
@@ -11,41 +11,35 @@ class SexDropDown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<String> genderItems = [
-      translate(context, 'male_text'),
-      translate(context, 'female_text'),
+      tr('male_text'),
+      tr('female_text'),
     ];
     final theme = Theme.of(context);
-    final isSexCorrect =
-        context.select((AboutInfoPageViewModel model) => model.isSexCorrect);
+    final isSexCorrect = context.select((AboutInfoPageViewModel model) => model.isSexCorrect);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Пол',
-          style: theme.textTheme.bodyText2,
+          tr('gender_text'),
+          style: theme.textTheme.bodyMedium,
         ),
         const SizedBox(height: 10),
         DropdownButtonFormField2(
-          style: theme.textTheme.bodyText2,
+          style: theme.textTheme.bodyMedium,
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.all(15),
-            hintStyle: theme.textTheme.bodyText2,
-            hintText: 'Не указан',
+            contentPadding: const EdgeInsets.all(15),
+            hintStyle: theme.textTheme.bodyMedium,
+            hintText: tr('not_specified_text'),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
               borderSide: BorderSide(
-                  color: isSexCorrect
-                      ? theme.textTheme.bodyText2!.color!
-                      : const Color.fromRGBO(255, 47, 47, 1),
+                  color: isSexCorrect ? theme.textTheme.bodyMedium!.color! : const Color.fromRGBO(255, 47, 47, 1),
                   width: 2),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
               borderSide: BorderSide(
-                  color: isSexCorrect
-                      ? theme.indicatorColor
-                      : const Color.fromRGBO(255, 47, 47, 1),
-                  width: 2),
+                  color: isSexCorrect ? theme.indicatorColor : const Color.fromRGBO(255, 47, 47, 1), width: 2),
             ),
           ),
           items: genderItems
@@ -53,25 +47,14 @@ class SexDropDown extends StatelessWidget {
                     value: item,
                     child: Text(
                       item,
-                      style: theme.textTheme.bodyText2,
+                      style: theme.textTheme.bodyMedium,
                     ),
                   ))
               .toList(),
           dropdownDecoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
           ),
-          validator: (value) {
-            if (value == null) {
-              return 'None';
-            }
-            return null;
-          },
-          onChanged: (value) => context
-              .read<AboutInfoPageViewModel>()
-              .onSexChange(value.toString()),
-          onSaved: (value) {
-            // selectedValue = value.toString();
-          },
+          onChanged: (value) => context.read<AboutInfoPageViewModel>().onSexChange(value.toString()),
         )
       ],
     );

@@ -17,6 +17,12 @@ class PlacesPageViewModel with ChangeNotifier {
   late ScrollController _excursionController;
   ScrollController get excursionController => _excursionController;
 
+  late ScrollController _locationController;
+  ScrollController get locationController => _locationController;
+
+  late ScrollController _eventController;
+  ScrollController get eventController => _eventController;
+
   List<PlaceEntity> _places = [];
   List<PlaceEntity> get places => _places;
 
@@ -40,15 +46,13 @@ class PlacesPageViewModel with ChangeNotifier {
   bool _isEventsLoading = false;
   bool get isEventsLoading => _isEventsLoading;
 
-  PageController? _controller;
-  PageController? get controller => _controller;
-
   int _pageIndex = 0;
   int get pageIndex => _pageIndex;
 
   PlacesPageViewModel({required this.placesService, required this.eventsService, required this.excursionsService}) {
-    _controller = PageController();
     _excursionController = ScrollController();
+    _locationController = ScrollController();
+    _eventController = ScrollController();
     init();
   }
 

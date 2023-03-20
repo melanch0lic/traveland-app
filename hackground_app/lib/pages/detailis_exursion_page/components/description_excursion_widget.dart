@@ -19,17 +19,13 @@ class DescriptionExcursionWidget extends StatelessWidget {
     return AnimatedCrossFade(
         firstChild: Text(
           '${selectedModel.annotation.substring(0, selectedModel.annotation.length ~/ 2)}...',
-          style: theme.textTheme.bodyText1!.copyWith(
-              color: theme.primaryColorDark, fontWeight: FontWeight.w400),
+          style: theme.textTheme.bodyLarge!.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
         ),
         secondChild: Text(
           selectedModel.annotation,
-          style: theme.textTheme.bodyText1!.copyWith(
-              color: theme.primaryColorDark, fontWeight: FontWeight.w400),
+          style: theme.textTheme.bodyLarge!.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
         ),
-        crossFadeState: isFullTextShowed
-            ? CrossFadeState.showSecond
-            : CrossFadeState.showFirst,
+        crossFadeState: isFullTextShowed ? CrossFadeState.showSecond : CrossFadeState.showFirst,
         duration: const Duration(milliseconds: 400));
   }
 }

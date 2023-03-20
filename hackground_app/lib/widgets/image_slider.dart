@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -109,11 +110,8 @@ class _ImageSliderState extends State<ImageSlider> {
         child: CachedNetworkImage(
           fit: BoxFit.cover,
           imageUrl: urlImage,
-          progressIndicatorBuilder: (context, url, progress) => Center(
-            child: CircularProgressIndicator(
-              value: progress.progress,
-            ),
-          ),
+          progressIndicatorBuilder: (context, url, progress) =>
+              Center(child: SpinKitSpinningLines(color: Theme.of(context).indicatorColor)),
         ),
       );
 }

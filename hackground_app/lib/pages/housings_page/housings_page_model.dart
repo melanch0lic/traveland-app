@@ -31,7 +31,7 @@ class HousingsPageViewModel with ChangeNotifier {
   Future<void> fetchHousingsData() async {
     final response = await housingService.getHousings();
     response.fold((result) {
-      _housings = result.result.places + result.result.places + result.result.places;
+      _housings = result.result.places;
     }, (exception, error) {});
   }
 

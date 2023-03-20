@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'avatars_entity.dart';
+import 'photo_entity.dart';
 
 part 'review_entity.g.dart';
 
@@ -21,8 +22,16 @@ class ReviewEntity {
   @JsonKey(name: 'text')
   final String text;
 
+  @JsonKey(name: 'photos')
+  final List<PhotoEntity>? photos;
+
   ReviewEntity(
-      {required this.avatars, required this.name, required this.rating, required this.reviewDate, required this.text});
+      {required this.avatars,
+      required this.name,
+      required this.rating,
+      required this.reviewDate,
+      required this.text,
+      required this.photos});
 
   factory ReviewEntity.fromJson(Map<String, dynamic> json) => _$ReviewEntityFromJson(json);
 

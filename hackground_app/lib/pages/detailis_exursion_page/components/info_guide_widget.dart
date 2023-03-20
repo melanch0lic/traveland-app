@@ -27,7 +27,7 @@ class InfoGuideWidget extends StatelessWidget {
           children: [
             Text(
               selectedModel.guide.name,
-              style: Theme.of(context).textTheme.headline1?.copyWith(
+              style: Theme.of(context).textTheme.displayLarge?.copyWith(
                     fontSize: 16,
                     color: const Color.fromRGBO(44, 44, 46, 1),
                     fontWeight: FontWeight.w600,
@@ -36,7 +36,7 @@ class InfoGuideWidget extends StatelessWidget {
             const SizedBox(height: 5),
             Text(
               'Гид во Владикавказе',
-              style: Theme.of(context).textTheme.headline1?.copyWith(
+              style: Theme.of(context).textTheme.displayLarge?.copyWith(
                     fontSize: 14,
                     color: const Color.fromRGBO(44, 44, 46, 1),
                     fontWeight: FontWeight.w400,
@@ -57,7 +57,7 @@ class InfoGuideWidget extends StatelessWidget {
                     children: [
                       Text(
                         selectedModel.guide.rating.toStringAsFixed(1),
-                        style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               color: const Color.fromRGBO(255, 255, 255, 1),
                               fontSize: 14,
                             ),
@@ -68,7 +68,7 @@ class InfoGuideWidget extends StatelessWidget {
                 const SizedBox(width: 5),
                 Text(
                   '${selectedModel.guide.reviewCount.toInt()} отзывов',
-                  style: Theme.of(context).textTheme.headline1?.copyWith(
+                  style: Theme.of(context).textTheme.displayLarge?.copyWith(
                         fontSize: 14,
                         color: const Color.fromRGBO(44, 44, 46, 1),
                         fontWeight: FontWeight.w400,

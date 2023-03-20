@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../data/network/models/entity/event_entity.dart';
 
-import '../pages/home_page/components/attraction_card_general.dart';
+import 'event_small_card.dart';
 
 class EventSmallListView extends StatelessWidget {
   final List<EventsEntity> events;
@@ -12,7 +12,7 @@ class EventSmallListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 300,
+      height: 305,
       child: ListView.builder(
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,

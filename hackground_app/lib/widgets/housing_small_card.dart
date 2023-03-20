@@ -1,10 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
-import '../navigation/router.gr.dart';
 
 import '../data/network/models/entity/housing_entity.dart';
+import '../navigation/router.gr.dart';
 
 class HousingSmallCard extends StatelessWidget {
   final HousingEntity housing;
@@ -16,7 +17,7 @@ class HousingSmallCard extends StatelessWidget {
     final theme = Theme.of(context);
     return GestureDetector(
       onTap: () {
-        context.router.push(DetailsRoute(selectedModel: housing));
+        context.router.push(DetailsHousingRoute(selectedModel: housing));
       },
       child: Container(
         margin: const EdgeInsets.only(right: 10),
@@ -38,36 +39,37 @@ class HousingSmallCard extends StatelessWidget {
                   width: double.infinity,
                   child: CachedNetworkImage(
                     fit: BoxFit.cover,
-                    imageUrl: 'https://i.pinimg.com/564x/e6/35/41/e635416caab186b4a13cb45aa058b5af.jpg',
+                    imageUrl: housing.placeInfo.photos!.isNotEmpty
+                        ? 'http://176.119.159.9/media/${housing.placeInfo.photos!.first}'
+                        : 'https://i.pinimg.com/564x/ed/09/b9/ed09b94a7b0a68292129677eebf9bd7e.jpg',
                     progressIndicatorBuilder: (context, url, progress) => Center(
-                      child: CircularProgressIndicator(
-                        value: progress.progress,
-                      ),
+                      child: SpinKitSpinningLines(color: theme.indicatorColor),
                     ),
                   ),
                 ),
-                Positioned(
-                  left: 15,
-                  bottom: 15,
-                  child: Container(
-                    width: 42,
-                    height: 27,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(7),
-                      color: const Color.fromRGBO(56, 176, 0, 1),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
-                      child: Text(
-                        '${housing.placeInfo.meanRating.value}',
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          color: const Color.fromRGBO(255, 255, 255, 1),
-                          fontSize: 14,
+                if (housing.placeInfo.meanRating.isValid)
+                  Positioned(
+                    left: 15,
+                    bottom: 15,
+                    child: Container(
+                      width: 42,
+                      height: 27,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(7),
+                        color: const Color.fromRGBO(56, 176, 0, 1),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
+                        child: Text(
+                          '${housing.placeInfo.meanRating.value}',
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: const Color.fromRGBO(255, 255, 255, 1),
+                            fontSize: 14,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                )
+                  )
               ]),
             ),
             Padding(
@@ -114,14 +116,14 @@ class HousingSmallCard extends StatelessWidget {
                   Row(
                     children: [
                       SvgPicture.asset(
-                        'assets/images/Wallet.svg',
-                        color: const Color.fromRGBO(44, 44, 46, 1),
-                        width: 14.17,
-                        height: 12.75,
+                        'assets/images/wallet_icon.svg',
+                        width: 14,
+                        height: 13,
+                        color: theme.primaryColorDark,
                       ),
                       const SizedBox(width: 6.42),
                       Text(
-                        'от ${housing.price} ₽',
+                        housing.price.isValid ? 'от ${housing.price.value} ₽' : 'Не указано',
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: const Color.fromRGBO(44, 44, 46, 1),
                           fontSize: 14,

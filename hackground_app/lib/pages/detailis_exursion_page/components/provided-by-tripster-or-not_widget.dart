@@ -14,7 +14,7 @@ class ProvidedByTripsterOrNotWidget extends StatelessWidget {
         color: const Color.fromRGBO(56, 176, 0, 1),
       ),
       child: Text('Предоставлено Tripster',
-          style: Theme.of(context).textTheme.bodyText1?.copyWith(
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
               )),

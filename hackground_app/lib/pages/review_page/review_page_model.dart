@@ -13,14 +13,14 @@ class ReviewPageViewModel with ChangeNotifier {
   late ScrollController _reviewController;
   ScrollController get reviewController => _reviewController;
 
+  bool _isFirstLoading = false;
+  bool get isFirstLoading => _isFirstLoading;
+
   bool _isReviewsLoadingMore = false;
   bool get isReviewsLoadingMore => _isReviewsLoadingMore;
 
-  List<ReviewEntity> _reviews = [];
+  final List<ReviewEntity> _reviews = [];
   List<ReviewEntity> get reviews => _reviews;
-
-  bool _isLoading = false;
-  bool get isLoading => _isLoading;
 
   ReviewPageViewModel(this.excursionsService, this.excursionId) {
     _reviewController = ScrollController();
@@ -29,9 +29,7 @@ class ReviewPageViewModel with ChangeNotifier {
 
   Future<void> init() async {
     _reviewController.addListener(() async {
-      if (_reviewController.position.extentAfter < 200 &&
-          _isReviewsLoadingMore == false &&
-          _reviewsHasNextPage) {
+      if (_reviewController.position.extentAfter < 200 && _isReviewsLoadingMore == false && _reviewsHasNextPage) {
         _isReviewsLoadingMore = true;
         notifyListeners();
 
@@ -40,18 +38,18 @@ class ReviewPageViewModel with ChangeNotifier {
         notifyListeners();
       }
     });
-    _isLoading = true;
+
+    _isFirstLoading = true;
     notifyListeners();
 
     await fetchReviewsData();
 
-    _isLoading = false;
+    _isFirstLoading = false;
     notifyListeners();
   }
 
   Future<void> fetchReviewsData() async {
-    final response =
-        await excursionsService.getTripsterReviews(excursionId, _reviewsOffset);
+    final response = await excursionsService.getTripsterReviews(excursionId, _reviewsOffset);
     response.fold((result) {
       _reviewsHasNextPage = result.next == null ? false : true;
       _reviews.addAll(result.results);
