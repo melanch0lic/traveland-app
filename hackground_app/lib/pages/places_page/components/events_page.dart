@@ -11,6 +11,7 @@ class EventsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final List<String> sortList = [
       'Сначала популярные',
       'Сначала дешёвые',
@@ -18,12 +19,11 @@ class EventsPage extends StatelessWidget {
       'Сначала лучшие',
       'Сначала дальние',
     ];
-    final theme = Theme.of(context);
     final isLoading = context.select((PlacesPageViewModel model) => model.isEventsLoading);
-    final events = context.select((PlacesPageViewModel model) => model.events);
     final sortFlag = context.select(
       (PlacesPageViewModel model) => model.sortFlagExcursions,
     );
+    final events = context.select((PlacesPageViewModel model) => model.events);
     return isLoading
         ? Center(
             child: SpinKitSpinningLines(color: theme.indicatorColor),
@@ -42,10 +42,12 @@ class EventsPage extends StatelessWidget {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(15),
                       child: ListView.builder(
-                          controller: context.read<PlacesPageViewModel>().eventController,
+                          controller: context.read<PlacesPageViewModel>().excursionController,
                           physics: const BouncingScrollPhysics(),
                           itemCount: events.length,
-                          itemBuilder: (context, index) => EventCard(event: events[index])),
+                          itemBuilder: (context, index) => EventCard(
+                                event: events[index],
+                              )),
                     ),
                     sortFlag
                         ? Align(
@@ -88,10 +90,11 @@ class EventsPage extends StatelessWidget {
               bottom: 5,
               right: 5,
               child: FloatingActionButton.extended(
+                  backgroundColor: theme.highlightColor,
                   onPressed: () {
                     context
                         .read<PlacesPageViewModel>()
-                        .eventController
+                        .excursionController
                         .animateTo(0, duration: const Duration(seconds: 1), curve: Curves.easeInOut);
                   },
                   label: const Icon(Icons.arrow_circle_up)),

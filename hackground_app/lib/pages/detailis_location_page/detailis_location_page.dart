@@ -16,7 +16,7 @@ class DetailisLocationPage extends StatelessWidget {
     final theme = Theme.of(context);
     return ChangeNotifierProvider(
         create: (context) => DetailsLocationPageViewModel(context.read<InitializeProvider>().cachedDataRepository,
-            context.read<InitializeProvider>().placesService, selectedModel.placeInfo.id),
+            context.read<InitializeProvider>().reviewsService, selectedModel.placeInfo.id),
         child: Builder(builder: (context) {
           return Scaffold(
             appBar: AppBar(

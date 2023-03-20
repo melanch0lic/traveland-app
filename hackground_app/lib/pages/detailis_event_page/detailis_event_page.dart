@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hackground_app/pages/detailis_event_page/detailis_event_page_model.dart';
 import 'package:provider/provider.dart';
 
+import '../../app_initialization.dart';
 import '../../data/network/models/entity/event_entity.dart';
 import 'components/body_event.dart';
 
@@ -15,11 +16,9 @@ class DetailisEventPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return ChangeNotifierProvider(
-        create: (context) => DetailsEventPageViewModel(),
+        create: (context) => DetailsEventPageViewModel(context.read<InitializeProvider>().cachedDataRepository,
+            context.read<InitializeProvider>().reviewsService, selectedModel.placeInfo.id),
         child: Builder(builder: (context) {
-          final isFullTextShowed = context.select(
-            (DetailsEventPageViewModel model) => model.isFullTextShowed,
-          );
           return Scaffold(
             appBar: AppBar(
               leading: IconButton(
@@ -43,8 +42,6 @@ class DetailisEventPage extends StatelessWidget {
             ),
             body: BodyEvent(
               selectedModel: selectedModel,
-              theme: theme,
-              isFullTextShowed: isFullTextShowed,
             ),
           );
         }));

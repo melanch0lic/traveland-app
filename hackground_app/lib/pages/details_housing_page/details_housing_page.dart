@@ -13,10 +13,10 @@ import '../../widgets/contact_website_widget.dart';
 import '../../widgets/housing_small_listview.dart';
 import '../../widgets/image_slider.dart';
 import '../../widgets/name_row_header_housing.dart';
+import '../../widgets/name_row_header_housings.dart';
+import '../../widgets/review_housing_list.dart';
 import '../../widgets/reviews_rating_widget.dart';
 import '../../widgets/sent_review_button.dart';
-import 'components/name_row_header_housing.dart';
-import 'components/review_housing_list.dart';
 import 'details_page_model.dart';
 
 class DetailsHousingPage extends StatelessWidget {
@@ -174,11 +174,14 @@ class DetailsHousingPage extends StatelessWidget {
                       const SizedBox(
                         height: 30,
                       ),
-                      Text(
-                        tr('contacts_text'),
-                        style: theme.textTheme.displayMedium!
-                            .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
-                      ),
+                      if (selectedModel.placeInfo.url.isValid ||
+                          selectedModel.placeInfo.number.isValid ||
+                          selectedModel.placeInfo.mail.isValid)
+                        Text(
+                          tr('contacts_text'),
+                          style: theme.textTheme.displayMedium!
+                              .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
+                        ),
                       const SizedBox(
                         height: 15,
                       ),
@@ -203,7 +206,7 @@ class DetailsHousingPage extends StatelessWidget {
                         ),
                       ],
                       if (reviews.isNotEmpty) ...[
-                        NameRowHeaderHousing(
+                        NameRowHeaderReviewDetails(
                           selectedModel: selectedModel,
                           reviews: reviews,
                         ),
@@ -214,7 +217,7 @@ class DetailsHousingPage extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-                        const ReviewHousingList(),
+                        ReviewSmallList(reviews: reviews),
                         const SizedBox(
                           height: 15,
                         ),

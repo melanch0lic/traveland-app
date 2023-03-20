@@ -10,7 +10,7 @@ import '../../widgets/image_slider.dart';
 import '../../widgets/location_small_listview.dart';
 import '../../widgets/name_row_header_events.dart';
 import '../../widgets/name_row_header_excursions.dart';
-import '../../widgets/name_row_header_housing.dart';
+import '../../widgets/name_row_header_housings.dart';
 import '../../widgets/name_row_header_places.dart';
 import 'components/socket_error_home_widget.dart';
 import 'home_page_model.dart';

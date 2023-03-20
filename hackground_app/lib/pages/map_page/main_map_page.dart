@@ -33,7 +33,6 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
         final isSearchOpened = context.select((MapPageViewModel model) => model.isSearchOpened);
         final selectedPlace = context.select((MapPageViewModel model) => model.selectedPlace);
         final selectedPosition = context.select((MapPageViewModel model) => model.selectedPosition);
-        final items = context.select((MapPageViewModel model) => model.items);
         final isRouteCreated = context.select((MapPageViewModel model) => model.isRouteWindowOpened);
         final searchList = context.select((MapPageViewModel model) => model.searchObjects);
         final mapController = context.read<MapPageViewModel>().mapController;
@@ -90,7 +89,7 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
                                 ElevatedButton(
                                   onPressed: () {
                                     context.read<MapPageViewModel>().onSelectAllCategoryButtonPressed();
-                                    _animatedMapMove(context.read<MapPageViewModel>().currentLocationPosition!, 12);
+                                    _animatedMapMove(LatLng(43.0367, 44.6678), 12);
                                   },
                                   style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(
@@ -106,7 +105,7 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
                                 ElevatedButton(
                                   onPressed: () {
                                     context.read<MapPageViewModel>().onSelectHousingCategoryButtonPressed();
-                                    _animatedMapMove(context.read<MapPageViewModel>().currentLocationPosition!, 12);
+                                    _animatedMapMove(LatLng(43.0367, 44.6678), 12);
                                   },
                                   style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(
@@ -121,7 +120,7 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
                                 ElevatedButton(
                                   onPressed: () {
                                     context.read<MapPageViewModel>().onSelectLocationCategoryButtonPressed();
-                                    _animatedMapMove(context.read<MapPageViewModel>().currentLocationPosition!, 12);
+                                    _animatedMapMove(LatLng(43.0367, 44.6678), 12);
                                   },
                                   style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(
@@ -136,7 +135,7 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
                                 ElevatedButton(
                                   onPressed: () {
                                     context.read<MapPageViewModel>().onSelectEventCategoryButtonPressed();
-                                    _animatedMapMove(context.read<MapPageViewModel>().currentLocationPosition!, 12);
+                                    _animatedMapMove(LatLng(43.0367, 44.6678), 12);
                                   },
                                   style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(
