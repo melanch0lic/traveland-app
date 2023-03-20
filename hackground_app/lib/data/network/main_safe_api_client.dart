@@ -2,9 +2,11 @@ import 'package:dio/dio.dart';
 
 import 'api_error.dart';
 import 'main_api_client.dart';
+import 'models/add_review_request_body.dart';
 import 'models/coordinates_request_body.dart';
 import 'models/login_request_body.dart';
 import 'models/register_request_body.dart';
+import 'models/response/add_review_response.dart';
 import 'models/response/events_response.dart';
 import 'models/response/housing_response.dart';
 import 'models/response/login_response.dart';
@@ -68,6 +70,11 @@ class MainSafeApiClient implements MainApiClient {
     return _wrapUnsafeCall<SearchResponse>(() => _client.getAllPlacesBySearch(searchText));
   }
 
+  @override
+  Future<Result<AddReviewResponse>> addReview(AddReviewRequestBody body) {
+    return _wrapUnsafeCall<AddReviewResponse>(() => _client.addReview(body));
+  }
+
   Future<Result<T>> _wrapUnsafeCall<T>(UnsafeCall<T> call) async {
     try {
       return await call();
@@ -75,9 +82,7 @@ class MainSafeApiClient implements MainApiClient {
       if (exception is DioError) {
         ApiError? apiError;
         if (exception.response != null) {
-          if (exception.response!.data['error'] != null) {
-            apiError = ApiError.fromJson(exception.response!.data['error']);
-          }
+          apiError = ApiError.fromJson({'code': exception.response!.statusCode, 'msg': exception.message});
         }
         return Future(() => Failure(exception: exception, error: apiError));
       }

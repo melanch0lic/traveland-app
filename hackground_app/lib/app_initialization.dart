@@ -16,6 +16,7 @@ import 'domain/services/excursions_service.dart';
 import 'domain/services/housing_service.dart';
 import 'domain/services/osrm_service.dart';
 import 'domain/services/places_service.dart';
+import 'domain/services/reviews_service.dart';
 import 'domain/settings.dart';
 import 'navigation/router.gr.dart';
 
@@ -53,6 +54,9 @@ class InitializeProvider with ChangeNotifier {
   late PlacesService _placesService;
   PlacesService get placesService => _placesService;
 
+  late ReviewsService _reviewsService;
+  ReviewsService get reviewsService => _reviewsService;
+
   late OsrmService _osrmService;
   OsrmService get osrmService => _osrmService;
 
@@ -85,6 +89,7 @@ class InitializeProvider with ChangeNotifier {
     _placesService = PlacesService(mainApiClient: _mainApiClient);
     _osrmService = OsrmService(mainApiClient: _mainApiClient);
     _excursionsService = ExcursionsService(tripsterApiClient: _tripsterApiClient);
+    _reviewsService = ReviewsService(mainApiClient: _mainApiClient);
     _isUserAuthorized = await _authService.isUserAuthorized();
     _dioMainApiClient.interceptors
         .add(TokenInterceptor(dio: _dioMainApiClient, sessionData: _sessionData, authService: _authService));
@@ -100,6 +105,8 @@ class InitializeProvider with ChangeNotifier {
   MainSafeApiClient _createMainApiClient(Dio dio) {
     if (kDebugMode) {
       dio.interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
+      dio.options.followRedirects = true;
+      dio.options.maxRedirects = 5;
     }
     return MainSafeApiClient(MainApiClient(dio));
   }

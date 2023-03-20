@@ -1,110 +1,85 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
+import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
 
+import '../../app_initialization.dart';
 import 'components/sent_write_review_button_excursions.dart';
+import 'components/write_review_textfield.dart';
+import 'write_review_page_model.dart';
 
 class WriteReviewPage extends StatelessWidget {
-  const WriteReviewPage({Key? key}) : super(key: key);
+  final int placeId;
+  const WriteReviewPage({Key? key, required this.placeId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          highlightColor: theme.cardColor,
-          splashRadius: 15,
-          icon: SvgPicture.asset(
-            'assets/images/back_arrow_icon.svg',
-            color: Colors.black,
-          ),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        title: Text(
-          'Оставить отзыв',
-          style:
-              theme.textTheme.displayMedium!.copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
-        ),
-        backgroundColor: theme.primaryColorLight,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.only(
-          left: 15,
-          right: 15,
-        ),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const SizedBox(height: 30),
-          Text(
-            'Оценить жильё',
-            style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                  fontSize: 20,
-                  color: const Color.fromRGBO(44, 44, 46, 1),
-                  fontWeight: FontWeight.w500,
-                ),
-          ),
-          const SizedBox(height: 10),
-          Row(
-            children: [...List.generate(5, (index) => buildStar(context, index, 0))],
-          ),
-          const SizedBox(height: 30),
-          Text(
-            'Отзыв',
-            style: theme.textTheme.bodyLarge!.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
-          ),
-          const SizedBox(height: 10),
-          Container(
-            height: 144,
-            width: double.infinity,
-            padding: const EdgeInsets.only(top: 15, left: 15),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              border: Border.all(
-                width: 2,
-                color: const Color.fromRGBO(174, 174, 178, 1),
+    return ChangeNotifierProvider(
+      create: (context) =>
+          WriteReviewPageViewModel(placeId: placeId, reviewsService: context.read<InitializeProvider>().reviewsService),
+      child: Builder(builder: (context) {
+        final rating = context.select((WriteReviewPageViewModel model) => model.rating);
+        return Scaffold(
+          appBar: AppBar(
+            leading: IconButton(
+              highlightColor: theme.cardColor,
+              splashRadius: 15,
+              icon: SvgPicture.asset(
+                'assets/images/back_arrow_icon.svg',
+                color: Colors.black,
               ),
+              onPressed: () => Navigator.of(context).pop(),
             ),
-            child: Text(
-              'Поделитесь своим мнением',
-              style: theme.textTheme.bodyLarge!.copyWith(
-                color: const Color.fromRGBO(174, 174, 178, 1),
-                fontWeight: FontWeight.w400,
-                fontSize: 16,
-              ),
+            title: Text(
+              tr('sent_review'),
+              style: theme.textTheme.displayMedium!
+                  .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
             ),
+            backgroundColor: theme.primaryColorLight,
           ),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
+          body: Padding(
+            padding: const EdgeInsets.only(
+              left: 15,
+              right: 15,
+            ),
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              const SizedBox(height: 30),
               Text(
-                '0/2000',
+                tr('rate_place'),
                 style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                      fontSize: 16,
+                      fontSize: 20,
                       color: const Color.fromRGBO(44, 44, 46, 1),
-                      fontWeight: FontWeight.w400,
+                      fontWeight: FontWeight.w500,
                     ),
               ),
-            ],
+              const SizedBox(height: 10),
+              SmoothStarRating(
+                allowHalfRating: false,
+                onRatingChanged: (v) {
+                  context.read<WriteReviewPageViewModel>().onRatingChange(v.toInt());
+                },
+                rating: rating.toDouble(),
+                size: 40.0,
+                filledIconData: Icons.star,
+                halfFilledIconData: Icons.blur_on,
+                color: const Color.fromRGBO(253, 197, 0, 1),
+                borderColor: const Color.fromRGBO(253, 197, 0, 1),
+              ),
+              const SizedBox(height: 30),
+              Text(
+                tr('review_text'),
+                style: theme.textTheme.bodyLarge!.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
+              ),
+              const SizedBox(height: 10),
+              const WriteReviewTextfield(),
+              const SizedBox(height: 30),
+              const SentWriteReviewButtonExcursions()
+            ]),
           ),
-          const SizedBox(height: 30),
-          const SentWriteReviewButtonExcursions()
-        ]),
-      ),
+        );
+      }),
     );
   }
-}
-
-Widget buildStar(BuildContext context, int index, double rating) {
-  Icon icon;
-  if (index >= rating) {
-    icon = const Icon(
-      Icons.star_border,
-      color: Color.fromRGBO(253, 197, 0, 1),
-    );
-  } else if (index > rating - 1 && index < rating) {
-    icon = const Icon(Icons.star_half, color: Color.fromRGBO(253, 197, 0, 1));
-  } else {
-    icon = const Icon(Icons.star, color: Color.fromRGBO(253, 197, 0, 1));
-  }
-  return icon;
 }

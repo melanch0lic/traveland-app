@@ -17,7 +17,7 @@ class ReviewPlaceSmallCard extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(15)),
           color: Colors.white,
           boxShadow: [BoxShadow(color: Color.fromRGBO(149, 157, 165, 0.25), blurRadius: 2)]),
-      child: Column(children: [
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(
           children: [
             const CircleAvatar(
@@ -31,7 +31,7 @@ class ReviewPlaceSmallCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Пользователь',
+                  review.userName,
                   style:
                       theme.textTheme.bodyLarge!.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
                 ),

@@ -6,7 +6,7 @@ import 'package:latlong2/latlong.dart';
 import '../../../data/network/models/entity/event_entity.dart';
 import '../../../widgets/image_slider.dart';
 import '../../../widgets/name_row_header_events.dart';
-import '../../details_housing_page/components/sent_review_button.dart';
+import '../../../widgets/sent_review_button.dart';
 import 'contact_event_widget.dart';
 import 'duration_event_widget.dart';
 import 'price_event_widget.dart';
@@ -146,7 +146,7 @@ class BodyEvent extends StatelessWidget {
               //           )),
               // ),
               const SizedBox(height: 15),
-              const SentReviewButton(),
+              SentReviewButton(placeId: selectedModel.placeInfo.id),
               const SizedBox(height: 30),
               const NameRowHeaderEvents(name: 'Также рекомендуем'),
               const SizedBox(height: 15),

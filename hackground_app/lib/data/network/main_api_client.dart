@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
+import 'models/add_review_request_body.dart';
 import 'models/coordinates_request_body.dart';
 import 'models/login_request_body.dart';
 import 'models/register_request_body.dart';
+import 'models/response/add_review_response.dart';
 import 'models/response/events_response.dart';
 import 'models/response/housing_response.dart';
 import 'models/response/login_response.dart';
@@ -44,6 +46,9 @@ abstract class MainApiClient {
 
   @GET('5555/api/place/get-all-places-by-search/{searchText}')
   Future<Result<SearchResponse>> getAllPlacesBySearch(@Path() String searchText);
+
+  @POST('5555/api/review/add-review/')
+  Future<Result<AddReviewResponse>> addReview(@Body() AddReviewRequestBody body);
 
   @POST('5000/ors/v2/directions/{routeType}/geojson')
   Future<Result<OsrmRouteResponse>> getRouteFromOsrm(

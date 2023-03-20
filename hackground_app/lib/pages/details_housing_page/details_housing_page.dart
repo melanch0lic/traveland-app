@@ -13,9 +13,9 @@ import '../../widgets/contact_website_widget.dart';
 import '../../widgets/housing_small_listview.dart';
 import '../../widgets/image_slider.dart';
 import '../../widgets/name_row_header_housing.dart';
+import '../../widgets/sent_review_button.dart';
 import 'components/name_row_header_housing.dart';
 import 'components/review_housing_list.dart';
-import 'components/sent_review_button.dart';
 import 'details_page_model.dart';
 
 class DetailsHousingPage extends StatelessWidget {
@@ -27,7 +27,7 @@ class DetailsHousingPage extends StatelessWidget {
     final theme = Theme.of(context);
     return ChangeNotifierProvider(
       create: (context) => DetailsHousingPageViewModel(context.read<InitializeProvider>().cachedDataRepository,
-          context.read<InitializeProvider>().housingService, selectedModel.placeInfo.id),
+          context.read<InitializeProvider>().reviewsService, selectedModel.placeInfo.id),
       child: Builder(builder: (context) {
         final reviews = context.select((DetailsHousingPageViewModel model) => model.reviews);
         return Scaffold(
@@ -248,7 +248,9 @@ class DetailsHousingPage extends StatelessWidget {
                           height: 15,
                         )
                       ],
-                      const SentReviewButton(),
+                      SentReviewButton(
+                        placeId: selectedModel.placeInfo.id,
+                      ),
                       const SizedBox(
                         height: 30,
                       ),

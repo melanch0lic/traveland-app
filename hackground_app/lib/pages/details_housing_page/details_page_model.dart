@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import '../../data/network/models/entity/housing_entity.dart';
 import '../../data/network/models/entity/review_api_entity.dart';
 import '../../domain/repositories/cache_data_repository.dart';
-import '../../domain/services/housing_service.dart';
+import '../../domain/services/reviews_service.dart';
 
 class DetailsHousingPageViewModel with ChangeNotifier {
   final CachedDataRepository cachedDataRepository;
-  final HousingService housingService;
+  final ReviewsService reviewsService;
   final int placeId;
 
-  DetailsHousingPageViewModel(this.cachedDataRepository, this.housingService, this.placeId) {
+  DetailsHousingPageViewModel(this.cachedDataRepository, this.reviewsService, this.placeId) {
     init();
   }
 
@@ -25,7 +25,7 @@ class DetailsHousingPageViewModel with ChangeNotifier {
   List<ReviewApiEntity> get reviews => _reviews;
 
   Future<void> fetchReviewsFromApi() async {
-    final response = await housingService.getReviews(placeId);
+    final response = await reviewsService.getReviews(placeId);
     response.fold((result) {
       _reviews = result.result.reviews;
       notifyListeners();

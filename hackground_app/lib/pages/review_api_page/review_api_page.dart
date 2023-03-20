@@ -58,7 +58,7 @@ class ReviewApiPage extends StatelessWidget {
                 width: 5,
               ),
               Text(
-                '${selectedModel.placeInfo.ratingCount.value} отзывов',
+                '${selectedModel.placeInfo.ratingCount.value.toInt()} отзывов',
                 style: theme.textTheme.bodyLarge!.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
               ),
             ],

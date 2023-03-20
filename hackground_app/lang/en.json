@@ -1,4 +1,9 @@
 { 
+    "sent_review": "Post a review",
+    "rate_place":"Rate the place",
+    "review_text": "Review",
+    "write_review_title": "Your review has been left",
+    "write_review_content": "Thanks for the feedback",
     "close_text": "Close",
     "more_text": "More",
     "guide_text": "Guide",
@@ -26,6 +31,6 @@
     "location_text": "Location",
     "contacts_text": "Contacts",
     "reviews_text": "Reviews",
-    "sent_review_text": "Sent review",
+    "sent_review_text": "Sent a review",
     "also_recommended": "Also recommended"
 }

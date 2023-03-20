@@ -1,10 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-import '../../../navigation/router.gr.dart';
+import '../navigation/router.gr.dart';
 
 class SentReviewButton extends StatelessWidget {
-  const SentReviewButton({Key? key}) : super(key: key);
+  final int placeId;
+  const SentReviewButton({Key? key, required this.placeId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class SentReviewButton extends StatelessWidget {
           elevation: 0,
         ),
         onPressed: () {
-          context.router.navigate(const WriteReviewRoute());
+          context.router.navigate(WriteReviewRoute(placeId: placeId));
         },
         child: Center(
           child: Text(
