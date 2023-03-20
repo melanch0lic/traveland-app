@@ -125,7 +125,7 @@ class ExcursionCard extends StatelessWidget {
                     Expanded(
                       child: Text(
                         excursion.duration != null
-                            ? '${excursion.duration} часов • ${excursion.movementType == 'car' ? 'На машине' : excursion.movementType == 'foot' ? 'Пешком' : 'На автобусе'}'
+                            ? '${excursion.duration!.toInt()} часов • ${excursion.movementType == 'car' ? 'На машине' : excursion.movementType == 'foot' ? 'Пешком' : 'На автобусе'}'
                             : 'Время не указано',
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               color: const Color.fromRGBO(44, 44, 46, 1),
@@ -147,7 +147,7 @@ class ExcursionCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 6.42),
                     Text(
-                      excursion.price.value != 0 ? '${excursion.price.value} ₽ за экскурсию' : 'Не указано',
+                      excursion.price.value != 0 ? '${excursion.price.value.toInt()} ₽ за экскурсию' : 'Не указано',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             color: const Color.fromRGBO(44, 44, 46, 1),
                             fontSize: 14,

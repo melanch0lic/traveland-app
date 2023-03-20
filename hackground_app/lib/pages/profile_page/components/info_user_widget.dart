@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 import '../profile_page_model.dart';
@@ -29,18 +30,19 @@ class InfoUserWidget extends StatelessWidget {
               child: Text('Информация не получена'),
             )
           : Column(children: [
-              const CircleAvatar(
-                maxRadius: 50,
-                backgroundImage: NetworkImage(
-                  'https://i.pinimg.com/564x/51/74/e1/5174e13045467efb22e6c65e82815d5c.jpg',
-                ),
-              ),
+              ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: SvgPicture.asset(
+                    'assets/images/avatar_icon.svg',
+                    width: 100,
+                    height: 100,
+                  )),
               const SizedBox(
                 height: 8,
               ),
               Text(
                 '${userInfo.name} ${userInfo.lastName.value}',
-                style: Theme.of(context).textTheme.headline2?.copyWith(
+                style: Theme.of(context).textTheme.displayMedium?.copyWith(
                       color: const Color.fromRGBO(44, 44, 46, 1),
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
@@ -49,7 +51,7 @@ class InfoUserWidget extends StatelessWidget {
               const SizedBox(height: 5),
               Text(
                 userInfo.mail,
-                style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: const Color.fromRGBO(44, 44, 46, 1),
                       fontSize: 16,
                       fontWeight: FontWeight.w400,

@@ -88,6 +88,7 @@ class LocationsPage extends StatelessWidget {
               bottom: 5,
               right: 5,
               child: FloatingActionButton.extended(
+                  backgroundColor: theme.highlightColor,
                   onPressed: () {
                     context
                         .read<PlacesPageViewModel>()
