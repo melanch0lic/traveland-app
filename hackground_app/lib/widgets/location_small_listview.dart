@@ -13,6 +13,7 @@ class LocationSmallListView extends StatelessWidget {
     return SizedBox(
       height: 280,
       child: ListView.builder(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) => LocationSmallCard(place: places[index]),
