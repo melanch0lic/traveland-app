@@ -33,12 +33,13 @@ class BodyLocation extends StatelessWidget {
     final theme = Theme.of(context);
     final reviews = context.select((DetailsLocationPageViewModel model) => model.reviews);
     return ListView(
+      padding: const EdgeInsets.only(bottom: 15),
       children: [
         ImageSlider(
           urlImages: selectedModel.placeInfo.photos!.map((e) => 'http://176.119.159.9/media/$e').toList(),
         ),
         Padding(
-          padding: const EdgeInsets.all(15.0),
+          padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -211,15 +212,15 @@ class BodyLocation extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              LocationSmallListView(
-                  places: context
-                      .read<DetailsLocationPageViewModel>()
-                      .places
-                      .where((element) => element.placeInfo.id != selectedModel.placeInfo.id)
-                      .toList()),
             ],
           ),
-        )
+        ),
+        LocationSmallListView(
+            places: context
+                .read<DetailsLocationPageViewModel>()
+                .places
+                .where((element) => element.placeInfo.id != selectedModel.placeInfo.id)
+                .toList()),
       ],
     );
   }

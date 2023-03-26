@@ -34,12 +34,13 @@ class BodyExcursion extends StatelessWidget {
     final theme = Theme.of(context);
     final isLoading = context.select((DetailsExursionPageViewModel model) => model.isLoading);
     return ListView(
+      padding: const EdgeInsets.only(bottom: 15),
       children: [
         ImageSlider(
           urlImages: selectedModel.photos.map((e) => e.mediumAvatarUrl).toList(),
         ),
         Padding(
-          padding: const EdgeInsets.all(15),
+          padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -110,16 +111,16 @@ class BodyExcursion extends StatelessWidget {
               const SizedBox(
                 height: 15,
               ),
-              ExcursionSmallListView(
-                excursions: context
-                    .read<DetailsExursionPageViewModel>()
-                    .excursions
-                    .where((element) => element.id != selectedModel.id)
-                    .toList(),
-              )
             ],
           ),
         ),
+        ExcursionSmallListView(
+          excursions: context
+              .read<DetailsExursionPageViewModel>()
+              .excursions
+              .where((element) => element.id != selectedModel.id)
+              .toList(),
+        )
       ],
     );
   }
