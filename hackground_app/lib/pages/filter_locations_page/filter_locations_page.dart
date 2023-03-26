@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 import '../places_page/places_page_model.dart';
-import 'components/use_filter_button.dart';
+import 'components/use_filter_button_location.dart';
 
 class FilterLocationsPage extends StatelessWidget {
   final PlacesPageViewModel viewModel;
@@ -193,7 +193,7 @@ class FilterLocationsPage extends StatelessWidget {
               color: Color.fromRGBO(142, 142, 147, 1),
             ),
             const SizedBox(height: 45),
-            const UseFilterButton(),
+            const UseFilterButtonLocation(),
           ]),
         );
       }),

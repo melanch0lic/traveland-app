@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 
 import '../../places_page/places_page_model.dart';
 
-class UseFilterButton extends StatelessWidget {
-  const UseFilterButton({
+class UseFilterButtonLocation extends StatelessWidget {
+  const UseFilterButtonLocation({
     Key? key,
   }) : super(key: key);
 

@@ -1,7 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
+import '../../../navigation/router.gr.dart';
 import '../housings_page_model.dart';
 
 class FilterHeaderHotels extends StatelessWidget {
@@ -9,13 +11,13 @@ class FilterHeaderHotels extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final sortFlag = context.select(
-      (HousingsPageViewModel model) => model.sortFlag,
-    );
+    final sortFlag = context.select((HousingsPageViewModel model) => model.sortFlag);
+    final sortName = context.select((HousingsPageViewModel model) => model.sortByHousings);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(
+        SizedBox(
+          width: 200,
           child: AnimatedCrossFade(
             firstChild: InkWell(
               onTap: () {
@@ -32,8 +34,12 @@ class FilterHeaderHotels extends StatelessWidget {
                   width: 5,
                 ),
                 Text(
-                  'По стоимости',
-                  style: theme.textTheme.bodyText2!.copyWith(color: theme.primaryColorDark),
+                  sortName == 'name'
+                      ? 'По названию'
+                      : sortName == 'avg_rating'
+                          ? 'По рейтингу'
+                          : 'По количеству отзывов',
+                  style: theme.textTheme.bodyMedium!.copyWith(color: theme.primaryColorDark),
                 )
               ]),
             ),
@@ -52,8 +58,12 @@ class FilterHeaderHotels extends StatelessWidget {
                   width: 5,
                 ),
                 Text(
-                  'По удаленности',
-                  style: theme.textTheme.bodyText2!.copyWith(color: theme.primaryColorDark),
+                  sortName == 'name'
+                      ? 'По названию'
+                      : sortName == 'avg_rating'
+                          ? 'По рейтингу'
+                          : 'По количеству отзывов',
+                  style: theme.textTheme.bodyMedium!.copyWith(color: theme.primaryColorDark),
                 )
               ]),
             ),
@@ -62,11 +72,14 @@ class FilterHeaderHotels extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        SvgPicture.asset(
-          'assets/images/filter_icon.svg',
-          color: theme.primaryColorDark,
-          width: 16,
-          height: 16,
+        InkWell(
+          onTap: () => context.router.push(FilterHousingsRoute(viewModel: context.read<HousingsPageViewModel>())),
+          child: SvgPicture.asset(
+            'assets/images/filter_icon.svg',
+            color: theme.primaryColorDark,
+            width: 16,
+            height: 16,
+          ),
         )
       ],
     );
