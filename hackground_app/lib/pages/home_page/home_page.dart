@@ -55,6 +55,7 @@ class HomePage extends StatelessWidget {
                       events!.isNotEmpty
                   ? SafeArea(
                       child: SingleChildScrollView(
+                        padding: const EdgeInsets.only(bottom: 15),
                         child: Column(
                           children: [
                             ImageSlider(urlImages: const [

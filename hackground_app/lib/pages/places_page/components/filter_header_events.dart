@@ -72,7 +72,7 @@ class FilterHeaderEvents extends StatelessWidget {
             width: 16,
             height: 16,
           ),
-          onTap: () => context.router.push(const FilterLocationsRoute()),
+          onTap: () => context.router.push(FilterLocationsRoute(viewModel: context.read<PlacesPageViewModel>())),
         )
       ],
     );

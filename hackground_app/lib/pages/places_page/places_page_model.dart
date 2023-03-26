@@ -7,6 +7,8 @@ import '../../domain/services/events_service.dart';
 import '../../domain/services/excursions_service.dart';
 import '../../domain/services/places_service.dart';
 
+enum CategoryLocationMode { all, restaurant, culture, cafe, bar, fastfood, pizza }
+
 class PlacesPageViewModel with ChangeNotifier {
   final PlacesService placesService;
   final EventsService eventsService;
@@ -90,8 +92,66 @@ class PlacesPageViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  CategoryLocationMode _currentLocationCategoryMode = CategoryLocationMode.all;
+  CategoryLocationMode get currentCategoryMode => _currentLocationCategoryMode;
+
+  void onLocationCategoryChanged(CategoryLocationMode categoryMode) {
+    _currentLocationCategoryMode = categoryMode;
+    notifyListeners();
+  }
+
+  String _sortByPlaces = 'name';
+  String get sortByPlaces => _sortByPlaces;
+  String _sortOrderPlaces = 'asc';
+  int _placeTypeId = 0;
+
+  Future<void> sortPlacesParametersChange(String sortBy, String sortOrder) async {
+    _isLocationsLoading = true;
+    notifyListeners();
+
+    _sortByPlaces = sortBy;
+    _sortOrderPlaces = sortOrder;
+    await fetchPlaces();
+
+    _sortFlagLocations = false;
+    _isLocationsLoading = false;
+    notifyListeners();
+  }
+
+  Future<void> placeTypeIdChange(CategoryLocationMode categoryMode) async {
+    _isLocationsLoading = true;
+    notifyListeners();
+    switch (currentCategoryMode) {
+      case CategoryLocationMode.all:
+        _placeTypeId = 0;
+        break;
+      case CategoryLocationMode.restaurant:
+        _placeTypeId = 3;
+        break;
+      case CategoryLocationMode.culture:
+        _placeTypeId = 4;
+        break;
+      case CategoryLocationMode.cafe:
+        _placeTypeId = 5;
+        break;
+      case CategoryLocationMode.bar:
+        _placeTypeId = 6;
+        break;
+      case CategoryLocationMode.fastfood:
+        _placeTypeId = 7;
+        break;
+      case CategoryLocationMode.pizza:
+        _placeTypeId = 8;
+        break;
+    }
+    await fetchPlaces();
+
+    _isLocationsLoading = false;
+    notifyListeners();
+  }
+
   Future<void> fetchPlaces() async {
-    final response = await placesService.getPlaces();
+    final response = await placesService.getPlaces(sortByPlaces, _sortOrderPlaces, _placeTypeId);
     response.fold((result) {
       _places = result.result.places;
     }, (exception, error) {});
@@ -107,7 +167,7 @@ class PlacesPageViewModel with ChangeNotifier {
   }
 
   Future<void> fetchEvents() async {
-    final response = await eventsService.getEvents();
+    final response = await eventsService.getEvents('name', 'asc', 0);
     response.fold((result) {
       _events = result.result.places;
     }, (exception, error) {});

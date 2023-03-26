@@ -29,7 +29,7 @@ class HousingsPageViewModel with ChangeNotifier {
   bool get sortFlag => _sortFlag;
 
   Future<void> fetchHousingsData() async {
-    final response = await housingService.getHousings();
+    final response = await housingService.getHousings('name', 'asc', 0);
     response.fold((result) {
       _housings = result.result.places;
     }, (exception, error) {});
