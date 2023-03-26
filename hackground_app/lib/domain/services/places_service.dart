@@ -7,8 +7,8 @@ class PlacesService {
 
   PlacesService({required this.mainApiClient});
 
-  Future<Result<PlacesResponse>> getPlaces() async {
-    final response = await mainApiClient.getPlaces();
+  Future<Result<PlacesResponse>> getPlaces(String sortBy, String sortOrder, int placeTypeId) async {
+    final response = await mainApiClient.getPlaces(sortBy, sortOrder, placeTypeId);
     return response;
   }
 }

@@ -29,14 +29,14 @@ abstract class MainApiClient {
   @POST('5555/auth/sign-up')
   Future<Result<RegisterResponse>> registerUser(@Body() RegisterRequestBody body);
 
-  @GET('5555/api/place/get-all-place/3?limit=100')
-  Future<Result<PlacesResponse>> getPlaces();
+  @GET('5555/api/place/get-all-place/3?limit=100&sort_by={sortBy}&sort_order={sortOrder}&place_type_id={placeTypeId}')
+  Future<Result<PlacesResponse>> getPlaces(@Path() String sortBy, @Path() String sortOrder, @Path() int placeTypeId);
 
-  @GET('5555/api/place/get-all-place/2?limit=100')
-  Future<Result<EventsResponse>> getEvents();
+  @GET('5555/api/place/get-all-place/2?limit=100&sort_by={sortBy}&sort_order={sortOrder}&place_type_id={placeTypeId}')
+  Future<Result<EventsResponse>> getEvents(@Path() String sortBy, @Path() String sortOrder, @Path() int placeTypeId);
 
-  @GET('5555/api/place/get-all-place/1?limit=100')
-  Future<Result<HousingResponse>> getHousings();
+  @GET('5555/api/place/get-all-place/1?limit=100&sort_by={sortBy}&sort_order={sortOrder}&house_type_id={houseTypeId}')
+  Future<Result<HousingResponse>> getHousings(@Path() String sortBy, @Path() String sortOrder, @Path() int houseTypeId);
 
   @GET('5555/api/review/get-all-reviews?place_id={placeId}')
   Future<Result<ReviewsApiResponse>> getReviews(@Path() int placeId);

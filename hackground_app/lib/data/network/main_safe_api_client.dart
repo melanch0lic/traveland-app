@@ -36,18 +36,18 @@ class MainSafeApiClient implements MainApiClient {
   }
 
   @override
-  Future<Result<PlacesResponse>> getPlaces() {
-    return _wrapUnsafeCall<PlacesResponse>(() => _client.getPlaces());
+  Future<Result<PlacesResponse>> getPlaces(String sortBy, String sortOrder, int placeTypeId) {
+    return _wrapUnsafeCall<PlacesResponse>(() => _client.getPlaces(sortBy, sortOrder, placeTypeId));
   }
 
   @override
-  Future<Result<EventsResponse>> getEvents() {
-    return _wrapUnsafeCall<EventsResponse>(() => _client.getEvents());
+  Future<Result<EventsResponse>> getEvents(String sortBy, String sortOrder, int placeTypeId) {
+    return _wrapUnsafeCall<EventsResponse>(() => _client.getEvents(sortBy, sortOrder, placeTypeId));
   }
 
   @override
-  Future<Result<HousingResponse>> getHousings() {
-    return _wrapUnsafeCall<HousingResponse>(() => _client.getHousings());
+  Future<Result<HousingResponse>> getHousings(String sortBy, String sortOrder, int houseTypeId) {
+    return _wrapUnsafeCall<HousingResponse>(() => _client.getHousings(sortBy, sortOrder, houseTypeId));
   }
 
   @override
