@@ -22,11 +22,9 @@ class BodyLocation extends StatelessWidget {
   const BodyLocation({
     Key? key,
     required this.selectedModel,
-    required this.theme,
   }) : super(key: key);
 
   final PlaceEntity selectedModel;
-  final ThemeData theme;
 
   @override
   Widget build(BuildContext context) {
@@ -48,9 +46,7 @@ class BodyLocation extends StatelessWidget {
                 style: theme.textTheme.displayMedium!
                     .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
               ),
-              const SizedBox(height: 10),
-              TimeLocationWidget(theme: theme),
-              const SizedBox(height: 15),
+              TimeLocationWidget(selectedModel: selectedModel),
               if (selectedModel.price.isValid) ...[
                 Row(
                   children: [

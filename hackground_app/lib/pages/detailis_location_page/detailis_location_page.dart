@@ -41,7 +41,6 @@ class DetailisLocationPage extends StatelessWidget {
             ),
             body: BodyLocation(
               selectedModel: selectedModel,
-              theme: theme,
             ),
           );
         }));

@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'place_info_entity.dart';
+import 'shedule_item_entity.dart';
 import 'string_entity.dart';
 
 part 'place_entity.g.dart';
@@ -16,7 +17,10 @@ class PlaceEntity {
   @JsonKey(name: 'place-info')
   final PlaceInfoEntity placeInfo;
 
-  PlaceEntity({required this.price, required this.isPushkin, required this.placeInfo});
+  @JsonKey(name: 'shedule')
+  final List<SheduleItemEntity> shedule;
+
+  PlaceEntity({required this.price, required this.isPushkin, required this.placeInfo, required this.shedule});
 
   factory PlaceEntity.fromJson(Map<String, dynamic> json) => _$PlaceEntityFromJson(json);
 
