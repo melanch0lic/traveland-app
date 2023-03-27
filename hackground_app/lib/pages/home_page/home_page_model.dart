@@ -94,7 +94,7 @@ class HomePageViewModel with ChangeNotifier {
   }
 
   Future<void> fetchExcursionsData() async {
-    final response = await excursionsService.getTours(1);
+    final response = await excursionsService.getTours(1, 'popularity');
     response.fold((result) {
       cachedDataRepository.excursionList = result.results;
     }, (exception, error) {

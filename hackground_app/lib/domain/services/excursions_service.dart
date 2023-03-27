@@ -7,14 +7,13 @@ class ExcursionsService {
   final TripsterApiClient tripsterApiClient;
 
   ExcursionsService({required this.tripsterApiClient});
-  Future<Result<TripsterReviewsResponse>> getTripsterReviews(
-      int id, int page) async {
+  Future<Result<TripsterReviewsResponse>> getTripsterReviews(int id, int page) async {
     final response = await tripsterApiClient.getTripsterReviews(id, page);
     return response;
   }
 
-  Future<Result<ToursResponse>> getTours(int page) async {
-    final response = await tripsterApiClient.getTours(page);
+  Future<Result<ToursResponse>> getTours(int page, String sorting) async {
+    final response = await tripsterApiClient.getTours(page, sorting);
     return response;
   }
 }

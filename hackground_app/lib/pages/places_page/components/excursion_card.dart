@@ -46,18 +46,16 @@ class ExcursionCard extends StatelessWidget {
               padding: const EdgeInsets.only(left: 15, right: 15, bottom: 20, top: 15),
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text(excursion.title,
-                    style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                          color: const Color.fromRGBO(44, 44, 46, 1),
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        )),
+                    style: theme.textTheme.displayLarge?.copyWith(
+                      color: const Color.fromRGBO(44, 44, 46, 1),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    )),
                 const SizedBox(height: 6),
                 Row(
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 6),
-                      width: 33,
-                      height: 19,
+                      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(7),
                         color: excursion.rating.toInt() >= 4
@@ -69,21 +67,23 @@ class ExcursionCard extends StatelessWidget {
                                     : const Color.fromRGBO(253, 197, 0, 1),
                       ),
                       child: Text(
-                        '${excursion.rating}',
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: const Color.fromRGBO(255, 255, 255, 1),
-                              fontSize: 14,
-                            ),
+                        excursion.rating.toStringAsFixed(1),
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: const Color.fromRGBO(255, 255, 255, 1),
+                          fontSize: 14,
+                        ),
                       ),
                     ),
-                    const SizedBox(width: 11),
+                    const SizedBox(
+                      width: 5,
+                    ),
                     Text(
                       '${excursion.reviewCount} отзывов',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: const Color.fromRGBO(44, 44, 46, 1),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: const Color.fromRGBO(44, 44, 46, 1),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   ],
                 ),
@@ -101,11 +101,11 @@ class ExcursionCard extends StatelessWidget {
                     Expanded(
                       child: Text(
                         excursion.meetingPoint?.text ?? 'Место встречи не указано',
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: const Color.fromRGBO(44, 44, 46, 1),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                            ),
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: const Color.fromRGBO(44, 44, 46, 1),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ),
                   ],
@@ -127,11 +127,11 @@ class ExcursionCard extends StatelessWidget {
                         excursion.duration != null
                             ? '${excursion.duration!.toInt()} часов • ${excursion.movementType == 'car' ? 'На машине' : excursion.movementType == 'foot' ? 'Пешком' : 'На автобусе'}'
                             : 'Время не указано',
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: const Color.fromRGBO(44, 44, 46, 1),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                            ),
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: const Color.fromRGBO(44, 44, 46, 1),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ),
                   ],
@@ -148,11 +148,11 @@ class ExcursionCard extends StatelessWidget {
                     const SizedBox(width: 6.42),
                     Text(
                       excursion.price.value != 0 ? '${excursion.price.value.toInt()} ₽ за экскурсию' : 'Не указано',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: const Color.fromRGBO(44, 44, 46, 1),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: const Color.fromRGBO(44, 44, 46, 1),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   ],
                 )

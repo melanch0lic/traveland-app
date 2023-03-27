@@ -24,10 +24,9 @@ abstract class TripsterApiClient {
   }
 
   @GET(
-      '/experiences/?city__name_ru=Владикавказ&detailed=true&exp_partner=t978916&utm_campaign=affiliates&utm_medium=api&utm_source=t978916&page={page}&page_size=20')
-  Future<Result<ToursResponse>> getTours(@Path() int page);
+      '/experiences/?city__name_ru=Владикавказ&detailed=true&exp_partner=t978916&utm_campaign=affiliates&utm_medium=api&utm_source=t978916&page={page}&page_size=20&sorting={sorting}')
+  Future<Result<ToursResponse>> getTours(@Path() int page, @Path() String sorting);
 
   @GET('/experiences/{id}/reviews?page={page}')
-  Future<Result<TripsterReviewsResponse>> getTripsterReviews(
-      @Path() int id, @Path() int page);
+  Future<Result<TripsterReviewsResponse>> getTripsterReviews(@Path() int id, @Path() int page);
 }
