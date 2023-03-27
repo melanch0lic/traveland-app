@@ -7,6 +7,16 @@ import 'package:flutter_svg/svg.dart';
 import '../../../data/network/models/entity/tour_entity.dart';
 import '../../../navigation/router.gr.dart';
 
+String formatFeedback(int count) {
+  if (count % 10 == 1 && count % 100 != 11) {
+    return '$count отзыв';
+  } else if ([2, 3, 4].contains(count % 10) && ![12, 13, 14].contains(count % 100)) {
+    return '$count отзыва';
+  } else {
+    return '$count отзывов';
+  }
+}
+
 class ExcursionCard extends StatelessWidget {
   final TourEntity excursion;
 
@@ -78,7 +88,7 @@ class ExcursionCard extends StatelessWidget {
                       width: 5,
                     ),
                     Text(
-                      '${excursion.reviewCount} отзывов',
+                      formatFeedback(excursion.reviewCount),
                       style: theme.textTheme.bodyMedium?.copyWith(
                         color: const Color.fromRGBO(44, 44, 46, 1),
                         fontSize: 14,

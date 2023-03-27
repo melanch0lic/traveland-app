@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../app_initialization.dart';
 import '../../../navigation/router.gr.dart';
 import '../profile_page_model.dart';
 
@@ -11,6 +12,7 @@ class LogOutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final isGuestMode = context.select((InitializeProvider model) => model.isGuestMode);
     return SizedBox(
       height: 48,
       child: ElevatedButton(
@@ -21,12 +23,15 @@ class LogOutButton extends StatelessWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           elevation: 0,
         ),
-        onPressed: () {
-          context
-              .read<ProfilePageViewModel>()
-              .onButtonExitPressed()
-              .whenComplete(() => context.router.replace(const LoginRouter()));
-        },
+        onPressed: isGuestMode
+            ? () {
+                context.read<InitializeProvider>().changeGuestMode();
+                context.router.replace(const LoginRouter());
+              }
+            : () => context
+                .read<ProfilePageViewModel>()
+                .onButtonExitPressed()
+                .whenComplete(() => context.router.replace(const LoginRouter())),
         child: Center(
           child: Text(
             'Выйти',
