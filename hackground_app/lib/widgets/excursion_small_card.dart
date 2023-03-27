@@ -56,9 +56,11 @@ class ExcursionSmallCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(7),
                     color: excursion.rating.toInt() >= 4
                         ? const Color.fromRGBO(56, 176, 0, 1)
-                        : excursion.rating.toInt() <= 2
-                            ? const Color.fromRGBO(255, 47, 47, 1)
-                            : const Color.fromRGBO(253, 197, 0, 1),
+                        : excursion.rating.toInt() == 0
+                            ? Colors.grey
+                            : excursion.rating.toInt() <= 2
+                                ? const Color.fromRGBO(255, 47, 47, 1)
+                                : const Color.fromRGBO(253, 197, 0, 1),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -69,6 +70,32 @@ class EventCard extends StatelessWidget {
                             ),
                       ),
                     ),
+                  ],
+                ),
+                const SizedBox(height: 5),
+                Row(
+                  children: [
+                    SvgPicture.asset(
+                      'assets/images/calendar.svg',
+                      color: const Color.fromRGBO(44, 44, 46, 1),
+                      width: 14.17,
+                      height: 14.17,
+                    ),
+                    const SizedBox(width: 6.42),
+                    Text(event.eventDate.isValid
+                        ? DateFormat('d MMMM', 'ru').format(DateTime.parse(event.eventDate.value))
+                        : 'Не указано'),
+                    const SizedBox(width: 11.42),
+                    SvgPicture.asset(
+                      'assets/images/time.svg',
+                      color: const Color.fromRGBO(44, 44, 46, 1),
+                      width: 14.17,
+                      height: 14.17,
+                    ),
+                    const SizedBox(width: 6.42),
+                    Text(event.eventStartTime.isValid
+                        ? DateFormat('HH:mm', 'ru').format(DateTime.parse(event.eventStartTime.value))
+                        : 'Не указано'),
                   ],
                 ),
                 const SizedBox(height: 15),

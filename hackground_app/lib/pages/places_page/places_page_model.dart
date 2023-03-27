@@ -157,13 +157,47 @@ class PlacesPageViewModel with ChangeNotifier {
     }, (exception, error) {});
   }
 
+  String _sortingExcursions = 'popularity';
+  String get sortingExcursions => _sortingExcursions;
+
+  Future<void> sortExcursionsParametersChange(String sorting) async {
+    _isExcursionsLoading = true;
+    notifyListeners();
+
+    _sortingExcursions = sorting;
+    _excursionOffset = 1;
+    _excursions.clear();
+    await fetchExcursions();
+
+    _sortFlagExcursions = false;
+    _isExcursionsLoading = false;
+    notifyListeners();
+  }
+
   Future<void> fetchExcursions() async {
-    final response = await excursionsService.getTours(_excursionOffset);
+    final response = await excursionsService.getTours(_excursionOffset, _sortingExcursions);
     response.fold((result) {
       _excursionsHasNextPage = result.next == null ? false : true;
       _excursions.addAll(result.results);
       _excursionOffset++;
     }, (exception, error) {});
+  }
+
+  String _sortByEvents = 'name';
+  String get sortByEvents => _sortByEvents;
+  String _sortOrderEvents = 'asc';
+
+  Future<void> sortEventsParametersChange(String sortBy, String sortOrder) async {
+    _isEventsLoading = true;
+    notifyListeners();
+
+    _sortByEvents = sortBy;
+    _sortOrderEvents = sortOrder;
+    await fetchEvents();
+
+    _sortFlagEvents = false;
+    _isEventsLoading = false;
+    notifyListeners();
   }
 
   Future<void> fetchEvents() async {
