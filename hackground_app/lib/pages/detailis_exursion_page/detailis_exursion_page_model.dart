@@ -26,7 +26,8 @@ class DetailsExursionPageViewModel with ChangeNotifier {
 
   List<TourEntity> get excursions => cachedDataRepository.excursionList!;
 
-  List<ReviewEntity> get reviews => cachedDataRepository.reviewsList!;
+  List<ReviewEntity> _reviews = [];
+  List<ReviewEntity> get reviews => _reviews;
 
   bool _isLoading = true;
   bool get isLoading => _isLoading;
@@ -37,7 +38,7 @@ class DetailsExursionPageViewModel with ChangeNotifier {
   Future<void> fetchReviewsData() async {
     final response = await excursionsService.getTripsterReviews(excursionId, 1);
     response.fold((result) {
-      cachedDataRepository.reviewsList = result.results;
+      _reviews = result.results;
     }, (exception, error) {});
   }
 

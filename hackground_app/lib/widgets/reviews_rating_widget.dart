@@ -1,5 +1,15 @@
 import 'package:flutter/material.dart';
 
+String formatFeedback(int count) {
+  if (count % 10 == 1 && count % 100 != 11) {
+    return '$count отзыв';
+  } else if ([2, 3, 4].contains(count % 10) && ![12, 13, 14].contains(count % 100)) {
+    return '$count отзыва';
+  } else {
+    return '$count отзывов';
+  }
+}
+
 class ReviewRatingWidget extends StatelessWidget {
   final selectedModel;
   const ReviewRatingWidget({Key? key, required this.selectedModel}) : super(key: key);
@@ -39,7 +49,7 @@ class ReviewRatingWidget extends StatelessWidget {
         Text(
           selectedModel.placeInfo.meanRating.value.toInt() == 0
               ? 'Нет отзывов'
-              : '${selectedModel.placeInfo.ratingCount.value.toInt()} отзывов',
+              : formatFeedback(selectedModel.placeInfo.ratingCount.value.toInt()),
           style: theme.textTheme.bodyLarge!.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
         ),
       ],

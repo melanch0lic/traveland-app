@@ -29,19 +29,6 @@ class MapPageViewModel with ChangeNotifier {
 
   List<dynamic> searchObjects = [];
 
-  final List<String> _items = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
-  List<String> get items => _items;
-
-  void onReorderHandle(int oldIndex, int newIndex) {
-    if (newIndex > oldIndex) {
-      newIndex -= 1;
-    }
-    final item = _items.removeAt(oldIndex);
-    _items.insert(newIndex, item);
-    print(_items);
-    notifyListeners();
-  }
-
   PlaceType _selectedPlaceType = PlaceType.all;
   PlaceType? get selectedPlaceType => _selectedPlaceType;
 
@@ -197,7 +184,7 @@ class MapPageViewModel with ChangeNotifier {
   Future<void> init() async {
     _searchController = TextEditingController();
     _mapController = MapController();
-    await _getCurrentLocation().whenComplete(() => _mapController.move(_currentLocationPosition!, 17));
+    await _getCurrentLocation();
     _liveLocation();
   }
 

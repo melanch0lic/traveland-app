@@ -15,18 +15,17 @@ class SearchOpenedWidget extends StatelessWidget {
       onChanged: (_) => context.read<MapPageViewModel>().onSearchTextChange(),
       controller: context.read<MapPageViewModel>().searchController,
       focusNode: focusNode,
-      style: theme.textTheme.bodyText1!.copyWith(color: Colors.black),
+      style: theme.textTheme.bodyLarge!.copyWith(color: Colors.black),
       decoration: InputDecoration(
         prefixIcon: IconButton(
           icon: SvgPicture.asset('assets/images/back_arrow_icon.svg'),
           onPressed: () => context.read<MapPageViewModel>().changeSearchState(),
         ),
-        suffixIcon: Icon(Icons.keyboard_voice, color: theme.cardColor),
         contentPadding: const EdgeInsets.all(15),
-        hintStyle: theme.textTheme.bodyText1,
+        hintStyle: theme.textTheme.bodyLarge,
         enabledBorder: OutlineInputBorder(
           borderRadius: const BorderRadius.all(Radius.circular(15)),
-          borderSide: BorderSide(color: theme.textTheme.bodyText2!.color!, width: 2),
+          borderSide: BorderSide(color: theme.textTheme.bodyMedium!.color!, width: 2),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: const BorderRadius.all(Radius.circular(15)),

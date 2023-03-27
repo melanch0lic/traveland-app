@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../app_initialization.dart';
 import 'components/filter_header_hotels.dart';
-import 'components/housings_listview.dart';
+import 'components/housing_card.dart';
 import 'housings_page_model.dart';
 
 class HousingsPage extends StatelessWidget {
@@ -18,46 +18,106 @@ class HousingsPage extends StatelessWidget {
       child: Builder(builder: (context) {
         final isLoading = context.select((HousingsPageViewModel model) => model.isLoading);
         final housings = context.select((HousingsPageViewModel model) => model.housings);
-        return Scaffold(
-          backgroundColor: theme.scaffoldBackgroundColor,
-          appBar: AppBar(
+        final sortFlag = context.select((HousingsPageViewModel model) => model.sortFlag);
+        final List<Widget> sortList = [
+          ListTile(
+            onTap: () => context.read<HousingsPageViewModel>().sortPlacesParametersChange('name', 'asc'),
             title: Text(
-              'Жильё',
-              style: theme.textTheme.displayMedium!
-                  .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
+              'По названию',
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 16, color: Colors.black),
             ),
           ),
-          body: isLoading
-              ? Center(
-                  child: SpinKitSpinningLines(color: theme.indicatorColor),
-                )
-              : SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 30, left: 15, right: 15),
-                    child: Column(
-                      children: [
-                        const FilterHeaderHotels(),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        HousingsListView(housings),
-                      ],
+          ListTile(
+            onTap: () => context.read<HousingsPageViewModel>().sortPlacesParametersChange('avg_rating', 'asc'),
+            title: Text(
+              'По рейтингу',
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 16, color: Colors.black),
+            ),
+          ),
+          ListTile(
+            onTap: () => context.read<HousingsPageViewModel>().sortPlacesParametersChange('rating_count', 'desc'),
+            title: Text(
+              'По количеству отзывов',
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 16, color: Colors.black),
+            ),
+          ),
+        ];
+        return Scaffold(
+            backgroundColor: theme.scaffoldBackgroundColor,
+            appBar: AppBar(
+              title: Text(
+                'Жильё',
+                style: theme.textTheme.displayMedium!
+                    .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
+              ),
+            ),
+            body: isLoading
+                ? Center(
+                    child: SpinKitSpinningLines(color: theme.indicatorColor),
+                  )
+                : Stack(children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 30, left: 15, right: 15),
+                      child: Column(
+                        children: [
+                          const FilterHeaderHotels(),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Expanded(
+                            child: Stack(children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: ListView.builder(
+                                    controller: context.read<HousingsPageViewModel>().housingController,
+                                    physics: const BouncingScrollPhysics(),
+                                    itemCount: housings.length,
+                                    itemBuilder: (context, index) => HousingCard(housings[index])),
+                              ),
+                              sortFlag
+                                  ? Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(15),
+                                            color: Colors.white,
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                color: Color.fromRGBO(149, 157, 165, 0.25),
+                                                spreadRadius: 5,
+                                                blurRadius: 7,
+                                                offset: Offset(0, 3),
+                                              ),
+                                            ]),
+                                        child: ListView.separated(
+                                            physics: const BouncingScrollPhysics(),
+                                            shrinkWrap: true,
+                                            itemBuilder: (context, index) => sortList[index],
+                                            separatorBuilder: (context, index) => const Divider(),
+                                            itemCount: sortList.length),
+                                      ),
+                                    )
+                                  : const SizedBox.shrink(),
+                            ]),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ),
-        );
+                    Positioned(
+                      bottom: 5,
+                      right: 5,
+                      child: FloatingActionButton.extended(
+                          backgroundColor: theme.highlightColor,
+                          onPressed: () {
+                            context
+                                .read<HousingsPageViewModel>()
+                                .housingController
+                                .animateTo(0, duration: const Duration(seconds: 1), curve: Curves.easeInOut);
+                          },
+                          label: const Icon(Icons.arrow_circle_up)),
+                    )
+                  ]));
       }),
     );
   }
 }
-
-// body: SafeArea(
-      //  child: WebView(
-       //   javascriptMode: JavascriptMode.unrestricted,
-       //   initialUrl: 'https://sutochno.tp.st/EYdXrV3r',
-//onProgress: (progress) {
-       //     print('WebView is loading (progress : $progress%)');
-       //   },
-//gestureNavigationEnabled: true,
-      //   backgroundColor: const Color(0x00000000),
-

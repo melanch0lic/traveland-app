@@ -12,16 +12,32 @@ class EventsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final List<String> sortList = [
-      'Сначала популярные',
-      'Сначала дешёвые',
-      'Сначала дорогие',
-      'Сначала лучшие',
-      'Сначала дальние',
+    final List<Widget> sortList = [
+      ListTile(
+        onTap: () => context.read<PlacesPageViewModel>().sortEventsParametersChange('name', 'asc'),
+        title: Text(
+          'По названию',
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 16, color: Colors.black),
+        ),
+      ),
+      ListTile(
+        onTap: () => context.read<PlacesPageViewModel>().sortEventsParametersChange('avg_rating', 'asc'),
+        title: Text(
+          'По рейтингу',
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 16, color: Colors.black),
+        ),
+      ),
+      ListTile(
+        onTap: () => context.read<PlacesPageViewModel>().sortEventsParametersChange('rating_count', 'desc'),
+        title: Text(
+          'По количеству отзывов',
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 16, color: Colors.black),
+        ),
+      ),
     ];
     final isLoading = context.select((PlacesPageViewModel model) => model.isEventsLoading);
     final sortFlag = context.select(
-      (PlacesPageViewModel model) => model.sortFlagExcursions,
+      (PlacesPageViewModel model) => model.sortFlagEvents,
     );
     final events = context.select((PlacesPageViewModel model) => model.events);
     return isLoading
@@ -67,16 +83,7 @@ class EventsPage extends StatelessWidget {
                               child: ListView.separated(
                                   physics: const BouncingScrollPhysics(),
                                   shrinkWrap: true,
-                                  itemBuilder: (context, index) => Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                                        child: Text(
-                                          sortList[index],
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium!
-                                              .copyWith(fontSize: 16, color: Colors.black),
-                                        ),
-                                      ),
+                                  itemBuilder: (context, index) => sortList[index],
                                   separatorBuilder: (context, index) => const Divider(),
                                   itemCount: sortList.length),
                             ),

@@ -53,12 +53,13 @@ class DetailsHousingPage extends StatelessWidget {
               backgroundColor: theme.primaryColorLight,
             ),
             body: ListView(
+              padding: const EdgeInsets.only(bottom: 15),
               children: [
                 ImageSlider(
                   urlImages: selectedModel.placeInfo.photos!.map((e) => 'http://176.119.159.9/media/$e').toList(),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(15),
+                  padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -242,15 +243,15 @@ class DetailsHousingPage extends StatelessWidget {
                       const SizedBox(
                         height: 15,
                       ),
-                      HousingSmallListView(
-                          housings: context
-                              .read<DetailsHousingPageViewModel>()
-                              .housings
-                              .where((element) => element.placeInfo.id != selectedModel.placeInfo.id)
-                              .toList()),
                     ],
                   ),
                 ),
+                HousingSmallListView(
+                    housings: context
+                        .read<DetailsHousingPageViewModel>()
+                        .housings
+                        .where((element) => element.placeInfo.id != selectedModel.placeInfo.id)
+                        .toList()),
               ],
             ));
       }),

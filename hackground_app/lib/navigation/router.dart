@@ -8,6 +8,7 @@ import '../pages/detailis_exursion_page/detailis_exursion_page.dart';
 import '../pages/detailis_location_page/detailis_location_page.dart';
 import '../pages/details_housing_page/details_housing_page.dart';
 import '../pages/editing_profile_page/editing_profile_page.dart';
+import '../pages/filter_housings_page/filter_housings_page.dart';
 import '../pages/filter_locations_page/filter_locations_page.dart';
 import '../pages/home_page/home_page.dart';
 import '../pages/housings_page/housings_page.dart';
@@ -64,6 +65,7 @@ import '../pages/write_review_page/write_review_page.dart';
           AutoRoute(path: ':selectedModel', page: DetailsHousingPage),
           AutoRoute(path: 'selectedModel/reviewsApi', page: ReviewApiPage),
           AutoRoute(path: ':selectedModel/writeReviews', page: WriteReviewPage),
+          AutoRoute(page: FilterHousingsPage)
         ]),
         AutoRoute(
           path: 'map',

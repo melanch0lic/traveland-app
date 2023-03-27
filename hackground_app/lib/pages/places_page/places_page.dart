@@ -107,7 +107,6 @@ class PlacesPage extends StatelessWidget {
                   },
                 ),
               )
-              // )
             ],
           ),
         );

@@ -14,12 +14,11 @@ class SearchMapWidget extends StatelessWidget {
         context.read<MapPageViewModel>().changeSearchState();
       },
       readOnly: true,
-      style: theme.textTheme.bodyText1,
+      style: theme.textTheme.bodyLarge,
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.search, color: theme.cardColor),
-        suffixIcon: Icon(Icons.keyboard_voice, color: theme.cardColor),
         contentPadding: const EdgeInsets.all(15),
-        hintStyle: theme.textTheme.bodyText1,
+        hintStyle: theme.textTheme.bodyLarge,
         hintText: 'Поиск',
         filled: true,
         fillColor: Colors.black.withOpacity(0.6),

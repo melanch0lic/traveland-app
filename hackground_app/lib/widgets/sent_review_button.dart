@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../app_initialization.dart';
 import '../navigation/router.gr.dart';
 
 class SentReviewButton extends StatelessWidget {
@@ -10,6 +12,7 @@ class SentReviewButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final isGuestMode = context.select((InitializeProvider model) => model.isGuestMode);
     return SizedBox(
       height: 48,
       child: ElevatedButton(
@@ -20,9 +23,18 @@ class SentReviewButton extends StatelessWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           elevation: 0,
         ),
-        onPressed: () {
-          context.router.navigate(WriteReviewRoute(placeId: placeId));
-        },
+        onPressed: isGuestMode
+            ? () => showDialog(
+                context: context,
+                builder: (_) => AlertDialog(
+                      title: Center(
+                        child: Text(
+                          'Чтобы оставить отзыв, необходимо зарегистрироваться!',
+                          style: theme.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                    ))
+            : () => context.router.navigate(WriteReviewRoute(placeId: placeId)),
         child: Center(
           child: Text(
             'Оставить отзыв',

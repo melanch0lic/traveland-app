@@ -22,23 +22,22 @@ class BodyLocation extends StatelessWidget {
   const BodyLocation({
     Key? key,
     required this.selectedModel,
-    required this.theme,
   }) : super(key: key);
 
   final PlaceEntity selectedModel;
-  final ThemeData theme;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final reviews = context.select((DetailsLocationPageViewModel model) => model.reviews);
     return ListView(
+      padding: const EdgeInsets.only(bottom: 15),
       children: [
         ImageSlider(
           urlImages: selectedModel.placeInfo.photos!.map((e) => 'http://176.119.159.9/media/$e').toList(),
         ),
         Padding(
-          padding: const EdgeInsets.all(15.0),
+          padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -47,9 +46,7 @@ class BodyLocation extends StatelessWidget {
                 style: theme.textTheme.displayMedium!
                     .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
               ),
-              const SizedBox(height: 10),
-              TimeLocationWidget(theme: theme),
-              const SizedBox(height: 15),
+              TimeLocationWidget(selectedModel: selectedModel),
               if (selectedModel.price.isValid) ...[
                 Row(
                   children: [
@@ -211,15 +208,15 @@ class BodyLocation extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              LocationSmallListView(
-                  places: context
-                      .read<DetailsLocationPageViewModel>()
-                      .places
-                      .where((element) => element.placeInfo.id != selectedModel.placeInfo.id)
-                      .toList()),
             ],
           ),
-        )
+        ),
+        LocationSmallListView(
+            places: context
+                .read<DetailsLocationPageViewModel>()
+                .places
+                .where((element) => element.placeInfo.id != selectedModel.placeInfo.id)
+                .toList()),
       ],
     );
   }

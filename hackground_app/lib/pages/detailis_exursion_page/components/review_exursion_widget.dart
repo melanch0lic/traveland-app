@@ -2,6 +2,16 @@ import 'package:flutter/material.dart';
 
 import '../../../data/network/models/entity/tour_entity.dart';
 
+String formatFeedback(int count) {
+  if (count % 10 == 1 && count % 100 != 11) {
+    return '$count отзыв';
+  } else if ([2, 3, 4].contains(count % 10) && ![12, 13, 14].contains(count % 100)) {
+    return '$count отзыва';
+  } else {
+    return '$count отзывов';
+  }
+}
+
 class ReviewExursionWidget extends StatelessWidget {
   const ReviewExursionWidget({
     Key? key,
@@ -37,7 +47,7 @@ class ReviewExursionWidget extends StatelessWidget {
           width: 5,
         ),
         Text(
-          '${selectedModel.reviewCount} отзывов',
+          formatFeedback(selectedModel.reviewCount),
           style: theme.textTheme.bodyLarge!.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
         ),
       ],

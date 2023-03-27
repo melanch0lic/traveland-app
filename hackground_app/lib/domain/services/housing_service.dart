@@ -7,8 +7,8 @@ class HousingService {
 
   HousingService({required this.mainApiClient});
 
-  Future<Result<HousingResponse>> getHousings() async {
-    final response = await mainApiClient.getHousings();
+  Future<Result<HousingResponse>> getHousings(String sortBy, String sortOrder, int houseTypeId) async {
+    final response = await mainApiClient.getHousings(sortBy, sortOrder, houseTypeId);
     return response;
   }
 }

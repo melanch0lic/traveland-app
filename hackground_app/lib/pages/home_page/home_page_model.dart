@@ -64,7 +64,7 @@ class HomePageViewModel with ChangeNotifier {
   }
 
   Future<void> fetchEventsData() async {
-    final response = await eventsService.getEvents();
+    final response = await eventsService.getEvents('name', 'asc', 0);
     response.fold((result) {
       cachedDataRepository.eventList = result.result.places;
     }, (exception, error) {
@@ -74,7 +74,7 @@ class HomePageViewModel with ChangeNotifier {
   }
 
   Future<void> fetchPlacesData() async {
-    final response = await placesService.getPlaces();
+    final response = await placesService.getPlaces('name', 'asc', 0);
     response.fold((result) {
       cachedDataRepository.placesList = result.result.places;
     }, (exception, error) {
@@ -84,7 +84,7 @@ class HomePageViewModel with ChangeNotifier {
   }
 
   Future<void> fetchHousingsData() async {
-    final response = await housingService.getHousings();
+    final response = await housingService.getHousings('name', 'asc', 0);
     response.fold((result) {
       cachedDataRepository.housingList = result.result.places;
     }, (exception, error) {
@@ -94,7 +94,7 @@ class HomePageViewModel with ChangeNotifier {
   }
 
   Future<void> fetchExcursionsData() async {
-    final response = await excursionsService.getTours(1);
+    final response = await excursionsService.getTours(1, 'popularity');
     response.fold((result) {
       cachedDataRepository.excursionList = result.results;
     }, (exception, error) {

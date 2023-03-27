@@ -18,6 +18,14 @@ class DetailsLocationPageViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  bool _isSheduleOpened = false;
+  bool get isSheduleOpened => _isSheduleOpened;
+
+  void onShedulePressed() {
+    _isSheduleOpened = !_isSheduleOpened;
+    notifyListeners();
+  }
+
   List<PlaceEntity> get places => cachedDataRepository.placesList!;
 
   List<ReviewApiEntity> _reviews = [];

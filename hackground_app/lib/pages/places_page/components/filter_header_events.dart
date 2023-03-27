@@ -1,9 +1,7 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-import '../../../navigation/router.gr.dart';
 import '../places_page_model.dart';
 
 class FilterHeaderEvents extends StatelessWidget {
@@ -12,11 +10,9 @@ class FilterHeaderEvents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final sortFlag = context.select(
-      (PlacesPageViewModel model) => model.sortFlagEvents,
-    );
+    final sortFlag = context.select((PlacesPageViewModel model) => model.sortFlagEvents);
+    final sortName = context.select((PlacesPageViewModel model) => model.sortByEvents);
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
           child: AnimatedCrossFade(
@@ -35,7 +31,11 @@ class FilterHeaderEvents extends StatelessWidget {
                   width: 5,
                 ),
                 Text(
-                  'По стоимости',
+                  sortName == 'name'
+                      ? 'По названию'
+                      : sortName == 'avg_rating'
+                          ? 'По рейтингу'
+                          : 'По количеству отзывов',
                   style: theme.textTheme.bodyMedium!.copyWith(color: theme.primaryColorDark),
                 )
               ]),
@@ -55,7 +55,11 @@ class FilterHeaderEvents extends StatelessWidget {
                   width: 5,
                 ),
                 Text(
-                  'По удаленности',
+                  sortName == 'name'
+                      ? 'По названию'
+                      : sortName == 'avg_rating'
+                          ? 'По рейтингу'
+                          : 'По количеству отзывов',
                   style: theme.textTheme.bodyMedium!.copyWith(color: theme.primaryColorDark),
                 )
               ]),
@@ -64,16 +68,6 @@ class FilterHeaderEvents extends StatelessWidget {
             duration: const Duration(milliseconds: 100),
           ),
         ),
-        const Spacer(),
-        InkWell(
-          child: SvgPicture.asset(
-            'assets/images/filter_icon.svg',
-            color: theme.primaryColorDark,
-            width: 16,
-            height: 16,
-          ),
-          onTap: () => context.router.push(const FilterLocationsRoute()),
-        )
       ],
     );
   }

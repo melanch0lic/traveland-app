@@ -33,13 +33,15 @@ class BodyExcursion extends StatelessWidget {
     );
     final theme = Theme.of(context);
     final isLoading = context.select((DetailsExursionPageViewModel model) => model.isLoading);
+    final reviews = context.select((DetailsExursionPageViewModel model) => model.reviews);
     return ListView(
+      padding: const EdgeInsets.only(bottom: 15),
       children: [
         ImageSlider(
           urlImages: selectedModel.photos.map((e) => e.mediumAvatarUrl).toList(),
         ),
         Padding(
-          padding: const EdgeInsets.all(15),
+          padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -101,25 +103,30 @@ class BodyExcursion extends StatelessWidget {
               const SizedBox(height: 15),
               ContactTripsterWidget(url: selectedModel.url),
               const SizedBox(height: 15),
-              NameRowHeaderExursion(selectedModel: selectedModel),
-              ReviewExursionWidget(selectedModel: selectedModel),
-              const SizedBox(height: 10),
-              if (!isLoading) const ReviewExcursionList(),
-              const SizedBox(height: 15),
+              if (!isLoading)
+                if (reviews.isNotEmpty) ...[
+                  NameRowHeaderExursion(selectedModel: selectedModel),
+                  ReviewExursionWidget(selectedModel: selectedModel),
+                  const SizedBox(height: 10),
+                  ReviewExcursionList(
+                    reviews: reviews,
+                  ),
+                  const SizedBox(height: 15),
+                ],
               NameRowHeaderExcursions(name: tr('also_recommended')),
               const SizedBox(
                 height: 15,
               ),
-              ExcursionSmallListView(
-                excursions: context
-                    .read<DetailsExursionPageViewModel>()
-                    .excursions
-                    .where((element) => element.id != selectedModel.id)
-                    .toList(),
-              )
             ],
           ),
         ),
+        ExcursionSmallListView(
+          excursions: context
+              .read<DetailsExursionPageViewModel>()
+              .excursions
+              .where((element) => element.id != selectedModel.id)
+              .toList(),
+        )
       ],
     );
   }

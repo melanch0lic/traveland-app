@@ -27,7 +27,7 @@ class MapWidget extends StatelessWidget {
           onTap: (tapPosition, point) {},
           interactiveFlags: InteractiveFlag.pinchZoom | InteractiveFlag.drag,
           center: LatLng(43.0367, 44.6678),
-          zoom: 16,
+          zoom: 12,
           maxZoom: 17,
           minZoom: 8),
       children: [

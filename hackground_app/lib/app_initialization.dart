@@ -69,6 +69,13 @@ class InitializeProvider with ChangeNotifier {
   late final bool _isUserAuthorized;
   bool get isUserAuthorized => _isUserAuthorized && (_settings.getRememberUserMode ?? false);
 
+  bool _isGuestMode = false;
+  bool get isGuestMode => _isGuestMode;
+
+  void changeGuestMode() {
+    _isGuestMode = !_isGuestMode;
+  }
+
   Future<void> initializeApp() async {
     _appRouter = AppRouter();
     _dioTripster = Dio();

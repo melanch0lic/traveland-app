@@ -12,12 +12,21 @@ class ExcursionsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final List<String> sortList = [
-      'Сначала популярные',
-      'Сначала дешёвые',
-      'Сначала дорогие',
-      'Сначала лучшие',
-      'Сначала дальние',
+    final List<Widget> sortList = [
+      ListTile(
+        onTap: () => context.read<PlacesPageViewModel>().sortExcursionsParametersChange('popularity'),
+        title: Text(
+          'По популярности',
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 16, color: Colors.black),
+        ),
+      ),
+      ListTile(
+        onTap: () => context.read<PlacesPageViewModel>().sortExcursionsParametersChange('price'),
+        title: Text(
+          'По цене',
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 16, color: Colors.black),
+        ),
+      ),
     ];
     final isLoadingMore = context.select((PlacesPageViewModel model) => model.isExcursionsLoadingMore);
     final isLoading = context.select((PlacesPageViewModel model) => model.isExcursionsLoading);
@@ -75,16 +84,7 @@ class ExcursionsPage extends StatelessWidget {
                               child: ListView.separated(
                                   physics: const BouncingScrollPhysics(),
                                   shrinkWrap: true,
-                                  itemBuilder: (context, index) => Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                                        child: Text(
-                                          sortList[index],
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium!
-                                              .copyWith(fontSize: 16, color: Colors.black),
-                                        ),
-                                      ),
+                                  itemBuilder: (context, index) => sortList[index],
                                   separatorBuilder: (context, index) => const Divider(),
                                   itemCount: sortList.length),
                             ),

@@ -10,7 +10,6 @@ import '../../../widgets/contact_email_widget.dart';
 import '../../../widgets/contact_phone_widget.dart';
 import '../../../widgets/contact_website_widget.dart';
 import '../../../widgets/image_slider.dart';
-import '../../../widgets/name_row_header_events.dart';
 import '../../../widgets/name_row_header_housing.dart';
 import '../../../widgets/review_housing_list.dart';
 import '../../../widgets/reviews_rating_widget.dart';
@@ -32,12 +31,13 @@ class BodyEvent extends StatelessWidget {
     final theme = Theme.of(context);
     final reviews = context.select((DetailsEventPageViewModel model) => model.reviews);
     return ListView(
+      padding: const EdgeInsets.only(bottom: 15),
       children: [
         ImageSlider(
           urlImages: selectedModel.placeInfo.photos!.map((e) => 'http://176.119.159.9/media/$e').toList(),
         ),
         Padding(
-          padding: const EdgeInsets.all(15.0),
+          padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -47,7 +47,7 @@ class BodyEvent extends StatelessWidget {
                     .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 10),
-              DurationEventWidget(theme: theme),
+              DurationEventWidget(selectedModel: selectedModel),
               const SizedBox(height: 15),
               PriceEventWidget(selectedModel: selectedModel),
               const SizedBox(height: 15),
@@ -193,9 +193,6 @@ class BodyEvent extends StatelessWidget {
               SentReviewButton(
                 placeId: selectedModel.placeInfo.id,
               ),
-              const SizedBox(height: 30),
-              const NameRowHeaderEvents(name: 'Также рекомендуем'),
-              const SizedBox(height: 15),
             ],
           ),
         )

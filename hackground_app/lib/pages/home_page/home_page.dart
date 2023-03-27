@@ -55,6 +55,7 @@ class HomePage extends StatelessWidget {
                       events!.isNotEmpty
                   ? SafeArea(
                       child: SingleChildScrollView(
+                        padding: const EdgeInsets.only(bottom: 15),
                         child: Column(
                           children: [
                             ImageSlider(urlImages: const [
@@ -64,27 +65,36 @@ class HomePage extends StatelessWidget {
                               'https://i.pinimg.com/564x/ad/ab/fc/adabfc4bc0da19d0d2d075607d5f2a88.jpg',
                               'https://i.pinimg.com/564x/5b/3a/e1/5b3ae1702549260dd72e8d9607c35631.jpg',
                             ]),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
-                              child: Column(children: [
-                                const NameRowHeaderExcursions(
+                            Column(children: [
+                              const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 15),
+                                child: NameRowHeaderExcursions(
                                   name: 'Экскурсии',
                                 ),
-                                ExcursionSmallListView(excursions: excursions),
-                                const NameRowHeaderHousings(
+                              ),
+                              ExcursionSmallListView(excursions: excursions),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 15),
+                                child: NameRowHeaderHousings(
                                   name: 'Жильё',
                                 ),
-                                HousingSmallListView(housings: housings),
-                                const NameRowHeaderPlaces(
+                              ),
+                              HousingSmallListView(housings: housings),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 15),
+                                child: NameRowHeaderPlaces(
                                   name: 'Места',
                                 ),
-                                LocationSmallListView(places: places),
-                                const NameRowHeaderEvents(
+                              ),
+                              LocationSmallListView(places: places),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 15),
+                                child: NameRowHeaderEvents(
                                   name: 'События',
                                 ),
-                                EventSmallListView(events: events),
-                              ]),
-                            )
+                              ),
+                              EventSmallListView(events: events),
+                            ])
                           ],
                         ),
                       ),

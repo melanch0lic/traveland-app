@@ -7,8 +7,8 @@ class EventsService {
 
   EventsService({required this.mainApiClient});
 
-  Future<Result<EventsResponse>> getEvents() async {
-    final response = await mainApiClient.getEvents();
+  Future<Result<EventsResponse>> getEvents(String sortBy, String sortOrder, int placeTypeId) async {
+    final response = await mainApiClient.getEvents(sortBy, sortOrder, placeTypeId);
     return response;
   }
 }
