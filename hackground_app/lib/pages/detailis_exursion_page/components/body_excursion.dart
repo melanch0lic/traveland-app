@@ -13,7 +13,7 @@ import 'duration_excursion_widget.dart';
 import 'info_guide_widget.dart';
 import 'name_row_header_exursion.dart';
 import 'price_excursion_widget.dart';
-import 'provided-by-tripster-or-not_widget.dart';
+import 'provided_by_tripster_or_not_widget.dart';
 import 'review_excursion_list.dart';
 import 'review_exursion_widget.dart';
 import 'show_description_excursion_widget.dart';

@@ -6,7 +6,7 @@ import 'components/full_review_api_card.dart';
 
 class ReviewApiPage extends StatelessWidget {
   final List<ReviewApiEntity> reviews;
-  final selectedModel;
+  final dynamic selectedModel;
   const ReviewApiPage({Key? key, required this.reviews, required this.selectedModel}) : super(key: key);
 
   @override

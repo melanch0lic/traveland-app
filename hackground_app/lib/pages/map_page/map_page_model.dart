@@ -316,6 +316,7 @@ class MapPageViewModel with ChangeNotifier {
   @override
   void dispose() {
     subscription.cancel();
+    mapController.dispose();
     super.dispose();
   }
 

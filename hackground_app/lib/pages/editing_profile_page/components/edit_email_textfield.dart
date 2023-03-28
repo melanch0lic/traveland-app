@@ -17,24 +17,23 @@ class EditEmailTextField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('E-mail', style: theme.textTheme.bodyText2),
+        Text('E-mail', style: theme.textTheme.bodyMedium),
         const SizedBox(height: 10),
         TextField(
-          style: theme.textTheme.bodyText2,
+          style: theme.textTheme.bodyMedium,
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.all(15),
+            contentPadding: const EdgeInsets.all(15),
             prefixIconConstraints: const BoxConstraints(
               minWidth: 16,
               minHeight: 14,
             ),
-            hintText: '${userInfo.mail}',
+            hintText: userInfo.mail,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
-              borderSide: BorderSide(width: 2),
+              borderSide: const BorderSide(width: 2),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
-              borderSide: BorderSide(),
             ),
           ),
         ),

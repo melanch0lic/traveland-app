@@ -26,7 +26,7 @@ class MapCategorySelectWidget extends StatelessWidget {
               backgroundColor: Colors.black.withOpacity(0.6),
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             ),
-            child: Text('Сбросить фильтры', style: theme.textTheme.bodyText1!.copyWith(fontSize: 14)),
+            child: Text('Сбросить фильтры', style: theme.textTheme.bodyLarge!.copyWith(fontSize: 14)),
           ),
           const SizedBox(width: 10),
           ElevatedButton(
@@ -40,7 +40,7 @@ class MapCategorySelectWidget extends StatelessWidget {
               backgroundColor: Colors.black.withOpacity(0.6),
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             ),
-            child: Text('Жильё', style: theme.textTheme.bodyText1!.copyWith(fontSize: 14)),
+            child: Text('Жильё', style: theme.textTheme.bodyLarge!.copyWith(fontSize: 14)),
           ),
           const SizedBox(width: 10),
           ElevatedButton(
@@ -54,7 +54,7 @@ class MapCategorySelectWidget extends StatelessWidget {
               backgroundColor: Colors.black.withOpacity(0.6),
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             ),
-            child: Text('Локации', style: theme.textTheme.bodyText1!.copyWith(fontSize: 14)),
+            child: Text('Локации', style: theme.textTheme.bodyLarge!.copyWith(fontSize: 14)),
           ),
           const SizedBox(width: 10),
           ElevatedButton(
@@ -68,7 +68,7 @@ class MapCategorySelectWidget extends StatelessWidget {
               backgroundColor: Colors.black.withOpacity(0.6),
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             ),
-            child: Text('События', style: theme.textTheme.bodyText1!.copyWith(fontSize: 14)),
+            child: Text('События', style: theme.textTheme.bodyLarge!.copyWith(fontSize: 14)),
           ),
         ],
       ),

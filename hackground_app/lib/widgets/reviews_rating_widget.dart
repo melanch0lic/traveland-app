@@ -11,7 +11,7 @@ String formatFeedback(int count) {
 }
 
 class ReviewRatingWidget extends StatelessWidget {
-  final selectedModel;
+  final dynamic selectedModel;
   const ReviewRatingWidget({Key? key, required this.selectedModel}) : super(key: key);
 
   @override

@@ -1,11 +1,8 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 import '../../app_initialization.dart';
-import '../../navigation/router.gr.dart';
 import 'components/info_user_widget.dart';
 import 'components/log_out_button.dart';
 import 'profile_page_model.dart';
@@ -56,27 +53,27 @@ class ProfilePage extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  actions: [
-                    if (!isLoading) ...[
-                      IconButton(
-                        splashRadius: 15,
-                        icon: SvgPicture.asset(
-                          'assets/images/redact.svg',
-                          color: Colors.black,
-                        ),
-                        onPressed: () => context.router
-                            .push(EditingProfileRoute(userInfo: context.read<ProfilePageViewModel>().userInfo!)),
-                      ),
-                      IconButton(
-                        splashRadius: 15,
-                        icon: SvgPicture.asset(
-                          'assets/images/settings.svg',
-                          color: Colors.black,
-                        ),
-                        onPressed: () => context.router.push(const ApplicationSettingsRoute()),
-                      ),
-                    ]
-                  ],
+                  // actions: [
+                  //   if (!isLoading) ...[
+                  //     IconButton(
+                  //       splashRadius: 15,
+                  //       icon: SvgPicture.asset(
+                  //         'assets/images/redact.svg',
+                  //         color: Colors.black,
+                  //       ),
+                  //       onPressed: () => context.router
+                  //           .push(EditingProfileRoute(userInfo: context.read<ProfilePageViewModel>().userInfo!)),
+                  //     ),
+                  //     IconButton(
+                  //       splashRadius: 15,
+                  //       icon: SvgPicture.asset(
+                  //         'assets/images/settings.svg',
+                  //         color: Colors.black,
+                  //       ),
+                  //       onPressed: () => context.router.push(const ApplicationSettingsRoute()),
+                  //     ),
+                  //   ]
+                  // ],
                 ),
                 body: isLoading
                     ? SpinKitSpinningLines(color: theme.indicatorColor)

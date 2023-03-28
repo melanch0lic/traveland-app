@@ -22,7 +22,7 @@ class FilterHeader extends StatelessWidget {
                 ),
                 Text(
                   'По стоимости',
-                  style: theme.textTheme.bodyText2!.copyWith(color: theme.primaryColorDark),
+                  style: theme.textTheme.bodyMedium!.copyWith(color: theme.primaryColorDark),
                 )
               ]),
             ),
@@ -33,7 +33,7 @@ class FilterHeader extends StatelessWidget {
               ),
               Text(
                 'По удаленности',
-                style: theme.textTheme.bodyText2!.copyWith(color: theme.primaryColorDark),
+                style: theme.textTheme.bodyMedium!.copyWith(color: theme.primaryColorDark),
               )
             ]),
             crossFadeState: CrossFadeState.showFirst,

@@ -201,7 +201,7 @@ class PlacesPageViewModel with ChangeNotifier {
   }
 
   Future<void> fetchEvents() async {
-    final response = await eventsService.getEvents('name', 'asc', 0);
+    final response = await eventsService.getEvents(_sortByEvents, _sortOrderEvents, 0);
     response.fold((result) {
       _events = result.result.places;
     }, (exception, error) {});

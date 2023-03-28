@@ -18,7 +18,7 @@ class NotifyRowWidget extends StatelessWidget {
         children: [
           Text(
             'Уведомления',
-            style: theme.textTheme.headline2!.copyWith(
+            style: theme.textTheme.displayMedium!.copyWith(
               color: Colors.black,
               fontSize: 16,
               fontWeight: FontWeight.w400,
@@ -28,10 +28,9 @@ class NotifyRowWidget extends StatelessWidget {
             width: 44,
             height: 24,
             toggleSize: 15,
-            inactiveColor: Color.fromRGBO(142, 142, 147, 1),
-            activeColor: Color.fromRGBO(37, 65, 178, 1),
+            inactiveColor: const Color.fromRGBO(142, 142, 147, 1),
+            activeColor: const Color.fromRGBO(37, 65, 178, 1),
             toggleBorder: Border.all(width: 2, color: Colors.white),
-            toggleColor: Colors.white,
             onToggle: (bool value) {},
             value: true,
           ),

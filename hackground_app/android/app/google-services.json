@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:74847784549:android:bf2a52b6ceba93a444408c",
+        "mobilesdk_app_id": "1:74847784549:android:7588e30f3b85a31d44408c",
         "android_client_info": {
-          "package_name": "com.example.hackground_app"
+          "package_name": "com.YakudzaDev.traveland"
         }
       },
       "oauth_client": [

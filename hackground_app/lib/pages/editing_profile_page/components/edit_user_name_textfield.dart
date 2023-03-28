@@ -17,12 +17,12 @@ class EditUserNameTextField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Имя пользователя', style: theme.textTheme.bodyText2),
+        Text('Имя пользователя', style: theme.textTheme.bodyMedium),
         const SizedBox(height: 10),
         TextField(
-          style: theme.textTheme.bodyText2,
+          style: theme.textTheme.bodyMedium,
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.all(15),
+            contentPadding: const EdgeInsets.all(15),
             prefixIconConstraints: const BoxConstraints(
               minWidth: 16,
               minHeight: 14,
@@ -30,11 +30,10 @@ class EditUserNameTextField extends StatelessWidget {
             hintText: '${userInfo.name} ${userInfo.lastName.value}',
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
-              borderSide: BorderSide(width: 2),
+              borderSide: const BorderSide(width: 2),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
-              borderSide: BorderSide(),
             ),
           ),
         ),
