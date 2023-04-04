@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -6,14 +7,16 @@ import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 
 import '../../../data/network/models/entity/place_entity.dart';
+import '../../../navigation/router.gr.dart';
 import '../../../widgets/contact_email_widget.dart';
 import '../../../widgets/contact_phone_widget.dart';
 import '../../../widgets/contact_website_widget.dart';
 import '../../../widgets/image_slider.dart';
 import '../../../widgets/location_small_listview.dart';
 import '../../../widgets/name_row_header_housing.dart';
-import '../../../widgets/review_housing_list.dart';
-import '../../../widgets/reviews_rating_widget.dart';
+import '../../../widgets/name_row_header_places.dart';
+import '../../../widgets/review_rating_widget_details.dart';
+import '../../../widgets/review_small_list.dart';
 import '../../../widgets/sent_review_button.dart';
 import '../detailis_location_model_page.dart';
 import 'time_location_widget.dart';
@@ -30,6 +33,7 @@ class BodyLocation extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final reviews = context.select((DetailsLocationPageViewModel model) => model.reviews);
+    final reviewsRating = context.select((DetailsLocationPageViewModel model) => model.reviewsRating);
     return ListView(
       padding: const EdgeInsets.only(bottom: 15),
       children: [
@@ -95,13 +99,18 @@ class BodyLocation extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 15),
-              Text(
-                selectedModel.placeInfo.adress.value,
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: const Color.fromRGBO(44, 44, 46, 1),
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                ),
+              Row(
+                children: [
+                  SvgPicture.asset(
+                    'assets/images/vector_icon.svg',
+                    color: Colors.black,
+                  ),
+                  Text(
+                    selectedModel.placeInfo.adress.value,
+                    style:
+                        theme.textTheme.bodyLarge!.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
+                  ),
+                ],
               ),
               const SizedBox(height: 10),
               ClipRRect(
@@ -110,6 +119,7 @@ class BodyLocation extends StatelessWidget {
                   height: 200,
                   child: FlutterMap(
                     options: MapOptions(
+                        absorbPanEventsOnScrollables: false,
                         interactiveFlags: InteractiveFlag.pinchZoom | InteractiveFlag.drag,
                         center: LatLng(
                           selectedModel.placeInfo.longitude.value,
@@ -173,43 +183,64 @@ class BodyLocation extends StatelessWidget {
                 ),
               ],
               const SizedBox(height: 15),
-              if (reviews.isNotEmpty) ...[
-                NameRowHeaderReviewDetails(
-                  selectedModel: selectedModel,
-                  reviews: reviews,
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                ReviewRatingWidget(selectedModel: selectedModel),
-                const SizedBox(
-                  height: 10,
-                ),
-                ReviewSmallList(
-                  reviews: reviews,
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-              ] else ...[
-                Center(
-                  child: Text(
-                    'Отзывов еще нет, будьте первым!',
-                    style: theme.textTheme.bodyMedium,
-                  ),
-                ),
-                const SizedBox(
-                  height: 15,
-                )
-              ],
-              SentReviewButton(
-                placeId: selectedModel.placeInfo.id,
-              ),
-              const SizedBox(
-                height: 30,
-              ),
             ],
           ),
+        ),
+        if (reviews.isNotEmpty) ...[
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: NameRowHeaderReviewDetails(
+              meanRating: reviewsRating,
+              reviews: reviews,
+            ),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: ReviewRatingWidgetDetails(meanRating: reviewsRating, ratingCount: reviews.length),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          ReviewSmallList(
+            reviews: reviews,
+            callback: () {
+              context.router.push(ReviewApiRoute(meanRating: reviewsRating, reviews: reviews));
+            },
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+        ] else ...[
+          Center(
+            child: Text(
+              'Отзывов еще нет, будьте первым!',
+              style: theme.textTheme.bodyMedium,
+            ),
+          ),
+          const SizedBox(
+            height: 15,
+          )
+        ],
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: SentReviewButton(
+            placeId: selectedModel.placeInfo.id,
+            providerTypeValue: 2,
+            viewModel: context.read<DetailsLocationPageViewModel>(),
+          ),
+        ),
+        const SizedBox(
+          height: 30,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: NameRowHeaderPlaces(name: tr('also_recommended')),
+        ),
+        const SizedBox(
+          height: 15,
         ),
         LocationSmallListView(
             places: context

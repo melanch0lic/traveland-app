@@ -21,6 +21,9 @@ class DetailsHousingPageViewModel with ChangeNotifier {
 
   List<HousingEntity> get housings => cachedDataRepository.housingList!;
 
+  double _reviewsRating = 0;
+  double get reviewsRating => _reviewsRating;
+
   List<ReviewApiEntity> _reviews = [];
   List<ReviewApiEntity> get reviews => _reviews;
 
@@ -28,6 +31,7 @@ class DetailsHousingPageViewModel with ChangeNotifier {
     final response = await reviewsService.getReviews(placeId);
     response.fold((result) {
       _reviews = result.result.reviews;
+      _reviewsRating = result.result.rating.value;
       notifyListeners();
     }, (exception, error) {});
   }

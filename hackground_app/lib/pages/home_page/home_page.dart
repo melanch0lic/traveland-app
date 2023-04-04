@@ -67,28 +67,28 @@ class HomePage extends StatelessWidget {
                             ]),
                             Column(children: [
                               const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 15),
+                                padding: EdgeInsets.only(top: 30, left: 15, right: 15),
                                 child: NameRowHeaderExcursions(
                                   name: 'Экскурсии',
                                 ),
                               ),
                               ExcursionSmallListView(excursions: excursions),
                               const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 15),
+                                padding: EdgeInsets.only(top: 30, left: 15, right: 15),
                                 child: NameRowHeaderHousings(
                                   name: 'Жильё',
                                 ),
                               ),
                               HousingSmallListView(housings: housings),
                               const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 15),
+                                padding: EdgeInsets.only(top: 30, left: 15, right: 15),
                                 child: NameRowHeaderPlaces(
                                   name: 'Места',
                                 ),
                               ),
                               LocationSmallListView(places: places),
                               const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 15),
+                                padding: EdgeInsets.only(top: 30, left: 15, right: 15),
                                 child: NameRowHeaderEvents(
                                   name: 'События',
                                 ),

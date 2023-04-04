@@ -91,7 +91,9 @@ class ReviewPage extends StatelessWidget {
                             itemBuilder: (context, index) => reviews.length == index + 1
                                 ? Column(
                                     children: [
-                                      FullReviewCard(review: reviews[index]),
+                                      FullReviewCard(
+                                        review: reviews[index],
+                                      ),
                                       if (isLoadingMore) SpinKitCircle(color: theme.indicatorColor)
                                     ],
                                   )

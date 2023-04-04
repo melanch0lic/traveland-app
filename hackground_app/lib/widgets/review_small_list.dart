@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../../data/network/models/entity/review_entity.dart';
-import 'review_card.dart';
+import '../data/network/models/entity/review_api_entity.dart';
+import 'review_place_small_card.dart';
 
-class ReviewExcursionList extends StatelessWidget {
-  final List<ReviewEntity> reviews;
+class ReviewSmallList extends StatelessWidget {
+  final List<ReviewApiEntity> reviews;
   final Function callback;
-  const ReviewExcursionList({Key? key, required this.reviews, required this.callback}) : super(key: key);
+  const ReviewSmallList({Key? key, required this.reviews, required this.callback}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class ReviewExcursionList extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 15),
           scrollDirection: Axis.horizontal,
           itemCount: reviews.length,
-          itemBuilder: (context, index) => ReviewCard(
+          itemBuilder: (context, index) => ReviewPlaceSmallCard(
                 review: reviews[index],
                 callback: callback,
               )),

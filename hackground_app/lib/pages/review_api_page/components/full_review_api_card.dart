@@ -58,7 +58,13 @@ class FullReviewApiCard extends StatelessWidget {
               margin: const EdgeInsets.only(bottom: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(7),
-                color: const Color.fromRGBO(56, 176, 0, 1),
+                color: review.rating.toInt() >= 4
+                    ? const Color.fromRGBO(56, 176, 0, 1)
+                    : review.rating.toInt() == 0
+                        ? Colors.grey
+                        : review.rating.toInt() <= 2
+                            ? const Color.fromRGBO(255, 47, 47, 1)
+                            : const Color.fromRGBO(253, 197, 0, 1),
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10.5),
