@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../data/network/models/entity/tour_entity.dart';
+import '../../../navigation/router.gr.dart';
 import '../../../widgets/excursion_small_listview.dart';
 import '../../../widgets/image_slider.dart';
 import '../../../widgets/name_row_header_excursions.dart';
@@ -103,22 +105,34 @@ class BodyExcursion extends StatelessWidget {
               const SizedBox(height: 15),
               ContactTripsterWidget(url: selectedModel.url),
               const SizedBox(height: 15),
-              if (!isLoading)
-                if (reviews.isNotEmpty) ...[
-                  NameRowHeaderExursion(selectedModel: selectedModel),
-                  ReviewExursionWidget(selectedModel: selectedModel),
-                  const SizedBox(height: 10),
-                  ReviewExcursionList(
-                    reviews: reviews,
-                  ),
-                  const SizedBox(height: 15),
-                ],
-              NameRowHeaderExcursions(name: tr('also_recommended')),
-              const SizedBox(
-                height: 15,
-              ),
             ],
           ),
+        ),
+        if (!isLoading)
+          if (reviews.isNotEmpty) ...[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: NameRowHeaderExursion(selectedModel: selectedModel),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: ReviewExursionWidget(selectedModel: selectedModel),
+            ),
+            const SizedBox(height: 10),
+            ReviewExcursionList(
+              reviews: reviews,
+              callback: () {
+                context.router.push(ReviewRoute(selectedModel: selectedModel));
+              },
+            ),
+            const SizedBox(height: 15),
+          ],
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: NameRowHeaderExcursions(name: tr('also_recommended')),
+        ),
+        const SizedBox(
+          height: 15,
         ),
         ExcursionSmallListView(
           excursions: context

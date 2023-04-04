@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-// ignore: prefer_relative_imports
-import 'package:hackground_app/pages/detailis_event_page/detailis_event_page_model.dart';
+
 import 'package:provider/provider.dart';
 
 import '../../app_initialization.dart';
 import '../../data/network/models/entity/event_entity.dart';
 import 'components/body_event.dart';
+import 'detailis_event_page_model.dart';
 
 class DetailisEventPage extends StatelessWidget {
   final EventsEntity selectedModel;

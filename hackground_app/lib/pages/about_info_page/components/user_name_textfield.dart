@@ -14,13 +14,10 @@ class UserNameTextField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          tr('username_text'),
-          style: theme.textTheme.bodyMedium,
-        ),
+        Text(tr('username_text'), style: theme.textTheme.bodyMedium!.copyWith(color: theme.primaryColorDark)),
         const SizedBox(height: 10),
         TextField(
-          style: theme.textTheme.bodyMedium,
+          style: theme.textTheme.bodyMedium!.copyWith(color: theme.primaryColorDark),
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.all(15),
             prefixIconConstraints: const BoxConstraints(
