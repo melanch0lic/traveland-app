@@ -34,7 +34,7 @@ class LogOutButton extends StatelessWidget {
                 .whenComplete(() => context.router.replace(const LoginRouter())),
         child: Center(
           child: Text(
-            'Выйти',
+            isGuestMode ? 'Войти' : 'Выйти',
             style: theme.textTheme.bodyLarge!.copyWith(color: theme.indicatorColor),
           ),
         ),

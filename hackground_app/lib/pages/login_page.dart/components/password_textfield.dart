@@ -13,19 +13,24 @@ class PasswordTextfield extends StatelessWidget {
     final theme = Theme.of(context);
     final isHidePassword = context.select((LoginPageViewModel model) => model.isHidePassword);
     final isDataCorrect = context.select((LoginPageViewModel model) => model.isDataCorrect);
+    final password = context.select((LoginPageViewModel model) => model.password);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           tr('password_text'),
           style: isDataCorrect
-              ? theme.textTheme.bodyMedium
+              ? theme.textTheme.bodyMedium!.copyWith(color: theme.primaryColorDark)
               : theme.textTheme.bodyMedium!.copyWith(color: const Color.fromRGBO(255, 47, 47, 1)),
         ),
         const SizedBox(height: 10),
         TextField(
           obscureText: isHidePassword,
-          style: theme.textTheme.bodyMedium,
+          style: !isDataCorrect
+              ? theme.textTheme.bodyMedium!.copyWith(color: const Color.fromRGBO(255, 47, 47, 1))
+              : password.isNotEmpty
+                  ? theme.textTheme.bodyMedium!.copyWith(color: theme.primaryColorDark)
+                  : theme.textTheme.bodyMedium,
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.all(15),
             prefixIconConstraints: const BoxConstraints(
@@ -40,19 +45,28 @@ class PasswordTextfield extends StatelessWidget {
               padding: const EdgeInsets.only(left: 16, top: 16, bottom: 16, right: 6),
               child: SvgPicture.asset(
                 'assets/images/password_icon.svg',
-                color: theme.textTheme.bodyMedium!.color,
+                color: !isDataCorrect
+                    ? const Color.fromRGBO(255, 47, 47, 1)
+                    : password.isNotEmpty
+                        ? theme.primaryColorDark
+                        : theme.textTheme.bodyMedium!.color,
               ),
             ),
-            suffixIcon: InkWell(
-                highlightColor: theme.cardColor,
+            suffixIcon: GestureDetector(
                 onTap: () {
                   context.read<LoginPageViewModel>().changeHidePasswordMode();
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(top: 16, bottom: 16, right: 16),
                   child: SvgPicture.asset(
-                    'assets/images/hide_password_icon.svg',
-                    color: theme.textTheme.bodyMedium!.color,
+                    isHidePassword ? 'assets/images/show_password_icon.svg' : 'assets/images/hide_password_icon.svg',
+                    width: 24,
+                    height: 24,
+                    color: !isDataCorrect
+                        ? const Color.fromRGBO(255, 47, 47, 1)
+                        : password.isNotEmpty
+                            ? theme.primaryColorDark
+                            : theme.textTheme.bodyMedium!.color,
                   ),
                 )),
             hintText: tr('at_least_six_text'),

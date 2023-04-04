@@ -25,7 +25,7 @@ class EventSmallCard extends StatelessWidget {
         width: 227,
         decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(15), boxShadow: [
           BoxShadow(
-            blurRadius: 10,
+            blurRadius: 5,
             color: Colors.black.withOpacity(0.1),
           )
         ]),
@@ -38,15 +38,15 @@ class EventSmallCard extends StatelessWidget {
                 SizedBox(
                   height: 152,
                   width: double.infinity,
-                  child: CachedNetworkImage(
-                    fit: BoxFit.cover,
-                    imageUrl: event.placeInfo.photos!.isNotEmpty
-                        ? 'http://176.119.159.9/media/${event.placeInfo.photos!.first}'
-                        : 'https://i.pinimg.com/564x/ed/09/b9/ed09b94a7b0a68292129677eebf9bd7e.jpg',
-                    progressIndicatorBuilder: (context, url, progress) => Center(
-                      child: SpinKitSpinningLines(color: theme.indicatorColor),
-                    ),
-                  ),
+                  child: event.placeInfo.photos!.isNotEmpty
+                      ? CachedNetworkImage(
+                          fit: BoxFit.cover,
+                          imageUrl: 'http://176.119.159.9/media/${event.placeInfo.photos!.first}',
+                          progressIndicatorBuilder: (context, url, progress) => Center(
+                            child: SpinKitSpinningLines(color: theme.indicatorColor),
+                          ),
+                        )
+                      : Image.asset('assets/images/not_loaded.png', fit: BoxFit.cover),
                 ),
                 if (event.placeInfo.meanRating.isValid)
                   Positioned(
@@ -80,6 +80,7 @@ class EventSmallCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(event.placeInfo.name,
+                      maxLines: 2,
                       style: Theme.of(context).textTheme.displayLarge?.copyWith(
                             color: const Color.fromRGBO(44, 44, 46, 1),
                             fontSize: 16,

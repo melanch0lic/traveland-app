@@ -31,6 +31,7 @@ class ZoomButtons extends StatelessWidget {
               ),
             ),
           ),
+          const SizedBox(height: 20),
           InkWell(
             onTap: () => context.read<MapPageViewModel>().reduceCurrentZoomLevel(),
             child: Padding(

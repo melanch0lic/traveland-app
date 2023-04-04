@@ -26,7 +26,7 @@ class ExcursionSmallCard extends StatelessWidget {
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                blurRadius: 10,
+                blurRadius: 5,
                 color: Colors.black.withOpacity(0.1),
               )
             ],

@@ -25,11 +25,10 @@ class AuthSettingsWidget extends StatelessWidget {
           onTap: context.read<LoginPageViewModel>().changeRememberUserMode,
           child: Text(
             tr('remember_password_text'),
-            style: theme.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w300),
+            style: theme.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w300, color: theme.primaryColorDark),
           ),
         ),
         const Spacer(),
-        // Text(translate(context, 'remember_password_text'), style: theme.textTheme.bodyText2)
       ],
     );
   }
