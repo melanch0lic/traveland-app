@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hackground_app/pages/application_settings_page/components/auto_load_row_widget.dart';
-import 'package:hackground_app/pages/application_settings_page/components/notify_row_widget.dart';
+
+import 'auto_load_row_widget.dart';
+import 'notify_row_widget.dart';
 
 class BodyApplicationSettings extends StatelessWidget {
   const BodyApplicationSettings({

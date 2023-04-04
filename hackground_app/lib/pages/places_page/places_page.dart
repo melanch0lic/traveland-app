@@ -29,7 +29,7 @@ class PlacesPage extends StatelessWidget {
             title: Text(
               'Места',
               style: theme.textTheme.displayMedium!
-                  .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
+                  .copyWith(color: Colors.black, fontSize: 22, fontWeight: FontWeight.w500),
             ),
             elevation: 0,
           ),
@@ -37,8 +37,18 @@ class PlacesPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                color: theme.primaryColorLight,
                 height: 50,
+                decoration: BoxDecoration(
+                  color: theme.primaryColorLight,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.3),
+                      spreadRadius: 1,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [

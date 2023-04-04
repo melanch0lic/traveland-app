@@ -21,7 +21,8 @@ import '../pages/review_api_page/review_api_page.dart';
 import '../pages/review_page/review_page.dart';
 import '../pages/start_page/start_page.dart';
 import '../pages/tabs_page/tabs_page.dart';
-import '../pages/write_review_page/write_review_page.dart';
+import '../pages/write_review_page_housing/write_review_page.dart';
+import '../pages/write_review_page_location/write_review_page.dart';
 
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
@@ -57,14 +58,16 @@ import '../pages/write_review_page/write_review_page.dart';
             AutoRoute(path: ':selectedModel', page: DetailisExursionPage),
             AutoRoute(path: ':selectedModel/reviews', page: ReviewPage),
             AutoRoute(path: 'selectedModel/reviewsApi', page: ReviewApiPage),
-            AutoRoute(path: ':selectedModel/writeReviews', page: WriteReviewPage),
+            AutoRoute(path: ':selectedModel/writeReviews', page: WriteReviewPageLocation),
+            AutoRoute(path: ':selectedModel/writeReviews', page: WriteReviewPageHousing),
           ],
         ),
         AutoRoute(path: 'hotels', name: 'HotelsRouter', page: EmptyRouterPage, children: [
           AutoRoute(path: '', page: HousingsPage),
           AutoRoute(path: ':selectedModel', page: DetailsHousingPage),
           AutoRoute(path: 'selectedModel/reviewsApi', page: ReviewApiPage),
-          AutoRoute(path: ':selectedModel/writeReviews', page: WriteReviewPage),
+          AutoRoute(path: ':selectedModel/writeReviews', page: WriteReviewPageLocation),
+          AutoRoute(path: ':selectedModel/writeReviews', page: WriteReviewPageHousing),
           AutoRoute(page: FilterHousingsPage)
         ]),
         AutoRoute(
@@ -83,7 +86,8 @@ import '../pages/write_review_page/write_review_page.dart';
             AutoRoute(path: ':selectedModel', page: DetailisLocationPage),
             AutoRoute(path: ':selectedModel/reviews', page: ReviewPage),
             AutoRoute(path: 'selectedModel/reviewsApi', page: ReviewApiPage),
-            AutoRoute(path: ':selectedModel/writeReviews', page: WriteReviewPage),
+            AutoRoute(path: ':selectedModel/writeReviews', page: WriteReviewPageLocation),
+            AutoRoute(path: ':selectedModel/writeReviews', page: WriteReviewPageHousing),
             AutoRoute(page: FilterLocationsPage),
           ],
         ),

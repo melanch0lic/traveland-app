@@ -19,11 +19,12 @@ class TimeLocationWidget extends StatelessWidget {
     final isSheduleOpened = context.select((DetailsLocationPageViewModel model) => model.isSheduleOpened);
     const List<String> weekdays = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
     return sheduleList.isNotEmpty
-        ? Container(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            height: isSheduleOpened ? deviceHeight * 0.5 : deviceHeight * 0.09,
-            child: AnimatedCrossFade(
-              firstChild: Column(
+        ? AnimatedCrossFade(
+            firstChild: Container(
+              height: deviceHeight * 0.09,
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Row(
                     children: [
@@ -49,7 +50,7 @@ class TimeLocationWidget extends StatelessWidget {
                               .firstWhere((element) => DateTime.now().weekday == int.parse(element.weekDay))
                               .startWork
                               .isValid
-                          ? 'Открыто до ${DateFormat('HH:mm', 'ru').format(DateTime.parse(sheduleList.firstWhere((element) => DateTime.now().weekday == int.parse(element.weekDay)).startWork.value))}'
+                          ? 'Открыто до ${DateFormat('HH:mm', 'ru').format(DateTime.parse(sheduleList.firstWhere((element) => DateTime.now().weekday == int.parse(element.weekDay)).endWork.value))}'
                           : 'Не указано'),
                       const Spacer(),
                       InkWell(
@@ -62,7 +63,11 @@ class TimeLocationWidget extends StatelessWidget {
                   )
                 ],
               ),
-              secondChild: Column(
+            ),
+            secondChild: Container(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              height: deviceHeight * 0.5,
+              child: Column(
                 children: [
                   Row(
                     children: [
@@ -88,7 +93,7 @@ class TimeLocationWidget extends StatelessWidget {
                               .firstWhere((element) => DateTime.now().weekday == int.parse(element.weekDay))
                               .startWork
                               .isValid
-                          ? 'Открыто до ${DateFormat('HH:mm', 'ru').format(DateTime.parse(sheduleList.firstWhere((element) => DateTime.now().weekday == int.parse(element.weekDay)).startWork.value))}'
+                          ? 'Открыто до ${DateFormat('HH:mm', 'ru').format(DateTime.parse(sheduleList.firstWhere((element) => DateTime.now().weekday == int.parse(element.weekDay)).endWork.value))}'
                           : 'Не указано'),
                       const Spacer(),
                       InkWell(
@@ -116,9 +121,10 @@ class TimeLocationWidget extends StatelessWidget {
                   )
                 ],
               ),
-              crossFadeState: isSheduleOpened ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-              duration: const Duration(milliseconds: 200),
-            ))
+            ),
+            crossFadeState: isSheduleOpened ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+            duration: const Duration(milliseconds: 200),
+          )
         : Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Column(

@@ -3,15 +3,19 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../write_review_page_model.dart';
+import '../../detailis_event_page/detailis_event_page_model.dart';
+import '../../detailis_location_page/detailis_location_model_page.dart';
+import '../../details_housing_page/details_page_model.dart';
+import '../write_review_page_location_model.dart';
 
-class SentWriteReviewButtonExcursions extends StatelessWidget {
-  const SentWriteReviewButtonExcursions({Key? key}) : super(key: key);
+class SentWriteReviewButtonLocation extends StatelessWidget {
+  final int providerTypeValue;
+  const SentWriteReviewButtonLocation({Key? key, required this.providerTypeValue}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isFilled = context.select((WriteReviewPageViewModel model) => model.isFilled);
+    final isFilled = context.select((WriteReviewPageLocationViewModel model) => model.isFilled);
     return SizedBox(
       height: 48,
       child: ElevatedButton(
@@ -23,9 +27,19 @@ class SentWriteReviewButtonExcursions extends StatelessWidget {
         ),
         onPressed: isFilled
             ? () {
-                context.read<WriteReviewPageViewModel>().onSentReviewButtonPressed().whenComplete(
+                context.read<WriteReviewPageLocationViewModel>().onSentReviewButtonPressed().whenComplete(
                   () {
                     context.router.pop();
+                    switch (providerTypeValue) {
+                      case 1:
+                        context.read<DetailsHousingPageViewModel>().init();
+                        break;
+                      case 2:
+                        context.read<DetailsLocationPageViewModel>().init();
+                        break;
+                      case 3:
+                        context.read<DetailsEventPageViewModel>().init();
+                    }
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {

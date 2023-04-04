@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hackground_app/data/network/models/entity/place_entity.dart';
+
+import '../../../data/network/models/entity/place_entity.dart';
 
 class PriceLocationWidget extends StatelessWidget {
   const PriceLocationWidget({
@@ -23,7 +24,7 @@ class PriceLocationWidget extends StatelessWidget {
         const SizedBox(width: 5),
         Text(
           selectedModel.price.value,
-          style: Theme.of(context).textTheme.bodyText2?.copyWith(
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: const Color.fromRGBO(44, 44, 46, 1),
                 fontSize: 16,
                 fontWeight: FontWeight.w400,

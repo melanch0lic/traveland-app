@@ -3,18 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:provider/provider.dart';
 
 import '../../../data/network/models/entity/event_entity.dart';
 import '../../../widgets/contact_email_widget.dart';
 import '../../../widgets/contact_phone_widget.dart';
 import '../../../widgets/contact_website_widget.dart';
 import '../../../widgets/image_slider.dart';
-import '../../../widgets/name_row_header_housing.dart';
-import '../../../widgets/review_housing_list.dart';
-import '../../../widgets/reviews_rating_widget.dart';
-import '../../../widgets/sent_review_button.dart';
-import '../detailis_event_page_model.dart';
 import 'duration_event_widget.dart';
 import 'price_event_widget.dart';
 
@@ -29,7 +23,6 @@ class BodyEvent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final reviews = context.select((DetailsEventPageViewModel model) => model.reviews);
     return ListView(
       padding: const EdgeInsets.only(bottom: 15),
       children: [
@@ -99,6 +92,7 @@ class BodyEvent extends StatelessWidget {
                   height: 200,
                   child: FlutterMap(
                     options: MapOptions(
+                        absorbPanEventsOnScrollables: false,
                         interactiveFlags: InteractiveFlag.pinchZoom | InteractiveFlag.drag,
                         center: LatLng(
                           selectedModel.placeInfo.longitude.value,
@@ -163,36 +157,6 @@ class BodyEvent extends StatelessWidget {
                   height: 15,
                 ),
               ],
-              if (reviews.isNotEmpty) ...[
-                NameRowHeaderReviewDetails(
-                  selectedModel: selectedModel,
-                  reviews: reviews,
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                ReviewRatingWidget(selectedModel: selectedModel),
-                const SizedBox(
-                  height: 10,
-                ),
-                ReviewSmallList(reviews: reviews),
-                const SizedBox(
-                  height: 15,
-                ),
-              ] else ...[
-                Center(
-                  child: Text(
-                    'Отзывов еще нет, будьте первым!',
-                    style: theme.textTheme.bodyMedium,
-                  ),
-                ),
-                const SizedBox(
-                  height: 15,
-                )
-              ],
-              SentReviewButton(
-                placeId: selectedModel.placeInfo.id,
-              ),
             ],
           ),
         )

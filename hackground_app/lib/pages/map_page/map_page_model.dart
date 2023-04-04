@@ -185,7 +185,6 @@ class MapPageViewModel with ChangeNotifier {
     _searchController = TextEditingController();
     _mapController = MapController();
     await _getCurrentLocation();
-    _liveLocation();
   }
 
   Future<void> _fetchRouteFromOrsm() async {
@@ -224,6 +223,7 @@ class MapPageViewModel with ChangeNotifier {
     final Position currentPosition = await Geolocator.getCurrentPosition();
     _currentLocationPosition = LatLng(currentPosition.latitude, currentPosition.longitude);
     notifyListeners();
+    _liveLocation();
   }
 
   void onSelectAllCategoryButtonPressed() {

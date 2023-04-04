@@ -18,6 +18,9 @@ class DetailsLocationPageViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  double _reviewsRating = 0;
+  double get reviewsRating => _reviewsRating;
+
   bool _isSheduleOpened = false;
   bool get isSheduleOpened => _isSheduleOpened;
 
@@ -35,6 +38,7 @@ class DetailsLocationPageViewModel with ChangeNotifier {
     final response = await reviewsService.getReviews(placeId);
     response.fold((result) {
       _reviews = result.result.reviews;
+      _reviewsRating = result.result.rating.value;
       notifyListeners();
     }, (exception, error) {});
   }

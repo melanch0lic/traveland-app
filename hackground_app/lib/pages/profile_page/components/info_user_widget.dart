@@ -31,7 +31,7 @@ class InfoUserWidget extends StatelessWidget {
             )
           : Column(children: [
               ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(60),
                   child: SvgPicture.asset(
                     'assets/images/avatar_icon.svg',
                     width: 100,

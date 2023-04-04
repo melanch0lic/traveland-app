@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
+import '../../../widgets/up_scroll_widget.dart';
 import '../places_page_model.dart';
 import 'filter_header_locations.dart';
 import 'location_card.dart';
@@ -92,19 +93,12 @@ class LocationsPage extends StatelessWidget {
                 ],
               ),
             ),
-            Positioned(
-              bottom: 5,
-              right: 5,
-              child: FloatingActionButton.extended(
-                  backgroundColor: theme.highlightColor,
-                  onPressed: () {
-                    context
-                        .read<PlacesPageViewModel>()
-                        .locationController
-                        .animateTo(0, duration: const Duration(seconds: 1), curve: Curves.easeInOut);
-                  },
-                  label: const Icon(Icons.arrow_circle_up)),
-            )
+            UpScrollWidget(callback: () {
+              context
+                  .read<PlacesPageViewModel>()
+                  .locationController
+                  .animateTo(0, duration: const Duration(seconds: 1), curve: Curves.easeInOut);
+            }),
           ]);
   }
 }

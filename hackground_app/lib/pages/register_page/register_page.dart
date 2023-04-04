@@ -31,7 +31,7 @@ class RegisterPage extends StatelessWidget {
           ),
           title: Container(
             padding: const EdgeInsets.only(right: 10),
-            child: Text(tr('reg_text'),
+            child: Text(tr('sign_up'),
                 style: theme.textTheme.displayMedium!
                     .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500)),
           ),

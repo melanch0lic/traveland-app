@@ -27,6 +27,7 @@ class AuthButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: authButtonState == ButtonState.canSubmit ? onPressed : null,
         style: ElevatedButton.styleFrom(
+          disabledBackgroundColor: theme.indicatorColor.withOpacity(0.5),
           backgroundColor: theme.indicatorColor,
           foregroundColor: theme.highlightColor,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../data/network/models/entity/housing_entity.dart';
@@ -37,9 +38,7 @@ class HousingCard extends StatelessWidget {
                 fit: BoxFit.cover,
                 imageUrl: 'http://176.119.159.9/media/${housing.placeInfo.photos!.first}',
                 progressIndicatorBuilder: (context, url, progress) => Center(
-                  child: CircularProgressIndicator(
-                    value: progress.progress,
-                  ),
+                  child: SpinKitSpinningLines(color: theme.indicatorColor),
                 ),
               ),
             ),

@@ -30,7 +30,7 @@ class LoginPage extends StatelessWidget {
               ),
               onPressed: () => Navigator.of(context).pop(),
             ),
-            title: Text(tr('remember_password_text'),
+            title: Text(tr('sign_in_text'),
                 style: theme.textTheme.displayMedium!
                     .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500)),
             backgroundColor: theme.bottomAppBarTheme.color,
@@ -38,6 +38,7 @@ class LoginPage extends StatelessWidget {
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
@@ -48,8 +49,8 @@ class LoginPage extends StatelessWidget {
                 const EmailTextField(),
                 const SizedBox(height: 20),
                 const PasswordTextfield(),
-                const SizedBox(height: 50),
                 const AuthSettingsWidget(),
+                const SizedBox(height: 50),
                 const AuthButton(),
               ],
             ),

@@ -10,6 +10,7 @@ class RegisterPageViewModel with ChangeNotifier {
 
   String get email => _mail;
   String get password => _password;
+  String get passwordRepeat => _passwordRepeat;
 
   void onMailChange(String value) {
     if (_mail == value) return;

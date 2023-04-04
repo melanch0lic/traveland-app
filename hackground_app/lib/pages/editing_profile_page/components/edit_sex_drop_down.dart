@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:hackground_app/data/network/models/entity/user_info_entity.dart';
+
+import '../../../data/network/models/entity/user_info_entity.dart';
 
 class EditSexDropDown extends StatelessWidget {
   const EditSexDropDown({
@@ -17,18 +18,18 @@ class EditSexDropDown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField2(
-      style: theme.textTheme.bodyText2,
+      style: theme.textTheme.bodyMedium,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.all(15),
-        hintStyle: theme.textTheme.bodyText2,
+        contentPadding: const EdgeInsets.all(15),
+        hintStyle: theme.textTheme.bodyMedium,
         hintText: userInfo.sex ? 'Мужской' : 'Женский',
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
-          borderSide: BorderSide(width: 2),
+          borderSide: const BorderSide(width: 2),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
-          borderSide: BorderSide(width: 2),
+          borderSide: const BorderSide(width: 2),
         ),
       ),
       items: genderItems
@@ -36,7 +37,7 @@ class EditSexDropDown extends StatelessWidget {
                 value: item,
                 child: Text(
                   item,
-                  style: theme.textTheme.bodyText2,
+                  style: theme.textTheme.bodyMedium,
                 ),
               ))
           .toList(),

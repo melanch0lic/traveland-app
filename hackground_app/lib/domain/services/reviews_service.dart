@@ -14,6 +14,10 @@ class ReviewsService {
     return response;
   }
 
+  Future<void> deleteReview(int id) async {
+    await mainApiClient.deleteReview(id);
+  }
+
   Future<Result<AddReviewResponse>> addReview(AddReviewRequestBody body) async {
     final response = await mainApiClient.addReview(body);
     return response;

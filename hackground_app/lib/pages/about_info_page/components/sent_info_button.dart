@@ -25,6 +25,7 @@ class SentInfoButton extends StatelessWidget {
               }
             : null,
         style: ElevatedButton.styleFrom(
+          disabledBackgroundColor: theme.indicatorColor.withOpacity(0.5),
           backgroundColor: theme.indicatorColor,
           foregroundColor: theme.highlightColor,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),

@@ -86,87 +86,86 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
               child: AnimatedCrossFade(
                 firstChild: SafeArea(
                   child: AnimatedCrossFade(
-                    firstChild: Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Column(
-                        children: [
-                          const SearchMapWidget(),
-                          const SizedBox(height: 5),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(15),
-                            child: SizedBox(
-                              height: 40,
-                              child: ListView(
-                                scrollDirection: Axis.horizontal,
-                                physics: const BouncingScrollPhysics(),
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      context.read<MapPageViewModel>().onSelectAllCategoryButtonPressed();
-                                      _animatedMapMove(LatLng(43.0367, 44.6678), 12);
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      backgroundColor: Colors.black.withOpacity(0.6),
-                                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                    firstChild: Column(
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.all(15),
+                          child: SearchMapWidget(),
+                        ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
+                          child: SizedBox(
+                            height: 40,
+                            child: ListView(
+                              padding: const EdgeInsets.only(left: 15),
+                              scrollDirection: Axis.horizontal,
+                              physics: const BouncingScrollPhysics(),
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () {
+                                    context.read<MapPageViewModel>().onSelectAllCategoryButtonPressed();
+                                    _animatedMapMove(LatLng(43.0367, 44.6678), 12);
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
                                     ),
-                                    child: Text('Сбросить фильтры',
-                                        style: theme.textTheme.bodyLarge!.copyWith(fontSize: 14)),
+                                    backgroundColor: Colors.black.withOpacity(0.6),
+                                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                                   ),
-                                  const SizedBox(width: 10),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      context.read<MapPageViewModel>().onSelectHousingCategoryButtonPressed();
-                                      _animatedMapMove(LatLng(43.0367, 44.6678), 12);
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      backgroundColor: Colors.black.withOpacity(0.6),
-                                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                                  child: Text('Сбросить фильтры',
+                                      style: theme.textTheme.bodyLarge!.copyWith(fontSize: 14)),
+                                ),
+                                const SizedBox(width: 10),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    context.read<MapPageViewModel>().onSelectHousingCategoryButtonPressed();
+                                    _animatedMapMove(LatLng(43.0367, 44.6678), 12);
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
                                     ),
-                                    child: Text('Жильё', style: theme.textTheme.bodyLarge!.copyWith(fontSize: 14)),
+                                    backgroundColor: Colors.black.withOpacity(0.6),
+                                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                                   ),
-                                  const SizedBox(width: 10),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      context.read<MapPageViewModel>().onSelectLocationCategoryButtonPressed();
-                                      _animatedMapMove(LatLng(43.0367, 44.6678), 12);
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      backgroundColor: Colors.black.withOpacity(0.6),
-                                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                                  child: Text('Жильё', style: theme.textTheme.bodyLarge!.copyWith(fontSize: 14)),
+                                ),
+                                const SizedBox(width: 10),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    context.read<MapPageViewModel>().onSelectLocationCategoryButtonPressed();
+                                    _animatedMapMove(LatLng(43.0367, 44.6678), 12);
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
                                     ),
-                                    child:
-                                        Text('Локации/Еда', style: theme.textTheme.bodyLarge!.copyWith(fontSize: 14)),
+                                    backgroundColor: Colors.black.withOpacity(0.6),
+                                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                                   ),
-                                  const SizedBox(width: 10),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      context.read<MapPageViewModel>().onSelectEventCategoryButtonPressed();
-                                      _animatedMapMove(LatLng(43.0367, 44.6678), 12);
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      backgroundColor: Colors.black.withOpacity(0.6),
-                                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                                  child: Text('Локации/Еда', style: theme.textTheme.bodyLarge!.copyWith(fontSize: 14)),
+                                ),
+                                const SizedBox(width: 10),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    context.read<MapPageViewModel>().onSelectEventCategoryButtonPressed();
+                                    _animatedMapMove(LatLng(43.0367, 44.6678), 12);
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
                                     ),
-                                    child: Text('События', style: theme.textTheme.bodyLarge!.copyWith(fontSize: 14)),
+                                    backgroundColor: Colors.black.withOpacity(0.6),
+                                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                                   ),
-                                ],
-                              ),
+                                  child: Text('События', style: theme.textTheme.bodyLarge!.copyWith(fontSize: 14)),
+                                ),
+                              ],
                             ),
-                          )
-                        ],
-                      ),
+                          ),
+                        )
+                      ],
                     ),
                     secondChild: Container(
                       height: MediaQuery.of(context).size.height * 0.9,
@@ -389,10 +388,18 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
                         const SizedBox(
                           width: 5,
                         ),
-                        Text(
-                          '${selectedPlace.placeInfo.adress.value}',
-                          style: theme.textTheme.bodyLarge!
-                              .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
+                        Row(
+                          children: [
+                            SvgPicture.asset(
+                              'assets/images/vector_icon.svg',
+                              color: Colors.black,
+                            ),
+                            Text(
+                              selectedPlace.placeInfo.adress.value,
+                              style: theme.textTheme.bodyLarge!
+                                  .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
+                            ),
+                          ],
                         ),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
@@ -412,22 +419,25 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
                           child: const Text('Маршрут'),
                         ),
                         const SizedBox(height: 5),
-                        CarouselSlider.builder(
-                          itemCount: selectedPlace.placeInfo.photos.length,
-                          options: CarouselOptions(
-                            initialPage: selectedPlace.placeInfo.photos.length > 1 ? 1 : 0,
-                            enableInfiniteScroll: false,
-                            aspectRatio: 2.0,
-                            enlargeCenterPage: true,
-                          ),
-                          itemBuilder: (context, index, realIdx) {
-                            return Image.network(
-                              'http://176.119.159.9/media/${selectedPlace.placeInfo.photos[index]}',
-                              fit: BoxFit.cover,
-                              width: 1000,
-                            );
-                          },
-                        ),
+                        selectedPlace.placeInfo.photos.isNotEmpty
+                            ? CarouselSlider.builder(
+                                itemCount: selectedPlace.placeInfo.photos.length,
+                                options: CarouselOptions(
+                                  initialPage: selectedPlace.placeInfo.photos.length > 1 ? 1 : 0,
+                                  enableInfiniteScroll: false,
+                                  aspectRatio: 2.0,
+                                  enlargeCenterPage: true,
+                                ),
+                                itemBuilder: (context, index, realIdx) {
+                                  return Image.network(
+                                    'http://176.119.159.9/media/${selectedPlace.placeInfo.photos[index]}',
+                                    fit: BoxFit.cover,
+                                    width: 1000,
+                                  );
+                                },
+                              )
+                            : SizedBox(
+                                height: 230, child: Image.asset('assets/images/not_loaded.png', fit: BoxFit.cover)),
                         const SizedBox(height: 15),
                         if (selectedPlace.placeInfo.description.value != '') ...[
                           Text(

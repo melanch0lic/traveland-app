@@ -3,6 +3,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../data/network/models/entity/event_entity.dart';
 
+String formatTime(int hour) {
+  if (hour % 10 == 1 && hour % 100 != 11) {
+    return '$hour час';
+  } else if ([2, 3, 4].contains(hour % 10) && ![12, 13, 14].contains(hour % 100)) {
+    return '$hour часа';
+  } else {
+    return '$hour часов';
+  }
+}
+
 class DurationEventWidget extends StatelessWidget {
   final EventsEntity selectedModel;
 
@@ -19,7 +29,8 @@ class DurationEventWidget extends StatelessWidget {
         ),
         const SizedBox(width: 5),
         Text(
-          '${DateTime.parse(selectedModel.eventEndTime.value).hour - DateTime.parse(selectedModel.eventStartTime.value).hour} часов',
+          formatTime(DateTime.parse(selectedModel.eventEndTime.value).hour -
+              DateTime.parse(selectedModel.eventStartTime.value).hour),
           style: theme.textTheme.bodyMedium?.copyWith(
             color: const Color.fromRGBO(44, 44, 46, 1),
             fontSize: 14,

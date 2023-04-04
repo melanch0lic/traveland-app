@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import '../../data/network/models/add_review_request_body.dart';
 import '../../domain/services/reviews_service.dart';
 
-class WriteReviewPageViewModel with ChangeNotifier {
+class WriteReviewPageLocationViewModel with ChangeNotifier {
   final int placeId;
   final ReviewsService reviewsService;
 
-  WriteReviewPageViewModel({required this.placeId, required this.reviewsService}) {
+  WriteReviewPageLocationViewModel({required this.placeId, required this.reviewsService}) {
     init();
   }
 

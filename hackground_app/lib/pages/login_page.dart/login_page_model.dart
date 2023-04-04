@@ -19,6 +19,10 @@ class LoginPageViewModel extends ChangeNotifier {
   bool get isDataCorrect => _authErrorTitle == '';
 
   String _mail = '', _password = '';
+
+  String get mail => _mail;
+  String get password => _password;
+
   bool _isAuthInProcess = false;
 
   bool _isHidePassword = true;

@@ -19,13 +19,10 @@ class SexDropDown extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          tr('gender_text'),
-          style: theme.textTheme.bodyMedium,
-        ),
+        Text(tr('gender_text'), style: theme.textTheme.bodyMedium!.copyWith(color: theme.primaryColorDark)),
         const SizedBox(height: 10),
         DropdownButtonFormField2(
-          style: theme.textTheme.bodyMedium,
+          style: theme.textTheme.bodyMedium!.copyWith(color: theme.primaryColorDark),
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.all(15),
             hintStyle: theme.textTheme.bodyMedium,
