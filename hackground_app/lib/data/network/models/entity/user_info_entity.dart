@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'string_entity.dart';
+
 part 'user_info_entity.g.dart';
 
 @JsonSerializable()
@@ -11,10 +13,10 @@ class UserInfoEntity {
   final String name;
 
   @JsonKey(name: 'last-name')
-  final String lastName;
+  final StringEntity lastName;
 
   @JsonKey(name: 'number')
-  final String number;
+  final StringEntity number;
 
   @JsonKey(name: 'sex')
   final bool sex;
@@ -25,6 +27,9 @@ class UserInfoEntity {
   @JsonKey(name: 'role-id')
   final int roleId;
 
+  @JsonKey(name: 'image')
+  final StringEntity image;
+
   UserInfoEntity(
       {required this.lastName,
       required this.mail,
@@ -32,7 +37,8 @@ class UserInfoEntity {
       required this.number,
       required this.roleId,
       required this.sex,
-      required this.userId});
+      required this.userId,
+      required this.image});
 
   factory UserInfoEntity.fromJson(Map<String, dynamic> json) => _$UserInfoEntityFromJson(json);
 

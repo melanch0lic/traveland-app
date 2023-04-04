@@ -13,8 +13,8 @@ class ProfilePageViewModel with ChangeNotifier {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
-  late UserInfoEntity _userInfo;
-  UserInfoEntity get userInfo => _userInfo;
+  UserInfoEntity? _userInfo;
+  UserInfoEntity? get userInfo => _userInfo;
 
   Future<void> init() async {
     _isLoading = true;
@@ -36,8 +36,11 @@ class ProfilePageViewModel with ChangeNotifier {
           number: result.result!.users!.number,
           roleId: result.result!.users!.roleId,
           sex: result.result!.users!.sex,
-          userId: result.result!.users!.userId);
-    }, (exception, error) {});
+          userId: result.result!.users!.userId,
+          image: result.result!.users!.image);
+    }, (exception, error) {
+      _userInfo = null;
+    });
   }
 
   Future<void> onButtonExitPressed() async {

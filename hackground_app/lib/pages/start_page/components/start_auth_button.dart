@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../navigation/router.gr.dart';
@@ -24,8 +25,8 @@ class StartAuthButton extends StatelessWidget {
         },
         child: Center(
           child: Text(
-            'Войти',
-            style: theme.textTheme.bodyText1!.copyWith(color: theme.indicatorColor),
+            tr('sign_in'),
+            style: theme.textTheme.bodyLarge!.copyWith(color: theme.indicatorColor),
           ),
         ),
       ),

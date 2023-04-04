@@ -10,11 +10,9 @@ class FilterHeaderExcursions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final sortFlag = context.select(
-      (PlacesPageViewModel model) => model.sortFlagExcursions,
-    );
+    final sortFlag = context.select((PlacesPageViewModel model) => model.sortFlagExcursions);
+    final sortingExcursions = context.select((PlacesPageViewModel model) => model.sortingExcursions);
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
           child: AnimatedCrossFade(
@@ -33,8 +31,8 @@ class FilterHeaderExcursions extends StatelessWidget {
                   width: 5,
                 ),
                 Text(
-                  'По стоимости',
-                  style: theme.textTheme.bodyText2!.copyWith(color: theme.primaryColorDark),
+                  sortingExcursions == 'popularity' ? 'По популярности' : 'По цене',
+                  style: theme.textTheme.bodyMedium!.copyWith(color: theme.primaryColorDark),
                 )
               ]),
             ),
@@ -53,8 +51,8 @@ class FilterHeaderExcursions extends StatelessWidget {
                   width: 5,
                 ),
                 Text(
-                  'По удаленности',
-                  style: theme.textTheme.bodyText2!.copyWith(color: theme.primaryColorDark),
+                  sortingExcursions == 'popularity' ? 'По популярности' : 'По цене',
+                  style: theme.textTheme.bodyMedium!.copyWith(color: theme.primaryColorDark),
                 )
               ]),
             ),
@@ -62,13 +60,6 @@ class FilterHeaderExcursions extends StatelessWidget {
             duration: const Duration(milliseconds: 100),
           ),
         ),
-        const Spacer(),
-        SvgPicture.asset(
-          'assets/images/filter_icon.svg',
-          color: theme.primaryColorDark,
-          width: 16,
-          height: 16,
-        )
       ],
     );
   }

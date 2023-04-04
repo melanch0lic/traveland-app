@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
@@ -12,18 +13,21 @@ class RetryPasswordTextfield extends StatelessWidget {
     final theme = Theme.of(context);
     final isHidePassword = context.select((RegisterPageViewModel model) => model.isHidePasswordRepeat);
     final isPasswordRepeatCorrect = context.select((RegisterPageViewModel model) => model.isPasswordRepeatCorrect);
+    final password = context.select((RegisterPageViewModel model) => model.passwordRepeat);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Повторите пароль',
-          style: theme.textTheme.bodyText2,
-        ),
+        Text(tr('password_repeat_text'), style: theme.textTheme.bodyMedium!.copyWith(color: theme.primaryColorDark)),
         const SizedBox(height: 10),
         TextField(
           obscureText: isHidePassword,
-          style: theme.textTheme.bodyText2,
+          style: !isPasswordRepeatCorrect
+              ? theme.textTheme.bodyMedium!.copyWith(color: const Color.fromRGBO(255, 47, 47, 1))
+              : password.isNotEmpty
+                  ? theme.textTheme.bodyMedium!.copyWith(color: theme.primaryColorDark)
+                  : theme.textTheme.bodyMedium,
           decoration: InputDecoration(
+            contentPadding: const EdgeInsets.all(15),
             prefixIconConstraints: const BoxConstraints(
               minWidth: 16,
               minHeight: 14,
@@ -36,27 +40,36 @@ class RetryPasswordTextfield extends StatelessWidget {
               padding: const EdgeInsets.only(left: 16, top: 16, bottom: 16, right: 6),
               child: SvgPicture.asset(
                 'assets/images/password_icon.svg',
-                color: theme.textTheme.bodyText2!.color,
+                color: !isPasswordRepeatCorrect
+                    ? const Color.fromRGBO(255, 47, 47, 1)
+                    : password.isNotEmpty
+                        ? theme.primaryColorDark
+                        : theme.textTheme.bodyMedium!.color,
               ),
             ),
-            suffixIcon: InkWell(
-                highlightColor: theme.cardColor,
+            suffixIcon: GestureDetector(
                 onTap: () {
                   context.read<RegisterPageViewModel>().changeHidePasswordRepeatMode();
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(top: 16, bottom: 16, right: 16),
                   child: SvgPicture.asset(
-                    'assets/images/hide_password_icon.svg',
-                    color: theme.textTheme.bodyText2!.color,
+                    isHidePassword ? 'assets/images/show_password_icon.svg' : 'assets/images/hide_password_icon.svg',
+                    width: 24,
+                    height: 24,
+                    color: !isPasswordRepeatCorrect
+                        ? const Color.fromRGBO(255, 47, 47, 1)
+                        : password.isNotEmpty
+                            ? theme.primaryColorDark
+                            : theme.textTheme.bodyMedium!.color,
                   ),
                 )),
-            hintText: 'Минимум 6 символов',
+            hintText: tr('at_least_six_text'),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
               borderSide: BorderSide(
                   color: isPasswordRepeatCorrect
-                      ? theme.textTheme.bodyText2!.color!
+                      ? theme.textTheme.bodyMedium!.color!
                       : const Color.fromRGBO(255, 47, 47, 1),
                   width: 2),
             ),

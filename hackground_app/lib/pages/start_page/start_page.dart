@@ -1,7 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
+import 'package:provider/provider.dart';
+import 'package:upgrader/upgrader.dart';
+import '../../app_initialization.dart';
+import 'components/or_divider_widget.dart';
 import 'components/start_auth_button.dart';
+import 'components/start_guest_button.dart';
 import 'components/start_reg_button.dart';
 
 class StartPage extends StatelessWidget {
@@ -9,22 +14,38 @@ class StartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
+    if (context.read<InitializeProvider>().isUserAuthorized) {
+      context
+          .read<InitializeProvider>()
+          .authService
+          .refreshToken()
+          .whenComplete(() => context.router.replaceNamed('/tabs'));
+    }
+    return UpgradeAlert(
+      child: Scaffold(
+        body: SafeArea(
           child: Padding(
-        padding: const EdgeInsets.all(14),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Center(
-              child: SvgPicture.asset('assets/images/logo.svg'),
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Transform.scale(scale: 1.1, child: SvgPicture.asset('assets/images/logo_icon.svg')),
+                Column(
+                  children: const [
+                    StartRegistrationButton(),
+                    SizedBox(height: 15),
+                    StartAuthButton(),
+                    SizedBox(height: 100),
+                    OrDividerWidget(),
+                    SizedBox(height: 15),
+                    StartGuestButton(),
+                  ],
+                )
+              ],
             ),
-            Column(
-              children: const [StartRegistrationButton(), SizedBox(height: 15), StartAuthButton()],
-            )
-          ],
+          ),
         ),
-      )),
+      ),
     );
   }
 }

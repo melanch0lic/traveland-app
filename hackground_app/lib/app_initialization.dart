@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'data/network/main_api_client.dart';
 import 'data/network/main_safe_api_client.dart';
@@ -8,9 +9,15 @@ import 'data/network/session_data.dart';
 import 'data/network/token_interceptor.dart';
 import 'data/network/tripster_api_client.dart';
 import 'data/network/tripster_safe_api_client.dart';
+import 'domain/repositories/cache_data_repository.dart';
 import 'domain/services/auth_service.dart';
 import 'domain/services/events_service.dart';
 import 'domain/services/excursions_service.dart';
+import 'domain/services/housing_service.dart';
+import 'domain/services/osrm_service.dart';
+import 'domain/services/places_service.dart';
+import 'domain/services/reviews_service.dart';
+import 'domain/settings.dart';
 import 'navigation/router.gr.dart';
 
 class InitializeProvider with ChangeNotifier {
@@ -22,6 +29,9 @@ class InitializeProvider with ChangeNotifier {
 
   late final SessionData _sessionData;
   SessionData get sessionData => _sessionData;
+
+  late CachedDataRepository _cachedDataRepository;
+  CachedDataRepository get cachedDataRepository => _cachedDataRepository;
 
   late TripsterApiClient _tripsterApiClient;
   TripsterApiClient get tripsterApiService => _tripsterApiClient;
@@ -38,17 +48,58 @@ class InitializeProvider with ChangeNotifier {
   late ExcursionsService _excursionsService;
   ExcursionsService get excursionsService => _excursionsService;
 
+  late HousingService _housingService;
+  HousingService get housingService => _housingService;
+
+  late PlacesService _placesService;
+  PlacesService get placesService => _placesService;
+
+  late ReviewsService _reviewsService;
+  ReviewsService get reviewsService => _reviewsService;
+
+  late OsrmService _osrmService;
+  OsrmService get osrmService => _osrmService;
+
+  late final SharedPreferences _sharedPreferences;
+  SharedPreferences get sharedPreferences => _sharedPreferences;
+
+  late final Settings _settings;
+  Settings get settings => _settings;
+
+  late final bool _isUserAuthorized;
+  bool get isUserAuthorized => _isUserAuthorized && (_settings.getRememberUserMode ?? false);
+
+  bool _isGuestMode = false;
+  bool get isGuestMode => _isGuestMode;
+
+  void changeGuestMode() {
+    _isGuestMode = !_isGuestMode;
+  }
+
   Future<void> initializeApp() async {
+    _appRouter = AppRouter();
     _dioTripster = Dio();
     _dioMainApiClient = Dio();
     _tripsterApiClient = _createTripsterApiClient(_dioTripster);
     _mainApiClient = _createMainApiClient(_dioMainApiClient);
-    _appRouter = AppRouter();
+    _sharedPreferences = await SharedPreferences.getInstance();
+    _settings = Settings(_sharedPreferences);
+    _cachedDataRepository = CachedDataRepository();
     _sessionData = const SessionData(FlutterSecureStorage(aOptions: AndroidOptions(encryptedSharedPreferences: true)));
-    _authService = AuthService(sessionData: _sessionData, mainApiClient: _mainApiClient);
+    _authService = AuthService(
+        cachedDataRepository: _cachedDataRepository,
+        sessionData: _sessionData,
+        mainApiClient: _mainApiClient,
+        settings: _settings);
     _eventsService = EventsService(mainApiClient: _mainApiClient);
+    _housingService = HousingService(mainApiClient: _mainApiClient);
+    _placesService = PlacesService(mainApiClient: _mainApiClient);
+    _osrmService = OsrmService(mainApiClient: _mainApiClient);
     _excursionsService = ExcursionsService(tripsterApiClient: _tripsterApiClient);
-    _dioMainApiClient.interceptors.add(TokenInterceptor(dio: _dioMainApiClient, sessionData: _sessionData));
+    _reviewsService = ReviewsService(mainApiClient: _mainApiClient);
+    _isUserAuthorized = await _authService.isUserAuthorized();
+    _dioMainApiClient.interceptors
+        .add(TokenInterceptor(dio: _dioMainApiClient, sessionData: _sessionData, authService: _authService));
   }
 
   TripsterSafeApiClient _createTripsterApiClient(Dio dio) {
@@ -61,6 +112,8 @@ class InitializeProvider with ChangeNotifier {
   MainSafeApiClient _createMainApiClient(Dio dio) {
     if (kDebugMode) {
       dio.interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
+      dio.options.followRedirects = true;
+      dio.options.maxRedirects = 5;
     }
     return MainSafeApiClient(MainApiClient(dio));
   }

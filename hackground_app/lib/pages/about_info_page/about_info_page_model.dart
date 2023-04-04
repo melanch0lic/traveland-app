@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-import '../../data/network/register_request_body.dart';
+import '../../data/network/models/register_request_body.dart';
 import '../../domain/services/auth_service.dart';
 
 enum ButtonState { canSubmit, authProcess, disable }
@@ -15,7 +15,7 @@ class AboutInfoPageViewModel with ChangeNotifier {
 
   final String email, password;
 
-  String _name = '', _surname = '', _sex = '';
+  String _name = '', _sex = '';
 
   String _authErrorTitle = '';
   String get authErrorTitle => _authErrorTitle;
@@ -30,13 +30,6 @@ class AboutInfoPageViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void onSurnameChange(String value) {
-    if (_surname == value) return;
-    _surname = value;
-    changeButtonState();
-    notifyListeners();
-  }
-
   void onSexChange(String value) {
     if (_sex == value) return;
     _sex = value;
@@ -47,9 +40,6 @@ class AboutInfoPageViewModel with ChangeNotifier {
   bool _isNameCorrect = true;
   bool get isNameCorrect => _isNameCorrect;
 
-  bool _isSurnameCorrect = true;
-  bool get isSurnameCorrect => _isSurnameCorrect;
-
   bool _isSexCorrect = true;
   bool get isSexCorrect => _isSexCorrect;
 
@@ -58,7 +48,7 @@ class AboutInfoPageViewModel with ChangeNotifier {
   void changeButtonState() {
     if (_isRegisterInProcess) {
       authButtonState = ButtonState.authProcess;
-    } else if (_name.isNotEmpty && _surname.isNotEmpty && _sex.isNotEmpty) {
+    } else if (_name.isNotEmpty && _sex.isNotEmpty) {
       authButtonState = ButtonState.canSubmit;
     } else {
       authButtonState = ButtonState.disable;
@@ -81,14 +71,6 @@ class AboutInfoPageViewModel with ChangeNotifier {
       _isNameCorrect = true;
       notifyListeners();
     }
-    if (_surname == '') {
-      _isSurnameCorrect = false;
-      notifyListeners();
-      return false;
-    } else {
-      _isSurnameCorrect = true;
-      notifyListeners();
-    }
     if (_sex == 'None') {
       _isSexCorrect = false;
       notifyListeners();
@@ -99,14 +81,11 @@ class AboutInfoPageViewModel with ChangeNotifier {
     }
     bool result = true;
     final registerResult = await authService.register(RegisterRequestBody(
-        name: _name,
-        lastName: _surname,
-        roleId: 1,
-        mail: email,
-        password: password,
-        sex: _sex == 'Male' ? true : false));
+        name: _name, roleId: 1, mail: email, password: password, sex: _sex == 'Male' ? true : false));
     registerResult.fold((result) {}, (exception, error) {
-      _authErrorTitle = _checkError(exception as DioError) ? 'Нет подключения к интернету...' : 'Ошибка регистрации';
+      _authErrorTitle = _checkError(exception as DioError)
+          ? 'Нет подключения к интернету...'
+          : 'Пользователь с таким email уже сущетвует';
       _isRegisterInProcess = false;
       changeButtonState();
       result = false;

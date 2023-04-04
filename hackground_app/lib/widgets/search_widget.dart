@@ -1,6 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
-import '../app_localizations.dart';
 
 class SearchWidget extends StatelessWidget {
   const SearchWidget({Key? key}) : super(key: key);
@@ -28,7 +27,7 @@ class SearchWidget extends StatelessWidget {
               keyboardType: TextInputType.multiline,
               decoration: InputDecoration(
                 hintStyle: TextStyle(color: Colors.grey[500], fontSize: 18),
-                hintText: translate(context, 'search_text'),
+                hintText: tr('search_text'),
                 border: InputBorder.none,
                 contentPadding: const EdgeInsets.only(bottom: 12),
               ),

@@ -1,4 +1,4 @@
-package com.example.hackground_app
+package com.YakudzaDev.traveland
 
 import io.flutter.embedding.android.FlutterActivity
 

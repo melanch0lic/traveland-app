@@ -19,6 +19,10 @@ class LoginPageViewModel extends ChangeNotifier {
   bool get isDataCorrect => _authErrorTitle == '';
 
   String _mail = '', _password = '';
+
+  String get mail => _mail;
+  String get password => _password;
+
   bool _isAuthInProcess = false;
 
   bool _isHidePassword = true;
@@ -71,7 +75,7 @@ class LoginPageViewModel extends ChangeNotifier {
     changeButtonState();
     notifyListeners();
 
-    final loginResult = await authService.login(LoginRequestBody(mail: _mail, password: _password));
+    final loginResult = await authService.login(LoginRequestBody(mail: _mail, password: _password), isRememberUser);
     bool result = true;
     loginResult.fold(
       (result) {},

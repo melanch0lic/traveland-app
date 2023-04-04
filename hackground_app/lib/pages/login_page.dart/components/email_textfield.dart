@@ -10,6 +10,7 @@ class EmailTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDataCorrect = context.select((LoginPageViewModel model) => model.isDataCorrect);
+    final email = context.select((LoginPageViewModel model) => model.mail);
     final theme = Theme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -17,13 +18,18 @@ class EmailTextField extends StatelessWidget {
         Text(
           'E-mail',
           style: isDataCorrect
-              ? theme.textTheme.bodyText2
-              : theme.textTheme.bodyText2!.copyWith(color: const Color.fromRGBO(255, 47, 47, 1)),
+              ? theme.textTheme.bodyMedium!.copyWith(color: theme.primaryColorDark)
+              : theme.textTheme.bodyMedium!.copyWith(color: const Color.fromRGBO(255, 47, 47, 1)),
         ),
         const SizedBox(height: 10),
         TextField(
-          style: theme.textTheme.bodyText2,
+          style: !isDataCorrect
+              ? theme.textTheme.bodyMedium!.copyWith(color: const Color.fromRGBO(255, 47, 47, 1))
+              : email.isNotEmpty
+                  ? theme.textTheme.bodyMedium!.copyWith(color: theme.primaryColorDark)
+                  : theme.textTheme.bodyMedium,
           decoration: InputDecoration(
+            contentPadding: const EdgeInsets.all(15),
             prefixIconConstraints: const BoxConstraints(
               minWidth: 16,
               minHeight: 14,
@@ -32,14 +38,18 @@ class EmailTextField extends StatelessWidget {
               padding: const EdgeInsets.only(left: 16, top: 16, bottom: 16, right: 6),
               child: SvgPicture.asset(
                 'assets/images/email_icon.svg',
-                color: theme.textTheme.bodyText2!.color,
+                color: !isDataCorrect
+                    ? const Color.fromRGBO(255, 47, 47, 1)
+                    : email.isNotEmpty
+                        ? theme.primaryColorDark
+                        : theme.textTheme.bodyMedium!.color,
               ),
             ),
             hintText: 'example@mail.com',
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
               borderSide: BorderSide(
-                  color: isDataCorrect ? theme.textTheme.bodyText2!.color! : const Color.fromRGBO(255, 47, 47, 1),
+                  color: isDataCorrect ? theme.textTheme.bodyMedium!.color! : const Color.fromRGBO(255, 47, 47, 1),
                   width: 2),
             ),
             focusedBorder: OutlineInputBorder(

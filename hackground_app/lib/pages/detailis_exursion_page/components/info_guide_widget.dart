@@ -14,39 +14,39 @@ class InfoGuideWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const CircleAvatar(
+        CircleAvatar(
           maxRadius: 35,
           backgroundColor: Colors.grey,
-          backgroundImage: NetworkImage(
-              'https://experience-ireland.s3.amazonaws.com/avatar/43bc3264-04e9-11e8-954d-6e714efd800d.150x150.jpg'),
+          backgroundImage: selectedModel.guide.avatarImages.mediumAvatarUrl != null
+              ? NetworkImage(selectedModel.guide.avatarImages.mediumAvatarUrl!)
+              : const NetworkImage('https://ru.pinterest.com/pin/961026007962154699/'),
         ),
         const SizedBox(width: 15),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Людмила',
-              style: Theme.of(context).textTheme.headline1?.copyWith(
+              selectedModel.guide.name,
+              style: Theme.of(context).textTheme.displayLarge?.copyWith(
                     fontSize: 16,
                     color: const Color.fromRGBO(44, 44, 46, 1),
                     fontWeight: FontWeight.w600,
                   ),
             ),
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             Text(
               'Гид во Владикавказе',
-              style: Theme.of(context).textTheme.headline1?.copyWith(
+              style: Theme.of(context).textTheme.displayLarge?.copyWith(
                     fontSize: 14,
                     color: const Color.fromRGBO(44, 44, 46, 1),
                     fontWeight: FontWeight.w400,
                   ),
             ),
-            SizedBox(height: 6),
+            const SizedBox(height: 6),
             Row(
               children: [
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 1, horizontal: 6),
+                  padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 6),
                   width: 33,
                   height: 19,
                   decoration: BoxDecoration(
@@ -56,8 +56,8 @@ class InfoGuideWidget extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        '${selectedModel.rating.toStringAsFixed(1)}',
-                        style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                        selectedModel.guide.rating.toStringAsFixed(1),
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               color: const Color.fromRGBO(255, 255, 255, 1),
                               fontSize: 14,
                             ),
@@ -65,10 +65,10 @@ class InfoGuideWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(width: 5),
+                const SizedBox(width: 5),
                 Text(
-                  '${selectedModel.reviewCount.toInt()} отзывов',
-                  style: Theme.of(context).textTheme.headline1?.copyWith(
+                  '${selectedModel.guide.reviewCount.toInt()} отзывов',
+                  style: Theme.of(context).textTheme.displayLarge?.copyWith(
                         fontSize: 14,
                         color: const Color.fromRGBO(44, 44, 46, 1),
                         fontWeight: FontWeight.w400,
