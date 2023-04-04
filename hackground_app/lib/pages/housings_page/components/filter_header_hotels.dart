@@ -72,13 +72,19 @@ class FilterHeaderHotels extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        InkWell(
+        GestureDetector(
           onTap: () => context.router.push(FilterHousingsRoute(viewModel: context.read<HousingsPageViewModel>())),
-          child: SvgPicture.asset(
-            'assets/images/filter_icon.svg',
-            color: theme.primaryColorDark,
-            width: 16,
-            height: 16,
+          child: Row(
+            children: [
+              Text('Фильтры', style: theme.textTheme.bodyMedium!.copyWith(color: theme.primaryColorDark)),
+              const SizedBox(width: 5),
+              SvgPicture.asset(
+                'assets/images/filter_icon.svg',
+                color: theme.primaryColorDark,
+                width: 16,
+                height: 16,
+              ),
+            ],
           ),
         )
       ],

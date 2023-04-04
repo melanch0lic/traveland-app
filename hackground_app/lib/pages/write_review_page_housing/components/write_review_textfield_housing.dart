@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../write_review_page_model.dart';
+import '../write_review_page_housing_model.dart';
 
-class WriteReviewTextfield extends StatelessWidget {
-  const WriteReviewTextfield({Key? key}) : super(key: key);
+class WriteReviewTextfieldHousing extends StatelessWidget {
+  const WriteReviewTextfieldHousing({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +20,8 @@ class WriteReviewTextfield extends StatelessWidget {
           ),
         ),
         child: TextField(
-          onChanged: (value) => context.read<WriteReviewPageViewModel>().onReviewTextChange(value),
-          controller: context.read<WriteReviewPageViewModel>().textController,
+          onChanged: (value) => context.read<WriteReviewPageHousingViewModel>().onReviewTextChange(value),
+          controller: context.read<WriteReviewPageHousingViewModel>().textController,
           buildCounter: (BuildContext context,
               {required int currentLength, required bool isFocused, required int? maxLength}) {
             return Text(

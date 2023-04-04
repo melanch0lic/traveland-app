@@ -7,7 +7,10 @@ import '../navigation/router.gr.dart';
 
 class SentReviewButton extends StatelessWidget {
   final int placeId;
-  const SentReviewButton({Key? key, required this.placeId}) : super(key: key);
+  final viewModel;
+  final int providerTypeValue;
+  const SentReviewButton({Key? key, required this.placeId, required this.viewModel, required this.providerTypeValue})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +37,15 @@ class SentReviewButton extends StatelessWidget {
                         ),
                       ),
                     ))
-            : () => context.router.navigate(WriteReviewRoute(placeId: placeId)),
+            : () {
+                if (providerTypeValue == 1) {
+                  context.router.navigate(WriteReviewRouteHousing(
+                      placeId: placeId, providerTypeValue: providerTypeValue, viewModel: viewModel));
+                } else {
+                  context.router.navigate(WriteReviewRouteLocation(
+                      placeId: placeId, providerTypeValue: providerTypeValue, viewModel: viewModel));
+                }
+              },
         child: Center(
           child: Text(
             'Оставить отзыв',

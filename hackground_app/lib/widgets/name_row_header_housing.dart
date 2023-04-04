@@ -6,9 +6,9 @@ import '../data/network/models/entity/review_api_entity.dart';
 import '../navigation/router.gr.dart';
 
 class NameRowHeaderReviewDetails extends StatelessWidget {
-  final selectedModel;
+  final double meanRating;
   final List<ReviewApiEntity> reviews;
-  const NameRowHeaderReviewDetails({Key? key, required this.selectedModel, required this.reviews}) : super(key: key);
+  const NameRowHeaderReviewDetails({Key? key, required this.meanRating, required this.reviews}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class NameRowHeaderReviewDetails extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            context.router.push(ReviewApiRoute(selectedModel: selectedModel, reviews: reviews));
+            context.router.push(ReviewApiRoute(meanRating: meanRating, reviews: reviews));
           },
           child: Text(
             tr('more_text'),
