@@ -1,4 +1,5 @@
 { 
+    "close" : "Close",
     "sent_review": "Post a review",
     "rate_place":"Rate the place",
     "review_text": "Review",
@@ -13,6 +14,7 @@
     "not_specified_text":"Not specified",
     "gender_text": "Gender",
     "reg_text": "Sign up",
+    "sign_in_text": "Sign in",
     "at_least_six_text": "At least 6 symbols",
     "password_repeat_text": "Repeat the password",
     "password_text": "Password",

@@ -75,6 +75,11 @@ class MainSafeApiClient implements MainApiClient {
     return _wrapUnsafeCall<AddReviewResponse>(() => _client.addReview(body));
   }
 
+  @override
+  Future<void> deleteReview(int id) {
+    return _client.deleteReview(id);
+  }
+
   Future<Result<T>> _wrapUnsafeCall<T>(UnsafeCall<T> call) async {
     try {
       return await call();

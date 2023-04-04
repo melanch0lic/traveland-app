@@ -1,4 +1,5 @@
 {
+    "close" : "Закрыть",
     "sent_review": "Оставить отзыв",
     "rate_place":"Оценить место",
     "review_text": "Отзыв",
@@ -13,10 +14,11 @@
     "not_specified_text":"Не указан",
     "gender_text": "Пол",
     "reg_text": "Регистрация",
+    "sign_in_text": "Вход",
     "at_least_six_text": "Минимум 6 символов",
     "password_repeat_text": "Повторите пароль",
     "password_text": "Пароль",
-    "confirm_text": "Потвердить",
+    "confirm_text": "Подтвердить",
     "or_text": "или",
     "guest_text": "Продолжить как гость",
     "sign_in": "Войти",
