@@ -20,7 +20,15 @@ class PlaceEntity {
   @JsonKey(name: 'shedule')
   final List<SheduleItemEntity> shedule;
 
-  PlaceEntity({required this.price, required this.isPushkin, required this.placeInfo, required this.shedule});
+  @JsonKey(name: 'type-id')
+  final List<int> typeIds;
+
+  PlaceEntity(
+      {required this.price,
+      required this.isPushkin,
+      required this.placeInfo,
+      required this.shedule,
+      required this.typeIds});
 
   factory PlaceEntity.fromJson(Map<String, dynamic> json) => _$PlaceEntityFromJson(json);
 

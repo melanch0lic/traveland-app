@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 
 import '../../../data/network/models/entity/event_entity.dart';
 
@@ -24,7 +25,31 @@ class DurationEventWidget extends StatelessWidget {
     return Row(
       children: [
         SvgPicture.asset(
+          'assets/images/calendar.svg',
+          color: const Color.fromRGBO(44, 44, 46, 1),
+          width: 14.17,
+          height: 14.17,
+        ),
+        const SizedBox(width: 6.42),
+        Text(selectedModel.eventDate.isValid
+            ? DateFormat('d MMMM', 'ru').format(DateTime.parse(selectedModel.eventDate.value))
+            : 'Не указано'),
+        const SizedBox(width: 11.42),
+        SvgPicture.asset(
+          'assets/images/time.svg',
+          color: const Color.fromRGBO(44, 44, 46, 1),
+          width: 14.17,
+          height: 14.17,
+        ),
+        const SizedBox(width: 6.42),
+        Text(selectedModel.eventStartTime.isValid
+            ? DateFormat('HH:mm', 'ru').format(DateTime.parse(selectedModel.eventStartTime.value))
+            : 'Не указано'),
+        const SizedBox(width: 11.42),
+        SvgPicture.asset(
           'assets/images/duration.svg',
+          width: 14.17,
+          height: 14.17,
           color: theme.primaryColorDark,
         ),
         const SizedBox(width: 5),
