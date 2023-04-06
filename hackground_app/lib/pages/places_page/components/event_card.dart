@@ -5,7 +5,6 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../data/network/models/entity/event_entity.dart';
 import '../../../navigation/router.gr.dart';
-import '../../../widgets/reviews_rating_widget.dart';
 
 class EventCard extends StatelessWidget {
   final EventsEntity event;
@@ -49,8 +48,6 @@ class EventCard extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                         )),
                 const SizedBox(height: 6),
-                ReviewRatingWidget(selectedModel: event),
-                const SizedBox(height: 5),
                 Row(
                   children: [
                     SvgPicture.asset(

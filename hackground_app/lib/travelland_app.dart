@@ -20,6 +20,7 @@ class TravellandApp extends StatelessWidget {
               return snapshot.connectionState == ConnectionState.waiting
                   ? const SizedBox.shrink()
                   : MaterialApp.router(
+                      title: 'Traveland',
                       localizationsDelegates: context.localizationDelegates,
                       supportedLocales: context.supportedLocales,
                       locale: context.locale,
