@@ -37,10 +37,9 @@ class EventsPage extends StatelessWidget {
       ),
     ];
     final isLoading = context.select((PlacesPageViewModel model) => model.isEventsLoading);
-    final sortFlag = context.select(
-      (PlacesPageViewModel model) => model.sortFlagEvents,
-    );
+    final sortFlag = context.select((PlacesPageViewModel model) => model.sortFlagEvents);
     final events = context.select((PlacesPageViewModel model) => model.events);
+    final isEventsButtonShow = context.select((PlacesPageViewModel model) => model.isEventButtonShow);
     return isLoading
         ? Center(
             child: SpinKitSpinningLines(color: theme.indicatorColor),
@@ -59,7 +58,7 @@ class EventsPage extends StatelessWidget {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(15),
                       child: ListView.builder(
-                          controller: context.read<PlacesPageViewModel>().excursionController,
+                          controller: context.read<PlacesPageViewModel>().eventController,
                           physics: const BouncingScrollPhysics(),
                           itemCount: events.length,
                           itemBuilder: (context, index) => EventCard(
@@ -94,12 +93,13 @@ class EventsPage extends StatelessWidget {
                 ],
               ),
             ),
-            UpScrollWidget(callback: () {
-              context
-                  .read<PlacesPageViewModel>()
-                  .excursionController
-                  .animateTo(0, duration: const Duration(seconds: 1), curve: Curves.easeInOut);
-            }),
+            if (isEventsButtonShow)
+              UpScrollWidget(callback: () {
+                context
+                    .read<PlacesPageViewModel>()
+                    .eventController
+                    .animateTo(0, duration: const Duration(seconds: 1), curve: Curves.easeInOut);
+              }),
           ]);
   }
 }

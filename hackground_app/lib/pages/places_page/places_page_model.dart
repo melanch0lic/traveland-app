@@ -16,6 +16,15 @@ class PlacesPageViewModel with ChangeNotifier {
 
   int _excursionOffset = 1;
 
+  bool _isLocationsButtonShow = false;
+  bool get isLocationsButtonShow => _isLocationsButtonShow;
+
+  bool _isExcursionsButtonShow = false;
+  bool get isExcursionsButtonShow => _isExcursionsButtonShow;
+
+  bool _isEventsButtonShow = false;
+  bool get isEventButtonShow => _isEventsButtonShow;
+
   late ScrollController _excursionController;
   ScrollController get excursionController => _excursionController;
 
@@ -69,6 +78,17 @@ class PlacesPageViewModel with ChangeNotifier {
 
     _isLocationsLoading = false;
     notifyListeners();
+    _locationController.addListener(() {
+      if (_places.isNotEmpty) {
+        if (_locationController.position.extentBefore > 300) {
+          _isLocationsButtonShow = true;
+          notifyListeners();
+        } else {
+          _isLocationsButtonShow = false;
+          notifyListeners();
+        }
+      }
+    });
   }
 
   void onSortFlagLocationsPressed() {
@@ -217,6 +237,13 @@ class PlacesPageViewModel with ChangeNotifier {
           notifyListeners();
 
           _excursionController.addListener(() async {
+            if (_excursionController.position.extentBefore > 300) {
+              _isExcursionsButtonShow = true;
+              notifyListeners();
+            } else {
+              _isExcursionsButtonShow = false;
+              notifyListeners();
+            }
             if (_excursionController.position.extentAfter < 200 &&
                 _isExcursionsLoadingMore == false &&
                 _excursionsHasNextPage) {
@@ -242,6 +269,16 @@ class PlacesPageViewModel with ChangeNotifier {
           notifyListeners();
 
           await fetchEvents();
+
+          _eventController.addListener(() {
+            if (_eventController.position.extentBefore > 200) {
+              _isEventsButtonShow = true;
+              notifyListeners();
+            } else {
+              _isEventsButtonShow = false;
+              notifyListeners();
+            }
+          });
 
           _isEventsLoading = false;
           notifyListeners();

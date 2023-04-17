@@ -38,9 +38,8 @@ class LocationsPage extends StatelessWidget {
     final theme = Theme.of(context);
     final isLoading = context.select((PlacesPageViewModel model) => model.isLocationsLoading);
     final places = context.select((PlacesPageViewModel model) => model.places);
-    final sortFlag = context.select(
-      (PlacesPageViewModel model) => model.sortFlagLocations,
-    );
+    final sortFlag = context.select((PlacesPageViewModel model) => model.sortFlagLocations);
+    final isLocationsButtonShow = context.select((PlacesPageViewModel model) => model.isLocationsButtonShow);
     return isLoading
         ? Center(
             child: SpinKitSpinningLines(color: theme.indicatorColor),
@@ -93,12 +92,13 @@ class LocationsPage extends StatelessWidget {
                 ],
               ),
             ),
-            UpScrollWidget(callback: () {
-              context
-                  .read<PlacesPageViewModel>()
-                  .locationController
-                  .animateTo(0, duration: const Duration(seconds: 1), curve: Curves.easeInOut);
-            }),
+            if (isLocationsButtonShow)
+              UpScrollWidget(callback: () {
+                context
+                    .read<PlacesPageViewModel>()
+                    .locationController
+                    .animateTo(0, duration: const Duration(seconds: 1), curve: Curves.easeInOut);
+              }),
           ]);
   }
 }

@@ -31,10 +31,9 @@ class ExcursionsPage extends StatelessWidget {
     ];
     final isLoadingMore = context.select((PlacesPageViewModel model) => model.isExcursionsLoadingMore);
     final isLoading = context.select((PlacesPageViewModel model) => model.isExcursionsLoading);
-    final sortFlag = context.select(
-      (PlacesPageViewModel model) => model.sortFlagExcursions,
-    );
+    final sortFlag = context.select((PlacesPageViewModel model) => model.sortFlagExcursions);
     final excursions = context.select((PlacesPageViewModel model) => model.excursions);
+    final isExcursionButtonShow = context.select((PlacesPageViewModel model) => model.isExcursionsButtonShow);
     return isLoading
         ? Center(
             child: SpinKitSpinningLines(color: theme.indicatorColor),
@@ -95,12 +94,13 @@ class ExcursionsPage extends StatelessWidget {
                 ],
               ),
             ),
-            UpScrollWidget(callback: () {
-              context
-                  .read<PlacesPageViewModel>()
-                  .excursionController
-                  .animateTo(0, duration: const Duration(seconds: 1), curve: Curves.easeInOut);
-            }),
+            if (isExcursionButtonShow)
+              UpScrollWidget(callback: () {
+                context
+                    .read<PlacesPageViewModel>()
+                    .excursionController
+                    .animateTo(0, duration: const Duration(seconds: 1), curve: Curves.easeInOut);
+              }),
           ]);
   }
 }
