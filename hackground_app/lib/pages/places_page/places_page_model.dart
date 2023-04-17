@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/network/models/entity/event_entity.dart';
@@ -44,6 +47,15 @@ class PlacesPageViewModel with ChangeNotifier {
   List<TourEntity> get excursions => _excursions;
 
   bool _excursionsHasNextPage = true;
+
+  bool _isConnectedLocations = true;
+  bool get isConnectedLocations => _isConnectedLocations;
+
+  bool _isConnectedExcursions = true;
+  bool get isConnectedExcursions => _isConnectedExcursions;
+
+  bool _isConnectedEvents = true;
+  bool get isConnectedEvents => _isConnectedEvents;
 
   bool _isLocationsLoading = false;
   bool get isLocationsLoading => _isLocationsLoading;
@@ -174,7 +186,10 @@ class PlacesPageViewModel with ChangeNotifier {
     final response = await placesService.getPlaces(sortByPlaces, _sortOrderPlaces, _placeTypeId);
     response.fold((result) {
       _places = result.result.places;
-    }, (exception, error) {});
+      _isConnectedLocations = true;
+    }, (exception, error) {
+      _checkErrorLocations(exception);
+    });
   }
 
   String _sortingExcursions = 'popularity';
@@ -200,7 +215,10 @@ class PlacesPageViewModel with ChangeNotifier {
       _excursionsHasNextPage = result.next == null ? false : true;
       _excursions.addAll(result.results);
       _excursionOffset++;
-    }, (exception, error) {});
+      _isConnectedExcursions = true;
+    }, (exception, error) {
+      _checkErrorExcursions(exception);
+    });
   }
 
   String _sortByEvents = 'name';
@@ -224,7 +242,10 @@ class PlacesPageViewModel with ChangeNotifier {
     final response = await eventsService.getEvents('name', 'asc', 0);
     response.fold((result) {
       _events = result.result.places;
-    }, (exception, error) {});
+      _isConnectedEvents = true;
+    }, (exception, error) {
+      _checkErrorEvents(exception);
+    });
   }
 
   Future<void> onPageChanged(int page) async {
@@ -288,9 +309,65 @@ class PlacesPageViewModel with ChangeNotifier {
     }
   }
 
+  void _checkErrorLocations(dynamic exception) {
+    if (exception is DioError) {
+      _isConnectedLocations = exception.error is SocketException ? false : true;
+    } else {
+      _isConnectedLocations = true;
+    }
+  }
+
+  void _checkErrorExcursions(dynamic exception) {
+    if (exception is DioError) {
+      _isConnectedExcursions = exception.error is SocketException ? false : true;
+    } else {
+      _isConnectedExcursions = true;
+    }
+  }
+
+  void _checkErrorEvents(dynamic exception) {
+    if (exception is DioError) {
+      _isConnectedEvents = exception.error is SocketException ? false : true;
+    } else {
+      _isConnectedEvents = true;
+    }
+  }
+
+  Future<void> refreshLocations() async {
+    _isLocationsLoading = true;
+    notifyListeners();
+
+    await fetchPlaces();
+
+    _isLocationsLoading = false;
+    notifyListeners();
+  }
+
+  Future<void> refreshExcursions() async {
+    _isExcursionsLoading = true;
+    notifyListeners();
+
+    await fetchExcursions();
+
+    _isExcursionsLoading = false;
+    notifyListeners();
+  }
+
+  Future<void> refreshEvents() async {
+    _isEventsLoading = true;
+    notifyListeners();
+
+    await fetchEvents();
+
+    _isEventsLoading = false;
+    notifyListeners();
+  }
+
   @override
   void dispose() {
     _excursionController.dispose();
+    _locationController.dispose();
+    _eventController.dispose();
     super.dispose();
   }
 }

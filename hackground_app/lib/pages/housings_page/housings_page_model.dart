@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/network/models/entity/housing_entity.dart';
@@ -15,6 +18,12 @@ class HousingsPageViewModel with ChangeNotifier {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
+  bool _isConnected = true;
+  bool get isConnected => _isConnected;
+
+  bool _isHousingsButtonShow = false;
+  bool get isHousingsButtonShow => _isHousingsButtonShow;
+
   late ScrollController _housingController;
   ScrollController get housingController => _housingController;
 
@@ -26,6 +35,20 @@ class HousingsPageViewModel with ChangeNotifier {
     notifyListeners();
 
     await fetchHousingsData();
+
+    if (housings.isNotEmpty) {
+      _isConnected = true;
+    }
+
+    _housingController.addListener(() {
+      if (_housingController.position.extentBefore > 300) {
+        _isHousingsButtonShow = true;
+        notifyListeners();
+      } else {
+        _isHousingsButtonShow = false;
+        notifyListeners();
+      }
+    });
 
     _isLoading = false;
     notifyListeners();
@@ -90,11 +113,21 @@ class HousingsPageViewModel with ChangeNotifier {
     final response = await housingService.getHousings(_sortByHousings, _sortOrderHousings, _placeTypeId);
     response.fold((result) {
       _housings = result.result.places;
-    }, (exception, error) {});
+    }, (exception, error) {
+      _checkError(exception);
+    });
   }
 
   void onSortFlagPressed() {
     _sortFlag = !_sortFlag;
     notifyListeners();
+  }
+
+  void _checkError(dynamic exception) {
+    if (exception is DioError) {
+      _isConnected = exception.error is SocketException ? false : true;
+    } else {
+      _isConnected = true;
+    }
   }
 }

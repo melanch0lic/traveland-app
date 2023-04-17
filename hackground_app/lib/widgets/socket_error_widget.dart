@@ -1,10 +1,9 @@
+
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import '../home_page_model.dart';
-
-class SocketErrorHomeWidget extends StatelessWidget {
-  const SocketErrorHomeWidget({Key? key}) : super(key: key);
+class SocketErrorWidget extends StatelessWidget {
+  final Function callback;
+  const SocketErrorWidget({Key? key, required this.callback}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +18,7 @@ class SocketErrorHomeWidget extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              context.read<HomePageViewModel>().init();
+              callback();
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: theme.scaffoldBackgroundColor,
