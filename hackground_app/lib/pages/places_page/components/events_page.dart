@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
+import '../../../widgets/socket_error_widget.dart';
 import '../../../widgets/up_scroll_widget.dart';
 import '../places_page_model.dart';
 import 'event_card.dart';
@@ -37,69 +38,72 @@ class EventsPage extends StatelessWidget {
       ),
     ];
     final isLoading = context.select((PlacesPageViewModel model) => model.isEventsLoading);
-    final sortFlag = context.select(
-      (PlacesPageViewModel model) => model.sortFlagEvents,
-    );
+    final isConnected = context.select((PlacesPageViewModel model) => model.isConnectedEvents);
+    final sortFlag = context.select((PlacesPageViewModel model) => model.sortFlagEvents);
     final events = context.select((PlacesPageViewModel model) => model.events);
+    final isEventsButtonShow = context.select((PlacesPageViewModel model) => model.isEventButtonShow);
     return isLoading
         ? Center(
             child: SpinKitSpinningLines(color: theme.indicatorColor),
           )
-        : Stack(children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 30, left: 15, right: 15),
-              child: Column(
-                children: [
-                  const FilterHeaderEvents(),
-                  const SizedBox(
-                    height: 15,
+        : isConnected
+            ? Stack(children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 30, left: 15, right: 15),
+                  child: Column(
+                    children: [
+                      const FilterHeaderEvents(),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Expanded(
+                          child: Stack(children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
+                          child: ListView.builder(
+                              controller: context.read<PlacesPageViewModel>().eventController,
+                              physics: const BouncingScrollPhysics(),
+                              itemCount: events.length,
+                              itemBuilder: (context, index) => EventCard(
+                                    event: events[index],
+                                  )),
+                        ),
+                        sortFlag
+                            ? Align(
+                                alignment: Alignment.topLeft,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      color: Colors.white,
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          color: Color.fromRGBO(149, 157, 165, 0.25),
+                                          spreadRadius: 5,
+                                          blurRadius: 7,
+                                          offset: Offset(0, 3),
+                                        ),
+                                      ]),
+                                  child: ListView.separated(
+                                      physics: const BouncingScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemBuilder: (context, index) => sortList[index],
+                                      separatorBuilder: (context, index) => const Divider(),
+                                      itemCount: sortList.length),
+                                ),
+                              )
+                            : const SizedBox.shrink(),
+                      ])),
+                    ],
                   ),
-                  Expanded(
-                      child: Stack(children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
-                      child: ListView.builder(
-                          controller: context.read<PlacesPageViewModel>().excursionController,
-                          physics: const BouncingScrollPhysics(),
-                          itemCount: events.length,
-                          itemBuilder: (context, index) => EventCard(
-                                event: events[index],
-                              )),
-                    ),
-                    sortFlag
-                        ? Align(
-                            alignment: Alignment.topLeft,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  color: Colors.white,
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      color: Color.fromRGBO(149, 157, 165, 0.25),
-                                      spreadRadius: 5,
-                                      blurRadius: 7,
-                                      offset: Offset(0, 3),
-                                    ),
-                                  ]),
-                              child: ListView.separated(
-                                  physics: const BouncingScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemBuilder: (context, index) => sortList[index],
-                                  separatorBuilder: (context, index) => const Divider(),
-                                  itemCount: sortList.length),
-                            ),
-                          )
-                        : const SizedBox.shrink(),
-                  ])),
-                ],
-              ),
-            ),
-            UpScrollWidget(callback: () {
-              context
-                  .read<PlacesPageViewModel>()
-                  .excursionController
-                  .animateTo(0, duration: const Duration(seconds: 1), curve: Curves.easeInOut);
-            }),
-          ]);
+                ),
+                if (isEventsButtonShow)
+                  UpScrollWidget(callback: () {
+                    context
+                        .read<PlacesPageViewModel>()
+                        .eventController
+                        .animateTo(0, duration: const Duration(seconds: 1), curve: Curves.easeInOut);
+                  }),
+              ])
+            : SocketErrorWidget(callback: () => context.read<PlacesPageViewModel>().refreshEvents());
   }
 }

@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../data/network/models/entity/event_entity.dart';
@@ -32,10 +34,15 @@ class EventCard extends StatelessWidget {
             child: SizedBox(
               width: double.infinity,
               height: 194,
-              child: Image.network(
-                'http://176.119.159.9/media/${event.placeInfo.photos!.first}',
-                fit: BoxFit.cover,
-              ),
+              child: event.placeInfo.photos!.isNotEmpty
+                  ? CachedNetworkImage(
+                      fit: BoxFit.cover,
+                      imageUrl: 'http://176.119.159.9/media/${event.placeInfo.photos!.first}',
+                      progressIndicatorBuilder: (context, url, progress) => Center(
+                        child: SpinKitSpinningLines(color: theme.indicatorColor),
+                      ),
+                    )
+                  : Image.asset('assets/images/not_loaded.png', fit: BoxFit.cover),
             ),
           ),
           Padding(

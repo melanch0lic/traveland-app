@@ -51,6 +51,10 @@ class HomePageViewModel with ChangeNotifier {
       fetchEventsData(),
     ]);
 
+    if (eventList!.isNotEmpty && excursionList!.isNotEmpty && placesList!.isNotEmpty && housingList!.isNotEmpty) {
+      _isConnected = true;
+    }
+
     _isLoading = false;
     notifyListeners();
   }

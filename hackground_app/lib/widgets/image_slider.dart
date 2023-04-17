@@ -42,8 +42,8 @@ class _ImageSliderState extends State<ImageSlider> {
                   carouselController: controller,
                   options: CarouselOptions(
                       viewportFraction: 1,
-                      enableInfiniteScroll: false,
                       height: 230,
+                      autoPlay: true,
                       onPageChanged: (index, reason) {
                         setState(() => activeIndex = index);
                       })),

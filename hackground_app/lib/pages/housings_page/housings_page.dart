@@ -3,6 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
 import '../../app_initialization.dart';
+import '../../widgets/socket_error_widget.dart';
 import '../../widgets/up_scroll_widget.dart';
 import 'components/filter_header_hotels.dart';
 import 'components/housing_card.dart';
@@ -18,8 +19,10 @@ class HousingsPage extends StatelessWidget {
       create: (context) => HousingsPageViewModel(context.read<InitializeProvider>().housingService),
       child: Builder(builder: (context) {
         final isLoading = context.select((HousingsPageViewModel model) => model.isLoading);
+        final isConnected = context.select((HousingsPageViewModel model) => model.isConnected);
         final housings = context.select((HousingsPageViewModel model) => model.housings);
         final sortFlag = context.select((HousingsPageViewModel model) => model.sortFlag);
+        final isHousingsButtonShow = context.select((HousingsPageViewModel model) => model.isHousingsButtonShow);
         final List<Widget> sortList = [
           ListTile(
             onTap: () => context.read<HousingsPageViewModel>().sortPlacesParametersChange('name', 'asc'),
@@ -44,75 +47,79 @@ class HousingsPage extends StatelessWidget {
           ),
         ];
         return Scaffold(
-            backgroundColor: theme.scaffoldBackgroundColor,
-            appBar: AppBar(
-              title: Text(
-                'Жильё',
-                style: theme.textTheme.displayMedium!
-                    .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
-              ),
+          backgroundColor: theme.scaffoldBackgroundColor,
+          appBar: AppBar(
+            title: Text(
+              'Жильё',
+              style: theme.textTheme.displayMedium!
+                  .copyWith(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
             ),
-            body: isLoading
-                ? Center(
-                    child: SpinKitSpinningLines(color: theme.indicatorColor),
-                  )
-                : Stack(children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 30, left: 15, right: 15),
-                      child: Column(
-                        children: [
-                          const FilterHeaderHotels(),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          Expanded(
-                            child: Stack(children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(15),
-                                child: ListView.builder(
-                                    controller: context.read<HousingsPageViewModel>().housingController,
-                                    physics: const BouncingScrollPhysics(),
-                                    itemCount: housings.length,
-                                    itemBuilder: (context, index) => HousingCard(housings[index])),
-                              ),
-                              sortFlag
-                                  ? Align(
-                                      alignment: Alignment.topLeft,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(15),
-                                            color: Colors.white,
-                                            boxShadow: const [
-                                              BoxShadow(
-                                                color: Color.fromRGBO(149, 157, 165, 0.25),
-                                                spreadRadius: 5,
-                                                blurRadius: 7,
-                                                offset: Offset(0, 3),
-                                              ),
-                                            ]),
-                                        child: ListView.separated(
-                                            physics: const BouncingScrollPhysics(),
-                                            shrinkWrap: true,
-                                            itemBuilder: (context, index) => sortList[index],
-                                            separatorBuilder: (context, index) => const Divider(),
-                                            itemCount: sortList.length),
-                                      ),
-                                    )
-                                  : const SizedBox.shrink(),
-                            ]),
-                          ),
-                        ],
+          ),
+          body: isLoading
+              ? Center(
+                  child: SpinKitSpinningLines(color: theme.indicatorColor),
+                )
+              : isConnected && housings.isNotEmpty
+                  ? Stack(children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 30, left: 15, right: 15),
+                        child: Column(
+                          children: [
+                            const FilterHeaderHotels(),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            Expanded(
+                              child: Stack(children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: ListView.builder(
+                                      controller: context.read<HousingsPageViewModel>().housingController,
+                                      physics: const BouncingScrollPhysics(),
+                                      itemCount: housings.length,
+                                      itemBuilder: (context, index) => HousingCard(housings[index])),
+                                ),
+                                sortFlag
+                                    ? Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(15),
+                                              color: Colors.white,
+                                              boxShadow: const [
+                                                BoxShadow(
+                                                  color: Color.fromRGBO(149, 157, 165, 0.25),
+                                                  spreadRadius: 5,
+                                                  blurRadius: 7,
+                                                  offset: Offset(0, 3),
+                                                ),
+                                              ]),
+                                          child: ListView.separated(
+                                              physics: const BouncingScrollPhysics(),
+                                              shrinkWrap: true,
+                                              itemBuilder: (context, index) => sortList[index],
+                                              separatorBuilder: (context, index) => const Divider(),
+                                              itemCount: sortList.length),
+                                        ),
+                                      )
+                                    : const SizedBox.shrink(),
+                              ]),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    UpScrollWidget(
-                      callback: () {
-                        context
-                            .read<HousingsPageViewModel>()
-                            .housingController
-                            .animateTo(0, duration: const Duration(seconds: 1), curve: Curves.easeInOut);
-                      },
-                    )
-                  ]));
+                      if (isHousingsButtonShow)
+                        UpScrollWidget(
+                          callback: () {
+                            context
+                                .read<HousingsPageViewModel>()
+                                .housingController
+                                .animateTo(0, duration: const Duration(seconds: 1), curve: Curves.easeInOut);
+                          },
+                        )
+                    ])
+                  : SocketErrorWidget(callback: () => context.read<HousingsPageViewModel>().init()),
+        );
       }),
     );
   }
