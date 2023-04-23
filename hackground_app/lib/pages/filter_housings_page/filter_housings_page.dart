@@ -37,97 +37,119 @@ class FilterHousingsPage extends StatelessWidget {
             ),
             backgroundColor: theme.primaryColorLight,
           ),
-          body: ListView(padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30), children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Без фильтров',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: const Color.fromRGBO(44, 44, 46, 1),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                      ),
-                ),
-                Radio(
-                    value: CategoryHousingMode.all,
-                    groupValue: currentCategoryMode,
-                    onChanged: (CategoryHousingMode? value) =>
-                        context.read<HousingsPageViewModel>().onLocationCategoryChanged(value!)),
-              ],
+          body: ListView(padding: const EdgeInsets.symmetric(vertical: 30), children: [
+            ListTile(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 4),
+              leading: Radio(
+                  value: CategoryHousingMode.all,
+                  groupValue: currentCategoryMode,
+                  onChanged: (CategoryHousingMode? value) =>
+                      context.read<HousingsPageViewModel>().onLocationCategoryChanged(value!)),
+              title: Text(
+                'Без фильтров',
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: const Color.fromRGBO(44, 44, 46, 1),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                    ),
+              ),
+              onTap: () => context.read<HousingsPageViewModel>().onLocationCategoryChanged(CategoryHousingMode.all),
             ),
             const Divider(
               height: 1,
               color: Color.fromRGBO(142, 142, 147, 1),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Отели',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: const Color.fromRGBO(44, 44, 46, 1),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                      ),
-                ),
-                Radio(
-                    value: CategoryHousingMode.hotel,
-                    groupValue: currentCategoryMode,
-                    onChanged: (CategoryHousingMode? value) =>
-                        context.read<HousingsPageViewModel>().onLocationCategoryChanged(value!)),
-              ],
+            ListTile(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 4),
+              leading: Radio(
+                  value: CategoryHousingMode.hotel,
+                  groupValue: currentCategoryMode,
+                  onChanged: (CategoryHousingMode? value) =>
+                      context.read<HousingsPageViewModel>().onLocationCategoryChanged(value!)),
+              title: Text(
+                'Отели',
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: const Color.fromRGBO(44, 44, 46, 1),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                    ),
+              ),
+              onTap: () => context.read<HousingsPageViewModel>().onLocationCategoryChanged(CategoryHousingMode.hotel),
             ),
             const Divider(
               height: 1,
               color: Color.fromRGBO(142, 142, 147, 1),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Гостевой дом',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: const Color.fromRGBO(44, 44, 46, 1),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                      ),
-                ),
-                Radio(
-                    value: CategoryHousingMode.guestHouse,
-                    groupValue: currentCategoryMode,
-                    onChanged: (CategoryHousingMode? value) =>
-                        context.read<HousingsPageViewModel>().onLocationCategoryChanged(value!)),
-              ],
+            ListTile(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 4),
+              leading: Radio(
+                  value: CategoryHousingMode.guestHouse,
+                  groupValue: currentCategoryMode,
+                  onChanged: (CategoryHousingMode? value) =>
+                      context.read<HousingsPageViewModel>().onLocationCategoryChanged(value!)),
+              title: Text(
+                'Гостевой дом',
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: const Color.fromRGBO(44, 44, 46, 1),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                    ),
+              ),
+              onTap: () =>
+                  context.read<HousingsPageViewModel>().onLocationCategoryChanged(CategoryHousingMode.guestHouse),
             ),
             const Divider(
               height: 1,
               color: Color.fromRGBO(142, 142, 147, 1),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Хостелы',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: const Color.fromRGBO(44, 44, 46, 1),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                      ),
-                ),
-                Radio(
-                    value: CategoryHousingMode.hostel,
-                    groupValue: currentCategoryMode,
-                    onChanged: (CategoryHousingMode? value) =>
-                        context.read<HousingsPageViewModel>().onLocationCategoryChanged(value!)),
-              ],
+            ListTile(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 4),
+              leading: Radio(
+                  value: CategoryHousingMode.hostel,
+                  groupValue: currentCategoryMode,
+                  onChanged: (CategoryHousingMode? value) =>
+                      context.read<HousingsPageViewModel>().onLocationCategoryChanged(value!)),
+              title: Text(
+                'Хостелы',
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: const Color.fromRGBO(44, 44, 46, 1),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                    ),
+              ),
+              onTap: () => context.read<HousingsPageViewModel>().onLocationCategoryChanged(CategoryHousingMode.hostel),
+            ),
+            const Divider(
+              height: 1,
+              color: Color.fromRGBO(142, 142, 147, 1),
+            ),
+            ListTile(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 4),
+              leading: Radio(
+                  value: CategoryHousingMode.tourbase,
+                  groupValue: currentCategoryMode,
+                  onChanged: (CategoryHousingMode? value) =>
+                      context.read<HousingsPageViewModel>().onLocationCategoryChanged(value!)),
+              title: Text(
+                'Турбаза',
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: const Color.fromRGBO(44, 44, 46, 1),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                    ),
+              ),
+              onTap: () =>
+                  context.read<HousingsPageViewModel>().onLocationCategoryChanged(CategoryHousingMode.tourbase),
             ),
             const Divider(
               height: 1,
               color: Color.fromRGBO(142, 142, 147, 1),
             ),
             const SizedBox(height: 45),
-            const UseFilterButtonHousing(),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: UseFilterButtonHousing(),
+            ),
           ]),
         );
       }),

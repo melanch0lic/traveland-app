@@ -58,6 +58,7 @@ class LocationCard extends StatelessWidget {
                 ReviewRatingWidget(selectedModel: place),
                 const SizedBox(height: 5),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SvgPicture.asset(
                       'assets/images/vector_icon.svg',

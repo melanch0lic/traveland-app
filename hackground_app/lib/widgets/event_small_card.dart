@@ -79,13 +79,16 @@ class EventSmallCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(event.placeInfo.name,
-                      maxLines: 2,
-                      style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                            color: const Color.fromRGBO(44, 44, 46, 1),
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          )),
+                  SizedBox(
+                    height: 40,
+                    child: Text(event.placeInfo.name,
+                        maxLines: 2,
+                        style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                              color: const Color.fromRGBO(44, 44, 46, 1),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            )),
+                  ),
                   const SizedBox(height: 5),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,

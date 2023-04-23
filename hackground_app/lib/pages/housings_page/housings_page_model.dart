@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import '../../data/network/models/entity/housing_entity.dart';
 import '../../domain/services/housing_service.dart';
 
-enum CategoryHousingMode { all, hotel, guestHouse, hostel, private }
+enum CategoryHousingMode { all, hotel, guestHouse, hostel, private, tourbase }
 
 class HousingsPageViewModel with ChangeNotifier {
   final HousingService housingService;
@@ -98,6 +98,9 @@ class HousingsPageViewModel with ChangeNotifier {
         break;
       case CategoryHousingMode.hostel:
         _placeTypeId = 3;
+        break;
+      case CategoryHousingMode.tourbase:
+        _placeTypeId = 4;
         break;
       case CategoryHousingMode.private:
         _placeTypeId = 0;
