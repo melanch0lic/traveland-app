@@ -10,7 +10,7 @@ import '../../domain/services/events_service.dart';
 import '../../domain/services/excursions_service.dart';
 import '../../domain/services/places_service.dart';
 
-enum CategoryLocationMode { all, restaurant, culture, cafe, bar, fastfood, pizza }
+enum CategoryLocationMode { all, restaurant, culture, cafe, bar, fastfood, pizza, nature }
 
 class PlacesPageViewModel with ChangeNotifier {
   final PlacesService placesService;
@@ -174,6 +174,9 @@ class PlacesPageViewModel with ChangeNotifier {
         break;
       case CategoryLocationMode.pizza:
         _placeTypeId = 8;
+        break;
+      case CategoryLocationMode.nature:
+        _placeTypeId = 9;
         break;
     }
     await fetchPlaces();

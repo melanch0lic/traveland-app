@@ -100,15 +100,18 @@ class BodyLocation extends StatelessWidget {
               ),
               const SizedBox(height: 15),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SvgPicture.asset(
                     'assets/images/vector_icon.svg',
                     color: Colors.black,
                   ),
-                  Text(
-                    selectedModel.placeInfo.adress.value,
-                    style:
-                        theme.textTheme.bodyLarge!.copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
+                  Expanded(
+                    child: Text(
+                      selectedModel.placeInfo.adress.value,
+                      style: theme.textTheme.bodyLarge!
+                          .copyWith(color: theme.primaryColorDark, fontWeight: FontWeight.w400),
+                    ),
                   ),
                 ],
               ),

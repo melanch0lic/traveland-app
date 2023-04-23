@@ -86,7 +86,10 @@ class HomePage extends StatelessWidget {
                                   name: 'Места',
                                 ),
                               ),
-                              LocationSmallListView(places: places),
+                              LocationSmallListView(
+                                  places: places
+                                      .where((element) => element.typeIds.contains(9) || element.typeIds.contains(4))
+                                      .toList()),
                               const Padding(
                                 padding: EdgeInsets.only(top: 30, left: 15, right: 15),
                                 child: NameRowHeaderEvents(
