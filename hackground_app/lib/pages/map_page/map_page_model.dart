@@ -5,6 +5,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../../data/network/models/coordinates_request_body.dart';
 import '../../data/network/models/entity/housing_entity.dart';
@@ -23,6 +24,9 @@ class MapPageViewModel with ChangeNotifier {
 
   late final TextEditingController _searchController;
   TextEditingController get searchController => _searchController;
+
+  late final PanelController _panelController;
+  PanelController get panelController => _panelController;
 
   final _focusNode = FocusNode();
   FocusNode get focusNode => _focusNode;
@@ -182,6 +186,7 @@ class MapPageViewModel with ChangeNotifier {
   }
 
   Future<void> init() async {
+    _panelController = PanelController();
     _searchController = TextEditingController();
     _mapController = MapController();
     await _getCurrentLocation();

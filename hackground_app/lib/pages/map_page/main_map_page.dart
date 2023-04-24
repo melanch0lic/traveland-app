@@ -353,6 +353,7 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
                   )),
             selectedPlace != null && !isSearchOpened
                 ? SlidingUpPanel(
+                    controller: context.read<MapPageViewModel>().panelController,
                     padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
                     minHeight: MediaQuery.of(context).size.height * 0.3,
                     maxHeight: MediaQuery.of(context).size.height * 0.85,
@@ -411,6 +412,7 @@ class _MainMapPageState extends State<MainMapPage> with TickerProviderStateMixin
                           onPressed: !context.read<MapPageViewModel>().selectedPositions.contains(selectedPosition)
                               ? () {
                                   context.read<MapPageViewModel>().onDrawRouteButtonPressed().whenComplete(() {
+                                    context.read<MapPageViewModel>().panelController.close();
                                     final polylinePoints = context.read<MapPageViewModel>().polylinePoints;
                                     _animatedMapMove(polylinePoints[polylinePoints.length ~/ 2], 14);
                                   });
